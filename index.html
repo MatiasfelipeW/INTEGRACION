@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matías Felipe Whiat - Mi Página Profesional</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <!-- Vinculamos Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+
+<body>
+    <div id="preloader">
+        <div class="preloader-content">
+            <img src="media/Concept-removebg-preview.png" alt="Loading" class="preloader-logo">
+            <div class="loading-bar"></div>
+            <p>Page loading ..🤖</p>
+        </div>
+    </div>
+    
+    <header>
+
+        <nav class="navbar">
+            <h1> Outsourcing de Talento Global </h1>
+            <p>Tu puerta de entrada al mejor talento en programación a nivel mundial.</p>
+
+        </nav>
+
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">WHIAT COMPANY BY MATIAS WHIAT</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#services">Servicios</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="#contact">Contacto</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#Convenios">Convenios</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="index4.html">Multimedia Internacional</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="index2.html">Matias Felipe Whiat</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="index3.html">Garantías Financieras y Juridicas</a>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+
+        
+
+    </header>
+
+    <main>
+        
+        <section class="hero">
+            <h2>Empoderando a las empresas con el mejor talento.</h2>
+            <p>En Whiat Company, lideramos la integración de inteligencia artificial en el ámbito legal, desarrollando soluciones innovadoras para fortalecer la seguridad jurídica y optimizar los procesos legales. Nuestro enfoque en tecnologías de vanguardia, como blockchain y Ethereum, garantiza formas virtuales confiables y transparentes, ideales para la gestión segura de datos legales y transacciones con criptodivisas.
+
+                Impulsamos la evolución de la industria legal hacia un futuro más eficiente, seguro y digital. Tu confianza en nosotros es el primer paso hacia un nuevo estándar de excelencia tecnológica en el derecho.</p>
+
+        </section>
+
+        <style>
+            .services ul {
+                list-style: none;
+                padding: 0;
+            }
+            .services li {
+                cursor: pointer;
+                padding: 10px;
+                margin: 5px 0;
+                background: #222;
+                color: #0f0;
+                border-radius: 5px;
+                transition: all 0.3s ease-in-out;
+            }
+            .services li:hover {
+                background: #0f0;
+                color: #222;
+            }
+            .service-detail {
+                display: none;
+                background: #111;
+                padding: 15px;
+                color: #0f0;
+                border-left: 3px solid #0f0;
+                margin-top: 10px;
+                animation: fadeIn 0.5s ease-in-out;
+            }
+            @keyframes fadeIn {
+                from { opacity: 0; transform: translateY(-10px); }
+                to { opacity: 1; transform: translateY(0); }
+            }
+        </style>
+        <!-- FHIPERVINCULO MW Y GF -->
+<section id="Convenios">
+    <button class="teleport-button" data-url="index2.html">Matias Felipe Whiat</button>
+    <button class="teleport-button" data-url="index3.html">Garantías Financieras y Jurídicas</button>
+    <button class="teleport-button" data-url="index4.html">Multimedia Internacional</button>
+
+</section>
+    </head>
+    <body class="bg-dark text-light">
+        <section id="services" class="services container py-5">
+            <h3 class="text-center text-warning">Nuestra Experiencia</h3>
+            <ul class="mt-4">
+                <li data-service="fullstack">Full-Stack Development</li>
+                <li data-service="blockchain">Blockchain Implementation</li>
+                <li data-service="enterprise">Enterprise Solutions</li>
+                <li data-service="custom">Custom Programming</li>
+            </ul>
+            <div id="service-info" class="service-detail"></div>
+        </section>
+        
+        <script>
+            $(document).ready(function() {
+                const serviceDescriptions = {
+                    fullstack: "Ofrecemos desarrollo fullstack con tecnologías modernas y escalables para crear aplicaciones web completas, desde el diseño de la interfaz hasta la implementación del backend. Nos especializamos en construir sitios web dinámicos, plataformas interactivas y sistemas personalizados, adaptándonos a las necesidades de tu negocio.",
+                   
+                    blockchain: "ILa tecnología Blockchain ha revolucionado la forma en que se gestionan los datos y las transacciones digitales, ofreciendo seguridad, transparencia y descentralización. Su estructura basada en bloques encadenados permite registrar información de manera inmutable, eliminando la necesidad de intermediarios y reduciendo el riesgo de fraudes. Desde criptomonedas y contratos inteligentes hasta identidad digital y logística, Blockchain se ha convertido en una herramienta clave para diversos sectores, brindando soluciones innovadoras y confiables en un mundo cada vez más digitalizado.",
+                   
+                    enterprise: "Desarrollo de software a la medida para grandes empresas, integración con sistemas ERP y CRM, asegurando escalabilidad y alta disponibilidad.",
+                   
+                    custom: "Programación personalizada adaptada a necesidades específicas, optimización de código, automatización de procesos y desarrollo de APIs avanzadas."
+                };
+    
+                $(".services li").click(function() {
+                    let serviceKey = $(this).data("service");
+                    let description = serviceDescriptions[serviceKey];
+                    
+                    $("#service-info").hide().html(description).fadeIn(500);
+                });
+            });
+        </script> 
+
+        <section class="cta">
+            <h3>¡Unete Hoy!</h3>
+            <p>Ya sea que seas una empresa en busca de talento o un programador buscando tu próximo desafío, estamos aquí para ti.</p>
+        </section>
+
+
+
+ <!-- Formulario de contacto -->
+<h2 id="contact-heading">Contacto</h2>
+<!-- Sección Contacto -->
+
+
+<form action="https://formspree.io/f/manwrnrq" method="POST" class="contact-form">
+<!-- Nombre completo -->
+<div class="mb-3">
+<label for="name" class="form-label">Nombre Completo</label>
+<input type="text" class="form-control" id="name" name="name" required>
+</div>
+
+<!-- Teléfono con indicativo de país -->
+<div class="mb-3">
+<label for="phone" class="form-label">Teléfono (con indicativo)</label>
+<input type="tel" class="form-control" id="phone" name="phone" placeholder="+57" required>
+</div>
+
+<!-- Observaciones -->
+<div class="mb-3">
+<label for="message" class="form-label">Observaciones</label>
+<textarea class="form-control" id="message" name="message" rows="3" required></textarea>
+</div>
+
+<!-- Botón de envío -->
+<button type="submit" class="btn btn-primary">Enviar</button>
+</form>
+
+
+
+    </main>
+
+    <footer>
+        <section id="contact" class="contact-section">
+    
+            <div class="contact-links">
+                <!-- Instagram -->
+                <a href="https://www.instagram.com/matiaswhiat/" target="_blank" class="contact-item">
+                    <i class="fab fa-instagram"></i>
+                    <span>Instagram</span>
+                </a>
+                <!-- Telegram -->
+                <a href="https://t.me/Matiaswhiatbot" target="_blank" class="contact-item">
+                    <i class="fab fa-telegram"></i>
+                    <span>Telegram</span>
+                </a>
+                <!-- Correo Electrónico -->
+                <a href="mailto:matiaswhiat@mail.de" target="_blank" class="contact-item">
+                    <i class="fas fa-envelope"></i>
+                    <span>Correo</span>
+
+                </a>
+                <!-- WhatsApp -->
+                <a href="https://wa.me/5493513052333" target="_blank" class="contact-item">
+                    <i class="fab fa-whatsapp"></i>
+                    <span>WhatsApp</span>
+                </a>
+                <!-- LinkedIn -->
+                <a href="https://www.linkedin.com/in/matias-felipe-whiat-56b342240/" target="_blank" class="contact-item">
+                    <i class="fab fa-linkedin"></i>
+                    <span>LinkedIn</span>
+                </a>
+            </div>
+        </section>
+        
+        <!-- Contenedor del traductor a la derecha -->
+<div id="google_translate_element" class="mt-3"></div>
+
+<!-- Botón de cambio de lenguaje -->
+<button id="translate-button" onclick="toggleTranslate()" class="btn btn-secondary translate-fixed">
+    Cambiar Lenguaje
+</button>
+
+<!-- Script de Google Translate -->
+<script type="text/javascript">
+    // Inicializa Google Translate
+    function googleTranslateElementInit() {
+        new google.translate.TranslateElement({
+            pageLanguage: 'es',
+            includedLanguages: 'es,en,de,ru,zh-CN', // Idiomas disponibles
+            layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+            autoDisplay: false
+        }, 'google_translate_element');
+    }
+
+    // Función para mostrar/ocultar el traductor
+    function toggleTranslate() {
+        const translateElement = document.getElementById('google_translate_element');
+        if (translateElement.style.display === 'block') {
+            translateElement.style.display = 'none';
+        } else {
+            translateElement.style.display = 'block';
+        }
+    }
+
+    // Cambia el texto del botón cada 2 segundos
+    function changeButtonText() {
+        const button = document.getElementById('translate-button');
+        const texts = [
+            'Cambiar Lenguaje',  // Español
+            'Change Language',   // Inglés
+            'Sprache ändern',    // Alemán
+            'Изменить язык',     // Ruso
+            '更改语言'            // Chino Simplificado
+        ];
+
+        let currentIndex = 0;
+
+        setInterval(function () {
+            button.innerText = texts[currentIndex];
+            currentIndex = (currentIndex + 1) % texts.length;
+        }, 2000);
+    }
+
+    // Ejecutar cambio de texto al cargar
+    window.onload = changeButtonText;
+</script>
+
+<script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+<p>&copy; 2024 Matías Felipe Whiat. Todos los derechos reservados.</p>
+</footer>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
+
+
+    <div class="whatsapp-button">
+        <a href="https://wa.me/5493513052333" target="_blank">
+            <img src="whatsapp.png" alt="Contact us on WhatsApp">
+        </a>
+    </div>
+
+    <script src="java.js"></script>
+
+    <script>
+        let whatsappButton = document.querySelector('.whatsapp-button');
+    
+        let lastScrollY = window.scrollY;
+    
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > lastScrollY) {
+                whatsappButton.classList.add('hidden');
+            } else {
+                whatsappButton.classList.remove('hidden');
+            }
+            lastScrollY = window.scrollY;
+        });
+    </script>
+    
+</body>
+</html>

@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Matías Felipe Whiat - Mi Página Profesional</title>
+    <!-- Vinculamos Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Vinculamos nuestros iconos -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <!-- Vinculamos nuestro CSS personalizado -->
+    <link rel="stylesheet" href="styles2.css">
+    <style>
+        /* Estilo global para justificar todos los textos */
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            text-align: justify;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Estilo para párrafos específicos si se desea aplicar solo en ellos */
+        p {
+            text-align: justify;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Barra de navegación -->
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">Matías Felipe Whiat</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item"><a class="nav-link active" href="#about">Sobre Mí</a></li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="index.html">Whiat Company</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="index3.html">Garantías Financieras y Juridicas</a>
+                        </li>
+                        <li class="nav-item"><a class="nav-link" href="#proyectos">Proyectos</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#contact">Contacto</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Sección Sobre Mí -->
+    <section id="about" class="container py-5">
+        <div class="row align-items-center">
+            <div class="col-md-6 mb-4">
+                <img src="media/BCHINO.jpeg" class="img-fluid rounded-circle shadow-lg" alt="Matías Felipe Whiat">
+            </div>
+            <div class="col-md-6">
+                <h2 class="display-4 text-primary">¡Hola! Soy Matías Felipe Whiat</h2>
+                <p>Soy un profesional apasionado por el derecho, la programación y la traducción. Actualmente vivo en Córdoba, Argentina. Además, soy propietario de <strong>Whiat Company</strong>, una empresa dedicada al desarrollo de IA y soluciones de sistemas de automatización, y representante legal de <strong>Garantías Financieras y Jurídicas S.A.S.</strong>.</p>
+                <p>Mi trayectoria se ha enfocado en ofrecer soluciones innovadoras a empresas, manteniendo siempre el profesionalismo y la ética que me caracteriza. En Whiat Company ayudamos a empresas de todo el mundo con desarrollo web personalizado y bases de datos escalables.</p>
+            </div>
+        </div>
+    </section>
+
+
+<!-- Sección de Contacto Mejorada -->
+<section id="contact" class="container py-5">
+    <h2 class="text-center text-primary">Contacto</h2>
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <p class="text-center">Puedes contactarme a través de las siguientes plataformas:</p>
+            <div class="d-flex flex-wrap justify-content-center">
+                <a href="https://www.instagram.com/matiaswhiat/" target="_blank" class="contact-btn instagram">
+                    <i class="fab fa-instagram"></i> Instagram
+                </a>
+                <a href="https://onlyfans.com/matiaswhiat" target="_blank" class="contact-btn onlyfans">
+                    <i class="fas fa-user-lock"></i> OnlyFans
+                </a>
+                <a href="https://t.me/Matiaswhiatbot" target="_blank" class="contact-btn telegram">
+                    <i class="fab fa-telegram"></i> Telegram
+                </a>
+                <a href="mailto:matiaswhiat@mail.de" target="_blank" class="contact-btn mail">
+                    <i class="fas fa-envelope"></i> Correo
+                </a>
+                <a href="https://wa.me/5493513052333" target="_blank" class="contact-btn whatsapp">
+                    <i class="fab fa-whatsapp"></i> WhatsApp
+                </a>
+                <a href="https://www.linkedin.com/in/matias-felipe-whiat-56b342240/" target="_blank" class="contact-btn linkedin">
+                    <i class="fab fa-linkedin"></i> LinkedIn
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Estilos CSS -->
+<style>
+    .contact-btn {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 12px 20px;
+        margin: 8px;
+        border-radius: 50px;
+        font-size: 18px;
+        font-weight: bold;
+        text-decoration: none;
+        color: white;
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .contact-btn:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+    }
+
+    .contact-btn i {
+        font-size: 22px;
+        transition: transform 0.3s ease, filter 0.3s ease;
+    }
+
+    .contact-btn:hover i {
+        transform: scale(1.2);
+        filter: brightness(1.3);
+    }
+
+    /* Colores por red social */
+    .instagram { background: #E1306C; }
+    .onlyfans { background: #00AFF0; }
+    .telegram { background: #0088CC; }
+    .mail { background: #6C757D; }
+    .whatsapp { background: #25D366; }
+    .linkedin { background: #0A66C2; }
+</style>
+
+<!-- Iconos de FontAwesome -->
+<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+
+
+    <!-- Sección Whiat Company -->
+    <section id="whiat" class="bg-light py-5">
+        <div class="container">
+            <h2 class="display-4 text-center text-primary">Whiat Company</h2>
+            <p class="lead">Whiat Company es una empresa con registro mercantil 239746 de Manizales, Caldas, Colombia. Nos especializamos en crear sitios web personalizados y soluciones de bases de datos para empresas de todo el mundo. Nuestro equipo trabaja en crear plataformas digitales adaptadas a tus necesidades específicas, ya sea a nivel local o internacional.</p>
+            <p>Con interfaces fáciles de usar y bases de datos seguras y escalables, ayudamos a que tu negocio prospere sin importar dónde estés.</p>
+            <p>En Whiat Company, lideramos la integración de inteligencia artificial en el ámbito legal, desarrollando soluciones innovadoras para fortalecer la seguridad jurídica y optimizar los procesos legales. Nuestro enfoque en tecnologías de vanguardia, como blockchain y Ethereum, garantiza formas virtuales confiables y transparentes, ideales para la gestión segura de datos legales y transacciones con criptodivisas.</p>
+        </div>
+    </section>
+
+
+    <!-- Video Informativo -->
+    <section class="video-section py-5">
+        <div class="container text-center">
+            <h3 class="text-primary mb-4">Mira el Video de Presentación</h3>
+            <div class="embed-responsive embed-responsive-16by9">
+                <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/Bvy8wD5d4qM" allowfullscreen></iframe>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección Proyectos -->
+    <section id="proyectos" class="container py-5">
+        <h2 class="text-center text-primary">Proyectos en Proceso</h2>
+        <p class="lead text-center">Actualmente estoy trabajando en varios proyectos que incluyen el desarrollo de nuevas plataformas web, soluciones de automatización para empresas y más. Estoy constantemente buscando oportunidades para seguir innovando y aportando al crecimiento del ecosistema digital.</p>
+
+        <div class="row">
+            <div class="col-md-4 mb-4">
+                <button class="btn btn-primary w-100" onclick="window.location.href='https://matiasfelipew.github.io/WEN-NAILS-ART/';">
+                    WEBSITE WEN.NAIL_ART.
+                </button>
+            </div>
+            <div class="col-md-4 mb-4">
+                <button class="btn btn-primary w-100" onclick="window.location.href='https://matiasfelipew.github.io/Whiat/'">
+                    WEBSITE LAWYERS OJT, IN PROCESS...
+                </button>
+            </div>
+            <div class="col-md-4 mb-4">
+                <button class="btn btn-primary w-100" onclick="window.location.href='https://matiasfelipew.github.io/WHIAT-COMPANY-PETS/';">
+                    WEBSITE PETS, IN PROCESS...
+                </button>
+            </div>
+        </div>
+    </section>
+
+
+
+    <!-- Footer -->
+    <footer class="bg-primary text-white text-center py-4">
+        <p>&copy; 2024 Matías Felipe Whiat. Todos los derechos reservados.</p>
+    </footer>
+
+    <!-- Scripts de Bootstrap -->
+    <script src="java2.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+</body>
+</html>

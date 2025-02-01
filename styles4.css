@@ -1,0 +1,131 @@
+body {
+    background-color: black;
+    color: white;
+}
+
+.navbar {
+    background-color: red;
+}
+
+/* Estilos del carrusel */
+.carousel {
+    max-width: 100%;
+    margin: auto;
+}
+
+.carousel-img {
+    max-height: 600px; /* Ajusta el tamaño del carrusel */
+    object-fit: cover;
+}
+
+/* Tarjetas */
+.card {
+    background-color: #222;
+    color: white;
+    border: 1px solid red;
+    height: 100%; /* Asegura que todas las tarjetas tengan la misma altura */
+}
+
+.card-img-top {
+    width: 100%;
+    height: 200px; /* Ajusta según necesites */
+    object-fit: cover; /* Evita la distorsión */
+}
+
+/* Botón de WhatsApp */
+.whatsapp-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: green;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: bold;
+    display: block;
+    transition: opacity 0.5s;
+}
+
+.hidden {
+  opacity: 0;
+}
+
+.pago-barra {
+  background-color: red;
+  text-align: center;
+  padding: 10px;
+  position: relative;
+  width: 100%; /* Asegura que ocupe todo el ancho */
+  animation: cambioColor 2s infinite alternate; /* Aplica la animación */
+}
+
+.btn-pagos {
+  color: white;
+  background-color: transparent; /* Para que no sobrescriba el fondo de la barra */
+  border: none;
+  font-size: 15px;
+  cursor: pointer;
+  padding: 10px 20px;
+}
+
+/* Definimos la animación */
+@keyframes cambioColor {
+  0% {
+    background-color: red;
+  }
+  100% {
+    background-color: green;
+  }
+}
+.info-pagos {
+  display: none;
+  background-color: black;
+  color: white;
+  padding: 20px;
+  margin-top: 10px;
+}
+  
+  a {
+    color: white;
+  }
+  
+  a:hover {
+    color: lightblue;
+  }
+  
+
+  /* Estilos para el botón */
+.instagram-button {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.instagram-button a {
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+  color: #000;
+  text-decoration: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.instagram-logo {
+  width: 30px;
+  height: auto; /* Mantiene la proporción */
+  max-width: 100%; /* Evita que se agrande demasiado */
+  margin-right: 10px;
+}
+
+
+@media (max-width: 480px) {
+  .instagram-logo {
+    width: 25px; /* Ajuste para móviles */
+  }
+}
+
+
+.instagram-button a:hover {
+  color: #E4405F; /* Cambia al color característico de Instagram */
+}
