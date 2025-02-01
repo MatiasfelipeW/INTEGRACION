@@ -69,6 +69,12 @@
     color: white;
 }
 
+.preloader-logo {
+    max-width: 100%; /* La imagen no será más ancha que su contenedor */
+    height: auto;    /* Mantiene la proporción de aspecto */
+    width: 150px;    /* Tamaño base para pantallas más grandes */
+}
+
 .loading-bar {
     width: 100px;
     height: 8px;
