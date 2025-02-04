@@ -76,9 +76,9 @@
 }
 
 .loading-bar {
-    width: 20px;
-    height: 5px;
-    background-color: #0f0;;
+    width: 1px;
+    height: 1px;
+    background-color: rgb(184, 205, 184);
     animation: loadingAnimation 1.5s infinite;
 }
 
