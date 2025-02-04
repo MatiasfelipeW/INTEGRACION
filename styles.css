@@ -75,10 +75,10 @@
     width: 150px;    /* Tamaño base para pantallas más grandes */
 }
 
-.loading-bar {
-    width: 100px;
-    height: 8px;
-    background-color: #0ff;
+.loading-ba r {
+    width: 0px;
+    height: 6px;
+    background-color: #0f0;;
     animation: loadingAnimation 1.5s infinite;
 }
 
