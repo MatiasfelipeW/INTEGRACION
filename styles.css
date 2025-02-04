@@ -75,8 +75,8 @@
     width: 150px;    /* Tamaño base para pantallas más grandes */
 }
 
-.loading-ba r {
-    width: 0px;
+.loading-bar {
+    width: 50px;
     height: 6px;
     background-color: #0f0;;
     animation: loadingAnimation 1.5s infinite;
