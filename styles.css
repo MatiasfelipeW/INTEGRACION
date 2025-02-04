@@ -72,12 +72,12 @@
 .preloader-logo {
     max-width: 100%; /* La imagen no será más ancha que su contenedor */
     height: auto;    /* Mantiene la proporción de aspecto */
-    width: 150px;    /* Tamaño base para pantallas más grandes */
+    width: 250px;    /* Tamaño base para pantallas más grandes */
 }
 
 .loading-bar {
-    width: 50px;
-    height: 6px;
+    width: 20px;
+    height: 5px;
     background-color: #0f0;;
     animation: loadingAnimation 1.5s infinite;
 }
@@ -399,4 +399,14 @@ footer {
         opacity: 0;
         transform: scale(2);
     }
+}
+
+
+.logo {
+    max-width: 80%;  /* Ajusta el tamaño máximo en relación al ancho de la pantalla */
+    max-height: 40vh; /* Ajusta la altura máxima en relación a la altura de la pantalla */
+    width: auto;
+    height: auto;
+    display: block;
+    margin: 0 auto;
 }
