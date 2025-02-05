@@ -248,7 +248,7 @@ footer {
 
 /* Estilo para el botón de traducción */
 #translate-button {
-    background-color: #0f0;
+    background-color: rgb(123, 141, 123);
     position: fixed;
     top: 70%; /* Centrado vertical */
     right: 0;
@@ -264,7 +264,7 @@ footer {
 
 /* Cambiar color del botón al pasar el cursor */
 #translate-button:hover {
-    background-color: #ffffffd8; /* Color de fondo más oscuro al pasar el cursor */
+    background-color: #0dcb13d8; /* Color de fondo más oscuro al pasar el cursor */
 }
 
 
