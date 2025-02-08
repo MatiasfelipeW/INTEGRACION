@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Créditos Ledesma</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Font Awesome -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Funnel+Display:wght@300..800&display=swap" rel="stylesheet">
+  <!-- Custom CSS -->
+  <style>
+    body {
+      background-image: url('fam.jpg'); /* Ruta de tu imagen de fondo */
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      color: white;
+      font-family: 'Funnel Display', sans-serif;
+    }
+
+    .overlay {
+      background-color: rgba(0, 0, 0, 0.6); /* Fondo oscuro semitransparente */
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .header {
+      text-align: center;
+      padding: 50px 0;
+    }
+
+    .header h1 {
+      font-size: 3rem;
+      font-weight: bold;
+    }
+
+    .header p {
+      font-size: 1.2rem;
+    }
+
+    .cotizador-section, .form-section {
+      background-color: rgba(255, 255, 255, 0.9); /* Fondo blanco semitransparente */
+      padding: 20px;
+      border-radius: 10px;
+      color: #333;
+      margin-bottom: 20px;
+    }
+
+    .cotizador-section h2, .form-section h2 {
+      color: #333;
+      font-weight: bold;
+    }
+
+    .whatsapp-link {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: #25D366;
+      color: white;
+      padding: 15px;
+      border-radius: 50%;
+      text-align: center;
+      font-size: 24px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      z-index: 1000;
+    }
+
+    .whatsapp-link:hover {
+      background-color: #128C7E;
+    }
+
+    footer {
+      background-color: rgba(0, 0, 0, 0.8);
+      padding: 20px;
+      text-align: center;
+      color: white;
+      margin-top: 20px;
+    }
+
+    footer img {
+      width: 150px;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <!-- Overlay para mejorar la legibilidad del contenido -->
+  <div class="overlay">
+    <!-- Header -->
+    <header class="header">
+      <h1>CRÉDITOS LEDESMA</h1>
+      <p>Financiación pensada para negocios y monotributistas.</p>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container">
+      <!-- Información -->
+      <section class="mb-5 text-center">
+        <h2>¿Cómo funcionan nuestros créditos?</h2>
+        <p>
+          Ofrecemos créditos desde <strong>10,000 ARS</strong> hasta <strong>150,000 ARS</strong> con un plazo de pago diario por 27 días.
+          Diseñados para personas con negocio propio o monotributistas con capacidad de pago.
+        </p>
+      </section>
+
+      <!-- Cotizador -->
+      <section class="cotizador-section">
+        <h2>Calcula tu crédito</h2>
+        <div class="cotizador">
+          <label for="capital" class="form-label">Monto del crédito (ARS):</label>
+          <input type="number" id="capital" class="form-control mb-3" min="10000" max="150000" step="1000" value="10000" oninput="calcularCredito()">
+          
+          <p><strong>Pago total:</strong> <span id="totalPago">13,500 ARS</span></p>
+          <p><strong>Pago diario:</strong> <span id="pagoDiario">500 ARS</span></p>
+        </div>
+      </section>
+
+      <!-- Formulario -->
+      <section class="form-section">
+        <h2>Solicita tu crédito</h2>
+        <form action="https://formspree.io/f/mzzbgnle" method="POST">
+          <div class="mb-3">
+            <label for="nombre" class="form-label">Nombre completo:</label>
+            <input type="text" id="nombre" name="nombre" class="form-control" required placeholder="Ingresa tu nombre completo">
+          </div>
+          <div class="mb-3">
+            <label for="telefono" class="form-label">Teléfono actualizado:</label>
+            <input type="tel" id="telefono" name="telefono" class="form-control" required placeholder="Ingresa tu teléfono">
+          </div>
+          <div class="mb-3">
+            <label for="dni" class="form-label">DNI:</label>
+            <input type="text" id="dni" name="dni" class="form-control" required placeholder="Ingresa tu DNI">
+          </div>
+          <div class="mb-3">
+            <label for="direccion" class="form-label">Dirección:</label>
+            <input type="text" id="direccion" name="direccion" class="form-control" required placeholder="Ingresa tu dirección">
+          </div>
+          <div class="mb-3">
+            <label for="referencia" class="form-label">Referencia personal:</label>
+            <input type="text" id="referencia" name="referencia" class="form-control" required placeholder="Nombre de la referencia">
+          </div>
+          <div class="mb-3">
+            <label for="telefono_referencia" class="form-label">Teléfono de referencia:</label>
+            <input type="tel" id="telefono_referencia" name="telefono_referencia" class="form-control" required placeholder="Teléfono de la referencia">
+          </div>
+          <div class="mb-3">
+            <label for="direccion_referencia" class="form-label">Dirección de referencia:</label>
+            <input type="text" id="direccion_referencia" name="direccion_referencia" class="form-control" required placeholder="Dirección de la referencia">
+          </div>
+          <div class="mb-3">
+            <label for="observaciones" class="form-label">Observaciones:</label>
+            <textarea id="observaciones" name="observaciones" class="form-control" placeholder="Escribe tus requerimientos de monto y si enviaste una referencia escribe el nombre o DNI de tu referido."></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary w-100">Enviar solicitud</button>
+        </form>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+      <p>
+        Escanea el código QR para obtener beneficios exclusivos al recomendarnos nuevos clientes. 
+        Deja tus datos para que podamos contactarte y disfrutar de nuestras promociones especiales por recomendar.
+      </p>
+      <img src="CREDIDIARIO.png" alt="Código QR">
+    </footer>
+  </div>
+
+  <!-- Botón de WhatsApp -->
+  <a href="https://wa.me/5493518159836" class="whatsapp-link">
+    <i class="fab fa-whatsapp"></i>
+  </a>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- Custom JS -->
+  <script>
+    function calcularCredito() {
+      const capital = parseFloat(document.getElementById('capital').value);
+      const tasaInteres = 0.35; // 35%
+      const plazoDias = 27;
+
+      const interes = capital * tasaInteres;
+      const totalPago = capital + interes;
+      const pagoDiario = totalPago / plazoDias;
+
+      document.getElementById('totalPago').textContent = totalPago.toLocaleString('es-AR', { style: 'currency', currency: 'ARS' });
+      document.getElementById('pagoDiario').textContent = pagoDiario.toLocaleString('es-AR', { style: 'currency', currency: 'ARS' });
+    }
+
+    // Inicializar el cálculo al cargar la página
+    document.addEventListener('DOMContentLoaded', calcularCredito);
+  </script>
+</body>
+</html>
