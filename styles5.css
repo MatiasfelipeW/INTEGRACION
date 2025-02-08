@@ -8,14 +8,59 @@ body {
 }
 
 
+/* Estilos base del nav */
+/* Botón hamburguesa */
+#menu-toggle {
+  display: none;
+  font-size: 24px;
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+}
+
+/* Estilos para pantallas pequeñas (menos de 768px) */
+@media (max-width: 768px) {
   nav {
+      flex-direction: column;
+      align-items: flex-start;
+  }
+
+  #menu-toggle {
+      display: block; /* Muestra el botón hamburguesa */
+  }
+
+  #menu {
+      display: none; /* Oculta el menú por defecto */
+      flex-direction: column;
+      gap: 5px;
+      width: 100%;
+      background-color: #ac0e8f;
+      padding: 10px 0;
+  }
+
+  #menu.active {
+      display: flex; /* Muestra el menú cuando está activo */
+  }
+
+  nav ul li {
+      width: 100%;
+      text-align: left;
+  }
+
+  nav ul li a {
+      display: block;
+      padding: 10px;
+  }
+}
+nav {
     background-color: #ac0e8f;
     color: #fff;
     padding: 20px 30px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    transition: background-color 0.3s ease; /* Suaviza la transición del color */
+    transition: background-color 0.3s ease;
 }
 
 nav ul {
@@ -23,11 +68,7 @@ nav ul {
     margin: 0;
     padding: 0;
     display: flex;
-    gap: 10px; /* Espacio entre los elementos de la lista */
-}
-
-nav ul li {
-    margin: 0;
+    gap: 10px;
 }
 
 nav ul li a {
@@ -47,21 +88,28 @@ nav ul li a[aria-current="page"] {
     font-weight: bold;
     text-decoration: underline;
 }
+
 nav:hover {
-    background-color: #34d0db; /* Cambia a un tono azul amigable */
+    background-color: #34d0db;
 }
-  nav ul {
-    text
-    list-style: none;
-    display: flex;
-    gap: 20px;
-  }
-  
-    nav ul li a {
-        color: #fff;
-        text-decoration: none;
+
+/* Estilos para pantallas pequeñas (menos de 768px) */
+@media (max-width: 768px) {
+    nav {
+        flex-direction: column; /* Cambia la dirección del flex a columna */
+        align-items: flex-start; /* Alinea los elementos a la izquierda */
+        padding: 10px 20px; /* Reduce el padding */
     }
 
+    nav ul {
+        flex-direction: column; /* Cambia la dirección del menú a columna */
+        gap: 5px; /* Reduce el espacio entre elementos */
+    }
+
+    nav ul li a {
+        padding: 5px; /* Reduce el padding de los enlaces */
+    }
+}
 
   .logo-section {
     display: flex;

@@ -19,3 +19,6 @@ function moverCarrusel(n) {
 
 // Opcional: Carrusel automático
 setInterval(() => moverCarrusel(1), 5000); // Cambia de imagen cada 5 segundos
+document.getElementById("menu-toggle").addEventListener("click", function () {
+    document.getElementById("menu").classList.toggle("active");
+});
