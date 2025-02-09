@@ -103,3 +103,34 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 });
+
+$(document).ready(function() {
+    const serviceDescriptions = {
+        fullstack: "Ofrecemos desarrollo fullstack con tecnologías modernas y escalables para crear aplicaciones web completas, desde el diseño de la interfaz hasta la implementación del backend. Nos especializamos en construir sitios web dinámicos, plataformas interactivas y sistemas personalizados, adaptándonos a las necesidades de tu negocio.",
+        blockchain: "La tecnología Blockchain ha revolucionado la forma en que se gestionan los datos y las transacciones digitales, ofreciendo seguridad, transparencia y descentralización. Su estructura basada en bloques encadenados permite registrar información de manera inmutable, eliminando la necesidad de intermediarios y reduciendo el riesgo de fraudes. Desde criptomonedas y contratos inteligentes hasta identidad digital y logística, Blockchain se ha convertido en una herramienta clave para diversos sectores, brindando soluciones innovadoras y confiables en un mundo cada vez más digitalizado.",
+        enterprise: "Desarrollo de software a la medida para grandes empresas, integración con sistemas ERP y CRM, asegurando escalabilidad y alta disponibilidad.",
+        custom: "Programación personalizada adaptada a necesidades específicas, optimización de código, automatización de procesos y desarrollo de APIs avanzadas."
+    };
+
+    $(".services li").click(function() {
+        let serviceKey = $(this).data("service");
+        let description = serviceDescriptions[serviceKey];
+        
+        $("#service-info").hide().html(description).fadeIn(500);
+    });
+
+    // Función para cambiar el color de los botones cada 2.5 segundos
+    function changeButtonColor() {
+        $(".services li").each(function() {
+            if ($(this).css("background-color") === "rgb(0, 255, 0)") { // #0f0 en RGB
+                $(this).css("background-color", "#ccc"); // Cambiar a gris claro
+            } else {
+                $(this).css("background-color", "#0f0"); // Cambiar a verde
+            }
+        });
+    }
+
+    // Ejecutar la función cada 2.5 segundos
+    setInterval(changeButtonColor, 2500);
+});
+

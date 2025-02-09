@@ -93,8 +93,8 @@
                 transition: all 0.3s ease-in-out;
             }
             .services li:hover {
-                background: #0f0;
-                color: #222;
+                background: rgb(0, 0, 0);
+                color: #020202;
             }
             .service-detail {
                 display: none;
@@ -114,15 +114,15 @@
 
 
         <section id="Convenios">
-            <h1 style="text-align: center; color: #0f0;">Convenios</h1>
+            <h1 style="text-align: center; color: #0f0;">En proceso para ejecución</h1>
             <button class="teleport-button" data-url="index3.html">Garantías Financieras y Jurídicas</button>
             <button class="teleport-button" data-url="index4.html">Multimedia INT</button>
             <button class="teleport-button" data-url="basarledesma.html">ledesma ARG</button>
-
         </section>
 
 
     </head>
+    
     <body class="bg-dark text-light">
         <section id="services" class="services container py-5">
             <h3 class="text-center text-warning">Nuestra Experiencia</h3>
@@ -155,6 +155,21 @@
                 });
             });
         </script> 
+
+<style>
+    .services li {
+        cursor: pointer;
+        padding: 10px;
+        margin: 5px;
+        background-color: #0f0; /* Color inicial */
+        color: rgb(0, 0, 0);
+        transition: background-color 0.3s ease;
+    }
+
+    .services li:hover {
+        background-color: #514949; /* Color al hacer hover */
+    }
+</style>
 
         <section class="cta">
             <h3>¡Unete Hoy!</h3>
