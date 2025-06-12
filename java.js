@@ -134,3 +134,33 @@ $(document).ready(function() {
     setInterval(changeButtonColor, 2500);
 });
 
+document.addEventListener("DOMContentLoaded", function () {
+    const serviceDescriptions = {
+        fullstack: "Ofrecemos desarrollo fullstack con tecnologías modernas y escalables para crear aplicaciones web completas, desde el diseño de la interfaz hasta la implementación del backend. Nos especializamos en construir sitios web dinámicos, plataformas interactivas y sistemas personalizados, adaptándonos a las necesidades de tu negocio.",
+        blockchain: "La tecnología Blockchain ha revolucionado la forma en que se gestionan los datos y las transacciones digitales, ofreciendo seguridad, transparencia y descentralización. Su estructura basada en bloques encadenados permite registrar información de manera inmutable, eliminando la necesidad de intermediarios y reduciendo el riesgo de fraudes. Desde criptomonedas y contratos inteligentes hasta identidad digital y logística, Blockchain se ha convertido en una herramienta clave para diversos sectores.",
+        enterprise: "Desarrollo de software a la medida para grandes empresas, integración con sistemas ERP y CRM, asegurando escalabilidad y alta disponibilidad.",
+        custom: "Programación personalizada adaptada a necesidades específicas, optimización de código, automatización de procesos y desarrollo de APIs avanzadas."
+    };
+
+    document.querySelectorAll(".services li").forEach(item => {
+        item.addEventListener("click", function () {
+            const key = this.dataset.service;
+            const description = serviceDescriptions[key];
+            const infoBox = document.getElementById("service-info");
+
+            infoBox.style.display = "none";
+            infoBox.innerHTML = `<strong>${this.textContent.replace('➡️ ', '')}</strong><br><br>${description}`;
+            setTimeout(() => {
+                infoBox.style.display = "block";
+            }, 200);
+        });
+    });
+
+    // Alternancia de color cada 2.5 segundos para llamar más la atención
+    setInterval(() => {
+        document.querySelectorAll(".services li").forEach(li => {
+            const currentColor = window.getComputedStyle(li).backgroundColor;
+            li.style.backgroundColor = currentColor === "rgb(0, 255, 0)" ? "#ffc107" : "#0f0";
+        });
+    }, 2500);
+});
