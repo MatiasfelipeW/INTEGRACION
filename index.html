@@ -12,7 +12,7 @@
         :root {
             --primary: #00ff88;
             --primary-dark: #00cc6a;
-          --dark: #0a0a0a;
+            --dark: #0a0a0a;
             --darker: #000000;
             --dark-gray: #1a1a1a;
             --light-gray: #f5f5f5;
@@ -145,11 +145,106 @@
             background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%280, 255, 136, 1%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
         }
         
+        /* Botón de idioma en navbar - NUEVO DISEÑO */
+        .language-switcher {
+            position: relative;
+            margin-left: 10px;
+        }
+        
+        .language-btn {
+            background: rgba(0, 255, 136, 0.1);
+            border: 1px solid rgba(0, 255, 136, 0.3);
+            color: var(--primary);
+            border-radius: 4px;
+            padding: 8px 15px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: var(--transition);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .language-btn:hover {
+            background: rgba(0, 255, 136, 0.2);
+            border-color: rgba(0, 255, 136, 0.5);
+        }
+        
+        .language-dropdown {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: var(--dark-gray);
+            border: 1px solid rgba(0, 255, 136, 0.2);
+            border-radius: 8px;
+            padding: 15px;
+            min-width: 180px;
+            z-index: 1000;
+            display: none;
+            margin-top: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+        
+        .language-dropdown.show {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        .language-dropdown::before {
+            content: '';
+            position: absolute;
+            top: -6px;
+            right: 20px;
+            width: 12px;
+            height: 12px;
+            background: var(--dark-gray);
+            transform: rotate(45deg);
+            border-left: 1px solid rgba(0, 255, 136, 0.2);
+            border-top: 1px solid rgba(0, 255, 136, 0.2);
+        }
+        
+        .language-option {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 15px;
+            border-radius: 4px;
+            color: var(--text);
+            text-decoration: none;
+            transition: var(--transition);
+            margin-bottom: 5px;
+        }
+        
+        .language-option:hover {
+            background: rgba(0, 255, 136, 0.1);
+            color: var(--primary);
+        }
+        
+        .language-option.active {
+            background: rgba(0, 255, 136, 0.15);
+            color: var(--primary);
+            border-left: 3px solid var(--primary);
+        }
+        
+        .language-flag {
+            width: 24px;
+            height: 16px;
+            border-radius: 2px;
+            object-fit: cover;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
         /* Hero section mejorada */
         .hero {
             padding: 100px 0;
             text-align: center;
             position: relative;
+            background: radial-gradient(circle at center, rgba(0, 255, 136, 0.05) 0%, rgba(10, 10, 10, 0) 70%);
         }
         
         .hero-content {
@@ -161,7 +256,14 @@
         .logo {
             max-width: 220px;
             margin-bottom: 40px;
-            filter: drop-shadow(0 0 0px var(--primary));
+            filter: drop-shadow(0 0 10px var(--primary));
+            animation: pulse 3s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { filter: drop-shadow(0 0 5px var(--primary)); }
+            50% { filter: drop-shadow(0 0 15px var(--primary)); }
+            100% { filter: drop-shadow(0 0 5px var(--primary)); }
         }
         
         .hero h1 {
@@ -955,28 +1057,9 @@
             font-size: 1.8rem;
         }
         
-        /* Traductor mejorado */
+        /* Traductor mejorado - MANTENIDO PARA COMPATIBILIDAD */
         #google_translate_element {
-            margin-bottom: 20px;
-        }
-        
-        .translate-fixed {
-            position: fixed;
-            bottom: 100px;
-            right: 30px;
-            background: var(--dark-gray);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            color: var(--text);
-            z-index: 100;
-            border-radius: 6px;
-            padding: 8px 15px;
-            font-size: 0.9rem;
-            transition: var(--transition);
-        }
-        
-        .translate-fixed:hover {
-            background: var(--primary);
-            color: var(--darker);
+            display: none; /* Ocultamos el widget por defecto */
         }
         
         /* Responsive */
@@ -1003,6 +1086,21 @@
             
             .pricing-card.popular:hover {
                 transform: translateY(-10px);
+            }
+            
+            .language-switcher {
+                margin-top: 10px;
+                margin-left: 0;
+            }
+            
+            .language-dropdown {
+                right: auto;
+                left: 0;
+            }
+            
+            .language-dropdown::before {
+                right: auto;
+                left: 20px;
             }
         }
         
@@ -1057,11 +1155,6 @@
                 gap: 20px;
             }
             
-            .translate-fixed {
-                bottom: 100px;
-                right: 20px;
-            }
-            
             .whatsapp-button {
                 bottom: 20px;
                 right: 20px;
@@ -1104,6 +1197,11 @@
             .pricing-card {
                 padding: 25px;
             }
+            
+            .language-btn {
+                padding: 6px 10px;
+                font-size: 0.8rem;
+            }
         }
     </style>
 </head>
@@ -1115,7 +1213,7 @@
     <!-- Preloader -->
     <div id="preloader">
         <div class="preloader-content">
-            <img src="media/WCHRISTM__1_-removebg-preview.png" alt="Loading" class="preloader-logo">
+            <img src="media/4.0.png" alt="Loading" class="preloader-logo">
             <div class="loading-container">
                 <div class="loading-bar" id="loading-bar"></div>
             </div>
@@ -1151,6 +1249,35 @@
                         <li class="nav-item">
                             <a class="nav-link" href="index3.html">Garantías</a>
                         </li>
+                        <!-- Botón de idioma en navbar -->
+                        <li class="nav-item language-switcher">
+                            <button class="language-btn" id="languageToggle">
+                                <i class="fas fa-globe"></i> Idioma
+                                <i class="fas fa-chevron-down"></i>
+                            </button>
+                            <div class="language-dropdown" id="languageDropdown">
+                                <a href="#" class="language-option active" data-lang="es">
+                                    <img src="https://flagcdn.com/w20/es.png" alt="Español" class="language-flag">
+                                    Español
+                                </a>
+                                <a href="#" class="language-option" data-lang="en">
+                                    <img src="https://flagcdn.com/w20/gb.png" alt="English" class="language-flag">
+                                    English
+                                </a>
+                                <a href="#" class="language-option" data-lang="de">
+                                    <img src="https://flagcdn.com/w20/de.png" alt="Deutsch" class="language-flag">
+                                    Deutsch
+                                </a>
+                                <a href="#" class="language-option" data-lang="ru">
+                                    <img src="https://flagcdn.com/w20/ru.png" alt="Русский" class="language-flag">
+                                    Русский
+                                </a>
+                                <a href="#" class="language-option" data-lang="zh-CN">
+                                    <img src="https://flagcdn.com/w20/cn.png" alt="中文" class="language-flag">
+                                    中文
+                                </a>
+                            </div>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -1161,7 +1288,7 @@
     <section class="hero">
         <div class="container">
             <div class="hero-content">
-                <img src="media/WCHRISTM__1_-removebg-preview.png" alt="Logo" class="logo">
+                <img src="media/LOGO2.0.png" alt="Logo" class="logo">
                 <div class="hero-badge">Outsourcing de Talento Global</div>
                 <h1>Empoderando empresas con el mejor talento tecnológico</h1>
                 <p>En Whiat Company, lideramos la integración de inteligencia artificial en el ámbito legal, desarrollando soluciones innovadoras para fortalecer la seguridad jurídica y optimizar los procesos legales.</p>
@@ -1553,11 +1680,8 @@
         </a>
     </div>
 
-    <!-- Traductor -->
+    <!-- Traductor Google - Mantenido para compatibilidad -->
     <div id="google_translate_element"></div>
-    <button id="translate-button" onclick="toggleTranslate()" class="btn translate-fixed">
-        Cambiar Idioma
-    </button>
 
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
@@ -1717,7 +1841,94 @@
             });
         });
 
-        // Google Translate
+        // NUEVO: Controlador para el selector de idioma
+        const languageToggle = document.getElementById('languageToggle');
+        const languageDropdown = document.getElementById('languageDropdown');
+        const languageOptions = document.querySelectorAll('.language-option');
+        
+        // Mostrar/ocultar el dropdown de idiomas
+        languageToggle.addEventListener('click', function(e) {
+            e.stopPropagation();
+            languageDropdown.classList.toggle('show');
+        });
+        
+        // Cambiar idioma al seleccionar una opción
+        languageOptions.forEach(option => {
+            option.addEventListener('click', function(e) {
+                e.preventDefault();
+                const lang = this.getAttribute('data-lang');
+                
+                // Remover clase active de todas las opciones
+                languageOptions.forEach(opt => opt.classList.remove('active'));
+                
+                // Agregar clase active a la opción seleccionada
+                this.classList.add('active');
+                
+                // Cambiar el texto del botón
+                const langText = this.textContent.trim();
+                languageToggle.innerHTML = `<i class="fas fa-globe"></i> ${langText} <i class="fas fa-chevron-down"></i>`;
+                
+                // Aquí iría la lógica para cambiar el idioma del sitio
+                changeLanguage(lang);
+                
+                // Cerrar el dropdown
+                languageDropdown.classList.remove('show');
+            });
+        });
+        
+        // Cerrar dropdown al hacer clic fuera
+        document.addEventListener('click', function(e) {
+            if (!languageToggle.contains(e.target) && !languageDropdown.contains(e.target)) {
+                languageDropdown.classList.remove('show');
+            }
+        });
+        
+        // Función para cambiar idioma (simulada)
+        function changeLanguage(lang) {
+            console.log(`Cambiando idioma a: ${lang}`);
+            // Aquí se integraría con Google Translate o un sistema de traducción real
+            // Por ahora, mostramos un mensaje
+            showLanguageMessage(lang);
+        }
+        
+        function showLanguageMessage(lang) {
+            // Crear mensaje temporal
+            const message = document.createElement('div');
+            message.style.position = 'fixed';
+            message.style.bottom = '100px';
+            message.style.right = '30px';
+            message.style.background = 'var(--dark-gray)';
+            message.style.color = 'var(--primary)';
+            message.style.padding = '15px 20px';
+            message.style.borderRadius = '8px';
+            message.style.border = '1px solid var(--primary)';
+            message.style.zIndex = '1000';
+            message.style.boxShadow = '0 5px 15px rgba(0,0,0,0.3)';
+            message.style.fontSize = '0.9rem';
+            
+            // Mensajes según el idioma
+            const messages = {
+                'es': 'Idioma cambiado a Español',
+                'en': 'Language changed to English',
+                'de': 'Sprache zu Deutsch geändert',
+                'ru': 'Язык изменен на Русский',
+                'zh-CN': '语言已更改为中文'
+            };
+            
+            message.textContent = messages[lang] || 'Idioma cambiado';
+            document.body.appendChild(message);
+            
+            // Remover mensaje después de 3 segundos
+            setTimeout(() => {
+                message.style.opacity = '0';
+                message.style.transition = 'opacity 0.5s ease';
+                setTimeout(() => {
+                    document.body.removeChild(message);
+                }, 500);
+            }, 3000);
+        }
+        
+        // Google Translate (mantenido para compatibilidad)
         function googleTranslateElementInit() {
             new google.translate.TranslateElement({
                 pageLanguage: 'es',
@@ -1726,36 +1937,6 @@
                 autoDisplay: false
             }, 'google_translate_element');
         }
-        
-        function toggleTranslate() {
-            const translateElement = document.getElementById('google_translate_element');
-            if (translateElement.style.display === 'block') {
-                translateElement.style.display = 'none';
-            } else {
-                translateElement.style.display = 'block';
-            }
-        }
-        
-        // Cambiar texto del botón de traducción
-        function changeButtonText() {
-            const button = document.getElementById('translate-button');
-            const texts = [
-                'Cambiar Idioma',
-                'Change Language',
-                'Sprache ändern',
-                'Изменить язык',
-                '更改语言'
-            ];
-            
-            let currentIndex = 0;
-            
-            setInterval(function() {
-                button.innerText = texts[currentIndex];
-                currentIndex = (currentIndex + 1) % texts.length;
-            }, 2000);
-        }
-        
-        window.onload = changeButtonText;
         
         // Navbar background on scroll
         window.addEventListener('scroll', function() {
@@ -1821,6 +2002,21 @@
                 }, 500);
             });
         });
+        
+        // Rotar automáticamente el texto del botón de idioma
+        function rotateLanguageButton() {
+            const languages = ['Español', 'English', 'Deutsch', 'Русский', '中文'];
+            let currentIndex = 0;
+            
+            setInterval(function() {
+                const langText = languages[currentIndex];
+                languageToggle.innerHTML = `<i class="fas fa-globe"></i> ${langText} <i class="fas fa-chevron-down"></i>`;
+                currentIndex = (currentIndex + 1) % languages.length;
+            }, 3000);
+        }
+        
+        // Iniciar rotación después de 5 segundos
+        setTimeout(rotateLanguageButton, 5000);
     </script>
     
     <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
