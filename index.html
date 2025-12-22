@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Whiat Company - Outsourcing de Talento Global</title>
+    <link rel="icon" href="media/LOGO2.0.png" type="image/png">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -145,7 +146,7 @@
             background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%280, 255, 136, 1%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
         }
         
-        /* Botón de idioma en navbar - NUEVO DISEÑO */
+        /* Botón de idioma en navbar - MEJORADO */
         .language-switcher {
             position: relative;
             margin-left: 10px;
@@ -214,6 +215,7 @@
             text-decoration: none;
             transition: var(--transition);
             margin-bottom: 5px;
+            cursor: pointer;
         }
         
         .language-option:hover {
@@ -1057,9 +1059,22 @@
             font-size: 1.8rem;
         }
         
-        /* Traductor mejorado - MANTENIDO PARA COMPATIBILIDAD */
+        /* Ocultar completamente el widget de Google Translate */
         #google_translate_element {
-            display: none; /* Ocultamos el widget por defecto */
+            display: none !important;
+        }
+        
+        /* Ocultar la barra de Google Translate */
+        .goog-te-banner-frame {
+            display: none !important;
+        }
+        
+        .skiptranslate {
+            display: none !important;
+        }
+        
+        body {
+            top: 0 !important;
         }
         
         /* Responsive */
@@ -1249,7 +1264,10 @@
                         <li class="nav-item">
                             <a class="nav-link" href="index3.html">Garantías</a>
                         </li>
-                        <!-- Botón de idioma en navbar -->
+                        <li class="nav-item">
+                            <a class="nav-link" href="index2.html">Mercurio</a>
+                        </li>
+                        <!-- Botón de idioma en navbar - AHORA FUNCIONA CON GOOGLE TRANSLATE -->
                         <li class="nav-item language-switcher">
                             <button class="language-btn" id="languageToggle">
                                 <i class="fas fa-globe"></i> Idioma
@@ -1655,6 +1673,7 @@
                             <li><a href="#contact">Contacto</a></li>
                             <li><a href="#convenios">Convenios</a></li>
                             <li><a href="index3.html">Garantías</a></li>
+                            <li><a href="index2.html">MERCURIO</a></li>
                         </ul>
                     </div>
                     <div class="footer-column">
@@ -1679,9 +1698,6 @@
             <i class="fab fa-whatsapp"></i>
         </a>
     </div>
-
-    <!-- Traductor Google - Mantenido para compatibilidad -->
-    <div id="google_translate_element"></div>
 
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
@@ -1841,7 +1857,7 @@
             });
         });
 
-        // NUEVO: Controlador para el selector de idioma
+        // Controlador para el selector de idioma
         const languageToggle = document.getElementById('languageToggle');
         const languageDropdown = document.getElementById('languageDropdown');
         const languageOptions = document.querySelectorAll('.language-option');
@@ -1852,45 +1868,103 @@
             languageDropdown.classList.toggle('show');
         });
         
-        // Cambiar idioma al seleccionar una opción
-        languageOptions.forEach(option => {
-            option.addEventListener('click', function(e) {
-                e.preventDefault();
-                const lang = this.getAttribute('data-lang');
-                
-                // Remover clase active de todas las opciones
-                languageOptions.forEach(opt => opt.classList.remove('active'));
-                
-                // Agregar clase active a la opción seleccionada
-                this.classList.add('active');
-                
-                // Cambiar el texto del botón
-                const langText = this.textContent.trim();
-                languageToggle.innerHTML = `<i class="fas fa-globe"></i> ${langText} <i class="fas fa-chevron-down"></i>`;
-                
-                // Aquí iría la lógica para cambiar el idioma del sitio
-                changeLanguage(lang);
-                
-                // Cerrar el dropdown
-                languageDropdown.classList.remove('show');
-            });
-        });
+        // Inicializar Google Translate
+        let googleTranslateElement = null;
         
-        // Cerrar dropdown al hacer clic fuera
-        document.addEventListener('click', function(e) {
-            if (!languageToggle.contains(e.target) && !languageDropdown.contains(e.target)) {
-                languageDropdown.classList.remove('show');
+        function initializeGoogleTranslate() {
+            if (window.google && window.google.translate && window.google.translate.TranslateElement) {
+                googleTranslateElement = new google.translate.TranslateElement({
+                    pageLanguage: 'es',
+                    includedLanguages: 'es,en,de,ru,zh-CN',
+                    layout: google.translate.TranslateElement.InlineLayout.HORIZONTAL,
+                    autoDisplay: false
+                }, 'google_translate_element');
+                
+                // Ocultar completamente el widget
+                hideGoogleTranslateWidget();
+                
+                console.log('Google Translate inicializado');
+            } else {
+                console.log('Google Translate no disponible, reintentando...');
+                setTimeout(initializeGoogleTranslate, 1000);
             }
-        });
-        
-        // Función para cambiar idioma (simulada)
-        function changeLanguage(lang) {
-            console.log(`Cambiando idioma a: ${lang}`);
-            // Aquí se integraría con Google Translate o un sistema de traducción real
-            // Por ahora, mostramos un mensaje
-            showLanguageMessage(lang);
         }
         
+        // Ocultar completamente el widget de Google Translate
+        function hideGoogleTranslateWidget() {
+            // Ocultar el contenedor principal
+            const translateContainer = document.getElementById('google_translate_element');
+            if (translateContainer) {
+                translateContainer.style.display = 'none';
+            }
+            
+            // Ocultar la barra de Google
+            const googleBanner = document.querySelector('.goog-te-banner-frame');
+            if (googleBanner) {
+                googleBanner.style.display = 'none';
+            }
+            
+            // Ocultar el selector de idiomas de Google
+            const googleSelect = document.querySelector('.goog-te-gadget');
+            if (googleSelect) {
+                googleSelect.style.display = 'none';
+            }
+            
+            // Remover el espacio que deja Google Translate
+            const skipTranslate = document.querySelector('.skiptranslate');
+            if (skipTranslate) {
+                skipTranslate.style.display = 'none';
+            }
+        }
+        
+        // Cambiar idioma usando Google Translate
+        function changeLanguage(lang) {
+            if (window.google && window.google.translate && window.google.translate.TranslateElement) {
+                // Obtener el select de Google Translate
+                const translateSelect = document.querySelector('.goog-te-combo');
+                if (translateSelect) {
+                    translateSelect.value = lang;
+                    
+                    // Disparar el evento de cambio
+                    const event = new Event('change', { bubbles: true });
+                    translateSelect.dispatchEvent(event);
+                    
+                    console.log(`Idioma cambiado a: ${lang}`);
+                    
+                    // Actualizar la interfaz del botón
+                    updateLanguageButton(lang);
+                    
+                    // Mostrar mensaje
+                    showLanguageMessage(lang);
+                }
+            } else {
+                console.log('Google Translate no disponible');
+            }
+        }
+        
+        // Actualizar el botón de idioma
+        function updateLanguageButton(lang) {
+            // Remover clase active de todas las opciones
+            languageOptions.forEach(opt => opt.classList.remove('active'));
+            
+            // Encontrar y activar la opción correspondiente
+            const optionToActivate = document.querySelector(`.language-option[data-lang="${lang}"]`);
+            if (optionToActivate) {
+                optionToActivate.classList.add('active');
+                
+                // Actualizar el texto del botón
+                const langText = optionToActivate.textContent.trim();
+                const flagSrc = optionToActivate.querySelector('.language-flag').src;
+                
+                languageToggle.innerHTML = `
+                    <img src="${flagSrc}" alt="${langText}" class="language-flag" style="margin-right: 5px;">
+                    ${langText.split(' ')[0]}
+                    <i class="fas fa-chevron-down"></i>
+                `;
+            }
+        }
+        
+        // Mostrar mensaje de cambio de idioma
         function showLanguageMessage(lang) {
             // Crear mensaje temporal
             const message = document.createElement('div');
@@ -1905,17 +1979,18 @@
             message.style.zIndex = '1000';
             message.style.boxShadow = '0 5px 15px rgba(0,0,0,0.3)';
             message.style.fontSize = '0.9rem';
+            message.style.fontWeight = '500';
             
             // Mensajes según el idioma
             const messages = {
-                'es': 'Idioma cambiado a Español',
-                'en': 'Language changed to English',
-                'de': 'Sprache zu Deutsch geändert',
-                'ru': 'Язык изменен на Русский',
-                'zh-CN': '语言已更改为中文'
+                'es': '🌐 Idioma cambiado a Español',
+                'en': '🌐 Language changed to English',
+                'de': '🌐 Sprache zu Deutsch geändert',
+                'ru': '🌐 Язык изменен на Русский',
+                'zh-CN': '🌐 语言已更改为中文'
             };
             
-            message.textContent = messages[lang] || 'Idioma cambiado';
+            message.textContent = messages[lang] || '🌐 Idioma cambiado';
             document.body.appendChild(message);
             
             // Remover mensaje después de 3 segundos
@@ -1928,15 +2003,24 @@
             }, 3000);
         }
         
-        // Google Translate (mantenido para compatibilidad)
-        function googleTranslateElementInit() {
-            new google.translate.TranslateElement({
-                pageLanguage: 'es',
-                includedLanguages: 'es,en,de,ru,zh-CN',
-                layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
-                autoDisplay: false
-            }, 'google_translate_element');
-        }
+        // Configurar eventos para las opciones de idioma
+        languageOptions.forEach(option => {
+            option.addEventListener('click', function(e) {
+                e.preventDefault();
+                const lang = this.getAttribute('data-lang');
+                changeLanguage(lang);
+                
+                // Cerrar el dropdown
+                languageDropdown.classList.remove('show');
+            });
+        });
+        
+        // Cerrar dropdown al hacer clic fuera
+        document.addEventListener('click', function(e) {
+            if (!languageToggle.contains(e.target) && !languageDropdown.contains(e.target)) {
+                languageDropdown.classList.remove('show');
+            }
+        });
         
         // Navbar background on scroll
         window.addEventListener('scroll', function() {
@@ -2003,22 +2087,31 @@
             });
         });
         
-        // Rotar automáticamente el texto del botón de idioma
-        function rotateLanguageButton() {
-            const languages = ['Español', 'English', 'Deutsch', 'Русский', '中文'];
-            let currentIndex = 0;
-            
-            setInterval(function() {
-                const langText = languages[currentIndex];
-                languageToggle.innerHTML = `<i class="fas fa-globe"></i> ${langText} <i class="fas fa-chevron-down"></i>`;
-                currentIndex = (currentIndex + 1) % languages.length;
-            }, 3000);
+        // Inicializar Google Translate cuando se cargue el script
+        function googleTranslateElementInit() {
+            console.log('googleTranslateElementInit llamado');
+            initializeGoogleTranslate();
         }
         
-        // Iniciar rotación después de 5 segundos
-        setTimeout(rotateLanguageButton, 5000);
+        // Verificar si Google Translate está cargado
+        function checkGoogleTranslateLoaded() {
+            if (typeof google !== 'undefined' && google.translate) {
+                console.log('Google Translate está disponible');
+                googleTranslateElementInit();
+            } else {
+                console.log('Esperando a que Google Translate se cargue...');
+                setTimeout(checkGoogleTranslateLoaded, 500);
+            }
+        }
+        
+        // Iniciar la verificación después de que la página cargue
+        window.addEventListener('load', function() {
+            setTimeout(checkGoogleTranslateLoaded, 1000);
+        });
     </script>
     
+    <!-- Script de Google Translate - Cargado pero oculto -->
+    <div id="google_translate_element" style="display: none;"></div>
     <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </body>
 </html>
