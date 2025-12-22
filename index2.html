@@ -7,28 +7,42 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=MedievalSharp&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
   
   <!-- Favicon del logo -->
   <link rel="icon" type="image/x-icon" href="media/ChatGPT Image Aug 31, 2025, 09_04_15 AM.png">
   
   <style>
     :root {
-      --fondo-oscuro: #0f0f0f;
-      --fondo-card: #1a1a1a;
-      --fondo-semi: #2a2a2a;
-      --borde-oro: #b89a5a;
-      --borde-oro-oscuro: #9c7c3e;
-      --dorado-brillante: #d4af37;
-      --texto-claro: #e0e0e0;
-      --texto-medio: #b0b0b0;
-      --texto-oro: #ffd700;
-      --sombra-oro: rgba(212, 175, 55, 0.2);
-      --sombra-negra: rgba(0, 0, 0, 0.5);
-      --semena-color: rgba(212, 175, 55, 0.7);
+      --fondo-beige: #f8f5f0;
+      --fondo-beige-oscuro: #f0ebe3;
+      --fondo-cafe-claro: #e8e0d5;
+      --borde-beige: #d4c4a8;
+      --borde-cafe: #a9927d;
+      --cafe-oscuro: #8b7355;
+      --dorado-suave: #c4a962;
+      --dorado-elegante: #b89a5a;
+      --texto-oscuro: #3c3c3c;
+      --texto-medio: #666666;
+      --texto-claro: #8a8a8a;
+      --sombra-suave: rgba(140, 115, 85, 0.15);
+      --sombra-media: rgba(140, 115, 85, 0.25);
+      --gradiente-beige: linear-gradient(135deg, #f8f5f0, #f0ebe3);
+      --gradiente-cafe: linear-gradient(135deg, #e8e0d5, #d8ccb8);
+      --gradiente-dorado-suave: linear-gradient(135deg, #c4a962, #b89a5a);
+      --gradiente-elegante: linear-gradient(135deg, #a9927d, #8b7355);
+      
+      /* Nuevos colores para preloader y bienvenida */
+      --fondo-oscuro-elegante: #1a1a1a;
+      --fondo-card-oscuro: #2a2a2a;
+      --borde-dorado-oscuro: #b89a5a;
+      --dorado-brillante-oscuro: #d4af37;
+      --texto-claro-oscuro: #e0e0e0;
+      --texto-medio-oscuro: #b0b0b0;
     }
     
     /* ==================== */
-    /* PRELOADER (5 SEGUNDOS) */
+    /* PRELOADER (5 SEGUNDOS) - REDISEÑADO */
     /* ==================== */
     #preloader {
       position: fixed;
@@ -36,7 +50,7 @@
       left: 0;
       width: 100%;
       height: 100vh;
-      background: linear-gradient(135deg, rgba(15, 15, 15, 0.98) 0%, rgba(20, 20, 20, 0.96) 100%);
+      background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);
       display: flex;
       justify-content: center;
       align-items: center;
@@ -51,9 +65,23 @@
       transition: opacity 1s ease, visibility 1s ease;
     }
     
+    .preloader-container {
+      text-align: center;
+      padding: 40px;
+      max-width: 500px;
+      width: 90%;
+      background-color: rgba(42, 42, 42, 0.9);
+      border: 2px solid var(--borde-dorado-oscuro);
+      border-radius: 15px;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5), 0 0 60px rgba(212, 175, 55, 0.1) inset;
+      position: relative;
+      overflow: hidden;
+      backdrop-filter: blur(10px);
+    }
+    
     .preloader-logo {
-      max-height: 120px;
-      margin-bottom: 30px;
+      max-height: 100px;
+      margin-bottom: 25px;
       filter: drop-shadow(0 4px 8px rgba(212, 175, 55, 0.4));
       animation: logo-float 4s ease-in-out infinite;
     }
@@ -68,10 +96,10 @@
     }
     
     .preloader-title {
-      font-size: 3.5rem;
-      color: var(--dorado-brillante);
-      margin-bottom: 20px;
-      text-shadow: 2px 2px 4px var(--sombra-negra), 0 0 20px rgba(212, 175, 55, 0.4);
+      font-size: 2.8rem;
+      color: var(--dorado-brillante-oscuro);
+      margin-bottom: 15px;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5), 0 0 20px rgba(212, 175, 55, 0.4);
       letter-spacing: 3px;
       font-family: 'MedievalSharp', cursive;
       animation: title-glow 3s ease-in-out infinite;
@@ -79,35 +107,105 @@
     
     @keyframes title-glow {
       0%, 100% {
-        text-shadow: 2px 2px 4px var(--sombra-negra), 0 0 20px rgba(212, 175, 55, 0.4);
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5), 0 0 20px rgba(212, 175, 55, 0.4);
       }
       50% {
-        text-shadow: 2px 2px 6px var(--sombra-negra), 0 0 30px rgba(212, 175, 55, 0.6), 0 0 40px rgba(212, 175, 55, 0.3);
+        text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.6), 0 0 30px rgba(212, 175, 55, 0.6), 0 0 40px rgba(212, 175, 55, 0.3);
       }
     }
     
     .loading-text {
-      color: var(--texto-oro);
-      font-size: 1.2rem;
-      margin-top: 20px;
+      color: var(--dorado-brillante-oscuro);
+      font-size: 1.1rem;
+      margin-top: 15px;
+      margin-bottom: 25px;
       font-family: 'Cinzel', serif;
     }
     
-    .loading-bar {
-      width: 300px;
-      height: 4px;
-      background: rgba(212, 175, 55, 0.2);
-      border-radius: 2px;
-      overflow: hidden;
-      margin-top: 10px;
+    /* NUEVO DISEÑO DE PRELOADER CIRCULAR - TONOS OSCUROS */
+    .circular-loader {
+      position: relative;
+      width: 120px;
+      height: 120px;
+      margin: 0 auto;
     }
     
-    .loading-progress {
+    .circular-loader-inner {
+      width: 100%;
       height: 100%;
-      width: 0%;
-      background: linear-gradient(90deg, var(--borde-oro), var(--dorado-brillante));
-      border-radius: 2px;
-      transition: width 0.3s ease;
+      border: 3px solid transparent;
+      border-top-color: var(--dorado-brillante-oscuro);
+      border-radius: 50%;
+      animation: spin 1.5s linear infinite;
+      position: relative;
+    }
+    
+    .circular-loader-inner:before,
+    .circular-loader-inner:after {
+      content: '';
+      position: absolute;
+      border-radius: 50%;
+      border: 3px solid transparent;
+    }
+    
+    .circular-loader-inner:before {
+      top: 10px;
+      left: 10px;
+      right: 10px;
+      bottom: 10px;
+      border-top-color: var(--borde-dorado-oscuro);
+      animation: spin 2s linear infinite reverse;
+    }
+    
+    .circular-loader-inner:after {
+      top: 20px;
+      left: 20px;
+      right: 20px;
+      bottom: 20px;
+      border-top-color: var(--dorado-brillante-oscuro);
+      animation: spin 1s linear infinite;
+    }
+    
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+    
+    /* Partículas doradas girando */
+    .loader-particles {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+    
+    .particle {
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      background: var(--dorado-brillante-oscuro);
+      border-radius: 50%;
+      top: 50%;
+      left: 50%;
+      transform-origin: 0 0;
+      box-shadow: 0 0 6px var(--dorado-brillante-oscuro);
+    }
+    
+    /* Porcentaje de carga */
+    .loader-percentage {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: var(--dorado-brillante-oscuro);
+      font-family: 'Cinzel', serif;
     }
     
     /* ==================== */
@@ -169,7 +267,7 @@
     }
     
     /* ==================== */
-    /* PANTALLA DE BIENVENIDA */
+    /* PANTALLA DE BIENVENIDA - REDISEÑADA */
     /* ==================== */
     #welcome-screen {
       position: fixed;
@@ -177,7 +275,7 @@
       left: 0;
       width: 100%;
       height: 100vh;
-      background: linear-gradient(135deg, rgba(15, 15, 15, 0.98) 0%, rgba(20, 20, 20, 0.96) 100%);
+      background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);
       display: flex;
       justify-content: center;
       align-items: center;
@@ -203,10 +301,10 @@
       padding: 40px;
       max-width: 600px;
       width: 90%;
-      background-color: rgba(26, 26, 26, 0.9);
-      border: 2px solid var(--borde-oro);
+      background-color: rgba(42, 42, 42, 0.9);
+      border: 2px solid var(--borde-dorado-oscuro);
       border-radius: 15px;
-      box-shadow: 0 15px 35px var(--sombra-negra), 0 0 60px rgba(212, 175, 55, 0.1) inset;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6), 0 0 60px rgba(212, 175, 55, 0.1) inset;
       position: relative;
       overflow: hidden;
       backdrop-filter: blur(10px);
@@ -223,43 +321,43 @@
     }
     
     .welcome-logo {
-      max-height: 120px;
+      max-height: 100px;
       margin-bottom: 25px;
       filter: drop-shadow(0 4px 8px rgba(212, 175, 55, 0.4));
     }
     
     .welcome-title {
-      font-size: 3.5rem;
-      color: var(--dorado-brillante);
+      font-size: 3rem;
+      color: var(--dorado-brillante-oscuro);
       margin-bottom: 15px;
-      text-shadow: 2px 2px 4px var(--sombra-negra), 0 0 20px rgba(212, 175, 55, 0.4);
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5), 0 0 20px rgba(212, 175, 55, 0.4);
       letter-spacing: 3px;
       font-family: 'MedievalSharp', cursive;
     }
     
     .welcome-subtitle {
-      font-size: 1.5rem;
-      color: var(--texto-oro);
-      margin-bottom: 25px;
+      font-size: 1.4rem;
+      color: var(--dorado-brillante-oscuro);
+      margin-bottom: 20px;
       font-weight: 600;
     }
     
     .welcome-text {
       font-size: 1.1rem;
-      color: var(--texto-medio);
+      color: var(--texto-medio-oscuro);
       margin-bottom: 30px;
       line-height: 1.6;
       padding: 0 15px;
     }
     
     .enter-button {
-      background: linear-gradient(45deg, var(--borde-oro), var(--borde-oro-oscuro));
-      color: var(--fondo-oscuro);
-      border: 2px solid var(--dorado-brillante);
+      background: linear-gradient(135deg, var(--dorado-brillante-oscuro), var(--borde-dorado-oscuro));
+      color: #1a1a1a;
+      border: 2px solid var(--dorado-brillante-oscuro);
       padding: 15px 40px;
-      font-size: 1.3rem;
+      font-size: 1.2rem;
       font-weight: bold;
-      border-radius: 8px;
+      border-radius: 10px;
       cursor: pointer;
       transition: all 0.4s ease;
       text-transform: uppercase;
@@ -267,356 +365,1023 @@
       position: relative;
       overflow: hidden;
       z-index: 1;
-      box-shadow: 0 5px 15px var(--sombra-oro), 0 0 20px rgba(255, 255, 255, 0.1) inset;
+      box-shadow: 0 8px 20px rgba(212, 175, 55, 0.3), 0 0 20px rgba(255, 255, 255, 0.1) inset;
       animation: button-pulse 3s ease-in-out infinite;
     }
     
     @keyframes button-pulse {
       0%, 100% {
-        box-shadow: 0 5px 15px var(--sombra-oro), 0 0 20px rgba(255, 255, 255, 0.1) inset;
+        box-shadow: 0 8px 20px rgba(212, 175, 55, 0.3), 0 0 20px rgba(255, 255, 255, 0.1) inset;
         transform: scale(1);
       }
       50% {
-        box-shadow: 0 10px 25px var(--sombra-oro), 0 0 30px rgba(255, 255, 255, 0.2) inset;
+        box-shadow: 0 12px 30px rgba(212, 175, 55, 0.5), 0 0 30px rgba(255, 255, 255, 0.2) inset;
         transform: scale(1.05);
       }
     }
     
     .enter-button:hover {
       transform: translateY(-5px) scale(1.05);
-      box-shadow: 0 15px 30px var(--sombra-oro), 0 0 40px rgba(255, 255, 255, 0.3) inset;
+      box-shadow: 0 15px 35px rgba(212, 175, 55, 0.5), 0 0 40px rgba(255, 255, 255, 0.3) inset;
       letter-spacing: 3px;
-      background: linear-gradient(45deg, var(--dorado-brillante), var(--borde-oro));
+      background: linear-gradient(135deg, var(--borde-dorado-oscuro), var(--dorado-brillante-oscuro));
     }
     
     .whiat-company {
       margin-top: 25px;
-      color: var(--borde-oro);
-      font-size: 0.95rem;
+      color: var(--borde-dorado-oscuro);
+      font-size: 0.9rem;
       border-top: 1px solid rgba(212, 175, 55, 0.3);
       padding-top: 20px;
       font-style: italic;
     }
     
     /* ==================== */
-    /* BOTÓN FIJO DE WHATSAPP */
+    /* BOTÓN FIJO DE WHATSAPP - ELEGANTE */
     /* ==================== */
     .whatsapp-fixed-btn {
       position: fixed;
       bottom: 30px;
       right: 30px;
-      width: 70px;
-      height: 70px;
-      background: linear-gradient(45deg, #25D366, #128C7E);
+      width: 65px;
+      height: 65px;
+      background: var(--gradiente-elegante);
       border-radius: 50%;
       display: flex;
       justify-content: center;
       align-items: center;
       color: white;
-      font-size: 36px;
+      font-size: 32px;
       text-decoration: none;
-      box-shadow: 0 5px 20px rgba(37, 211, 102, 0.5);
+      box-shadow: 0 6px 20px var(--sombra-media);
       z-index: 10000;
-      transition: all 0.3s ease;
-      border: 3px solid white;
-      animation: pulse-whatsapp 2s infinite;
-    }
-    
-    @keyframes pulse-whatsapp {
-      0% {
-        box-shadow: 0 5px 20px rgba(37, 211, 102, 0.5);
-      }
-      50% {
-        box-shadow: 0 5px 25px rgba(37, 211, 102, 0.8);
-        transform: scale(1.05);
-      }
-      100% {
-        box-shadow: 0 5px 20px rgba(37, 211, 102, 0.5);
-      }
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      border: 2px solid rgba(255, 255, 255, 0.9);
     }
     
     .whatsapp-fixed-btn:hover {
-      background: linear-gradient(45deg, #128C7E, #25D366);
+      background: var(--gradiente-cafe);
       transform: scale(1.1);
       color: white;
+      box-shadow: 0 8px 25px var(--sombra-media);
     }
     
     /* ==================== */
-    /* PÁGINA PRINCIPAL */
+    /* PÁGINA PRINCIPAL - FONDO DE GOTAS Y ESTILOS */
     /* ==================== */
     body {
-      background-color: var(--fondo-oscuro);
-      color: var(--texto-claro);
-      font-family: 'Cinzel', serif;
+      background-color: var(--fondo-beige);
+      color: var(--texto-oscuro);
+      font-family: 'Inter', sans-serif;
       margin: 0;
       padding: 0;
       overflow-x: hidden;
-      background-image: 
-        radial-gradient(circle at 10% 20%, rgba(212, 175, 55, 0.05) 0%, transparent 20%),
-        radial-gradient(circle at 90% 80%, rgba(184, 154, 90, 0.05) 0%, transparent 20%);
-      background-attachment: fixed;
+      line-height: 1.7;
       position: relative;
-      padding-bottom: 100px;
+    }
+    
+    /* FONDO DE GOTAS PARA LA PÁGINA PRINCIPAL */
+    .main-dropping-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      z-index: -1;
+      pointer-events: none;
+    }
+    
+    .main-drop {
+      position: absolute;
+      top: -50px;
+      width: 2px;
+      height: 80px;
+      background: linear-gradient(
+        to bottom, 
+        rgba(168, 139, 107, 0) 0%, 
+        rgba(168, 139, 107, 0.4) 20%, 
+        rgba(139, 115, 85, 0.6) 40%,
+        rgba(168, 139, 107, 0.5) 60%,
+        rgba(139, 115, 85, 0.3) 80%,
+        rgba(168, 139, 107, 0) 100%
+      );
+      border-radius: 50% 50% 60% 60%;
+      animation: main-drop-fall linear infinite;
+      filter: blur(0.8px);
+      opacity: 0;
+    }
+    
+    @keyframes main-drop-fall {
+      0% {
+        transform: translateY(-100px) rotate(0deg) scale(0.9);
+        opacity: 0;
+      }
+      10% {
+        opacity: 0.7;
+        transform: translateY(-80px) rotate(0.5deg) scale(1);
+      }
+      40% {
+        opacity: 0.9;
+      }
+      60% {
+        opacity: 0.8;
+      }
+      80% {
+        opacity: 0.5;
+      }
+      100% {
+        transform: translateY(100vh) rotate(1deg) scale(1.1);
+        opacity: 0;
+      }
+    }
+    
+    /* Gota especial más grande y dorada */
+    .special-drop {
+      position: absolute;
+      top: -80px;
+      width: 3px;
+      height: 120px;
+      background: linear-gradient(
+        to bottom, 
+        rgba(184, 154, 90, 0) 0%, 
+        rgba(184, 154, 90, 0.5) 20%, 
+        rgba(196, 169, 98, 0.7) 40%,
+        rgba(184, 154, 90, 0.6) 60%,
+        rgba(168, 139, 107, 0.3) 80%,
+        rgba(184, 154, 90, 0) 100%
+      );
+      border-radius: 50% 50% 70% 70%;
+      animation: special-drop-fall linear infinite;
+      filter: blur(1px);
+      opacity: 0;
+    }
+    
+    @keyframes special-drop-fall {
+      0% {
+        transform: translateY(-150px) rotate(0deg) scale(0.9);
+        opacity: 0;
+      }
+      15% {
+        opacity: 0.8;
+        transform: translateY(-120px) rotate(0.8deg) scale(1);
+      }
+      50% {
+        opacity: 0.9;
+      }
+      70% {
+        opacity: 0.7;
+      }
+      90% {
+        opacity: 0.4;
+      }
+      100% {
+        transform: translateY(100vh) rotate(1.5deg) scale(1.2);
+        opacity: 0;
+      }
     }
     
     h1, h2, h3, h4, h5, h6 {
-      color: var(--texto-oro);
-      font-family: 'MedievalSharp', cursive;
-      text-shadow: 1px 1px 3px var(--sombra-negra);
+      color: var(--cafe-oscuro);
+      font-family: 'Playfair Display', serif;
+      font-weight: 600;
+      letter-spacing: 0.3px;
     }
     
     /* ==================== */
-    /* ENCABEZADO */
+    /* ENCABEZADO - ELEGANTE CON LOGO A LA IZQUIERDA */
     /* ==================== */
     header {
-      background: linear-gradient(to bottom, var(--fondo-card), var(--fondo-semi)) !important;
-      border-bottom: 3px solid var(--borde-oro);
+      background: var(--gradiente-beige);
+      border-bottom: 1px solid var(--borde-beige);
       position: relative;
-      overflow: hidden;
-      box-shadow: 0 4px 12px var(--sombra-negra);
-      padding: 20px 0;
+      padding: 30px 0;
+      box-shadow: 0 4px 20px var(--sombra-suave);
+      z-index: 10;
+    }
+    
+    .header-container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    
+    .logo-section {
+      display: flex;
+      align-items: center;
+      gap: 20px;
     }
     
     .logo {
-      max-height: 120px;
-      filter: drop-shadow(0 4px 8px rgba(212, 175, 55, 0.4));
-      transition: transform 0.3s ease;
+      max-height: 80px;
+      filter: drop-shadow(0 2px 4px rgba(140, 115, 85, 0.2));
+      transition: all 0.4s ease;
+      padding: 8px;
+      background: rgba(255, 255, 255, 0.7);
+      border-radius: 10px;
+      border: 1px solid var(--borde-beige);
     }
     
     .logo:hover {
       transform: scale(1.05);
+      box-shadow: 0 6px 15px var(--sombra-suave);
     }
     
-    .main-title {
-      color: var(--dorado-brillante);
-      text-shadow: 
-        2px 2px 4px var(--sombra-negra),
-        0 0 20px rgba(212, 175, 55, 0.4);
-      font-size: 2.8rem;
-      margin-bottom: 10px;
+    .brand-text {
+      display: flex;
+      flex-direction: column;
     }
     
-    .lead {
-      color: var(--texto-medio) !important;
-      font-size: 1.2rem;
+    .brand-title {
+      color: var(--cafe-oscuro);
+      font-size: 1.8rem;
+      margin: 0;
+      font-weight: 700;
+      line-height: 1.2;
     }
     
-    /* ==================== */
-    /* SECCIONES */
-    /* ==================== */
-    section {
-      background-color: var(--fondo-card);
-      border: 1px solid var(--borde-oro);
-      border-radius: 10px;
-      padding: 30px;
-      margin-bottom: 30px;
-      box-shadow: 0 5px 20px var(--sombra-negra);
-      position: relative;
-      overflow: hidden;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-    
-    section:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.8);
-      border-color: var(--dorado-brillante);
-    }
-    
-    section h2 {
-      position: relative;
-      padding-bottom: 15px;
-      margin-bottom: 25px;
-      border-bottom: 2px solid var(--borde-oro);
-    }
-    
-    section h2 i {
-      color: var(--dorado-brillante);
-      margin-right: 10px;
-    }
-    
-    /* ==================== */
-    /* LISTAS */
-    /* ==================== */
-    ul {
-      list-style-type: none;
-      padding-left: 0;
-    }
-    
-    ul li {
-      padding: 10px 0;
-      position: relative;
-      padding-left: 35px;
+    .brand-tagline {
       color: var(--texto-medio);
-      font-size: 1.05rem;
+      font-size: 1rem;
+      margin: 5px 0 0 0;
+      font-weight: 400;
     }
     
-    ul li::before {
-      content: "✦";
-      color: var(--dorado-brillante);
-      font-size: 1.3em;
-      position: absolute;
-      left: 0;
-      top: 10px;
+    .header-platforms {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 10px;
     }
     
-    ul li:hover {
-      transform: translateX(5px);
-      color: var(--texto-claro);
-      transition: transform 0.2s ease, color 0.2s ease;
+    .platform-tags {
+      display: flex;
+      gap: 10px;
     }
     
-    /* ==================== */
-    /* PLATAFORMAS */
-    /* ==================== */
-    .platforms-info {
-      background-color: rgba(26, 26, 26, 0.7);
-      border: 1px solid var(--borde-oro);
-      border-radius: 8px;
-      padding: 15px;
-      margin-top: 20px;
-      text-align: center;
+    .platform-tag {
+      background: var(--gradiente-cafe);
+      color: var(--cafe-oscuro);
+      padding: 6px 18px;
+      border-radius: 20px;
+      font-weight: 600;
+      font-size: 0.85rem;
+      border: 1px solid var(--borde-cafe);
+      transition: all 0.3s ease;
+      box-shadow: 0 3px 8px var(--sombra-suave);
     }
     
-    .platforms-info h6 {
-      color: var(--dorado-brillante);
-      margin-bottom: 10px;
-    }
-    
-    /* ==================== */
-    /* TESTIMONIOS */
-    /* ==================== */
-    .testimonial-card {
-      background: linear-gradient(to bottom right, var(--fondo-card), var(--fondo-semi));
-      border: 1px solid var(--borde-oro);
-      border-radius: 10px;
-      box-shadow: 0 5px 15px var(--sombra-negra);
-      padding: 25px;
-    }
-    
-    .stars {
-      color: var(--dorado-brillante);
-      font-size: 1.2rem;
-      margin-bottom: 15px;
-    }
-    
-    /* ==================== */
-    /* FORMULARIO */
-    /* ==================== */
-    .form-control {
-      background-color: var(--fondo-semi);
-      border: 1px solid var(--borde-oro);
-      color: var(--texto-claro);
-      transition: all 0.3s;
-    }
-    
-    .form-control:focus {
-      background-color: var(--fondo-card);
-      border-color: var(--dorado-brillante);
-      color: var(--texto-claro);
-      box-shadow: 0 0 0 0.25rem rgba(212, 175, 55, 0.25);
-    }
-    
-    .contact-info {
-      background: linear-gradient(to bottom right, var(--fondo-card), var(--fondo-semi));
-      border: 1px solid var(--borde-oro);
-      border-radius: 10px;
-      box-shadow: 0 5px 15px var(--sombra-negra);
-      padding: 25px;
-      height: 100%;
-    }
-    
-    /* ==================== */
-    /* BOTONES WHATSAPP */
-    /* ==================== */
-    .btn-whatsapp {
-      background: linear-gradient(45deg, #25D366, #128C7E) !important;
-      border: none !important;
-      color: white !important;
-      font-weight: bold;
-      transition: all 0.3s;
-      position: relative;
-      z-index: 1;
-      box-shadow: 0 4px 10px rgba(37, 211, 102, 0.3);
-    }
-    
-    .btn-whatsapp:hover {
-      background: linear-gradient(45deg, #128C7E, #25D366) !important;
-      color: white !important;
-      transform: translateY(-2px);
-      box-shadow: 0 6px 15px rgba(37, 211, 102, 0.5);
-    }
-    
-    /* ==================== */
-    /* BOTÓN PRINCIPAL */
-    /* ==================== */
-    .btn-main {
-      background: linear-gradient(45deg, var(--borde-oro), var(--borde-oro-oscuro));
-      border: 2px solid var(--dorado-brillante);
-      color: var(--fondo-oscuro);
-      font-weight: bold;
-      padding: 12px 30px;
-      font-size: 1.2rem;
-      transition: all 0.3s;
-      display: inline-block;
-      text-align: center;
-      margin: 10px 0;
-    }
-    
-    .btn-main:hover {
-      background: linear-gradient(45deg, var(--dorado-brillante), var(--borde-oro));
-      border-color: var(--dorado-brillante);
-      color: var(--fondo-oscuro);
+    .platform-tag:hover {
+      background: var(--gradiente-elegante);
+      color: white;
       transform: translateY(-3px);
-      box-shadow: 0 8px 20px var(--sombra-oro);
+      box-shadow: 0 6px 15px var(--sombra-media);
+    }
+    
+    .header-subtitle {
+      color: var(--texto-claro);
+      font-size: 0.9rem;
+      text-align: right;
+      margin: 0;
     }
     
     /* ==================== */
-    /* FOOTER */
+    /* SECCIÓN CONTAINER */
     /* ==================== */
-    footer {
-      background: linear-gradient(to top, var(--fondo-semi), var(--fondo-oscuro)) !important;
-      border-top: 3px solid var(--borde-oro);
+    .section-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 60px 20px;
+      position: relative;
+      z-index: 5;
+    }
+    
+    .section-title {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+    
+    .section-title h2 {
+      font-size: 2.2rem;
+      position: relative;
+      padding-bottom: 20px;
+      margin-bottom: 20px;
+      display: inline-block;
+    }
+    
+    .section-title h2::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 70px;
+      height: 3px;
+      background: var(--gradiente-dorado-suave);
+      border-radius: 3px;
+    }
+    
+    .section-title p {
+      color: var(--texto-claro);
+      max-width: 700px;
+      margin: 0 auto;
+      font-size: 1.1rem;
+    }
+    
+    /* ==================== */
+    /* REQUISITOS - TARJETAS ELEGANTES */
+    /* ==================== */
+    .requirements-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px;
+      margin-bottom: 60px;
+    }
+    
+    .requirement-card {
+      background: white;
+      border-radius: 16px;
+      padding: 35px 30px;
+      text-align: center;
+      transition: all 0.4s ease;
+      border: 1px solid var(--borde-beige);
+      box-shadow: 0 8px 25px var(--sombra-suave);
       position: relative;
       overflow: hidden;
-      box-shadow: 0 -4px 12px var(--sombra-negra);
-      padding: 30px 0 20px;
+      z-index: 2;
+    }
+    
+    .requirement-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 5px;
+      background: var(--gradiente-dorado-suave);
+    }
+    
+    .requirement-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 35px var(--sombra-media);
+      border-color: var(--dorado-suave);
+    }
+    
+    .requirement-icon {
+      width: 70px;
+      height: 70px;
+      background: var(--gradiente-beige);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 25px;
+      color: var(--dorado-elegante);
+      font-size: 1.8rem;
+      border: 1px solid var(--borde-beige);
+    }
+    
+    .requirement-card h3 {
+      color: var(--cafe-oscuro);
+      margin-bottom: 15px;
+      font-size: 1.4rem;
+    }
+    
+    .requirement-card p {
+      color: var(--texto-medio);
+      margin: 0;
+      line-height: 1.6;
+    }
+    
+    .platforms-highlight {
+      background: var(--fondo-beige-oscuro);
+      border-radius: 12px;
+      padding: 25px;
+      text-align: center;
+      border: 1px solid var(--borde-beige);
+      max-width: 800px;
+      margin: 40px auto 0;
+      z-index: 2;
+      position: relative;
+    }
+    
+    .platforms-highlight h4 {
+      color: var(--cafe-oscuro);
+      margin-bottom: 10px;
+      font-size: 1.3rem;
+    }
+    
+    .platforms-highlight p {
+      color: var(--texto-medio);
+      margin: 0;
+    }
+    
+    /* ==================== */
+    /* BENEFICIOS - DISEÑO ELEGANTE */
+    /* ==================== */
+    .benefits-section {
+      background: var(--fondo-beige-oscuro);
+      border-radius: 20px;
+      padding: 60px 40px;
+      margin: 40px 0;
+      border: 1px solid var(--borde-beige);
+      position: relative;
+      z-index: 2;
+    }
+    
+    .benefits-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+      margin-top: 40px;
+    }
+    
+    .benefit-item {
+      background: white;
+      border-radius: 14px;
+      padding: 30px;
+      border: 1px solid var(--borde-beige);
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .benefit-item:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 12px 30px var(--sombra-suave);
+      border-color: var(--dorado-suave);
+    }
+    
+    .benefit-number {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      width: 40px;
+      height: 40px;
+      background: var(--gradiente-beige);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--dorado-elegante);
+      font-weight: 700;
+      font-size: 1.2rem;
+      border: 1px solid var(--borde-beige);
+    }
+    
+    .benefit-item h3 {
+      color: var(--cafe-oscuro);
+      margin-bottom: 15px;
+      font-size: 1.3rem;
+      padding-right: 50px;
+    }
+    
+    .benefit-item p {
+      color: var(--texto-medio);
+      margin: 0;
+    }
+    
+    .benefits-cta {
+      text-align: center;
       margin-top: 50px;
     }
     
-    footer p, footer h5 {
-      color: var(--texto-claro) !important;
+    .btn-elegant {
+      display: inline-block;
+      background: var(--gradiente-elegante);
+      color: white;
+      padding: 16px 40px;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 1.1rem;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 6px 20px var(--sombra-media);
     }
     
-    .social-links a {
-      color: var(--texto-oro);
-      font-size: 1.5rem;
-      margin: 0 10px;
-      transition: all 0.3s;
+    .btn-elegant:hover {
+      background: var(--gradiente-dorado-suave);
+      transform: translateY(-5px);
+      color: white;
+      box-shadow: 0 10px 30px var(--sombra-media);
     }
     
-    .social-links a:hover {
-      color: var(--dorado-brillante);
-      transform: scale(1.2);
+    /* ==================== */
+    /* TESTIMONIOS - ELEGANTES */
+    /* ==================== */
+    .testimonials-container {
+      position: relative;
+      padding: 20px 0 50px;
+      z-index: 2;
+    }
+    
+    .testimonial-slider {
+      display: flex;
+      overflow-x: auto;
+      gap: 30px;
+      padding: 20px 10px 40px;
+      scrollbar-width: thin;
+      scrollbar-color: var(--borde-cafe) var(--fondo-beige);
+    }
+    
+    .testimonial-slider::-webkit-scrollbar {
+      height: 8px;
+    }
+    
+    .testimonial-slider::-webkit-scrollbar-track {
+      background: var(--fondo-beige);
+      border-radius: 4px;
+    }
+    
+    .testimonial-slider::-webkit-scrollbar-thumb {
+      background: var(--borde-cafe);
+      border-radius: 4px;
+    }
+    
+    .testimonial-card {
+      background: white;
+      border-radius: 16px;
+      padding: 35px;
+      min-width: 380px;
+      border: 1px solid var(--borde-beige);
+      box-shadow: 0 8px 25px var(--sombra-suave);
+      transition: all 0.3s ease;
+    }
+    
+    .testimonial-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 15px 35px var(--sombra-media);
+    }
+    
+    .stars {
+      color: var(--dorado-suave);
+      font-size: 1.2rem;
+      margin-bottom: 20px;
+    }
+    
+    .testimonial-text {
+      color: var(--texto-oscuro);
+      font-style: italic;
+      margin-bottom: 25px;
+      line-height: 1.7;
+      position: relative;
+      padding-left: 20px;
+    }
+    
+    .testimonial-text::before {
+      content: '"';
+      position: absolute;
+      left: 0;
+      top: -10px;
+      font-size: 3rem;
+      color: var(--borde-beige);
+      font-family: serif;
+      line-height: 1;
+    }
+    
+    .testimonial-author {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      padding-top: 20px;
+      border-top: 1px solid var(--borde-beige);
+    }
+    
+    .author-avatar {
+      width: 50px;
+      height: 50px;
+      background: var(--gradiente-beige);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--cafe-oscuro);
+      font-weight: 700;
+      font-size: 1.2rem;
+      border: 1px solid var(--borde-beige);
+    }
+    
+    .author-info h4 {
+      color: var(--cafe-oscuro);
+      margin: 0;
+      font-size: 1.1rem;
+    }
+    
+    .author-info p {
+      color: var(--texto-claro);
+      margin: 0;
+      font-size: 0.9rem;
+    }
+    
+    /* ==================== */
+    /* CONTACTO - ELEGANTE */
+    /* ==================== */
+    .contact-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 50px;
+      align-items: start;
+    }
+    
+    .contact-form {
+      background: white;
+      padding: 40px;
+      border-radius: 16px;
+      border: 1px solid var(--borde-beige);
+      box-shadow: 0 8px 25px var(--sombra-suave);
+    }
+    
+    .contact-form h3 {
+      color: var(--cafe-oscuro);
+      margin-bottom: 30px;
+      font-size: 1.6rem;
+      position: relative;
+      padding-bottom: 15px;
+    }
+    
+    .contact-form h3::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 50px;
+      height: 3px;
+      background: var(--gradiente-dorado-suave);
+      border-radius: 3px;
+    }
+    
+    .form-group {
+      margin-bottom: 25px;
+    }
+    
+    .form-label {
+      color: var(--cafe-oscuro);
+      margin-bottom: 8px;
+      font-weight: 500;
+      display: block;
+    }
+    
+    .form-control {
+      background: var(--fondo-beige);
+      border: 1px solid var(--borde-beige);
+      color: var(--texto-oscuro);
+      border-radius: 8px;
+      padding: 12px 15px;
+      width: 100%;
+      transition: all 0.3s ease;
+      font-family: 'Inter', sans-serif;
+    }
+    
+    .form-control:focus {
+      outline: none;
+      border-color: var(--dorado-suave);
+      box-shadow: 0 0 0 3px rgba(184, 154, 90, 0.1);
+    }
+    
+    .contact-info {
+      background: white;
+      padding: 40px;
+      border-radius: 16px;
+      border: 1px solid var(--borde-beige);
+      box-shadow: 0 8px 25px var(--sombra-suave);
+    }
+    
+    .contact-info h3 {
+      color: var(--cafe-oscuro);
+      margin-bottom: 30px;
+      font-size: 1.6rem;
+      position: relative;
+      padding-bottom: 15px;
+    }
+    
+    .contact-info h3::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 50px;
+      height: 3px;
+      background: var(--gradiente-dorado-suave);
+      border-radius: 3px;
+    }
+    
+    .contact-methods {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    
+    .contact-method {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      padding: 20px;
+      background: var(--fondo-beige);
+      border-radius: 10px;
+      transition: all 0.3s ease;
+      border: 1px solid transparent;
+    }
+    
+    .contact-method:hover {
+      background: white;
+      border-color: var(--borde-beige);
+      transform: translateX(5px);
+    }
+    
+    .contact-icon {
+      width: 50px;
+      height: 50px;
+      background: var(--gradiente-beige);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--dorado-elegante);
+      font-size: 1.3rem;
+      border: 1px solid var(--borde-beige);
+    }
+    
+    .contact-details h4 {
+      color: var(--cafe-oscuro);
+      margin: 0 0 5px 0;
+      font-size: 1.1rem;
+    }
+    
+    .contact-details p, 
+    .contact-details a {
+      color: var(--texto-medio);
+      margin: 0;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+    
+    .contact-details a:hover {
+      color: var(--dorado-elegante);
+    }
+    
+    /* ==================== */
+    /* CTA FINAL - ELEGANTE */
+    /* ==================== */
+    .cta-section {
+      text-align: center;
+      padding: 70px 40px;
+      background: var(--gradiente-beige);
+      border-radius: 20px;
+      margin: 60px 0;
+      border: 1px solid var(--borde-beige);
+      position: relative;
+      overflow: hidden;
+      z-index: 2;
+    }
+    
+    .cta-title {
+      font-size: 2.2rem;
+      margin-bottom: 20px;
+      color: var(--cafe-oscuro);
+    }
+    
+    .cta-text {
+      color: var(--texto-medio);
+      max-width: 700px;
+      margin: 0 auto 40px;
+      font-size: 1.1rem;
+    }
+    
+    .cta-button {
+      display: inline-block;
+      background: var(--gradiente-elegante);
+      color: white;
+      padding: 18px 45px;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 1.2rem;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 8px 25px var(--sombra-media);
+    }
+    
+    .cta-button:hover {
+      background: var(--gradiente-dorado-suave);
+      transform: translateY(-5px);
+      box-shadow: 0 12px 35px var(--sombra-media);
+      color: white;
+    }
+    
+    /* ==================== */
+    /* FOOTER - ELEGANTE */
+    /* ==================== */
+    footer {
+      background: var(--fondo-beige-oscuro);
+      border-top: 1px solid var(--borde-beige);
+      padding: 60px 0 30px;
+      margin-top: 40px;
+      position: relative;
+      z-index: 2;
+    }
+    
+    .footer-content {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 40px;
+      margin-bottom: 40px;
+    }
+    
+    .footer-logo {
+      max-height: 70px;
+      margin-bottom: 20px;
+      filter: drop-shadow(0 2px 4px rgba(140, 115, 85, 0.2));
+    }
+    
+    .footer-section h4 {
+      color: var(--cafe-oscuro);
+      margin-bottom: 20px;
+      font-size: 1.2rem;
+      position: relative;
+      padding-bottom: 10px;
+    }
+    
+    .footer-section h4::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 40px;
+      height: 2px;
+      background: var(--gradiente-dorado-suave);
+      border-radius: 2px;
+    }
+    
+    .footer-links {
+      list-style: none;
+      padding: 0;
+    }
+    
+    .footer-links li {
+      margin-bottom: 12px;
+    }
+    
+    .footer-links a {
+      color: var(--texto-medio);
+      text-decoration: none;
+      transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .footer-links a:hover {
+      color: var(--dorado-elegante);
+      transform: translateX(5px);
+    }
+    
+    .copyright {
+      text-align: center;
+      padding-top: 30px;
+      border-top: 1px solid var(--borde-beige);
+      color: var(--texto-claro);
+      font-size: 0.9rem;
     }
     
     /* ==================== */
     /* RESPONSIVE */
     /* ==================== */
-    @media (max-width: 768px) {
-      .preloader-title {
-        font-size: 2.5rem;
+    @media (max-width: 992px) {
+      .contact-container {
+        grid-template-columns: 1fr;
       }
       
-      .preloader-logo {
-        max-height: 80px;
+      .benefits-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      
+      .header-container {
+        flex-direction: column;
+        gap: 20px;
+        text-align: center;
+      }
+      
+      .logo-section {
+        flex-direction: column;
+        text-align: center;
+      }
+      
+      .brand-text {
+        align-items: center;
+      }
+      
+      .header-platforms {
+        align-items: center;
+        text-align: center;
+      }
+      
+      .platform-tags {
+        justify-content: center;
+      }
+      
+      .header-subtitle {
+        text-align: center;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .main-title {
+        font-size: 2.2rem;
+      }
+      
+      .section-title h2 {
+        font-size: 1.8rem;
+      }
+      
+      .requirements-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .benefits-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .testimonial-card {
+        min-width: 300px;
+      }
+      
+      .whatsapp-fixed-btn {
+        width: 60px;
+        height: 60px;
+        font-size: 28px;
+        bottom: 20px;
+        right: 20px;
+      }
+      
+      .cta-title {
+        font-size: 1.8rem;
+      }
+      
+      .btn-elegant, .cta-button {
+        padding: 14px 35px;
+        font-size: 1.1rem;
+      }
+      
+      .preloader-title {
+        font-size: 2.2rem;
       }
       
       .welcome-title {
-        font-size: 2.5rem;
+        font-size: 2.4rem;
       }
       
-      .welcome-logo {
-        max-height: 80px;
+      .welcome-subtitle {
+        font-size: 1.2rem;
+      }
+      
+      /* Reducir número de gotas en móviles */
+      .main-dropping-bg .main-drop,
+      .main-dropping-bg .special-drop {
+        animation-duration: 8s !important;
+      }
+    }
+    
+    @media (max-width: 576px) {
+      .main-title {
+        font-size: 1.8rem;
+      }
+      
+      .section-container {
+        padding: 40px 15px;
+      }
+      
+      .contact-form,
+      .contact-info {
+        padding: 30px 25px;
+      }
+      
+      .benefits-section {
+        padding: 40px 25px;
+      }
+      
+      .cta-section {
+        padding: 50px 25px;
+      }
+      
+      .platform-tags {
+        flex-direction: column;
+        align-items: center;
+      }
+      
+      .platform-tag {
+        width: 100%;
+        max-width: 250px;
+      }
+      
+      .preloader-container,
+      .welcome-container {
+        padding: 30px 20px;
       }
       
       .enter-button {
@@ -624,29 +1389,8 @@
         font-size: 1.1rem;
       }
       
-      .main-title {
-        font-size: 2rem;
-      }
-      
-      .lead {
-        font-size: 1rem;
-      }
-      
-      .logo {
-        max-height: 80px;
-        margin-bottom: 15px;
-      }
-      
-      section {
-        padding: 20px;
-      }
-      
-      .whatsapp-fixed-btn {
-        width: 60px;
-        height: 60px;
-        font-size: 30px;
-        bottom: 20px;
-        right: 20px;
+      .brand-title {
+        font-size: 1.5rem;
       }
     }
   </style>
@@ -654,20 +1398,26 @@
 <body>
   
   <!-- ==================== -->
-  <!-- PRELOADER (5 SEGUNDOS) -->
+  <!-- PRELOADER (5 SEGUNDOS) - REDISEÑADO -->
   <!-- ==================== -->
   <div id="preloader">
     <div class="gold-drops" id="preloader-drops"></div>
-    <img src="media/ChatGPT Image Aug 31, 2025, 09_04_15 AM.png" alt="Logo Mercurio Studio" class="preloader-logo">
-    <h1 class="preloader-title">MERCURIO</h1>
-    <p class="loading-text">Cargando experiencia...</p>
-    <div class="loading-bar">
-      <div class="loading-progress" id="loading-progress"></div>
+    <div class="preloader-container">
+      <img src="media/ChatGPT Image Aug 31, 2025, 09_04_15 AM.png" alt="Logo Mercurio Studio" class="preloader-logo">
+      <h1 class="preloader-title">MERCURIO STUDIO</h1>
+      <p class="loading-text">Preparando tu experiencia exclusiva...</p>
+      
+      <!-- PRELOADER CIRCULAR -->
+      <div class="circular-loader">
+        <div class="circular-loader-inner"></div>
+        <div class="loader-particles" id="loader-particles"></div>
+        <div class="loader-percentage" id="loader-percentage">0%</div>
+      </div>
     </div>
   </div>
 
   <!-- ==================== -->
-  <!-- PANTALLA DE BIENVENIDA -->
+  <!-- PANTALLA DE BIENVENIDA - REDISEÑADA -->
   <!-- ==================== -->
   <div id="welcome-screen">
     <div class="gold-drops" id="welcome-drops"></div>
@@ -700,235 +1450,382 @@
   </a>
 
   <!-- ==================== -->
-  <!-- PÁGINA PRINCIPAL -->
+  <!-- PÁGINA PRINCIPAL - DISEÑO ELEGANTE CON FONDO DE GOTAS -->
   <!-- ==================== -->
   <div id="main-page" style="display: none;">
+    <!-- FONDO DE GOTAS ANIMADAS -->
+    <div class="main-dropping-bg" id="main-dropping-bg"></div>
+
     <!-- ENCABEZADO -->
     <header>
-      <div class="container">
-        <div class="row align-items-center">
-          <div class="col-md-4 text-center mb-4 mb-md-0">
-            <img src="media/ChatGPT Image Aug 31, 2025, 09_04_15 AM.png" alt="Logo Mercurio Studio" class="logo">
+      <div class="header-container">
+        <div class="logo-section">
+          <img src="media/ChatGPT Image Aug 31, 2025, 09_04_15 AM.png" alt="Logo Mercurio Studio" class="logo">
+          <div class="brand-text">
+            <h1 class="brand-title">Mercurio Studio</h1>
+            <p class="brand-tagline">La plataforma líder para modelos webcam profesionales</p>
           </div>
-          <div class="col-md-8 text-center text-md-start">
-            <h1 class="main-title">Mercurio Studio</h1>
-            <p class="lead">La plataforma líder para modelos webcam profesionales</p>
-            <p class="mb-0"><strong>Plataformas:</strong> Flirt4Free y LiveJasmin</p>
+        </div>
+        
+        <div class="header-platforms">
+          <div class="platform-tags">
+            <span class="platform-tag">Flirt4Free</span>
+            <span class="platform-tag">LiveJasmin</span>
           </div>
+          <p class="header-subtitle">Plataformas exclusivas administradas</p>
         </div>
       </div>
     </header>
 
-    <main class="container my-5">
+    <!-- SECCIÓN 1: REQUISITOS -->
+    <section class="section-container">
+      <div class="section-title">
+        <h2>¿Qué necesitas para ser modelo?</h2>
+        <p>Requisitos esenciales para comenzar una carrera exitosa como modelo webcam profesional</p>
+      </div>
       
-      <!-- SECCIÓN 1: REQUISITOS -->
-      <section>
-        <h2><i class="fas fa-check-circle"></i>¿Qué necesitas para ser modelo?</h2>
-        <div class="row">
-          <div class="col-md-6">
-            <ul>
-              <li>Buena conexión a Internet</li>
-              <li>Computador con buena RAM (ideal para multitarea)</li>
-              <li>Cámara web superior a 1080p</li>
-            </ul>
+      <div class="requirements-grid">
+        <div class="requirement-card">
+          <div class="requirement-icon">
+            <i class="fas fa-wifi"></i>
           </div>
-          <div class="col-md-6">
-            <ul>
-              <li>Espacio iluminado y adecuado</li>
-              <li>Disponibilidad de mínimo 24 horas semanales</li>
-              <li>Cumplir 2 quincenas mínimas para activar beneficios</li>
-            </ul>
+          <h3>Buena conexión a Internet</h3>
+          <p>Conectividad estable y de alta velocidad para transmisiones fluidas y sin interrupciones</p>
+        </div>
+        
+        <div class="requirement-card">
+          <div class="requirement-icon">
+            <i class="fas fa-laptop"></i>
           </div>
+          <h3>Computador con buena RAM</h3>
+          <p>Ideal para multitarea y transmisiones en alta definición sin problemas de rendimiento</p>
         </div>
-        <div class="platforms-info">
-          <h6>Plataformas de trabajo:</h6>
-          <p class="mb-0">Flirt4Free y LiveJasmin - Únicas plataformas administradas por Mercurio Studio</p>
+        
+        <div class="requirement-card">
+          <div class="requirement-icon">
+            <i class="fas fa-video"></i>
+          </div>
+          <h3>Cámara web superior a 1080p</h3>
+          <p>Calidad de imagen excepcional para destacar y ofrecer la mejor experiencia visual</p>
         </div>
-      </section>
+        
+        <div class="requirement-card">
+          <div class="requirement-icon">
+            <i class="fas fa-lightbulb"></i>
+          </div>
+          <h3>Espacio iluminado y adecuado</h3>
+          <p>Ambiente profesional y bien iluminado que mejora la presentación y comodidad</p>
+        </div>
+        
+        <div class="requirement-card">
+          <div class="requirement-icon">
+            <i class="fas fa-clock"></i>
+          </div>
+          <h3>Disponibilidad mínima semanal</h3>
+          <p>Mínimo 24 horas semanales para construir audiencia y maximizar ingresos</p>
+        </div>
+        
+        <div class="requirement-card">
+          <div class="requirement-icon">
+            <i class="fas fa-calendar-check"></i>
+          </div>
+          <h3>Compromiso inicial</h3>
+          <p>Cumplir 2 quincenas mínimas para activar todos los beneficios del programa</p>
+        </div>
+      </div>
+      
+      <div class="platforms-highlight">
+        <h4>Plataformas exclusivas de trabajo</h4>
+        <p>Flirt4Free y LiveJasmin - Únicas plataformas administradas por Mercurio Studio</p>
+      </div>
+    </section>
 
-      <!-- SECCIÓN 2: BENEFICIOS -->
-      <section>
-        <h2><i class="fas fa-gift"></i>Beneficios</h2>
-        <div class="row">
-          <div class="col-md-6">
-            <ul>
-              <li>Pagos quincenales directos a tu cuenta bancaria local</li>
-              <li>Porcentaje fijo satélite del 10%</li>
-              <li>Página web personalizada incluida (personalizada)</li>
-            </ul>
+    <!-- SECCIÓN 2: BENEFICIOS -->
+    <div class="benefits-section">
+      <div class="section-container">
+        <div class="section-title">
+          <h2>Beneficios Exclusivos</h2>
+          <p>Ventajas que hacen de Mercurio Studio la mejor opción para modelos webcam</p>
+        </div>
+        
+        <div class="benefits-grid">
+          <div class="benefit-item">
+            <div class="benefit-number">01</div>
+            <h3>Pagos quincenales directos</h3>
+            <p>Recibe tus ganancias directamente en tu cuenta bancaria local cada 15 días sin intermediarios</p>
           </div>
-          <div class="col-md-6">
-            <ul>
-              <li>Canal de Telegram con sistema de pago vía PayPal (Automatizado)</li>
-              <li>Acceso a créditos Lovense al cumplir metas</li>
-              <li>Soporte técnico y acompañamiento continuo</li>
-            </ul>
+          
+          <div class="benefit-item">
+            <div class="benefit-number">02</div>
+            <h3>Porcentaje fijo satélite del 10%</h3>
+            <p>Comisión justa, transparente y sin sorpresas. Sabes exactamente cuánto ganas desde el inicio</p>
+          </div>
+          
+          <div class="benefit-item">
+            <div class="benefit-number">03</div>
+            <h3>Página web personalizada incluida</h3>
+            <p>Presencia online profesional diseñada específicamente para potenciar tu marca personal</p>
+          </div>
+          
+          <div class="benefit-item">
+            <div class="benefit-number">04</div>
+            <h3>Canal de Telegram automatizado</h3>
+            <p>Sistema de pago vía PayPal automatizado para mayor comodidad y eficiencia en tus transacciones</p>
+          </div>
+          
+          <div class="benefit-item">
+            <div class="benefit-number">05</div>
+            <h3>Créditos Lovense por metas</h3>
+            <p>Acceso a tecnología premium interactiva al cumplir objetivos establecidos de crecimiento</p>
+          </div>
+          
+          <div class="benefit-item">
+            <div class="benefit-number">06</div>
+            <h3>Soporte técnico continuo</h3>
+            <p>Acompañamiento y asistencia permanente para tu crecimiento profesional y desarrollo</p>
           </div>
         </div>
-        <div class="text-center mt-4">
+        
+        <div class="benefits-cta">
           <a href="https://wa.me/573508312629?text=¡Hola!%20Quiero%20saber%20más%20sobre%20los%20beneficios%20de%20Mercurio%20Studio" 
-             class="btn btn-whatsapp btn-lg" 
+             class="btn-elegant" 
              target="_blank">
-            <i class="fab fa-whatsapp me-2"></i>Consulta nuestros beneficios
+            <i class="fab fa-whatsapp me-2"></i>Consulta todos nuestros beneficios
           </a>
         </div>
-      </section>
+      </div>
+    </div>
 
-      <!-- SECCIÓN 3: TESTIMONIOS -->
-      <section>
-        <h2><i class="fas fa-comment"></i>Testimonios de Modelos</h2>
-        <div class="row">
-          <div class="col-md-6 mb-4">
-            <div class="testimonial-card">
-              <div class="stars">
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-              </div>
-              <p class="fs-5">"Mercurio Studio me ayudó a comenzar mi carrera y ahora gano más de lo que esperaba! Las plataformas Flirt4Free y LiveJasmin son excelentes."</p>
-              <h5 class="mt-3">- Ana M.</h5>
-              <small>Modelo desde 2023</small>
-            </div>
-          </div>
-          <div class="col-md-6 mb-4">
-            <div class="testimonial-card">
-              <div class="stars">
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-              </div>
-              <p class="fs-5">"El soporte es increíble, siempre están disponibles para ayudar y los pagos son puntuales. Trabajar en Flirt4Free y LiveJasmin ha sido genial."</p>
-              <h5 class="mt-3">- Carlos P.</h5>
-              <small>Modelo desde 2024</small>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- SECCIÓN 4: CONTACTO -->
-      <section id="contacto">
-        <h2><i class="fas fa-envelope"></i>Formulario de Contacto</h2>
-        <div class="row">
-          <div class="col-md-6">
-            <form id="contactForm">
-              <div class="mb-3">
-                <label for="nombre" class="form-label">Nombre</label>
-                <input type="text" class="form-control" id="nombre" required>
-              </div>
-              <div class="mb-3">
-                <label for="email" class="form-label">Email</label>
-                <input type="email" class="form-control" id="email" required>
-              </div>
-              <div class="mb-3">
-                <label for="telefono" class="form-label">Teléfono (opcional)</label>
-                <input type="tel" class="form-control" id="telefono">
-              </div>
-              <div class="mb-3">
-                <label for="mensaje" class="form-label">Mensaje</label>
-                <textarea class="form-control" id="mensaje" rows="3" required></textarea>
-              </div>
-              <button type="submit" class="btn btn-main">
-                <i class="fas fa-paper-plane me-2"></i>Enviar Mensaje
-              </button>
-            </form>
-          </div>
-          <div class="col-md-6">
-            <div class="contact-info">
-              <h4 class="mb-4">Otras formas de contacto</h4>
-              <ul class="list-unstyled">
-                <li class="mb-4">
-                  <a href="https://wa.me/573508312629?text=¡Hola!%20Estoy%20interesado%20en%20más%20información%20sobre%20Mercurio%20Studio." 
-                     class="btn btn-whatsapp d-block text-center py-3" 
-                     target="_blank">
-                    <i class="fab fa-whatsapp fa-lg me-2"></i>¡Contáctanos por WhatsApp!
-                  </a>
-                </li>
-                <li class="mb-3">
-                  <i class="fas fa-envelope fa-lg me-2"></i>
-                  <a href="mailto:matiaswhiat@mail.de" class="text-decoration-none">
-                    matiaswhiat@mail.de
-                  </a>
-                </li>
-                <li class="mb-3">
-                  <i class="fab fa-telegram fa-lg me-2"></i>
-                  <a href="https://t.me/matiaswhiat" class="text-decoration-none" target="_blank">
-                    @mercuriostudio
-                  </a>
-                </li>
-              </ul>
-              <div class="platforms-info mt-4">
-                <h6>Plataformas administradas:</h6>
-                <p class="mb-0">Flirt4Free y LiveJasmin</p>
-              </div>
-              <div class="social-links mt-4 text-center">
-                <a href="#" class="text-decoration-none"><i class="fab fa-instagram"></i></a>
-                <a href="#" class="text-decoration-none"><i class="fab fa-twitter"></i></a>
-                <a href="#" class="text-decoration-none"><i class="fab fa-facebook"></i></a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- LLAMADO A LA ACCIÓN -->
-      <section class="text-center py-5">
-        <h2 class="mb-4">¿Listo para comenzar tu carrera como modelo webcam?</h2>
-        <p class="lead mb-4">Únete a Mercurio Studio y trabaja con las mejores plataformas: Flirt4Free y LiveJasmin</p>
-        <a href="https://wa.me/573508312629?text=¡Hola!%20Quiero%20unirme%20a%20Mercurio%20Studio%20como%20modelo%20webcam.%20¿Podrías%20darme%20más%20información?" 
-           class="btn btn-whatsapp btn-lg px-5 py-3" 
-           target="_blank">
-          <i class="fab fa-whatsapp me-2"></i>¡Comienza ahora! Contáctanos por WhatsApp
-        </a>
-      </section>
+    <!-- SECCIÓN 3: TESTIMONIOS -->
+    <section class="section-container">
+      <div class="section-title">
+        <h2>Testimonios Reales</h2>
+        <p>Lo que dicen nuestros modelos sobre la experiencia con Mercurio Studio</p>
+      </div>
       
-    </main>
-
-    <!-- PIE DE PÁGINA -->
-    <footer>
-      <div class="container">
-        <div class="row align-items-center">
-          <div class="col-md-4 mb-4 mb-md-0">
-            <h5>Mercurio Studio</h5>
-            <p>La mejor plataforma para modelos webcam profesionales.</p>
-            <div class="platforms-info">
-              <h6>Plataformas:</h6>
-              <p class="mb-0">Flirt4Free y LiveJasmin</p>
-              <small>Únicas plataformas administradas</small>
+      <div class="testimonials-container">
+        <div class="testimonial-slider">
+          <!-- Testimonio 1 -->
+          <div class="testimonial-card">
+            <div class="stars">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+            </div>
+            <p class="testimonial-text">Mercurio Studio me ayudó a comenzar mi carrera y ahora gano más de lo que esperaba! Las plataformas Flirt4Free y LiveJasmin son excelentes.</p>
+            <div class="testimonial-author">
+              <div class="author-avatar">A</div>
+              <div class="author-info">
+                <h4>Ana M.</h4>
+                <p>Modelo desde 2023</p>
+              </div>
             </div>
           </div>
-          <div class="col-md-4 mb-4 mb-md-0 text-center">
-            <img src="media/ChatGPT Image Aug 31, 2025, 09_04_15 AM.png" alt="Logo Mercurio Studio" class="logo-medium mb-2" style="max-height: 70px;">
-            <p class="mb-0"><small>Whiat Company © 2016-2025</small></p>
+          
+          <!-- Testimonio 2 -->
+          <div class="testimonial-card">
+            <div class="stars">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+            </div>
+            <p class="testimonial-text">El soporte es increíble, siempre están disponibles para ayudar y los pagos son puntuales. Trabajar en Flirt4Free y LiveJasmin ha sido genial.</p>
+            <div class="testimonial-author">
+              <div class="author-avatar">C</div>
+              <div class="author-info">
+                <h4>Carlos P.</h4>
+                <p>Modelo desde 2024</p>
+              </div>
+            </div>
           </div>
-          <div class="col-md-4 text-md-end">
-            <h5>Contacto</h5>
-            <ul class="list-unstyled">
-              <li class="mb-2">
-                <a href="https://wa.me/573508312629" class="text-decoration-none" target="_blank">
-                  <i class="fab fa-whatsapp me-2"></i> +57 350 831 2629
-                </a>
-              </li>
-              <li>
-                <a href="mailto:matiaswhiat@mail.de" class="text-decoration-none">
-                  <i class="fas fa-envelope me-2"></i> matiaswhiat@mail.de
-                </a>
-              </li>
-            </ul>
-            <a href="https://wa.me/573508312629?text=¡Hola!%20Necesito%20más%20información%20sobre%20Mercurio%20Studio." 
-               class="btn btn-whatsapp btn-sm mt-2" 
-               target="_blank">
-              <i class="fab fa-whatsapp me-1"></i>Contactar ahora
-            </a>
+          
+          <!-- Testimonio 3 -->
+          <div class="testimonial-card">
+            <div class="stars">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+            </div>
+            <p class="testimonial-text">La página web personalizada hizo que mi marca personal creciera exponencialmente. Recomiendo Mercurio Studio al 100%.</p>
+            <div class="testimonial-author">
+              <div class="author-avatar">S</div>
+              <div class="author-info">
+                <h4>Sofía R.</h4>
+                <p>Modelo desde 2022</p>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Testimonio 4 -->
+          <div class="testimonial-card">
+            <div class="stars">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+            </div>
+            <p class="testimonial-text">Los créditos Lovense fueron un plus increíble. Mercurio Studio realmente se preocupa por nuestros ingresos y comodidad.</p>
+            <div class="testimonial-author">
+              <div class="author-avatar">M</div>
+              <div class="author-info">
+                <h4>Miguel A.</h4>
+                <p>Modelo desde 2023</p>
+              </div>
+            </div>
           </div>
         </div>
-        <hr class="my-4">
-        <div class="text-center">
-          <p class="mb-0">&copy; 2016 Mercurio Studio - Todos los derechos reservados.</p>
-          <p class="mb-0"><small>Trabajamos exclusivamente con Flirt4Free y LiveJasmin</small></p>
+      </div>
+    </section>
+
+    <!-- SECCIÓN 4: CONTACTO -->
+    <section class="section-container" id="contacto">
+      <div class="section-title">
+        <h2>Comienza Tu Carrera</h2>
+        <p>Contáctanos y da el primer paso hacia una carrera exitosa como modelo webcam</p>
+      </div>
+      
+      <div class="contact-container">
+        <!-- Formulario -->
+        <div class="contact-form">
+          <h3>Envía tu información</h3>
+          <form id="contactForm">
+            <div class="form-group">
+              <label class="form-label" for="nombre">Nombre completo</label>
+              <input type="text" class="form-control" id="nombre" required placeholder="Tu nombre">
+            </div>
+            
+            <div class="form-group">
+              <label class="form-label" for="email">Correo electrónico</label>
+              <input type="email" class="form-control" id="email" required placeholder="tu@email.com">
+            </div>
+            
+            <div class="form-group">
+              <label class="form-label" for="telefono">Teléfono (opcional)</label>
+              <input type="tel" class="form-control" id="telefono" placeholder="+57 300 123 4567">
+            </div>
+            
+            <div class="form-group">
+              <label class="form-label" for="mensaje">Mensaje</label>
+              <textarea class="form-control" id="mensaje" rows="4" required placeholder="Cuéntanos sobre ti y tu interés en ser modelo..."></textarea>
+            </div>
+            
+            <button type="submit" class="btn-elegant" style="width: 100%;">
+              <i class="fas fa-paper-plane me-2"></i>Enviar solicitud
+            </button>
+          </form>
+        </div>
+        
+        <!-- Información de contacto -->
+        <div class="contact-info">
+          <h3>Otras formas de contacto</h3>
+          
+          <div class="contact-methods">
+            <div class="contact-method">
+              <div class="contact-icon">
+                <i class="fab fa-whatsapp"></i>
+              </div>
+              <div class="contact-details">
+                <h4>WhatsApp</h4>
+                <a href="https://wa.me/573508312629" target="_blank">+57 350 831 2629</a>
+                <p>Respuesta rápida en horario laboral</p>
+              </div>
+            </div>
+            
+            <div class="contact-method">
+              <div class="contact-icon">
+                <i class="fas fa-envelope"></i>
+              </div>
+              <div class="contact-details">
+                <h4>Correo electrónico</h4>
+                <a href="mailto:matiaswhiat@mail.de">matiaswhiat@mail.de</a>
+                <p>Respuesta en menos de 24 horas</p>
+              </div>
+            </div>
+            
+            <div class="contact-method">
+              <div class="contact-icon">
+                <i class="fab fa-telegram"></i>
+              </div>
+              <div class="contact-details">
+                <h4>Telegram</h4>
+                <a href="https://t.me/matiaswhiat" target="_blank">@mercuriostudio</a>
+                <p>Canal oficial para modelos</p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="mt-5 pt-4 border-top" style="border-color: var(--borde-beige) !important;">
+            <h4 class="mb-3">Plataformas exclusivas</h4>
+            <div class="platform-tags">
+              <span class="platform-tag">Flirt4Free</span>
+              <span class="platform-tag">LiveJasmin</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA FINAL -->
+    <div class="section-container">
+      <div class="cta-section">
+        <h2 class="cta-title">¿Listo para transformar tu vida?</h2>
+        <p class="cta-text">Únete a la comunidad de modelos más exitosa y comienza a ganar como nunca antes imaginaste. Con Mercurio Studio, tu carrera profesional está garantizada.</p>
+        <a href="https://wa.me/573508312629?text=¡Hola!%20Quiero%20unirme%20a%20Mercurio%20Studio%20como%20modelo%20webcam.%20¿Podrías%20darme%20más%20información?" 
+           class="cta-button" 
+           target="_blank">
+          <i class="fab fa-whatsapp me-2"></i>¡Comienza ahora mismo!
+        </a>
+      </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+      <div class="section-container">
+        <div class="footer-content">
+          <div class="footer-section">
+            <img src="media/ChatGPT Image Aug 31, 2025, 09_04_15 AM.png" alt="Logo Mercurio Studio" class="footer-logo">
+            <p>La plataforma líder para modelos webcam profesionales. Trabajamos exclusivamente con Flirt4Free y LiveJasmin.</p>
+            <div class="platform-tags mt-3">
+              <span class="platform-tag">Flirt4Free</span>
+              <span class="platform-tag">LiveJasmin</span>
+            </div>
+          </div>
+          
+          <div class="footer-section">
+            <h4>Contacto rápido</h4>
+            <ul class="footer-links">
+              <li><a href="https://wa.me/573508312629" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a></li>
+              <li><a href="mailto:matiaswhiat@mail.de"><i class="fas fa-envelope"></i> Email</a></li>
+              <li><a href="https://t.me/matiaswhiat" target="_blank"><i class="fab fa-telegram"></i> Telegram</a></li>
+            </ul>
+          </div>
+          
+          <div class="footer-section">
+            <h4>Información</h4>
+            <ul class="footer-links">
+              <li><a href="#"><i class="fas fa-check-circle"></i> Requisitos</a></li>
+              <li><a href="#"><i class="fas fa-gift"></i> Beneficios</a></li>
+              <li><a href="#"><i class="fas fa-comment"></i> Testimonios</a></li>
+              <li><a href="#contacto"><i class="fas fa-envelope"></i> Contacto</a></li>
+            </ul>
+          </div>
+          
+          <div class="footer-section">
+            <h4>Whiat Company</h4>
+            <p>Innovando en el sector del entretenimiento digital desde 2016. Mercurio Studio es parte de nuestra familia de empresas dedicadas a potenciar talentos.</p>
+          </div>
+        </div>
+        
+        <div class="copyright">
+          <p>&copy; 2016-2025 Mercurio Studio. Todos los derechos reservados.</p>
+          <p>Trabajamos exclusivamente con Flirt4Free y LiveJasmin - Plataformas administradas</p>
         </div>
       </div>
     </footer>
@@ -950,22 +1847,101 @@
         const drop = document.createElement('div');
         drop.classList.add('gold-drop');
         
+        const left = Math.random() * 100;
+        drop.style.left = `${left}%`;
+        
+        const duration = 5 + Math.random() * 8;
+        drop.style.animationDuration = `${duration}s`;
+        
+        const delay = Math.random() * 5;
+        drop.style.animationDelay = `${delay}s`;
+        
+        drop.style.opacity = `${0.3 + Math.random() * 0.5}`;
+        
+        container.appendChild(drop);
+      }
+    }
+    
+    // ==================== //
+    // CREAR PARTÍCULAS PARA EL PRELOADER //
+    // ==================== //
+    
+    function createLoaderParticles() {
+      const container = document.getElementById('loader-particles');
+      if (!container) return;
+      
+      container.innerHTML = '';
+      const particleCount = 12;
+      
+      for (let i = 0; i < particleCount; i++) {
+        const particle = document.createElement('div');
+        particle.classList.add('particle');
+        
+        const angle = (i / particleCount) * Math.PI * 2;
+        const radius = 50;
+        
+        particle.style.transform = `rotate(${angle}rad) translate(${radius}px) rotate(-${angle}rad)`;
+        particle.style.animation = `particle-rotate ${3 + Math.random() * 2}s linear infinite`;
+        particle.style.animationDelay = `${Math.random() * 2}s`;
+        
+        container.appendChild(particle);
+      }
+    }
+    
+    // ==================== //
+    // CREAR FONDO DE GOTAS PARA PÁGINA PRINCIPAL //
+    // ==================== //
+    
+    function createMainDroppingBg() {
+      const container = document.getElementById('main-dropping-bg');
+      if (!container) return;
+      
+      container.innerHTML = '';
+      
+      // Crear gotas normales
+      for (let i = 0; i < 25; i++) {
+        const drop = document.createElement('div');
+        drop.classList.add('main-drop');
+        
         // Posición aleatoria
         const left = Math.random() * 100;
         drop.style.left = `${left}%`;
         
-        // Velocidad lenta y suave
-        const duration = 5 + Math.random() * 8;
+        // Velocidad lenta y suave (más lento que en preloader)
+        const duration = 6 + Math.random() * 10;
         drop.style.animationDuration = `${duration}s`;
         
         // Retraso aleatorio
-        const delay = Math.random() * 5;
+        const delay = Math.random() * 8;
         drop.style.animationDelay = `${delay}s`;
         
-        // Opacidad aleatoria
-        drop.style.opacity = `${0.3 + Math.random() * 0.5}`;
+        // Opacidad aleatoria (más visible que en preloader)
+        drop.style.opacity = `${0.4 + Math.random() * 0.5}`;
         
         container.appendChild(drop);
+      }
+      
+      // Crear gotas especiales más grandes y doradas
+      for (let i = 0; i < 8; i++) {
+        const specialDrop = document.createElement('div');
+        specialDrop.classList.add('special-drop');
+        
+        // Posición aleatoria
+        const left = Math.random() * 100;
+        specialDrop.style.left = `${left}%`;
+        
+        // Velocidad más lenta aún
+        const duration = 8 + Math.random() * 12;
+        specialDrop.style.animationDuration = `${duration}s`;
+        
+        // Retraso aleatorio
+        const delay = Math.random() * 10;
+        specialDrop.style.animationDelay = `${delay}s`;
+        
+        // Opacidad más visible
+        specialDrop.style.opacity = `${0.5 + Math.random() * 0.4}`;
+        
+        container.appendChild(specialDrop);
       }
     }
     
@@ -976,36 +1952,40 @@
     document.addEventListener('DOMContentLoaded', function() {
       console.log('DOM cargado - Iniciando secuencia...');
       
-      // 1. Crear gotas para el preloader
       createGoldDrops('preloader-drops', 20);
+      createLoaderParticles();
       
-      // 2. Simular carga de 5 segundos
       const preloader = document.getElementById('preloader');
-      const progressBar = document.getElementById('loading-progress');
-      const totalTime = 5000; // 5 segundos
+      const percentageElement = document.getElementById('loader-percentage');
+      const totalTime = 5000;
       const intervalTime = 50;
       const steps = totalTime / intervalTime;
       let currentStep = 0;
       
       const loadingInterval = setInterval(function() {
         currentStep++;
-        const progress = (currentStep / steps) * 100;
-        progressBar.style.width = `${progress}%`;
+        const progress = Math.min((currentStep / steps) * 100, 100);
+        
+        if (percentageElement) {
+          percentageElement.textContent = `${Math.floor(progress)}%`;
+        }
+        
+        if (progress >= 100 && percentageElement) {
+          percentageElement.style.color = '#ffd700';
+          percentageElement.style.textShadow = '0 0 10px rgba(255, 215, 0, 0.8)';
+        }
         
         if (currentStep >= steps) {
           clearInterval(loadingInterval);
           
-          // 3. Ocultar preloader después de 5 segundos
           setTimeout(function() {
             preloader.classList.add('hidden');
             
-            // 4. Mostrar pantalla de bienvenida
             setTimeout(function() {
               const welcomeScreen = document.getElementById('welcome-screen');
               createGoldDrops('welcome-drops', 30);
               welcomeScreen.classList.add('visible');
               
-              // Asegurar que el botón de entrada esté disponible
               const enterButton = document.getElementById('enter-button');
               if (enterButton) {
                 enterButton.addEventListener('click', enterMainPage);
@@ -1016,9 +1996,9 @@
       }, intervalTime);
     });
     
-    // ==================== //
+    // ==================== */
     // FUNCIÓN PARA ENTRAR A LA PÁGINA PRINCIPAL //
-    // ==================== //
+    // ==================== */
     
     function enterMainPage() {
       console.log('Ingresando a la página principal...');
@@ -1028,21 +2008,19 @@
       const whatsappBtn = document.getElementById('whatsapp-btn');
       const enterButton = document.getElementById('enter-button');
       
-      // Efecto en el botón
       if (enterButton) {
         enterButton.style.animation = 'none';
         enterButton.style.transform = 'scale(0.95)';
+        enterButton.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>INGRESANDO...';
+        enterButton.disabled = true;
       }
       
-      // 1. Ocultar pantalla de bienvenida
       welcomeScreen.classList.remove('visible');
       welcomeScreen.classList.add('hidden');
       
-      // 2. Mostrar página principal con efecto suave
       setTimeout(function() {
         mainPage.style.display = 'block';
         
-        // Efecto de entrada
         setTimeout(function() {
           mainPage.style.opacity = '0';
           mainPage.style.transition = 'opacity 1s ease';
@@ -1050,7 +2028,9 @@
           setTimeout(function() {
             mainPage.style.opacity = '1';
             
-            // Mostrar botón de WhatsApp
+            // Crear fondo de gotas para la página principal
+            createMainDroppingBg();
+            
             if (whatsappBtn) {
               whatsappBtn.style.opacity = '0';
               whatsappBtn.style.display = 'flex';
@@ -1061,23 +2041,33 @@
               }, 300);
             }
             
-            // Animaciones para secciones
-            const sections = document.querySelectorAll('#main-page section');
-            sections.forEach((section, index) => {
-              section.style.opacity = '0';
-              section.style.transform = 'translateY(30px)';
-              section.style.transition = `opacity 0.8s ease ${index * 0.2}s, transform 0.8s ease ${index * 0.2}s`;
+            // Animaciones para elementos
+            const requirementCards = document.querySelectorAll('.requirement-card');
+            requirementCards.forEach((card, index) => {
+              card.style.opacity = '0';
+              card.style.transform = 'translateY(30px) scale(0.95)';
+              card.style.transition = `opacity 0.6s ease ${index * 0.1}s, transform 0.6s ease ${index * 0.1}s`;
               
               setTimeout(() => {
-                section.style.opacity = '1';
-                section.style.transform = 'translateY(0)';
-              }, 100 + (index * 200));
+                card.style.opacity = '1';
+                card.style.transform = 'translateY(0) scale(1)';
+              }, 100 + (index * 100));
             });
             
-            // Cambiar título de la página
+            const benefitItems = document.querySelectorAll('.benefit-item');
+            benefitItems.forEach((item, index) => {
+              item.style.opacity = '0';
+              item.style.transform = 'translateY(20px)';
+              item.style.transition = `opacity 0.5s ease ${index * 0.1}s, transform 0.5s ease ${index * 0.1}s`;
+              
+              setTimeout(() => {
+                item.style.opacity = '1';
+                item.style.transform = 'translateY(0)';
+              }, 200 + (index * 100));
+            });
+            
             document.title = "Mercurio Studio - Modelos Flirt4Free y LiveJasmin";
             
-            // Desplazar al inicio
             window.scrollTo({ top: 0, behavior: 'smooth' });
           }, 100);
         }, 100);
@@ -1099,7 +2089,6 @@
           const telefono = document.getElementById('telefono').value || 'No proporcionado';
           const mensaje = document.getElementById('mensaje').value;
           
-          // Crear mensaje para WhatsApp
           const whatsappMsg = `*NUEVO CONTACTO MERCURIO STUDIO*%0A%0A` +
                              `*Nombre:* ${nombre}%0A` +
                              `*Email:* ${email}%0A` +
@@ -1107,17 +2096,11 @@
                              `*Mensaje:* ${mensaje}%0A%0A` +
                              `*Fecha:* ${new Date().toLocaleDateString('es-ES')}`;
           
-          // Mostrar mensaje de confirmación
           const confirmar = confirm('¡Gracias por contactarnos! Te redirigiremos a WhatsApp para continuar con el proceso. ¿Deseas continuar?');
           
           if (confirmar) {
-            // Abrir WhatsApp en una nueva pestaña
             window.open(`https://wa.me/573508312629?text=${whatsappMsg}`, '_blank');
-            
-            // Limpiar formulario
             this.reset();
-            
-            // Enfocar el primer campo
             document.getElementById('nombre').focus();
           }
         });
@@ -1129,38 +2112,38 @@
     // ==================== //
     
     document.addEventListener('DOMContentLoaded', function() {
-      // Animación del logo al hacer hover
-      const logo = document.querySelector('.logo');
-      if (logo) {
-        logo.addEventListener('mouseenter', function() {
-          this.style.transform = 'scale(1.05) rotate(2deg)';
-        });
-        
-        logo.addEventListener('mouseleave', function() {
-          this.style.transform = 'scale(1) rotate(0deg)';
-        });
-      }
+      // Efecto de aparición al hacer scroll
+      const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+      };
       
-      // Verificar que todos los enlaces de WhatsApp funcionen
+      const observer = new IntersectionObserver(function(entries) {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.style.opacity = '1';
+            entry.target.style.transform = 'translateY(0)';
+          }
+        });
+      }, observerOptions);
+      
+      // Observar elementos con animación
+      document.querySelectorAll('.requirement-card, .benefit-item, .contact-method').forEach(el => {
+        observer.observe(el);
+      });
+      
+      // Verificar enlaces de WhatsApp
       const whatsappLinks = document.querySelectorAll('a[href*="whatsapp"]');
       console.log(`Total de enlaces de WhatsApp encontrados: ${whatsappLinks.length}`);
       
-      // Asegurar que todos los enlaces se abran en nueva pestaña
       whatsappLinks.forEach(link => {
         if (!link.target) {
           link.target = '_blank';
         }
-        
-        // Verificar enlace en consola
-        link.addEventListener('click', function() {
-          console.log('WhatsApp link clicked:', this.href);
-        });
       });
       
-      // Mostrar mensaje cuando la página esté completamente lista
       setTimeout(function() {
         console.log('Página completamente cargada y lista');
-        console.log('Botón WhatsApp fijo:', document.getElementById('whatsapp-btn').href);
       }, 6000);
     });
   </script>
