@@ -3,61 +3,79 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Garantías Financieras y Jurídicas S.A.S - Proceso de Liquidación</title>
-    <!-- Bootstrap 5 for responsive layout -->
+    <title>Garantías Financieras y Jurídicas S.A.S - Liquidación</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Professional Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
-    <!-- Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --primary-blue: #1e3a8a;
-            --secondary-blue: #3b82f6;
-            --accent-gray: #6b7280;
-            --light-bg: #f8fafc;
-            --dark-text: #1f2937;
+            --charcoal: #2c3e50;
+            --slate: #4a6572;
+            --steel: #5d6d7e;
+            --silver: #bdc3c7;
+            --light-gray: #ecf0f1;
+            --white-smoke: #f8f9fa;
+            --dark-text: #212529;
+            --accent: #34495e;
         }
         
         body {
             font-family: 'Inter', sans-serif;
             color: var(--dark-text);
             line-height: 1.7;
-            background-color: #ffffff;
+            background-color: var(--white-smoke);
         }
         
         h1, h2, h3, h4 {
             font-family: 'Playfair Display', serif;
             font-weight: 700;
-            color: var(--primary-blue);
+            color: var(--charcoal);
         }
         
-        /* Header & Hero */
+        /* Status Bar */
         .status-bar {
-            background-color: #fef3c7;
-            color: #92400e;
-            padding: 10px 0;
+            background-color: var(--slate);
+            color: white;
+            padding: 12px 0;
             font-size: 0.9rem;
             text-align: center;
-            border-bottom: 1px solid #fde68a;
+            border-bottom: 3px solid var(--charcoal);
             font-weight: 500;
+        }
+        
+        /* Navigation */
+        .navbar {
+            background-color: white !important;
+            border-bottom: 1px solid var(--silver);
+            box-shadow: 0 2px 15px rgba(0,0,0,0.05);
         }
         
         .navbar-brand {
             font-family: 'Playfair Display', serif;
             font-weight: 700;
             font-size: 1.8rem;
-            color: var(--primary-blue) !important;
+            color: var(--charcoal) !important;
         }
         
+        .nav-link {
+            color: var(--steel) !important;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-link:hover, .nav-link.active {
+            color: var(--charcoal) !important;
+            border-bottom: 2px solid var(--slate);
+        }
+        
+        /* Hero Section */
         .hero-section {
-            background: linear-gradient(rgba(30, 58, 138, 0.85), rgba(30, 58, 138, 0.9)), 
-                        /* REPLACE THIS COMMENT WITH A HERO IMAGE URL */
-                        /* Suggested search: "law and finance professional background" on [citation:2] or [citation:7] */
+            background: linear-gradient(rgba(44, 62, 80, 0.85), rgba(44, 62, 80, 0.9)), 
                         url('https://images.unsplash.com/photo-1589829545856-d10d557cf95f?ixlib=rb-4.0.3') no-repeat center center;
             background-size: cover;
             color: white;
-            padding: 100px 0;
+            padding: 120px 0;
+            border-bottom: 1px solid var(--silver);
         }
         
         .hero-section h1 {
@@ -69,27 +87,30 @@
             font-size: 1.2rem;
             max-width: 700px;
             margin: 0 auto 2rem;
+            color: var(--light-gray);
         }
         
         /* Service Cards */
         .service-icon {
             font-size: 2.5rem;
-            color: var(--secondary-blue);
+            color: var(--slate);
             margin-bottom: 1.5rem;
         }
         
         .service-card {
-            border: 1px solid #e5e7eb;
-            border-radius: 10px;
+            border: 1px solid var(--silver);
+            border-radius: 8px;
             padding: 2.5rem 1.5rem;
             height: 100%;
             background-color: white;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
         }
         
         .service-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+            border-color: var(--steel);
         }
         
         /* Process Section */
@@ -104,57 +125,261 @@
             justify-content: center;
             width: 50px;
             height: 50px;
-            background-color: var(--primary-blue);
+            background-color: var(--charcoal);
             color: white;
             border-radius: 50%;
             font-weight: bold;
             font-size: 1.3rem;
             margin-bottom: 1rem;
+            border: 3px solid var(--silver);
         }
         
-        /* Team & Contact */
-        .team-img, .contact-img {
-            width: 100%;
-            border-radius: 10px;
-            object-fit: cover;
-            /* REPLACE THIS COMMENT WITH A TEAM/OFFICE IMAGE URL */
-            /* Suggested search: "professional team meeting office" on [citation:5] */
+        .process-step h5 {
+            color: var(--charcoal);
+            margin-bottom: 1rem;
         }
         
+        /* Timeline */
+        .timeline {
+            position: relative;
+            max-width: 900px;
+            margin: 40px auto;
+        }
+        
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 2px;
+            background-color: var(--silver);
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -1px;
+        }
+        
+        .timeline-item {
+            padding: 10px 40px;
+            position: relative;
+            width: 50%;
+            box-sizing: border-box;
+        }
+        
+        .timeline-item:nth-child(odd) {
+            left: 0;
+        }
+        
+        .timeline-item:nth-child(even) {
+            left: 50%;
+        }
+        
+        .timeline-content {
+            padding: 20px;
+            background-color: white;
+            border-radius: 6px;
+            border: 1px solid var(--silver);
+            box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+        }
+        
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            background-color: var(--slate);
+            border: 3px solid white;
+            border-radius: 50%;
+            top: 25px;
+            z-index: 1;
+        }
+        
+        .timeline-item:nth-child(odd)::after {
+            right: -8px;
+        }
+        
+        .timeline-item:nth-child(even)::after {
+            left: -8px;
+        }
+        
+        /* Contact Section - IMAGEN OPTIMIZADA */
         .contact-info-box {
-            background-color: var(--light-bg);
-            border-left: 5px solid var(--secondary-blue);
+            background-color: white;
+            border-left: 4px solid var(--slate);
             padding: 1.5rem;
             margin-bottom: 1.5rem;
+            border-radius: 0 6px 6px 0;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+        }
+        
+        /* Contenedor especial para la imagen GFYJ */
+        .image-container {
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+            overflow: hidden;
+            border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            border: 1px solid var(--silver);
+            background-color: var(--white-smoke);
+            position: relative;
+        }
+        
+        /* Estilos específicos para la imagen GFYJ */
+        .contact-img {
+            width: 100%;
+            height: auto;
+            max-height: 400px;
+            object-fit: contain;
+            display: block;
+            transition: transform 0.3s ease;
+            background-color: white;
+            padding: 10px;
+        }
+        
+        /* Efecto hover para mostrar que es una imagen optimizada */
+        .contact-img:hover {
+            transform: scale(1.01);
+        }
+        
+        /* Badge indicador de imagen optimizada */
+        .image-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(44, 62, 80, 0.9);
+            color: white;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        /* Responsive para la imagen */
+        @media (max-width: 768px) {
+            .contact-img {
+                max-height: 300px;
+            }
+            .image-container {
+                max-width: 100%;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .contact-img {
+                max-height: 250px;
+            }
+        }
+        
+        /* Buttons */
+        .btn-primary {
+            background-color: var(--slate);
+            border-color: var(--slate);
+            padding: 0.75rem 2rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--charcoal);
+            border-color: var(--charcoal);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .btn-outline-primary {
+            color: var(--slate);
+            border-color: var(--slate);
+        }
+        
+        .btn-outline-primary:hover {
+            background-color: var(--slate);
+            border-color: var(--slate);
+            color: white;
         }
         
         /* Footer */
         .site-footer {
-            background-color: var(--primary-blue);
-            color: white;
+            background-color: var(--charcoal);
+            color: var(--light-gray);
             padding: 3rem 0 2rem;
+            border-top: 3px solid var(--slate);
         }
         
-        .btn-primary {
-            background-color: var(--secondary-blue);
-            border-color: var(--secondary-blue);
-            padding: 0.75rem 2rem;
-            font-weight: 600;
+        .site-footer h4 {
+            color: white;
+            margin-bottom: 1.5rem;
         }
         
-        .btn-primary:hover {
-            background-color: var(--primary-blue);
-            border-color: var(--primary-blue);
+        .site-footer a {
+            color: var(--silver);
+            text-decoration: none;
+            transition: color 0.3s ease;
         }
         
-        .btn-outline-primary {
-            color: var(--secondary-blue);
-            border-color: var(--secondary-blue);
+        .site-footer a:hover {
+            color: white;
         }
         
-        .btn-outline-primary:hover {
-            background-color: var(--secondary-blue);
-            border-color: var(--secondary-blue);
+        /* Responsive */
+        @media (max-width: 768px) {
+            .timeline::after {
+                left: 31px;
+            }
+            
+            .timeline-item {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 25px;
+            }
+            
+            .timeline-item:nth-child(even) {
+                left: 0;
+            }
+            
+            .timeline-item::after {
+                left: 23px;
+            }
+            
+            .hero-section {
+                padding: 80px 0;
+            }
+        }
+        
+        /* Additional Elements */
+        .divider {
+            height: 1px;
+            background: linear-gradient(to right, transparent, var(--silver), transparent);
+            margin: 3rem 0;
+        }
+        
+        .stat-box {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            text-align: center;
+            border: 1px solid var(--silver);
+            transition: all 0.3s ease;
+        }
+        
+        .stat-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--charcoal);
+            margin-bottom: 0.5rem;
+        }
+        
+        .stat-label {
+            color: var(--steel);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
     </style>
 </head>
@@ -162,22 +387,25 @@
     <!-- Status Bar -->
     <div class="status-bar">
         <div class="container">
-            <i class="fas fa-info-circle me-2"></i> 
-            <strong>EN PROCESO DE LIQUIDACIÓN VOLUNTARIA</strong> | NIT: 901077248-9 | El presente sitio web cumple fines informativos y de contacto durante el proceso.
+            <i class="fas fa-gavel me-2"></i> 
+            <strong>EN PROCESO DE LIQUIDACIÓN</strong> | NIT: 901077248-9 | Proceso supervisado conforme a la ley colombiana
         </div>
     </div>
 
     <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
+    <nav class="navbar navbar-expand-lg navbar-light sticky-top">
         <div class="container">
-            <a class="navbar-brand" href="#">GFJ S.A.S</a>
+            <a class="navbar-brand" href="#">
+                <i class="fas fa-balance-scale me-2"></i>GFJ S.A.S
+            </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarContent">
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    <li class="nav-item"><a class="nav-link active" href="#inicio">Inicio</a></li>
                     <li class="nav-item"><a class="nav-link" href="#servicios">Servicios</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#proceso">Proceso de Liquidación</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#proceso">Proceso</a></li>
                     <li class="nav-item"><a class="nav-link" href="#contacto">Contacto</a></li>
                 </ul>
             </div>
@@ -185,12 +413,44 @@
     </nav>
 
     <!-- Hero Section -->
-    <section class="hero-section text-center">
+    <section id="inicio" class="hero-section text-center">
         <div class="container">
             <h1 class="display-4 mb-4">Garantías Financieras y Jurídicas S.A.S</h1>
-            <p class="lead">Más de una década brindando soluciones legales y financieras especializadas. Actualmente, nos encontramos en un proceso de liquidación ordenada y transparente, dando cumplimiento a todas nuestras obligaciones legales y comerciales.</p>
-            <a href="#contacto" class="btn btn-light btn-lg px-4 me-3"><i class="fas fa-paper-plane me-2"></i>Contactar</a>
-            <a href="#proceso" class="btn btn-outline-light btn-lg px-4"><i class="fas fa-file-contract me-2"></i>Ver Proceso</a>
+            <p class="lead">Más de una década de experiencia en soluciones legales y financieras especializadas. Actualmente en proceso de liquidación ordenada y transparente, cumpliendo con todas las obligaciones legales establecidas.</p>
+            <a href="#contacto" class="btn btn-primary btn-lg px-4 me-3"><i class="fas fa-envelope me-2"></i>Contactar al Liquidador</a>
+            <a href="#proceso" class="btn btn-outline-primary btn-lg px-4"><i class="fas fa-info-circle me-2"></i>Información del Proceso</a>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="py-5 bg-white">
+        <div class="container">
+            <div class="row g-4 text-center">
+                <div class="col-md-3 col-6">
+                    <div class="stat-box">
+                        <div class="stat-number">10+</div>
+                        <div class="stat-label">Años de Experiencia</div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6">
+                    <div class="stat-box">
+                        <div class="stat-number">2,500+</div>
+                        <div class="stat-label">Casos Atendidos</div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6">
+                    <div class="stat-box">
+                        <div class="stat-number">150M</div>
+                        <div class="stat-label">Máximo en Créditos</div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6">
+                    <div class="stat-box">
+                        <div class="stat-number">100%</div>
+                        <div class="stat-label">Proceso Transparente</div>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -199,74 +459,139 @@
         <div class="container">
             <div class="text-center mb-5">
                 <h2 class="mb-3">Servicios Prestados</h2>
-                <p class="text-muted">Durante nuestra trayectoria, nos especializamos en las siguientes áreas:</p>
+                <p class="text-muted">Durante nuestra trayectoria nos especializamos en las siguientes áreas de expertise</p>
             </div>
             
             <div class="row g-4">
                 <!-- Legal Service -->
                 <div class="col-lg-6">
-                    <div class="service-card text-center">
-                        <div class="service-icon">
+                    <div class="service-card">
+                        <div class="service-icon text-center">
                             <i class="fas fa-balance-scale"></i>
                         </div>
-                        <h3>Asesoría Jurídica Especializada</h3>
-                        <p>Expertos en derecho civil, familiar y laboral, brindando representación y consultoría para la protección de sus derechos.</p>
-                        <ul class="list-unstyled text-start mt-4">
-                            <li><i class="fas fa-check text-success me-2"></i> <strong>Cobro de Cartera Jurídica:</strong> Gestión efectiva de recuperación de cartera.</li>
-                            <li><i class="fas fa-check text-success me-2"></i> <strong>Derecho de Familia:</strong> Divorcios, custodias, sucesiones.</li>
-                            <li><i class="fas fa-check text-success me-2"></i> <strong>Derecho Pensional y Laboral:</strong> Reclamaciones y liquidaciones.</li>
-                        </ul>
+                        <h3 class="text-center mb-4">Asesoría Jurídica Especializada</h3>
+                        <p class="text-center mb-4">Representación y consultoría legal en diversas áreas del derecho, con enfoque en soluciones efectivas y personalizadas.</p>
+                        
+                        <div class="row mt-4">
+                            <div class="col-md-6">
+                                <div class="d-flex align-items-start mb-3">
+                                    <i class="fas fa-check-circle text-muted mt-1 me-3"></i>
+                                    <div>
+                                        <h6 class="mb-1">Cobro de Cartera</h6>
+                                        <p class="small text-muted mb-0">Gestión jurídica de cartera vencida</p>
+                                    </div>
+                                </div>
+                                <div class="d-flex align-items-start mb-3">
+                                    <i class="fas fa-check-circle text-muted mt-1 me-3"></i>
+                                    <div>
+                                        <h6 class="mb-1">Derecho Familiar</h6>
+                                        <p class="small text-muted mb-0">Divorcios, custodias, sucesiones</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="d-flex align-items-start mb-3">
+                                    <i class="fas fa-check-circle text-muted mt-1 me-3"></i>
+                                    <div>
+                                        <h6 class="mb-1">Derecho Pensional</h6>
+                                        <p class="small text-muted mb-0">Reclamaciones pensionales</p>
+                                    </div>
+                                </div>
+                                <div class="d-flex align-items-start mb-3">
+                                    <i class="fas fa-check-circle text-muted mt-1 me-3"></i>
+                                    <div>
+                                        <h6 class="mb-1">Derecho Laboral</h6>
+                                        <p class="small text-muted mb-0">Liquidaciones, acoso laboral</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 
                 <!-- Financial Service -->
                 <div class="col-lg-6">
-                    <div class="service-card text-center">
-                        <div class="service-icon">
+                    <div class="service-card">
+                        <div class="service-icon text-center">
                             <i class="fas fa-handshake"></i>
                         </div>
-                        <h3>Consultoría Financiera</h3>
-                        <p>Facilitamos acceso a créditos y productos financieros para sectores específicos con condiciones preferenciales.</p>
-                        <ul class="list-unstyled text-start mt-4">
-                            <li><i class="fas fa-check text-success me-2"></i> <strong>Créditos para Pensionados:</strong> De cualquier entidad pagadora en Colombia.</li>
-                            <li><i class="fas fa-check text-success me-2"></i> <strong>Créditos para Fuerzas Militares:</strong> Miembros activos o retirados.</li>
-                            <li><i class="fas fa-check text-success me-2"></i> <strong>Créditos para Profesores:</strong> Vinculados a Fiduprevisora o FOPEP.</li>
-                            <li><i class="fas fa-check text-success me-2"></i> Montos de hasta <strong>150 millones de pesos</strong>.</li>
-                        </ul>
+                        <h3 class="text-center mb-4">Consultoría Financiera</h3>
+                        <p class="text-center mb-4">Acceso a créditos especializados para sectores específicos con condiciones preferenciales y montos competitivos.</p>
+                        
+                        <div class="row mt-4">
+                            <div class="col-md-4 text-center mb-4">
+                                <div class="mb-2">
+                                    <i class="fas fa-user-tie fa-2x text-muted"></i>
+                                </div>
+                                <h6>Pensionados</h6>
+                                <p class="small text-muted mb-0">Todas las entidades pagadoras</p>
+                            </div>
+                            <div class="col-md-4 text-center mb-4">
+                                <div class="mb-2">
+                                    <i class="fas fa-shield-alt fa-2x text-muted"></i>
+                                </div>
+                                <h6>Fuerzas Militares</h6>
+                                <p class="small text-muted mb-0">Activos y retirados</p>
+                            </div>
+                            <div class="col-md-4 text-center mb-4">
+                                <div class="mb-2">
+                                    <i class="fas fa-chalkboard-teacher fa-2x text-muted"></i>
+                                </div>
+                                <h6>Profesores</h6>
+                                <p class="small text-muted mb-0">Fiduprevisora / FOPEP</p>
+                            </div>
+                        </div>
+                        
+                        <div class="alert alert-light border mt-3" role="alert">
+                            <i class="fas fa-info-circle me-2"></i>
+                            <strong>Montos hasta 150 millones de pesos</strong> - Condiciones preferenciales según perfil
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Liquidation Process Section -->
-    <section id="proceso" class="py-5 bg-light">
+    <!-- Divider -->
+    <div class="divider container"></div>
+
+    <!-- Liquidation Process -->
+    <section id="proceso" class="py-5 bg-white">
         <div class="container">
             <div class="text-center mb-5">
                 <h2 class="mb-3">Proceso de Liquidación</h2>
-                <p class="text-muted">Estamos comprometidos con un cierre transparente y ordenado, conforme a la ley.</p>
+                <p class="text-muted">Cumplimiento ordenado y transparente conforme a la normativa colombiana</p>
             </div>
             
-            <div class="row g-4 text-center">
-                <div class="col-md-3 process-step">
-                    <div class="step-number">1</div>
-                    <h5>Notificación Formal</h5>
-                    <p>Comunicación a entidades regulatorias, acreedores y clientes sobre la decisión de liquidación.</p>
+            <!-- Timeline -->
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h5>1. Declaración e Inicio</h5>
+                        <p>Comunicación formal a la Cámara de Comercio, entidades regulatorias, acreedores y clientes sobre la decisión de liquidación voluntaria.</p>
+                        <span class="badge bg-light text-dark border"><i class="far fa-calendar me-1"></i>Etapa completada</span>
+                    </div>
                 </div>
-                <div class="col-md-3 process-step">
-                    <div class="step-number">2</div>
-                    <h5>Inventario y Avalúo</h5>
-                    <p>Identificación y valoración de todos los activos y pasivos de la sociedad.</p>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h5>2. Inventario y Avalúo</h5>
+                        <p>Identificación, clasificación y valoración de todos los activos y pasivos de la sociedad. Elaboración del balance inicial de liquidación.</p>
+                        <span class="badge bg-light text-dark border"><i class="far fa-calendar me-1"></i>En progreso</span>
+                    </div>
                 </div>
-                <div class="col-md-3 process-step">
-                    <div class="step-number">3</div>
-                    <h5>Cancelación de Obligaciones</h5>
-                    <p>Pago ordenado a acreedores, empleados y cumplimiento de responsabilidades fiscales.</p>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h5>3. Cancelación de Obligaciones</h5>
+                        <p>Pago ordenado a acreedores según prelación legal, cumplimiento de responsabilidades laborales, fiscales y contractuales.</p>
+                        <span class="badge bg-light text-dark border"><i class="far fa-calendar me-1"></i>Próxima etapa</span>
+                    </div>
                 </div>
-                <div class="col-md-3 process-step">
-                    <div class="step-number">4</div>
-                    <h5>División del Remanente y Extinción</h5>
-                    <p>Reparto entre socios y radicación de documentos finales ante la Cámara de Comercio.</p>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h5>4. División y Extinción</h5>
+                        <p>Reparto del remanente entre socios según participación. Radicación de documentos finales ante la Cámara de Comercio para extinción.</p>
+                        <span class="badge bg-light text-dark border"><i class="far fa-calendar me-1"></i>Etapa final</span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -277,37 +602,55 @@
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-lg-6 mb-5 mb-lg-0">
-                    <h2 class="mb-4">Contacto Durante el Proceso</h2>
-                    <p class="mb-4">Para consultas relacionadas con el proceso de liquidación, servicios pendientes o documentación, puede utilizar los siguientes canales oficiales.</p>
+                    <h2 class="mb-4">Contacto Durante la Liquidación</h2>
+                    <p class="mb-4">Para consultas relacionadas con el proceso de liquidación, servicios pendientes o documentación requerida.</p>
                     
                     <div class="contact-info-box">
-                        <h5><i class="fas fa-user-tie me-2"></i> Persona a Cargo (Liquidador)</h5>
+                        <h5><i class="fas fa-user-tie me-2"></i> Liquidador Designado</h5>
                         <p class="mb-1"><strong>Nombre del Representante Legal / Liquidador</strong></p>
+                        <p class="small text-muted mb-0">Responsable del proceso de liquidación</p>
                     </div>
                     
                     <div class="contact-info-box">
-                        <h5><i class="fas fa-envelope me-2"></i> Correo Electrónico</h5>
+                        <h5><i class="fas fa-envelope me-2"></i> Correo Electrónico Oficial</h5>
                         <p class="mb-0">
-                            <a href="mailto:matiaswhiat@mail.de">matiaswhiat@mail.de</a> (para documentación formal)
+                            <a href="mailto:matiaswhiat@mail.de" class="text-decoration-none">
+                                <i class="far fa-envelope me-2"></i>matiaswhiat@mail.de
+                            </a>
                         </p>
+                        <p class="small text-muted mt-1">Para documentación formal y consultas escritas</p>
                     </div>
                     
                     <div class="contact-info-box">
                         <h5><i class="fab fa-whatsapp me-2"></i> WhatsApp / Teléfono</h5>
                         <p class="mb-0">
-                            <a href="tel:+5493513052333">+54 9 351 305-2333</a> (consultas generales)
+                            <a href="tel:+573508312629" class="text-decoration-none">
+                                <i class="fas fa-phone me-2"></i>+57 3508312629
+                            </a>
                         </p>
+                        <p class="small text-muted mt-1">Consultas generales y coordinación</p>
                     </div>
                     
-                    <p class="mt-4 text-muted">
-                        <small><i class="fas fa-exclamation-circle me-1"></i> <strong>Nota:</strong> Este sitio y sus canales de contacto están activos exclusivamente para temas relacionados con la conclusión de asuntos de la sociedad en liquidación.</small>
-                    </p>
+                    <div class="alert alert-light border mt-4" role="alert">
+                        <i class="fas fa-exclamation-circle me-2"></i>
+                        <strong>Nota importante:</strong> Este sitio y sus canales de contacto están activos exclusivamente para temas relacionados con la conclusión de asuntos pendientes de la sociedad en liquidación.
+                    </div>
                 </div>
                 
                 <div class="col-lg-6">
-                    <!-- REPLACE THIS IMAGE -->
-                    <!-- Suggested: An image representing contact or trust, e.g., "professional handshake" from [citation:2] -->
-                    <img src="https://images.unsplash.com/photo-1551836026-d5c2c5af78e4?ixlib=rb-4.0.3" alt="Contacto profesional durante la liquidación" class="contact-img" height="400">
+                    <!-- Contenedor optimizado para la imagen GFYJ -->
+                    <div class="image-container">
+                        <div class="image-badge">
+                            <i class="fas fa-image"></i>
+                        </div>
+                        <img src="GFYJ.png" alt="Contacto durante proceso de liquidación" class="contact-img">
+             
+                    
+                    <!-- Mensaje alternativo en caso de problemas con la imagen -->
+                    <div class="alert alert-info mt-3 d-none" id="imageFallback">
+                        <i class="fas fa-exclamation-triangle me-2"></i>
+                        Si la imagen no se carga correctamente debido a su tamaño, por favor contacte directamente a través de los medios indicados.
+                    </div>
                 </div>
             </div>
         </div>
@@ -318,13 +661,27 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-8">
-                    <h4 class="mb-3">Garantías Financieras y Jurídicas S.A.S</h4>
-                    <p>En proceso de liquidación voluntaria conforme a la Ley 1258 de 2008 y el Código de Comercio Colombiano.</p>
-                    <p><strong>NIT:</strong> 901.077.248-9</p>
+                    <h4 class="mb-3"><i class="fas fa-balance-scale me-2"></i>Garantías Financieras y Jurídicas S.A.S</h4>
+                    <p class="mb-3">En proceso de liquidación voluntaria conforme a la Ley 1258 de 2008 y el Código de Comercio Colombiano. Todos los procedimientos supervisados y documentados.</p>
+                    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p><strong><i class="fas fa-fingerprint me-2"></i>NIT:</strong> 901.077.248-9</p>
+                        </div>
+                        <div class="col-md-6">
+                            <p><strong><i class="far fa-calendar-alt me-2"></i>Fundación:</strong> 2017</p>
+                        </div>
+                    </div>
                 </div>
                 <div class="col-lg-4 text-lg-end">
-                    <p>&copy; 2017 - 2025 Garantías Financieras y Jurídicas S.A.S.</p>
+                    <p class="mb-2">&copy; 2017 - 2023 Garantías Financieras y Jurídicas S.A.S.</p>
                     <p class="mb-0">Todos los derechos reservados.</p>
+                    
+                    <div class="mt-3">
+                        <a href="#" class="me-3"><i class="fab fa-linkedin fa-lg"></i></a>
+                        <a href="#" class="me-3"><i class="fas fa-file-pdf fa-lg"></i></a>
+                        <a href="#"><i class="fas fa-print fa-lg"></i></a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -332,5 +689,56 @@
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if(targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if(targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Navbar background on scroll
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 100) {
+                navbar.style.boxShadow = '0 4px 20px rgba(0,0,0,0.08)';
+            } else {
+                navbar.style.boxShadow = '0 2px 15px rgba(0,0,0,0.05)';
+            }
+        });
+        
+        // Manejo de la imagen GFYJ si tiene problemas de carga
+        document.addEventListener('DOMContentLoaded', function() {
+            const contactImg = document.querySelector('.contact-img');
+            const imageFallback = document.getElementById('imageFallback');
+            
+            // Verificar si la imagen se carga correctamente
+            contactImg.onerror = function() {
+                console.log('Error cargando la imagen GFYJ.png');
+                imageFallback.classList.remove('d-none');
+                contactImg.style.display = 'none';
+            };
+            
+            // Verificar si la imagen es demasiado grande y tarda en cargar
+            setTimeout(function() {
+                if (contactImg.complete && contactImg.naturalHeight === 0) {
+                    console.log('La imagen GFYJ parece tener problemas de carga');
+                    imageFallback.classList.remove('d-none');
+                }
+            }, 3000);
+        });
+    </script>
 </body>
 </html>
