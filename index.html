@@ -85,20 +85,28 @@
             overflow: hidden;
         }
         
-        .loading-bar {
-            height: 100%;
-            width: 0;
-            background: linear-gradient(90deg, var(--primary), var(--primary-dark));
-            border-radius: 4px;
-            transition: width 0.5s ease;
-        }
-        
-        .loading-text {
-            margin-top: 15px;
-            font-size: 0.9rem;
-            color: var(--primary);
-            font-family: 'JetBrains Mono', monospace;
-        }
+.loading-bar {
+    height: 100%;
+    width: 0;
+    background: linear-gradient(90deg, 
+        #c0c0c0 0%,      /* Gris plateado claro */
+        #a8a8a8 25%,     /* Gris medio */
+        #909090 50%,     /* Gris */
+        #a8a8a8 75%,     /* Gris medio */
+        #c0c0c0 100%     /* Gris plateado claro */
+    );
+    border-radius: 4px;
+    transition: width 0.5s ease;
+    box-shadow: 0 0 8px rgba(192, 192, 192, 0.5);
+}
+
+.loading-text {
+    margin-top: 15px;
+    font-size: 0.9rem;
+    color: #c0c0c0;  /* Cambiado de var(--primary) a plateado */
+    font-family: 'JetBrains Mono', monospace;
+    text-shadow: 0 0 5px rgba(192, 192, 192, 0.3);
+}
         
         /* Header mejorado */
         header {
