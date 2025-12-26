@@ -255,17 +255,29 @@
             padding: 0 20px;
         }
         
+        /* LOGO CON ANIMACIÓN DE ROTACIÓN - MODIFICACIÓN PRINCIPAL */
         .logo {
             max-width: 220px;
             margin-bottom: 40px;
             filter: drop-shadow(0 0 10px var(--primary));
-            animation: pulse 3s infinite;
+            animation: pulse 3s infinite, rotate 20s linear infinite;
+            border-radius: 50%;
         }
         
         @keyframes pulse {
             0% { filter: drop-shadow(0 0 5px var(--primary)); }
             50% { filter: drop-shadow(0 0 15px var(--primary)); }
             100% { filter: drop-shadow(0 0 5px var(--primary)); }
+        }
+        
+        /* ANIMACIÓN DE ROTACIÓN AGREGADA */
+        @keyframes rotate {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
         }
         
         .hero h1 {
@@ -1228,7 +1240,7 @@
     <!-- Preloader -->
     <div id="preloader">
         <div class="preloader-content">
-            <img src="media/4.0.png" alt="Loading" class="preloader-logo">
+            <img src="MEDIA/wcl remov.png" alt="Loading" class="preloader-logo">
             <div class="loading-container">
                 <div class="loading-bar" id="loading-bar"></div>
             </div>
@@ -1637,7 +1649,7 @@
         <div class="container">
             <div class="footer-content">
                 <div class="footer-about">
-                    <img src="media/WCHRISTM__1_-removebg-preview.png" alt="Logo" class="footer-logo">
+                    <img src="MEDIA/wcl remov.png" alt="Logo" class="footer-logo">
                     <p>Impulsamos la evolución de la industria legal hacia un futuro más eficiente, seguro y digital. Tu confianza en nosotros es el primer paso hacia un nuevo estándar de excelencia tecnológica en el derecho.</p>
                     <div class="contact-links">
                         <a href="https://www.instagram.com/matiaswhiat/" target="_blank" class="contact-item">
