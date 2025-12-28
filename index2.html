@@ -6,41 +6,39 @@
   <title>Mercurio Studio - Modelos Flirt4Free y LiveJasmin</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Cinzel:wght@400;500;600;700&display=swap" rel="stylesheet">
   
   <!-- Favicon del logo -->
   <link rel="icon" type="image/x-icon" href="media/ChatGPT Image Aug 31, 2025, 09_04_15 AM.png">
   
   <style>
     :root {
-      /* Paleta principal Flirt4Free - Inspirada en los colores oficiales */
-      --flirt-primary: #948983;      /* Rosa vibrante Flirt4Free */
-      --flirt-secondary: #9d8a76;    /* Púrpura Flirt4Free */
-      --flirt-accent: #beba8b;       /* Azul Flirt4Free */
-      --flirt-dark: #1a1a2e;         /* Azul oscuro casi negro */
-      --flirt-darker: #0f0f1a;       /* Negro azulado */
-      --flirt-light: #f8f9fa;        /* Blanco cálido */
-      --flirt-gray: #6c757d;         /* Gris para texto */
-      --flirt-border: #2a2a3e;       /* Color para bordes */
-      
-      /* Colores complementarios */
-      --white: #ffffff;
-      --black: #000000;
-      --blue-light: #e3f2fd;
-      --blue-dark: #0d1b2a;
-      --purple-light: #f3e5f5;
+      /* Nueva paleta inspirada en el oro de Mercurio */
+      --gold-primary: #D4AF37;      /* Dorado principal */
+      --gold-secondary: #FFD700;    /* Dorado brillante */
+      --gold-dark: #B8860B;         /* Dorado oscuro */
+      --gold-light: #F5E7A3;        /* Dorado claro */
+      --purple-primary: #4A235A;    /* Púrpura real */
+      --purple-secondary: #6C3483;  /* Púrpura vibrante */
+      --dark-bg: #0A0A0A;           /* Negro profundo */
+      --dark-card: #1A1A1A;         /* Negro para tarjetas */
+      --dark-border: #333333;       /* Borde oscuro */
+      --light-text: #F5F5F5;        /* Texto claro */
+      --medium-text: #CCCCCC;       /* Texto medio */
       
       /* Gradientes */
-      --gradient-flirt: linear-gradient(135deg, var(--flirt-primary) 0%, var(--flirt-secondary) 50%, var(--flirt-accent) 100%);
-      --gradient-dark: linear-gradient(135deg, var(--flirt-dark) 0%, var(--flirt-darker) 100%);
-      --gradient-blue: linear-gradient(135deg, var(--flirt-accent) 0%, #42a5f5 100%);
-      --gradient-pink: linear-gradient(135deg, var(--flirt-primary) 0%, #f48fb1 100%);
+      --gradient-gold: linear-gradient(135deg, var(--gold-primary) 0%, var(--gold-secondary) 50%, var(--gold-dark) 100%);
+      --gradient-gold-horizontal: linear-gradient(90deg, var(--gold-primary) 0%, var(--gold-secondary) 50%, var(--gold-dark) 100%);
+      --gradient-purple: linear-gradient(135deg, var(--purple-primary) 0%, var(--purple-secondary) 100%);
+      --gradient-dark: linear-gradient(135deg, var(--dark-bg) 0%, #1a1a1a 100%);
+      --gradient-gold-light: linear-gradient(135deg, var(--gold-light) 0%, var(--gold-primary) 50%, var(--gold-secondary) 100%);
       
       /* Sombras */
-      --shadow-light: 0 4px 12px rgba(124, 77, 255, 0.1);
-      --shadow-medium: 0 8px 24px rgba(124, 77, 255, 0.15);
-      --shadow-strong: 0 12px 36px rgba(124, 77, 255, 0.2);
-      --shadow-dark: 0 8px 24px rgba(0, 0, 0, 0.3);
+      --shadow-light: 0 4px 12px rgba(212, 175, 55, 0.1);
+      --shadow-medium: 0 8px 24px rgba(212, 175, 55, 0.2);
+      --shadow-strong: 0 12px 36px rgba(212, 175, 55, 0.3);
+      --shadow-gold: 0 0 20px rgba(212, 175, 55, 0.5);
+      --shadow-gold-strong: 0 0 30px rgba(212, 175, 55, 0.7);
       
       /* Transiciones */
       --transition-fast: all 0.3s ease;
@@ -59,57 +57,55 @@
     
     body {
       font-family: 'Inter', sans-serif;
-      color: var(--flirt-light);
-      background-color: var(--flirt-darker);
+      color: var(--light-text);
+      background-color: var(--dark-bg);
       line-height: 1.6;
       overflow-x: hidden;
       position: relative;
     }
     
     h1, h2, h3, h4, h5, h6 {
-      font-family: 'Poppins', sans-serif;
-      font-weight: 700;
+      font-family: 'Cinzel', serif;
+      font-weight: 600;
       line-height: 1.2;
       margin-bottom: 1rem;
     }
     
     h1 {
       font-size: 3.5rem;
-      background: var(--gradient-flirt);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+      color: var(--gold-primary);
+      text-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
     }
     
     h2 {
       font-size: 2.5rem;
-      color: var(--white);
+      color: var(--gold-primary);
     }
     
     h3 {
       font-size: 1.8rem;
-      color: var(--white);
+      color: var(--light-text);
     }
     
     h4 {
       font-size: 1.4rem;
-      color: var(--white);
+      color: var(--light-text);
     }
     
     p {
-      color: rgba(255, 255, 255, 0.8);
+      color: var(--medium-text);
       margin-bottom: 1.5rem;
       font-size: 1.1rem;
     }
     
     a {
       text-decoration: none;
-      color: var(--flirt-primary);
+      color: var(--gold-primary);
       transition: var(--transition-fast);
     }
     
     a:hover {
-      color: var(--flirt-accent);
+      color: var(--gold-secondary);
     }
     
     .container {
@@ -119,8 +115,9 @@
     }
     
     .section {
-      padding: 100px 0;
+      padding: 120px 0;
       position: relative;
+      scroll-margin-top: 100px;
     }
     
     .section-title {
@@ -140,9 +137,9 @@
       bottom: 0;
       left: 50%;
       transform: translateX(-50%);
-      width: 80px;
+      width: 100px;
       height: 4px;
-      background: var(--gradient-flirt);
+      background: var(--gradient-gold);
       border-radius: 2px;
     }
     
@@ -155,7 +152,7 @@
     .btn {
       display: inline-block;
       padding: 15px 35px;
-      border-radius: 50px;
+      border-radius: 8px;
       font-weight: 600;
       font-size: 1.1rem;
       text-transform: uppercase;
@@ -169,26 +166,27 @@
     }
     
     .btn-primary {
-      background: var(--gradient-flirt);
-      color: var(--white);
+      background: var(--gradient-gold);
+      color: var(--dark-bg);
       box-shadow: var(--shadow-medium);
+      font-weight: 700;
     }
     
     .btn-primary:hover {
       transform: translateY(-5px);
       box-shadow: var(--shadow-strong);
-      color: var(--white);
+      color: var(--dark-bg);
     }
     
     .btn-secondary {
       background: transparent;
-      color: var(--white);
-      border: 2px solid var(--flirt-accent);
+      color: var(--gold-primary);
+      border: 2px solid var(--gold-primary);
     }
     
     .btn-secondary:hover {
-      background: var(--flirt-accent);
-      color: var(--white);
+      background: rgba(212, 175, 55, 0.1);
+      color: var(--gold-secondary);
       transform: translateY(-5px);
     }
     
@@ -196,7 +194,7 @@
       background: #25D366;
       color: var(--white);
       padding: 12px 25px;
-      border-radius: 50px;
+      border-radius: 8px;
       display: inline-flex;
       align-items: center;
       justify-content: center;
@@ -211,7 +209,7 @@
     }
     
     /* ==================== */
-    /* PRELOADER - FLIRT4FREE STYLE */
+    /* PRELOADER MEJORADO - ESTILO DORADO DINÁMICO */
     /* ==================== */
     #preloader {
       position: fixed;
@@ -233,87 +231,175 @@
       visibility: hidden;
     }
     
-    .preloader-content {
+    .preloader-container {
       text-align: center;
       position: relative;
       z-index: 2;
+      width: 100%;
+      max-width: 800px;
+    }
+    
+    .preloader-logo-container {
+      position: relative;
+      margin-bottom: 40px;
     }
     
     .preloader-logo {
-      max-width: 150px;
-      margin-bottom: 30px;
-      filter: drop-shadow(0 0 20px rgba(255, 64, 129, 0.5));
+      max-width: 180px;
+      margin-bottom: 20px;
+      filter: drop-shadow(0 0 20px rgba(212, 175, 55, 0.8));
+      animation: logoFloat 3s ease-in-out infinite;
+    }
+    
+    @keyframes logoFloat {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-15px); }
+    }
+    
+    .logo-glow {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 250px;
+      height: 250px;
+      background: radial-gradient(circle, rgba(212, 175, 55, 0.3) 0%, rgba(212, 175, 55, 0) 70%);
+      border-radius: 50%;
+      z-index: -1;
+      animation: pulse 2s ease-in-out infinite;
+    }
+    
+    @keyframes pulse {
+      0%, 100% { opacity: 0.5; transform: translate(-50%, -50%) scale(1); }
+      50% { opacity: 0.8; transform: translate(-50%, -50%) scale(1.1); }
     }
     
     .preloader-title {
       font-size: 3.5rem;
-      margin-bottom: 20px;
-      background: var(--gradient-flirt);
+      margin-bottom: 10px;
+      color: var(--gold-primary);
+      text-shadow: var(--shadow-gold);
+      background: var(--gradient-gold-horizontal);
       -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
       background-clip: text;
+      color: transparent;
+      animation: titleGlow 2s ease-in-out infinite alternate;
+    }
+    
+    @keyframes titleGlow {
+      0% { filter: drop-shadow(0 0 5px rgba(212, 175, 55, 0.5)); }
+      100% { filter: drop-shadow(0 0 15px rgba(212, 175, 55, 0.8)); }
     }
     
     .preloader-subtitle {
       font-size: 1.2rem;
-      color: rgba(255, 255, 255, 0.7);
+      color: var(--medium-text);
       margin-bottom: 40px;
+      letter-spacing: 2px;
     }
     
-    .preloader-spinner {
-      width: 80px;
-      height: 80px;
-      border: 5px solid rgba(255, 64, 129, 0.3);
+    .preloader-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 30px;
+    }
+    
+    .loading-spinner {
+      position: relative;
+      width: 120px;
+      height: 120px;
+    }
+    
+    .spinner-ring {
+      position: absolute;
+      width: 100%;
+      height: 100%;
       border-radius: 50%;
-      border-top-color: var(--flirt-primary);
-      border-right-color: var(--flirt-secondary);
-      border-bottom-color: var(--flirt-accent);
-      margin: 0 auto;
-      animation: spin 1.5s linear infinite;
+      border: 5px solid transparent;
     }
     
-    @keyframes spin {
-      100% {
-        transform: rotate(360deg);
-      }
+    .ring-1 {
+      border-top: 5px solid var(--gold-primary);
+      animation: spin 2s linear infinite;
     }
     
-    .preloader-progress {
-      margin-top: 30px;
+    .ring-2 {
+      border-right: 5px solid var(--gold-secondary);
+      animation: spin 1.5s linear infinite reverse;
+    }
+    
+    .ring-3 {
+      border-bottom: 5px solid var(--gold-dark);
+      animation: spin 1s linear infinite;
+    }
+    
+    .spinner-center {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 40px;
+      height: 40px;
+      background: var(--gradient-gold);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--dark-bg);
+      font-size: 1.2rem;
+      font-weight: bold;
+    }
+    
+    .progress-container {
       width: 300px;
-      height: 4px;
+      margin-top: 20px;
+    }
+    
+    .progress-label {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 10px;
+      color: var(--medium-text);
+      font-size: 0.9rem;
+    }
+    
+    .progress-bar {
+      height: 8px;
       background: rgba(255, 255, 255, 0.1);
-      border-radius: 2px;
+      border-radius: 4px;
+      overflow: hidden;
+      position: relative;
+    }
+    
+    .progress-fill {
+      height: 100%;
+      background: var(--gradient-gold-horizontal);
+      width: 0%;
+      border-radius: 4px;
+      transition: width 0.3s ease;
+      position: relative;
       overflow: hidden;
     }
     
-    .preloader-progress-bar {
-      height: 100%;
-      background: var(--gradient-flirt);
-      width: 0%;
-      transition: width 0.3s ease;
-    }
-    
-    .preloader-particles {
+    .progress-fill::after {
+      content: '';
       position: absolute;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      z-index: 1;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+      animation: shimmer 2s infinite;
     }
     
-    .particle {
-      position: absolute;
-      width: 4px;
-      height: 4px;
-      background: var(--flirt-primary);
-      border-radius: 50%;
-      box-shadow: 0 0 10px var(--flirt-primary);
+    @keyframes shimmer {
+      0% { transform: translateX(-100%); }
+      100% { transform: translateX(100%); }
     }
     
     /* ==================== */
-    /* WELCOME SCREEN - FLIRT4FREE STYLE */
+    /* WELCOME SCREEN - ESTILO DORADO */
     /* ==================== */
     #welcome-screen {
       position: fixed;
@@ -344,57 +430,56 @@
     .welcome-content {
       text-align: center;
       max-width: 800px;
-      padding: 40px;
-      background: rgba(26, 26, 46, 0.8);
-      border-radius: 20px;
-      border: 1px solid rgba(124, 77, 255, 0.2);
-      box-shadow: var(--shadow-dark);
+      padding: 50px;
+      background: rgba(26, 26, 26, 0.9);
+      border-radius: 15px;
+      border: 2px solid var(--gold-primary);
+      box-shadow: var(--shadow-strong);
       backdrop-filter: blur(10px);
       position: relative;
       z-index: 2;
     }
     
     .welcome-logo {
-      max-width: 120px;
+      max-width: 150px;
       margin-bottom: 30px;
-      filter: drop-shadow(0 0 15px rgba(255, 64, 129, 0.5));
+      filter: drop-shadow(0 0 15px rgba(212, 175, 55, 0.8));
+      animation: logoFloat 3s ease-in-out infinite;
     }
     
     .welcome-title {
       font-size: 3rem;
       margin-bottom: 20px;
-      background: var(--gradient-flirt);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+      color: var(--gold-primary);
+      text-shadow: 0 0 10px rgba(212, 175, 55, 0.7);
     }
     
     .welcome-subtitle {
       font-size: 1.5rem;
-      color: var(--white);
+      color: var(--light-text);
       margin-bottom: 20px;
     }
     
     .welcome-text {
       font-size: 1.1rem;
-      color: rgba(255, 255, 255, 0.8);
+      color: var(--medium-text);
       margin-bottom: 40px;
       line-height: 1.8;
     }
     
     .welcome-highlight {
-      color: var(--flirt-primary);
+      color: var(--gold-primary);
       font-weight: 700;
     }
     
     .enter-button {
-      background: var(--gradient-flirt);
-      color: var(--white);
+      background: var(--gradient-gold);
+      color: var(--dark-bg);
       border: none;
       padding: 18px 50px;
       font-size: 1.2rem;
       font-weight: 700;
-      border-radius: 50px;
+      border-radius: 8px;
       cursor: pointer;
       transition: var(--transition-fast);
       box-shadow: var(--shadow-medium);
@@ -402,6 +487,19 @@
       align-items: center;
       gap: 10px;
       margin-top: 20px;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .enter-button::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+      transition: left 0.5s;
     }
     
     .enter-button:hover {
@@ -409,12 +507,16 @@
       box-shadow: var(--shadow-strong);
     }
     
+    .enter-button:hover::before {
+      left: 100%;
+    }
+    
     .welcome-company {
       margin-top: 30px;
       padding-top: 20px;
-      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      border-top: 1px solid rgba(212, 175, 55, 0.3);
       font-style: italic;
-      color: rgba(255, 255, 255, 0.6);
+      color: var(--medium-text);
       font-size: 0.9rem;
     }
     
@@ -434,7 +536,7 @@
     .animated-circle {
       position: absolute;
       border-radius: 50%;
-      background: radial-gradient(circle, rgba(255, 64, 129, 0.1) 0%, rgba(255, 64, 129, 0) 70%);
+      background: radial-gradient(circle, rgba(212, 175, 55, 0.05) 0%, rgba(212, 175, 55, 0) 70%);
       animation: float 20s infinite linear;
     }
     
@@ -460,20 +562,21 @@
     /* HEADER */
     /* ==================== */
     header {
-      background: rgba(26, 26, 46, 0.95);
-      backdrop-filter: blur(10px);
-      border-bottom: 1px solid var(--flirt-border);
+      background: rgba(10, 10, 10, 0.98);
+      backdrop-filter: blur(15px);
+      border-bottom: 2px solid var(--gold-primary);
       position: fixed;
       top: 0;
       width: 100%;
       z-index: 9999;
-      padding: 20px 0;
+      padding: 15px 0;
       transition: var(--transition-fast);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
     }
     
     header.scrolled {
-      padding: 15px 0;
-      box-shadow: var(--shadow-dark);
+      padding: 10px 0;
+      box-shadow: var(--shadow-strong);
     }
     
     .header-container {
@@ -489,19 +592,25 @@
     }
     
     .logo {
-      max-height: 60px;
-      filter: drop-shadow(0 0 10px rgba(255, 64, 129, 0.5));
+      max-height: 50px;
+      filter: drop-shadow(0 0 10px rgba(212, 175, 55, 0.8));
+    }
+    
+    .logo-text {
+      display: flex;
+      flex-direction: column;
     }
     
     .logo-text h1 {
-      font-size: 1.8rem;
+      font-size: 1.5rem;
       margin-bottom: 5px;
+      color: var(--gold-primary);
     }
     
     .logo-text p {
-      font-size: 0.9rem;
+      font-size: 0.8rem;
       margin-bottom: 0;
-      color: rgba(255, 255, 255, 0.7);
+      color: var(--medium-text);
     }
     
     .platform-badges {
@@ -510,11 +619,11 @@
     }
     
     .platform-badge {
-      background: var(--gradient-dark);
-      border: 1px solid var(--flirt-border);
-      padding: 8px 20px;
-      border-radius: 50px;
-      font-size: 0.9rem;
+      background: rgba(26, 26, 26, 0.8);
+      border: 1px solid var(--gold-primary);
+      padding: 6px 15px;
+      border-radius: 8px;
+      font-size: 0.8rem;
       font-weight: 600;
       display: flex;
       align-items: center;
@@ -523,16 +632,16 @@
     }
     
     .platform-badge:hover {
-      border-color: var(--flirt-primary);
+      background: rgba(212, 175, 55, 0.1);
       transform: translateY(-3px);
     }
     
     .platform-badge.flirt {
-      color: var(--flirt-primary);
+      color: var(--gold-primary);
     }
     
     .platform-badge.jasmin {
-      color: var(--flirt-accent);
+      color: var(--gold-secondary);
     }
     
     /* ==================== */
@@ -540,67 +649,110 @@
     /* ==================== */
     .hero {
       padding-top: 180px;
-      padding-bottom: 150px;
+      padding-bottom: 120px;
       position: relative;
       overflow: hidden;
+      scroll-margin-top: 100px;
+    }
+    
+    .hero-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+    
+    .hero-image-container {
+      position: relative;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: var(--shadow-strong);
+      border: 3px solid var(--gold-primary);
+      transform: perspective(1000px) rotateY(-10deg);
+      transition: var(--transition-normal);
+      height: 500px;
+    }
+    
+    .hero-image-container:hover {
+      transform: perspective(1000px) rotateY(0deg);
+      box-shadow: 0 0 40px rgba(212, 175, 55, 0.4);
+    }
+    
+    .hero-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: var(--transition-normal);
+    }
+    
+    .hero-image:hover {
+      transform: scale(1.05);
     }
     
     .hero-content {
-      max-width: 800px;
       position: relative;
       z-index: 2;
     }
     
     .hero-title {
-      font-size: 4rem;
-      margin-bottom: 30px;
+      font-size: 3.2rem;
+      margin-bottom: 25px;
       line-height: 1.1;
+      color: var(--gold-primary);
     }
     
     .hero-subtitle {
-      font-size: 1.5rem;
-      margin-bottom: 40px;
-      color: rgba(255, 255, 255, 0.9);
+      font-size: 1.3rem;
+      margin-bottom: 35px;
+      color: var(--medium-text);
     }
     
     .hero-buttons {
       display: flex;
       gap: 20px;
       flex-wrap: wrap;
+      margin-bottom: 40px;
     }
     
     .hero-stats {
-      display: flex;
-      gap: 40px;
-      margin-top: 60px;
-      flex-wrap: wrap;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 25px;
+      margin-top: 50px;
     }
     
     .stat-item {
       text-align: center;
+      background: rgba(26, 26, 26, 0.7);
+      padding: 20px;
+      border-radius: 10px;
+      border: 1px solid rgba(212, 175, 55, 0.2);
+      transition: var(--transition-fast);
+    }
+    
+    .stat-item:hover {
+      border-color: var(--gold-primary);
+      transform: translateY(-5px);
     }
     
     .stat-number {
-      font-size: 2.5rem;
+      font-size: 2.2rem;
       font-weight: 800;
-      background: var(--gradient-flirt);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+      color: var(--gold-primary);
       line-height: 1;
+      margin-bottom: 8px;
     }
     
     .stat-label {
-      font-size: 1rem;
-      color: rgba(255, 255, 255, 0.7);
-      margin-top: 10px;
+      font-size: 0.9rem;
+      color: var(--medium-text);
     }
     
     /* ==================== */
     /* REQUIREMENTS SECTION */
     /* ==================== */
     .requirements {
-      background: rgba(26, 26, 46, 0.7);
+      background: rgba(26, 26, 26, 0.7);
       position: relative;
     }
     
@@ -612,10 +764,10 @@
     }
     
     .requirement-card {
-      background: rgba(42, 42, 62, 0.8);
-      border-radius: 15px;
+      background: var(--dark-card);
+      border-radius: 10px;
       padding: 40px 30px;
-      border: 1px solid rgba(124, 77, 255, 0.1);
+      border: 1px solid var(--dark-border);
       transition: var(--transition-fast);
       position: relative;
       overflow: hidden;
@@ -629,27 +781,27 @@
       left: 0;
       width: 100%;
       height: 5px;
-      background: var(--gradient-flirt);
+      background: var(--gradient-gold);
       z-index: 2;
     }
     
     .requirement-card:hover {
       transform: translateY(-10px);
-      border-color: var(--flirt-primary);
+      border-color: var(--gold-primary);
       box-shadow: var(--shadow-medium);
     }
     
     .requirement-icon {
       width: 70px;
       height: 70px;
-      background: rgba(255, 64, 129, 0.1);
+      background: rgba(212, 175, 55, 0.1);
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
       margin-bottom: 25px;
       font-size: 1.8rem;
-      color: var(--flirt-primary);
+      color: var(--gold-primary);
     }
     
     .requirement-card h3 {
@@ -677,10 +829,10 @@
     }
     
     .benefit-card {
-      background: rgba(42, 42, 62, 0.8);
-      border-radius: 15px;
+      background: var(--dark-card);
+      border-radius: 10px;
       padding: 40px 30px;
-      border: 1px solid rgba(124, 77, 255, 0.1);
+      border: 1px solid var(--dark-border);
       transition: var(--transition-fast);
       position: relative;
       overflow: hidden;
@@ -688,7 +840,7 @@
     
     .benefit-card:hover {
       transform: translateY(-10px);
-      border-color: var(--flirt-accent);
+      border-color: var(--gold-primary);
       box-shadow: var(--shadow-medium);
     }
     
@@ -698,27 +850,27 @@
       right: 20px;
       width: 40px;
       height: 40px;
-      background: var(--gradient-flirt);
+      background: var(--gradient-gold);
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
       font-weight: 800;
       font-size: 1.2rem;
-      color: var(--white);
+      color: var(--dark-bg);
     }
     
     .benefit-icon {
       width: 60px;
       height: 60px;
-      background: rgba(41, 121, 255, 0.1);
+      background: rgba(212, 175, 55, 0.1);
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
       margin-bottom: 25px;
       font-size: 1.5rem;
-      color: var(--flirt-accent);
+      color: var(--gold-primary);
     }
     
     .benefit-card h3 {
@@ -735,7 +887,7 @@
     /* TESTIMONIALS SECTION */
     /* ==================== */
     .testimonials {
-      background: rgba(26, 26, 46, 0.7);
+      background: rgba(26, 26, 26, 0.7);
       position: relative;
     }
     
@@ -746,21 +898,21 @@
     }
     
     .testimonial-card {
-      background: rgba(42, 42, 62, 0.8);
-      border-radius: 15px;
+      background: var(--dark-card);
+      border-radius: 10px;
       padding: 40px;
-      border: 1px solid rgba(124, 77, 255, 0.1);
+      border: 1px solid var(--dark-border);
       margin: 0 15px;
       transition: var(--transition-fast);
     }
     
     .testimonial-card:hover {
-      border-color: var(--flirt-secondary);
+      border-color: var(--gold-primary);
       box-shadow: var(--shadow-medium);
     }
     
     .testimonial-stars {
-      color: var(--flirt-primary);
+      color: var(--gold-primary);
       margin-bottom: 20px;
       font-size: 1.2rem;
     }
@@ -780,7 +932,7 @@
       left: 0;
       top: -10px;
       font-size: 3rem;
-      color: var(--flirt-primary);
+      color: var(--gold-primary);
       font-family: serif;
       opacity: 0.5;
     }
@@ -794,14 +946,14 @@
     .author-avatar {
       width: 60px;
       height: 60px;
-      background: var(--gradient-flirt);
+      background: var(--gradient-gold);
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
       font-weight: 800;
       font-size: 1.5rem;
-      color: var(--white);
+      color: var(--dark-bg);
     }
     
     .author-info h4 {
@@ -811,7 +963,7 @@
     
     .author-info p {
       margin-bottom: 0;
-      color: rgba(255, 255, 255, 0.6);
+      color: var(--medium-text);
       font-size: 0.9rem;
     }
     
@@ -836,10 +988,10 @@
     }
     
     .contact-form {
-      background: rgba(42, 42, 62, 0.8);
-      border-radius: 15px;
+      background: var(--dark-card);
+      border-radius: 10px;
       padding: 40px;
-      border: 1px solid rgba(124, 77, 255, 0.1);
+      border: 1px solid var(--dark-border);
     }
     
     .form-group {
@@ -850,31 +1002,31 @@
       display: block;
       margin-bottom: 10px;
       font-weight: 600;
-      color: var(--white);
+      color: var(--light-text);
     }
     
     .form-control {
       width: 100%;
       padding: 15px 20px;
       background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 10px;
-      color: var(--white);
+      border: 1px solid var(--dark-border);
+      border-radius: 8px;
+      color: var(--light-text);
       font-size: 1rem;
       transition: var(--transition-fast);
     }
     
     .form-control:focus {
       outline: none;
-      border-color: var(--flirt-primary);
-      box-shadow: 0 0 0 3px rgba(255, 64, 129, 0.1);
+      border-color: var(--gold-primary);
+      box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
     }
     
     .contact-info {
-      background: rgba(42, 42, 62, 0.8);
-      border-radius: 15px;
+      background: var(--dark-card);
+      border-radius: 10px;
       padding: 40px;
-      border: 1px solid rgba(124, 77, 255, 0.1);
+      border: 1px solid var(--dark-border);
     }
     
     .contact-methods {
@@ -890,26 +1042,26 @@
       gap: 15px;
       padding: 20px;
       background: rgba(255, 255, 255, 0.05);
-      border-radius: 10px;
+      border-radius: 8px;
       border: 1px solid transparent;
       transition: var(--transition-fast);
     }
     
     .contact-method:hover {
-      border-color: var(--flirt-accent);
-      background: rgba(41, 121, 255, 0.05);
+      border-color: var(--gold-primary);
+      background: rgba(212, 175, 55, 0.05);
     }
     
     .contact-icon {
       width: 50px;
       height: 50px;
-      background: rgba(255, 64, 129, 0.1);
+      background: rgba(212, 175, 55, 0.1);
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
       font-size: 1.2rem;
-      color: var(--flirt-primary);
+      color: var(--gold-primary);
     }
     
     .contact-details h4 {
@@ -920,7 +1072,7 @@
     .contact-details p, 
     .contact-details a {
       margin-bottom: 0;
-      color: rgba(255, 255, 255, 0.7);
+      color: var(--medium-text);
       font-size: 0.95rem;
     }
     
@@ -930,13 +1082,14 @@
     .cta-section {
       text-align: center;
       padding: 100px 0;
-      background: rgba(26, 26, 46, 0.7);
+      background: rgba(26, 26, 26, 0.7);
       position: relative;
     }
     
     .cta-title {
       font-size: 3rem;
       margin-bottom: 30px;
+      color: var(--gold-primary);
     }
     
     .cta-text {
@@ -949,9 +1102,9 @@
     /* FOOTER */
     /* ==================== */
     footer {
-      background: var(--flirt-dark);
+      background: var(--dark-bg);
       padding: 80px 0 30px;
-      border-top: 1px solid var(--flirt-border);
+      border-top: 2px solid var(--gold-primary);
       position: relative;
     }
     
@@ -965,7 +1118,7 @@
     .footer-logo {
       max-width: 150px;
       margin-bottom: 20px;
-      filter: drop-shadow(0 0 10px rgba(255, 64, 129, 0.5));
+      filter: drop-shadow(0 0 10px rgba(212, 175, 55, 0.8));
     }
     
     .footer-description {
@@ -978,6 +1131,7 @@
       font-size: 1.2rem;
       position: relative;
       padding-bottom: 10px;
+      color: var(--gold-primary);
     }
     
     .footer-links h4::after {
@@ -987,7 +1141,7 @@
       left: 0;
       width: 40px;
       height: 3px;
-      background: var(--gradient-flirt);
+      background: var(--gradient-gold);
       border-radius: 2px;
     }
     
@@ -1000,7 +1154,7 @@
     }
     
     .footer-links a {
-      color: rgba(255, 255, 255, 0.7);
+      color: var(--medium-text);
       display: flex;
       align-items: center;
       gap: 10px;
@@ -1008,7 +1162,7 @@
     }
     
     .footer-links a:hover {
-      color: var(--flirt-primary);
+      color: var(--gold-primary);
       transform: translateX(5px);
     }
     
@@ -1021,25 +1175,27 @@
     .social-icon {
       width: 40px;
       height: 40px;
-      background: rgba(255, 255, 255, 0.05);
+      background: rgba(212, 175, 55, 0.1);
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      color: var(--white);
+      color: var(--gold-primary);
       transition: var(--transition-fast);
+      border: 1px solid rgba(212, 175, 55, 0.3);
     }
     
     .social-icon:hover {
-      background: var(--flirt-primary);
+      background: var(--gold-primary);
+      color: var(--dark-bg);
       transform: translateY(-5px);
     }
     
     .footer-bottom {
       text-align: center;
       padding-top: 30px;
-      border-top: 1px solid var(--flirt-border);
-      color: rgba(255, 255, 255, 0.5);
+      border-top: 1px solid var(--dark-border);
+      color: var(--medium-text);
       font-size: 0.9rem;
     }
     
@@ -1052,8 +1208,8 @@
       right: 30px;
       width: 70px;
       height: 70px;
-      background: #e7c75b;
-      color: var(--white);
+      background: var(--gold-primary);
+      color: var(--dark-bg);
       border-radius: 50%;
       display: flex;
       align-items: center;
@@ -1062,11 +1218,20 @@
       box-shadow: var(--shadow-strong);
       z-index: 9997;
       transition: var(--transition-fast);
+      border: 2px solid var(--gold-dark);
+      animation: pulseWhatsapp 2s infinite;
+    }
+    
+    @keyframes pulseWhatsapp {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.7); }
+      50% { box-shadow: 0 0 0 15px rgba(212, 175, 55, 0); }
     }
     
     .whatsapp-float:hover {
       transform: scale(1.1);
-      color: var(--white);
+      color: var(--dark-bg);
+      background: var(--gold-secondary);
+      animation: none;
     }
     
     /* ==================== */
@@ -1082,13 +1247,21 @@
       }
       
       .hero-title {
-        font-size: 3.5rem;
+        font-size: 2.8rem;
+      }
+      
+      .preloader-title {
+        font-size: 3rem;
+      }
+      
+      .hero-container {
+        gap: 40px;
       }
     }
     
     @media (max-width: 992px) {
       .section {
-        padding: 80px 0;
+        padding: 100px 0;
       }
       
       h1 {
@@ -1104,28 +1277,57 @@
         padding-bottom: 100px;
       }
       
+      .hero-container {
+        grid-template-columns: 1fr;
+        gap: 50px;
+      }
+      
+      .hero-image-container {
+        max-width: 600px;
+        margin: 0 auto;
+        height: 400px;
+        transform: perspective(1000px) rotateY(0deg);
+      }
+      
       .hero-title {
-        font-size: 3rem;
+        font-size: 2.5rem;
       }
       
       .hero-subtitle {
-        font-size: 1.3rem;
+        font-size: 1.2rem;
       }
       
       .header-container {
         flex-direction: column;
-        gap: 20px;
+        gap: 15px;
       }
       
       .platform-badges {
         flex-wrap: wrap;
         justify-content: center;
       }
+      
+      .preloader-title {
+        font-size: 2.5rem;
+      }
+      
+      .preloader-logo {
+        max-width: 150px;
+      }
+      
+      .loading-spinner {
+        width: 100px;
+        height: 100px;
+      }
+      
+      .hero-stats {
+        grid-template-columns: repeat(2, 1fr);
+      }
     }
     
     @media (max-width: 768px) {
       .section {
-        padding: 60px 0;
+        padding: 80px 0;
       }
       
       h1 {
@@ -1136,12 +1338,16 @@
         font-size: 1.8rem;
       }
       
+      .hero {
+        padding-top: 140px;
+      }
+      
       .hero-title {
-        font-size: 2.5rem;
+        font-size: 2.2rem;
       }
       
       .hero-subtitle {
-        font-size: 1.2rem;
+        font-size: 1.1rem;
       }
       
       .hero-buttons {
@@ -1165,7 +1371,16 @@
       }
       
       .preloader-title {
-        font-size: 2.5rem;
+        font-size: 2.2rem;
+      }
+      
+      .preloader-logo {
+        max-width: 120px;
+      }
+      
+      .loading-spinner {
+        width: 80px;
+        height: 80px;
       }
       
       .welcome-title {
@@ -1187,15 +1402,24 @@
         bottom: 20px;
         right: 20px;
       }
+      
+      .hero-stats {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
     }
     
     @media (max-width: 576px) {
+      .hero {
+        padding-top: 130px;
+      }
+      
       .hero-title {
-        font-size: 2rem;
+        font-size: 1.8rem;
       }
       
       .hero-subtitle {
-        font-size: 1.1rem;
+        font-size: 1rem;
       }
       
       .section-title p {
@@ -1203,11 +1427,11 @@
       }
       
       .stat-number {
-        font-size: 2rem;
+        font-size: 1.8rem;
       }
       
       .preloader-title {
-        font-size: 2rem;
+        font-size: 1.8rem;
       }
       
       .welcome-title {
@@ -1222,23 +1446,52 @@
       .cta-title {
         font-size: 1.8rem;
       }
+      
+      .hero-image-container {
+        height: 300px;
+      }
+      
+      .platform-badge {
+        padding: 5px 12px;
+        font-size: 0.75rem;
+      }
     }
   </style>
 </head>
 <body>
   
   <!-- ==================== -->
-  <!-- PRELOADER -->
+  <!-- PRELOADER MEJORADO -->
   <!-- ==================== -->
   <div id="preloader">
-    <div class="preloader-particles" id="preloader-particles"></div>
-    <div class="preloader-content">
-      <img src="media/ChatGPT Image Aug 31, 2025, 09_04_15 AM.png" alt="Logo Mercurio Studio" class="preloader-logo">
+    <div class="preloader-container">
+      <div class="preloader-logo-container">
+        <img src="media/ChatGPT Image Aug 31, 2025, 09_04_15 AM.png" alt="Logo Mercurio Studio" class="preloader-logo">
+        <div class="logo-glow"></div>
+      </div>
+      
       <h1 class="preloader-title">MERCURIO STUDIO</h1>
-      <p class="preloader-subtitle">Cargando la experiencia exclusiva Flirt4Free</p>
-      <div class="preloader-spinner"></div>
-      <div class="preloader-progress">
-        <div class="preloader-progress-bar" id="progress-bar"></div>
+      <p class="preloader-subtitle">CARGANDO EXPERIENCIA EXCLUSIVA</p>
+      
+      <div class="preloader-content">
+        <div class="loading-spinner">
+          <div class="spinner-ring ring-1"></div>
+          <div class="spinner-ring ring-2"></div>
+          <div class="spinner-ring ring-3"></div>
+          <div class="spinner-center">
+            <i class="fas fa-crown"></i>
+          </div>
+        </div>
+        
+        <div class="progress-container">
+          <div class="progress-label">
+            <span id="progress-text">Cargando...</span>
+            <span id="progress-percentage">0%</span>
+          </div>
+          <div class="progress-bar">
+            <div class="progress-fill" id="progress-fill"></div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -1247,7 +1500,6 @@
   <!-- WELCOME SCREEN -->
   <!-- ==================== -->
   <div id="welcome-screen">
-    <div class="background-animation"></div>
     <div class="welcome-content">
       <img src="media/ChatGPT Image Aug 31, 2025, 09_04_15 AM.png" alt="Logo Mercurio Studio" class="welcome-logo">
       <h1 class="welcome-title">MERCURIO STUDIO</h1>
@@ -1305,39 +1557,47 @@
     <!-- HERO SECTION -->
     <section class="hero">
       <div class="container">
-        <div class="hero-content">
-          <h1 class="hero-title">Transforma tu pasión en <span style="color: var(--flirt-primary)">ingresos extraordinarios</span></h1>
-          <p class="hero-subtitle">
-            Únete a la plataforma líder para modelos webcam profesionales. Trabaja con las mejores plataformas del mercado y maximiza tus ganancias con nuestro apoyo experto.
-          </p>
-          
-          <div class="hero-buttons">
-            <a href="#contacto" class="btn btn-primary">
-              <i class="fas fa-user-plus me-2"></i>Quiero Ser Modelo
-            </a>
-            <a href="https://wa.me/573508312629?text=¡Hola!%20Estoy%20interesado%20en%20más%20información%20sobre%20Mercurio%20Studio." 
-               class="btn btn-secondary" 
-               target="_blank">
-              <i class="fab fa-whatsapp me-2"></i>Consulta Directa
-            </a>
+        <div class="hero-container">
+          <div class="hero-image-container">
+            <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" 
+                 alt="Modelo profesional de Mercurio Studio" 
+                 class="hero-image">
           </div>
           
-          <div class="hero-stats">
-            <div class="stat-item">
-              <div class="stat-number">100%</div>
-              <div class="stat-label">Pagos Garantizados</div>
+          <div class="hero-content">
+            <h1 class="hero-title">Transforma tu pasión en <span style="color: var(--gold-secondary)">ingresos extraordinarios</span></h1>
+            <p class="hero-subtitle">
+              Únete a la plataforma líder para modelos webcam profesionales. Trabaja con las mejores plataformas del mercado y maximiza tus ganancias con nuestro apoyo experto.
+            </p>
+            
+            <div class="hero-buttons">
+              <a href="#contacto" class="btn btn-primary">
+                <i class="fas fa-user-plus me-2"></i>Quiero Ser Modelo
+              </a>
+              <a href="https://wa.me/573508312629?text=¡Hola!%20Estoy%20interesado%20en%20más%20información%20sobre%20Mercurio%20Studio." 
+                 class="btn btn-secondary" 
+                 target="_blank">
+                <i class="fab fa-whatsapp me-2"></i>Consulta Directa
+              </a>
             </div>
-            <div class="stat-item">
-              <div class="stat-number">10%</div>
-              <div class="stat-label">Comisión Fija</div>
-            </div>
-            <div class="stat-item">
-              <div class="stat-number">24/7</div>
-              <div class="stat-label">Soporte</div>
-            </div>
-            <div class="stat-item">
-              <div class="stat-number">2</div>
-              <div class="stat-label">Plataformas Premium</div>
+            
+            <div class="hero-stats">
+              <div class="stat-item">
+                <div class="stat-number">100%</div>
+                <div class="stat-label">Pagos Garantizados</div>
+              </div>
+              <div class="stat-item">
+                <div class="stat-number">10%</div>
+                <div class="stat-label">Comisión Fija</div>
+              </div>
+              <div class="stat-item">
+                <div class="stat-number">24/7</div>
+                <div class="stat-label">Soporte</div>
+              </div>
+              <div class="stat-item">
+                <div class="stat-number">2</div>
+                <div class="stat-label">Plataformas Premium</div>
+              </div>
             </div>
           </div>
         </div>
@@ -1732,108 +1992,113 @@
     // PRELOADER FUNCTIONS //
     // ==================== //
     
-    function createParticles(containerId, count = 30) {
-      const container = document.getElementById(containerId);
-      if (!container) return;
-      
-      container.innerHTML = '';
-      
-      for (let i = 0; i < count; i++) {
-        const particle = document.createElement('div');
-        particle.classList.add('particle');
-        
-        const size = 2 + Math.random() * 4;
-        particle.style.width = `${size}px`;
-        particle.style.height = `${size}px`;
-        
-        particle.style.left = `${Math.random() * 100}%`;
-        particle.style.top = `${Math.random() * 100}%`;
-        
-        const color = Math.random() > 0.5 ? 'var(--flirt-primary)' : 'var(--flirt-accent)';
-        particle.style.backgroundColor = color;
-        particle.style.boxShadow = `0 0 10px ${color}`;
-        
-        const duration = 3 + Math.random() * 5;
-        particle.style.animation = `float ${duration}s infinite ease-in-out`;
-        particle.style.animationDelay = `${Math.random() * 2}s`;
-        
-        container.appendChild(particle);
-      }
-    }
-    
     function createBackgroundCircles() {
       const container = document.getElementById('main-background');
       if (!container) return;
       
       container.innerHTML = '';
       
-      for (let i = 0; i < 8; i++) {
+      for (let i = 0; i < 12; i++) {
         const circle = document.createElement('div');
         circle.classList.add('animated-circle');
         
-        const size = 100 + Math.random() * 300;
+        const size = 50 + Math.random() * 250;
         circle.style.width = `${size}px`;
         circle.style.height = `${size}px`;
         
         circle.style.left = `${Math.random() * 100}%`;
         circle.style.top = `${Math.random() * 100}%`;
         
+        const opacity = 0.02 + Math.random() * 0.08;
         const colors = [
-          'rgba(255, 64, 129, 0.1)',
-          'rgba(124, 77, 255, 0.1)',
-          'rgba(41, 121, 255, 0.1)'
+          `rgba(212, 175, 55, ${opacity})`,
+          `rgba(255, 215, 0, ${opacity})`,
+          `rgba(184, 134, 11, ${opacity})`
         ];
         const color = colors[Math.floor(Math.random() * colors.length)];
-        circle.style.background = `radial-gradient(circle, ${color} 0%, rgba(255, 64, 129, 0) 70%)`;
+        circle.style.background = `radial-gradient(circle, ${color} 0%, rgba(212, 175, 55, 0) 70%)`;
         
-        const duration = 20 + Math.random() * 20;
+        const duration = 20 + Math.random() * 30;
         circle.style.animationDuration = `${duration}s`;
         circle.style.animationDelay = `${Math.random() * 5}s`;
+        circle.style.animationTimingFunction = 'linear';
         
         container.appendChild(circle);
       }
     }
     
     // ==================== //
-    // LOADING SEQUENCE //
+    // LOADING SEQUENCE MEJORADO //
     // ==================== //
     
     document.addEventListener('DOMContentLoaded', function() {
-      console.log('DOM cargado - Iniciando secuencia de carga...');
-      
-      createParticles('preloader-particles', 25);
+      console.log('DOM cargado - Iniciando secuencia de carga mejorada...');
       
       const preloader = document.getElementById('preloader');
-      const progressBar = document.getElementById('progress-bar');
-      const totalTime = 4000; // 4 segundos
+      const progressFill = document.getElementById('progress-fill');
+      const progressText = document.getElementById('progress-text');
+      const progressPercentage = document.getElementById('progress-percentage');
+      
+      let currentProgress = 0;
+      const totalTime = 2500;
       const intervalTime = 50;
-      const steps = totalTime / intervalTime;
-      let currentStep = 0;
+      const totalIntervals = totalTime / intervalTime;
+      let currentInterval = 0;
+      
+      // Textos de progreso
+      const progressTexts = [
+        "Inicializando sistema...",
+        "Cargando datos de modelos...",
+        "Preparando interfaz de usuario...",
+        "Configurando plataformas premium...",
+        "¡Casi listo!",
+        "Completando configuración..."
+      ];
       
       const loadingInterval = setInterval(function() {
-        currentStep++;
-        const progress = Math.min((currentStep / steps) * 100, 100);
+        currentInterval++;
+        const progress = Math.min((currentInterval / totalIntervals) * 100, 100);
         
-        if (progressBar) {
-          progressBar.style.width = `${progress}%`;
+        // Actualizar barra de progreso
+        if (progressFill) {
+          progressFill.style.width = `${progress}%`;
         }
         
+        // Actualizar porcentaje
+        if (progressPercentage) {
+          progressPercentage.textContent = `${Math.round(progress)}%`;
+        }
+        
+        // Actualizar texto de progreso
+        if (progressText) {
+          const textIndex = Math.floor((progress / 100) * (progressTexts.length - 1));
+          progressText.textContent = progressTexts[textIndex] || "Cargando...";
+        }
+        
+        // Completar carga
         if (progress >= 100) {
           clearInterval(loadingInterval);
           
+          // Efecto final
           setTimeout(function() {
-            preloader.classList.add('hidden');
+            progressText.textContent = "¡Carga completada!";
             
+            // Ocultar preloader después de un breve retraso
             setTimeout(function() {
-              const welcomeScreen = document.getElementById('welcome-screen');
-              welcomeScreen.classList.add('visible');
+              preloader.classList.add('hidden');
               
-              const enterButton = document.getElementById('enter-button');
-              if (enterButton) {
-                enterButton.addEventListener('click', enterMainPage);
-              }
-            }, 300);
-          }, 500);
+              // Mostrar pantalla de bienvenida
+              setTimeout(function() {
+                const welcomeScreen = document.getElementById('welcome-screen');
+                welcomeScreen.classList.add('visible');
+                
+                const enterButton = document.getElementById('enter-button');
+                if (enterButton) {
+                  enterButton.addEventListener('click', enterMainPage);
+                }
+              }, 300);
+            }, 800);
+          }, 300);
         }
       }, intervalTime);
     });
@@ -1855,6 +2120,8 @@
         enterButton.disabled = true;
       }
       
+      // Efecto de desvanecimiento para la pantalla de bienvenida
+      welcomeScreen.style.transition = 'opacity 0.8s ease, visibility 0.8s ease';
       welcomeScreen.classList.remove('visible');
       welcomeScreen.classList.add('hidden');
       
@@ -1862,6 +2129,7 @@
         mainPage.style.display = 'block';
         createBackgroundCircles();
         
+        // Efecto de entrada para la página principal
         setTimeout(function() {
           mainPage.style.opacity = '0';
           mainPage.style.transition = 'opacity 1s ease';
@@ -1869,12 +2137,13 @@
           setTimeout(function() {
             mainPage.style.opacity = '1';
             
+            // Mostrar botón de WhatsApp con efecto
             if (whatsappFloat) {
               whatsappFloat.style.opacity = '0';
               whatsappFloat.style.display = 'flex';
               
               setTimeout(function() {
-                whatsappFloat.style.transition = 'opacity 0.5s ease';
+                whatsappFloat.style.transition = 'opacity 0.5s ease, transform 0.3s ease';
                 whatsappFloat.style.opacity = '1';
               }, 300);
             }
@@ -1891,7 +2160,7 @@
               });
             }
             
-            // Smooth scroll for anchor links
+            // Smooth scroll for anchor links with offset for fixed header
             document.querySelectorAll('a[href^="#"]').forEach(anchor => {
               anchor.addEventListener('click', function(e) {
                 e.preventDefault();
@@ -1901,8 +2170,11 @@
                 
                 const targetElement = document.querySelector(targetId);
                 if (targetElement) {
+                  const headerHeight = document.querySelector('header').offsetHeight;
+                  const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - headerHeight - 20;
+                  
                   window.scrollTo({
-                    top: targetElement.offsetTop - 100,
+                    top: targetPosition,
                     behavior: 'smooth'
                   });
                 }
@@ -1934,9 +2206,29 @@
             window.addEventListener('scroll', animateOnScroll);
             animateOnScroll(); // Initial check
             
+            // Actualizar título de la página
             document.title = "Mercurio Studio - Modelos Flirt4Free y LiveJasmin";
             
+            // Scroll suave al principio
             window.scrollTo({ top: 0, behavior: 'smooth' });
+            
+            // Efecto de entrada para las secciones
+            setTimeout(() => {
+              const sections = document.querySelectorAll('.section');
+              sections.forEach((section, index) => {
+                setTimeout(() => {
+                  section.style.opacity = '0';
+                  section.style.transform = 'translateY(20px)';
+                  section.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+                  
+                  setTimeout(() => {
+                    section.style.opacity = '1';
+                    section.style.transform = 'translateY(0)';
+                  }, 100);
+                }, index * 100);
+              });
+            }, 500);
+            
           }, 100);
         }, 100);
       }, 500);
@@ -1987,12 +2279,6 @@
         if (!link.target) {
           link.target = '_blank';
         }
-      });
-      
-      // Initialize tooltips
-      const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
-      tooltipTriggerList.map(function(tooltipTriggerEl) {
-        return new bootstrap.Tooltip(tooltipTriggerEl);
       });
       
       console.log('Página completamente cargada y lista');
