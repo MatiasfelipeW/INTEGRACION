@@ -659,18 +659,22 @@
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 60px;
-      align-items: center;
+      align-items: start;
     }
     
     .hero-image-container {
       position: relative;
       border-radius: 20px;
-      overflow: hidden;
+      overflow: visible;
       box-shadow: var(--shadow-strong);
       border: 3px solid var(--gold-primary);
       transform: perspective(1000px) rotateY(-10deg);
       transition: var(--transition-normal);
-      height: 500px;
+      height: auto;
+      min-height: 500px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
     
     .hero-image-container:hover {
@@ -680,13 +684,15 @@
     
     .hero-image {
       width: 100%;
-      height: 100%;
-      object-fit: cover;
+      height: auto;
+      max-height: 700px;
+      object-fit: contain;
       transition: var(--transition-normal);
+      border-radius: 18px;
     }
     
     .hero-image:hover {
-      transform: scale(1.05);
+      transform: scale(1.02);
     }
     
     .hero-content {
@@ -1257,6 +1263,10 @@
       .hero-container {
         gap: 40px;
       }
+      
+      .hero-image {
+        max-height: 600px;
+      }
     }
     
     @media (max-width: 992px) {
@@ -1285,8 +1295,12 @@
       .hero-image-container {
         max-width: 600px;
         margin: 0 auto;
-        height: 400px;
         transform: perspective(1000px) rotateY(0deg);
+        min-height: 400px;
+      }
+      
+      .hero-image {
+        max-height: 500px;
       }
       
       .hero-title {
@@ -1407,6 +1421,14 @@
         grid-template-columns: 1fr;
         gap: 20px;
       }
+      
+      .hero-image {
+        max-height: 400px;
+      }
+      
+      .hero-image-container {
+        min-height: 350px;
+      }
     }
     
     @media (max-width: 576px) {
@@ -1448,7 +1470,11 @@
       }
       
       .hero-image-container {
-        height: 300px;
+        min-height: 300px;
+      }
+      
+      .hero-image {
+        max-height: 350px;
       }
       
       .platform-badge {
@@ -1559,7 +1585,7 @@
       <div class="container">
         <div class="hero-container">
           <div class="hero-image-container">
-            <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" 
+            <img src="MEDIA/ADV MER.jpeg" 
                  alt="Modelo profesional de Mercurio Studio" 
                  class="hero-image">
           </div>
