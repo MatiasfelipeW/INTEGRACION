@@ -8,8 +8,8 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Cinzel:wght@400;500;600;700&display=swap" rel="stylesheet">
   
-  <!-- Favicon del logo -->
-  <link rel="icon" type="image/x-icon" href="media/ChatGPT Image Aug 31, 2025, 09_04_15 AM.png">
+  <!-- Favicon animado dinámico con efecto dorado -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>👑</text></svg>" type="image/svg+xml">
   
   <style>
     :root {
@@ -2054,11 +2054,115 @@
     }
     
     // ==================== //
+    // FAVICON ANIMADO DINÁMICO //
+    // ==================== //
+    
+    function createAnimatedFavicon() {
+      // Crear un elemento link para el favicon
+      const faviconLink = document.createElement('link');
+      faviconLink.rel = 'icon';
+      faviconLink.type = 'image/png';
+      document.head.appendChild(faviconLink);
+      
+      // Crear canvas para el favicon animado
+      const canvas = document.createElement('canvas');
+      canvas.width = 32;
+      canvas.height = 32;
+      const ctx = canvas.getContext('2d');
+      
+      // Colores para la animación (escala de dorados)
+      const colors = [
+        '#D4AF37', '#FFD700', '#F5E7A3', '#B8860B',
+        '#FFC300', '#FFDD44', '#E6BE8A', '#DAA520'
+      ];
+      
+      let frame = 0;
+      let colorIndex = 0;
+      let rotation = 0;
+      
+      function drawFavicon() {
+        // Limpiar canvas
+        ctx.clearRect(0, 0, 32, 32);
+        
+        // Configurar fondo negro
+        ctx.fillStyle = '#0A0A0A';
+        ctx.fillRect(0, 0, 32, 32);
+        
+        // Tiempo para animaciones
+        const time = Date.now() / 1000;
+        const pulse = 0.8 + 0.2 * Math.sin(time * 2);
+        
+        // Dibujar círculo dorado pulsante
+        ctx.save();
+        ctx.translate(16, 16);
+        ctx.rotate(rotation);
+        ctx.scale(pulse, pulse);
+        
+        // Círculo exterior con gradiente dorado
+        const gradient = ctx.createRadialGradient(0, 0, 0, 0, 0, 14);
+        gradient.addColorStop(0, colors[colorIndex]);
+        gradient.addColorStop(1, colors[(colorIndex + 3) % colors.length]);
+        
+        ctx.beginPath();
+        ctx.arc(0, 0, 12, 0, Math.PI * 2);
+        ctx.fillStyle = gradient;
+        ctx.fill();
+        
+        // Borde brillante
+        ctx.strokeStyle = '#FFD700';
+        ctx.lineWidth = 2;
+        ctx.stroke();
+        
+        // Símbolo de Mercurio (estilizado MS)
+        ctx.fillStyle = '#0A0A0A';
+        ctx.font = 'bold 14px Arial';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText('MS', 0, 0);
+        
+        ctx.restore();
+        
+        // Partículas doradas girando alrededor
+        for (let i = 0; i < 3; i++) {
+          const particleAngle = rotation * 3 + (i * Math.PI * 2 / 3);
+          const particleRadius = 16;
+          const x = 16 + Math.cos(particleAngle) * particleRadius;
+          const y = 16 + Math.sin(particleAngle) * particleRadius;
+          
+          ctx.beginPath();
+          ctx.fillStyle = colors[(colorIndex + i + 2) % colors.length];
+          ctx.arc(x, y, 1.5, 0, Math.PI * 2);
+          ctx.fill();
+        }
+        
+        // Actualizar favicon
+        faviconLink.href = canvas.toDataURL('image/png');
+        
+        // Avanzar animaciones
+        frame++;
+        rotation += 0.02;
+        
+        if (frame % 15 === 0) {
+          colorIndex = (colorIndex + 1) % colors.length;
+        }
+        
+        // Continuar animación
+        requestAnimationFrame(drawFavicon);
+      }
+      
+      // Iniciar animación
+      drawFavicon();
+    }
+    
+    // ==================== //
     // LOADING SEQUENCE MEJORADO //
     // ==================== //
     
     document.addEventListener('DOMContentLoaded', function() {
       console.log('DOM cargado - Iniciando secuencia de carga mejorada...');
+      
+      // Iniciar favicon animado
+      createAnimatedFavicon();
       
       const preloader = document.getElementById('preloader');
       const progressFill = document.getElementById('progress-fill');
@@ -2294,7 +2398,7 @@
       }
     });
     
-    // ==================== //
+    // ==================== */
     // ADDITIONAL INITIALIZATION //
     // ==================== //
     
