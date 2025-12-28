@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Matías Felipe Whiat - Innovador Digital</title>
     
+    <!-- Favicon animado dinámico -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🔮</text></svg>" type="image/svg+xml">
+    
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- FontAwesome -->
@@ -1342,6 +1345,102 @@
             }
         }
         
+        // Sistema de favicon animado dinámico
+        function createAnimatedFavicon() {
+            // Crear un elemento link para el favicon
+            const faviconLink = document.createElement('link');
+            faviconLink.rel = 'icon';
+            faviconLink.type = 'image/png';
+            document.head.appendChild(faviconLink);
+            
+            // Crear canvas para el favicon animado
+            const canvas = document.createElement('canvas');
+            canvas.width = 32;
+            canvas.height = 32;
+            const ctx = canvas.getContext('2d');
+            
+            // Colores para la animación
+            const colors = [
+                '#00d4ff', '#ff00ff', '#00ffaa', '#ffff00', 
+                '#ff7700', '#aa00ff', '#00aaff', '#ff0066'
+            ];
+            
+            let frame = 0;
+            let colorIndex = 0;
+            
+            function drawFavicon() {
+                // Limpiar canvas
+                ctx.clearRect(0, 0, 32, 32);
+                
+                // Configurar fondo
+                ctx.fillStyle = '#0a0a0a';
+                ctx.fillRect(0, 0, 32, 32);
+                
+                // Dibujar logotipo W animado
+                const time = Date.now() / 1000;
+                const angle = (time * 2) % (Math.PI * 2);
+                const scale = 0.8 + 0.2 * Math.sin(time * 3);
+                
+                // Configurar estilo
+                ctx.strokeStyle = colors[colorIndex];
+                ctx.fillStyle = colors[colorIndex];
+                ctx.lineWidth = 3;
+                ctx.lineJoin = 'round';
+                ctx.lineCap = 'round';
+                
+                // Dibujar logotipo W estilizado con efecto 3D
+                ctx.save();
+                ctx.translate(16, 16);
+                ctx.rotate(angle);
+                ctx.scale(scale, scale);
+                
+                // Letra W estilizada
+                ctx.beginPath();
+                ctx.moveTo(-8, 8);
+                ctx.lineTo(-4, -8);
+                ctx.lineTo(0, 0);
+                ctx.lineTo(4, -8);
+                ctx.lineTo(8, 8);
+                ctx.stroke();
+                
+                // Puntos en las esquinas para efecto futurista
+                ctx.beginPath();
+                ctx.arc(-8, 8, 1.5, 0, Math.PI * 2);
+                ctx.arc(8, 8, 1.5, 0, Math.PI * 2);
+                ctx.fill();
+                
+                ctx.restore();
+                
+                // Efecto de partículas girando alrededor
+                for (let i = 0; i < 4; i++) {
+                    const particleAngle = angle + (i * Math.PI / 2) + time * 2;
+                    const particleRadius = 12;
+                    const x = 16 + Math.cos(particleAngle) * particleRadius;
+                    const y = 16 + Math.sin(particleAngle) * particleRadius;
+                    
+                    ctx.beginPath();
+                    ctx.fillStyle = colors[(colorIndex + i + 1) % colors.length];
+                    ctx.arc(x, y, 1.2, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+                
+                // Actualizar favicon
+                faviconLink.href = canvas.toDataURL('image/png');
+                
+                // Avanzar frame y cambiar color periódicamente
+                frame++;
+                if (frame % 20 === 0) {
+                    colorIndex = (colorIndex + 1) % colors.length;
+                }
+                
+                // Continuar animación
+                requestAnimationFrame(drawFavicon);
+            }
+            
+            // Iniciar animación
+            drawFavicon();
+        }
+        
         // Efecto de navbar al hacer scroll
         window.addEventListener('scroll', function() {
             const navbar = document.querySelector('.navbar');
@@ -1390,6 +1489,7 @@
         document.addEventListener('DOMContentLoaded', function() {
             createHolographicParticles();
             createNeuralNetwork();
+            createAnimatedFavicon();
             
             const elementsToAnimate = document.querySelectorAll('.about-img-container, .about-text, .whiat-card, .feature-card, .social-card, .video-container');
             elementsToAnimate.forEach(el => {
