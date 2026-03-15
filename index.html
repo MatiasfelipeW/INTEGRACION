@@ -3,9 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Whiat Company - Outsourcing de Talento Global</title>
     
-    <!-- Favicon animado dinámico con efecto futurista -->
+    <!-- ========== SEGURIDAD: CABECERAS DE PROTECCIÓN ========== -->
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="X-Frame-Options" content="DENY">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://translate.google.com https://flagcdn.com; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://flagcdn.com; connect-src 'self';">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+    
+    <!-- ========== SEGURIDAD: PROTECCIÓN CONTRA COPIA ========== -->
+    <meta name="copyright" content="© 2024 Matías Felipe Whiat - Todos los derechos reservados">
+    <meta name="author" content="Matías Felipe Whiat">
+    <meta name="robots" content="index, follow">
+    
+    <title>Whiat Company - Soluciones Digitales Integrales</title>
+    
+    <!-- Favicon animado dinámico -->
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚡</text></svg>" type="image/svg+xml">
     
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
@@ -13,6 +25,45 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 
     <style>
+        /* ========== BLOQUE 1: PROTECCIÓN CONTRA SELECCIÓN Y COPIA ========== */
+        
+        /* Evita selección de texto en toda la página */
+        body {
+            -webkit-user-select: none;  /* Chrome, Safari */
+            -moz-user-select: none;     /* Firefox */
+            -ms-user-select: none;      /* Internet Explorer */
+            user-select: none;           /* Estándar */
+        }
+        
+        /* EXCEPCIÓN: Permitir selección solo en inputs y textareas (para formularios) */
+        input, textarea, select {
+            -webkit-user-select: text;
+            -moz-user-select: text;
+            -ms-user-select: text;
+            user-select: text;
+        }
+        
+        /* Protección adicional: Imágenes no arrastrables */
+        img {
+            -webkit-user-drag: none;
+            -khtml-user-drag: none;
+            -moz-user-drag: none;
+            -o-user-drag: none;
+            user-drag: none;
+            pointer-events: none;  /* Evita clic derecho en imágenes */
+        }
+        
+        /* EXCEPCIÓN: Permitir interacción solo en botones y enlaces */
+        a, button, .btn, .profile-btn, .nav-link, .language-btn {
+            pointer-events: auto;
+        }
+        
+        /* Deshabilitar el menú contextual (clic derecho) en toda la página */
+        html {
+            -webkit-touch-callout: none;  /* Deshabilitar menú en iOS */
+        }
+        
+        /* ========== TUS ESTILOS EXISTENTES (SE MANTIENEN IGUAL) ========== */
         :root {
             --primary: #00ff88;
             --primary-dark: #00cc6a;
@@ -88,28 +139,28 @@
             overflow: hidden;
         }
         
-.loading-bar {
-    height: 100%;
-    width: 0;
-    background: linear-gradient(90deg, 
-        #c0c0c0 0%,      /* Gris plateado claro */
-        #a8a8a8 25%,     /* Gris medio */
-        #909090 50%,     /* Gris */
-        #a8a8a8 75%,     /* Gris medio */
-        #c0c0c0 100%     /* Gris plateado claro */
-    );
-    border-radius: 4px;
-    transition: width 0.5s ease;
-    box-shadow: 0 0 8px rgba(192, 192, 192, 0.5);
-}
-
-.loading-text {
-    margin-top: 15px;
-    font-size: 0.9rem;
-    color: #c0c0c0;  /* Cambiado de var(--primary) a plateado */
-    font-family: 'JetBrains Mono', monospace;
-    text-shadow: 0 0 5px rgba(192, 192, 192, 0.3);
-}
+        .loading-bar {
+            height: 100%;
+            width: 0;
+            background: linear-gradient(90deg, 
+                #c0c0c0 0%,
+                #a8a8a8 25%,
+                #909090 50%,
+                #a8a8a8 75%,
+                #c0c0c0 100%
+            );
+            border-radius: 4px;
+            transition: width 0.5s ease;
+            box-shadow: 0 0 8px rgba(192, 192, 192, 0.5);
+        }
+        
+        .loading-text {
+            margin-top: 15px;
+            font-size: 0.9rem;
+            color: #c0c0c0;
+            font-family: 'JetBrains Mono', monospace;
+            text-shadow: 0 0 5px rgba(192, 192, 192, 0.3);
+        }
         
         /* Header mejorado */
         header {
@@ -157,7 +208,7 @@
             background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%280, 255, 136, 1%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
         }
         
-        /* Botón de idioma en navbar - MEJORADO */
+        /* Botón de idioma en navbar */
         .language-switcher {
             position: relative;
             margin-left: 10px;
@@ -266,29 +317,18 @@
             padding: 0 20px;
         }
         
-        /* LOGO CON ANIMACIÓN DE ROTACIÓN - MODIFICACIÓN PRINCIPAL */
         .logo {
             max-width: 220px;
-            margin-bottom: 40px;
+            margin-bottom: 10px;
             filter: drop-shadow(0 0 10px var(--primary));
-            animation: pulse 3s infinite, rotate 20s linear infinite;
-            border-radius: 50%;
+            border-radius: 110%;
+            animation: pulse 3s infinite;  /* Solo brillo, sin rotación */
         }
         
         @keyframes pulse {
             0% { filter: drop-shadow(0 0 5px var(--primary)); }
             50% { filter: drop-shadow(0 0 15px var(--primary)); }
             100% { filter: drop-shadow(0 0 5px var(--primary)); }
-        }
-        
-        /* ANIMACIÓN DE ROTACIÓN AGREGADA */
-        @keyframes rotate {
-            0% {
-                transform: rotate(0deg);
-            }
-            100% {
-                transform: rotate(360deg);
-            }
         }
         
         .hero h1 {
@@ -319,6 +359,93 @@
         /* Services section mejorada */
         .services {
             padding: 80px 0;
+        }
+        
+        /* Sección de Servicios Destacados */
+        .featured-services {
+            padding: 60px 0;
+            background: linear-gradient(135deg, rgba(0, 255, 136, 0.02) 0%, rgba(10, 10, 10, 0.98) 100%);
+            position: relative;
+        }
+        
+        .featured-services .service-card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 35px 25px;
+            height: 100%;
+            transition: var(--transition);
+            border: 1px solid rgba(0, 255, 136, 0.1);
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+            backdrop-filter: blur(5px);
+        }
+        
+        .featured-services .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(0, 255, 136, 0.1) 0%, transparent 100%);
+            z-index: -1;
+            opacity: 0;
+            transition: var(--transition);
+        }
+        
+        .featured-services .service-card:hover::before {
+            opacity: 1;
+        }
+        
+        .featured-services .service-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary);
+            box-shadow: 0 20px 40px rgba(0, 255, 136, 0.15);
+        }
+        
+        .featured-services .service-icon {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+            display: inline-block;
+            padding: 15px;
+            background: rgba(0, 255, 136, 0.1);
+            border-radius: 50%;
+            border: 1px solid rgba(0, 255, 136, 0.2);
+        }
+        
+        .featured-services h3 {
+            color: var(--primary);
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+        }
+        
+        .featured-services p {
+            margin-bottom: 20px;
+            opacity: 0.9;
+        }
+        
+        .featured-services .service-features {
+            list-style: none;
+            padding: 0;
+            text-align: left;
+            margin: 20px 0;
+        }
+        
+        .featured-services .service-features li {
+            padding: 8px 0;
+            position: relative;
+            padding-left: 25px;
+            border-bottom: 1px dashed rgba(255,255,255,0.05);
+        }
+        
+        .featured-services .service-features li::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: var(--primary);
+            font-weight: bold;
         }
         
         /* Sección de Desarrollo Web Fullstack */
@@ -1087,7 +1214,6 @@
             display: none !important;
         }
         
-        /* Ocultar la barra de Google Translate */
         .goog-te-banner-frame {
             display: none !important;
         }
@@ -1273,6 +1399,12 @@
                             <a class="nav-link active" href="#services">Servicios</a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link" href="#mobile-apps">Apps Móviles</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#comercios">Comercios</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" href="#fullstack">Desarrollo Web</a>
                         </li>
                         <li class="nav-item">
@@ -1283,13 +1415,11 @@
                         </li>
                         <li class="nav-item">
                         <a class="nav-link" href="index4.html">Sobre Mí</a>
-</li>
+                        </li>
                         <li class="nav-item">
                             <a class="nav-link" href="index3.html">Garantías</a>
                         </li>
-                        <li class="nav-item">
-                        </li>
-                        <!-- Botón de idioma en navbar - AHORA FUNCIONA CON GOOGLE TRANSLATE -->
+                        <!-- Botón de idioma -->
                         <li class="nav-item language-switcher">
                             <button class="language-btn" id="languageToggle">
                                 <i class="fas fa-globe"></i> Idioma
@@ -1328,81 +1458,94 @@
     <section class="hero">
         <div class="container">
             <div class="hero-content">
-                <img src="MEDIA/international p.png" alt="Logo" class="logo">
-                <div class="hero-badge">Outsourcing de Talento Global</div>
-                <h1>Empoderando empresas con el mejor talento tecnológico</h1>
-                <p>En Whiat Company, lideramos la integración de inteligencia artificial en el ámbito legal, desarrollando soluciones innovadoras para fortalecer la seguridad jurídica y optimizar los procesos legales.</p>
-                <a href="#contact" class="btn btn-primary">Contáctanos</a>
+                <img src="MEDIA/723.jpg" alt="Logo" class="logo" oncontextmenu="return false;">
+                <div class="hero-badge">Soluciones Digitales Integrales</div>
+                <h1>Impulsamos tu negocio con tecnología de vanguardia</h1>
+                <p>Expertos en crear aplicaciones móviles, sitios web de alto rendimiento y soluciones digitales a medida para pequeñas, medianas y grandes empresas.</p>
+                <a href="#contact" class="btn btn-primary">Cuéntanos tu idea</a>
             </div>
         </div>
     </section>
 
-    <!-- Services Section -->
-    <section id="services" class="services">
+    <!-- Sección de Apps Móviles, Mantenimiento y Comercios -->
+    <section id="mobile-apps" class="featured-services">
         <div class="container">
             <div class="section-title">
-                <h2>Nuestra Experiencia</h2>
-                <p>Soluciones tecnológicas avanzadas para impulsar tu negocio</p>
+                <h2>Soluciones Digitales para tu Negocio</h2>
+                <p>Desde una app para tu restaurante hasta el mantenimiento de tu infraestructura digital. Creamos, optimizamos y protegemos.</p>
             </div>
             <div class="row g-4">
-                <div class="col-lg-6">
+                <!-- Tarjeta 1: Apps Móviles -->
+                <div class="col-lg-4">
                     <div class="service-card">
                         <div class="service-icon">
-                            <i class="fas fa-code"></i>
+                            <i class="fas fa-mobile-alt"></i>
                         </div>
-                        <h3>Full-Stack Development</h3>
-                        <p>Desarrollamos soluciones completas desde el frontend hasta el backend, utilizando las tecnologías más modernas y eficientes del mercado.</p>
+                        <h3>Aplicaciones Móviles</h3>
+                        <p>Para pequeñas, medianas y grandes empresas. Lleva tu negocio al bolsillo de tus clientes.</p>
                         <ul class="service-features">
-                            <li>Aplicaciones web responsivas</li>
-                            <li>APIs robustas y escalables</li>
-                            <li>Integración de bases de datos</li>
-                            <li>Optimización de rendimiento</li>
+                            <li><strong>Apps Nativas (iOS/Android):</strong> Máximo rendimiento y experiencia de usuario.</li>
+                            <li><strong>Apps Híbridas (Flutter, React Native):</strong> Código único para ambas plataformas, ahorrando tiempo y costo.</li>
+                            <li><strong>Backend y Base de Datos:</strong> APIs escalables y seguras para tu app.</li>
+                            <li><strong>Publicación en Stores:</strong> Te ayudamos con todo el proceso de publicación en App Store y Google Play.</li>
                         </ul>
+                        <div class="tech-stack" style="justify-content: center;">
+                            <span class="tech-tag">Flutter</span>
+                            <span class="tech-tag">React Native</span>
+                            <span class="tech-tag">Kotlin</span>
+                            <span class="tech-tag">Swift</span>
+                            <span class="tech-tag">Firebase</span>
+                        </div>
+                        <a href="#contact" class="btn btn-primary mt-3">Cotizar App Móvil</a>
                     </div>
                 </div>
-                <div class="col-lg-6">
+
+                <!-- Tarjeta 2: Mantenimiento -->
+                <div class="col-lg-4">
                     <div class="service-card">
                         <div class="service-icon">
-                            <i class="fas fa-link"></i>
+                            <i class="fas fa-tools"></i>
                         </div>
-                        <h3>Blockchain Implementation</h3>
-                        <p>Implementamos soluciones basadas en blockchain para garantizar transparencia, seguridad y descentralización en tus procesos.</p>
+                        <h3>Mantenimiento & Soporte</h3>
+                        <p>Mantenemos tu sitio web y sistemas siempre actualizados, seguros y funcionando sin problemas.</p>
                         <ul class="service-features">
-                            <li>Contratos inteligentes</li>
-                            <li>Tokens y criptomonedas</li>
-                            <li>Soluciones DeFi</li>
-                            <li>Auditoría de seguridad</li>
+                            <li><strong>Mantenimiento Web:</strong> Actualizaciones de seguridad, copias de seguridad, monitoreo 24/7.</li>
+                            <li><strong>Gestión de Datos:</strong> Limpieza, migración y respaldo de bases de datos.</li>
+                            <li><strong>Optimización de Rendimiento:</strong> Velocidad de carga y mejora de la experiencia de usuario.</li>
+                            <li><strong>Soporte Técnico:</strong> Resolución de incidencias y asistencia continua.</li>
                         </ul>
+                        <div class="tech-stack" style="justify-content: center;">
+                            <span class="tech-tag">WordPress</span>
+                            <span class="tech-tag">MySQL</span>
+                            <span class="tech-tag">AWS</span>
+                            <span class="tech-tag">cPanel</span>
+                            <span class="tech-tag">Python</span>
+                        </div>
+                        <a href="#contact" class="btn btn-primary mt-3">Contratar Soporte</a>
                     </div>
                 </div>
-                <div class="col-lg-6">
+
+                <!-- Tarjeta 3: Comercios -->
+                <div class="col-lg-4">
                     <div class="service-card">
                         <div class="service-icon">
-                            <i class="fas fa-building"></i>
+                            <i class="fas fa-utensils"></i>
                         </div>
-                        <h3>Enterprise Solutions</h3>
-                        <p>Creamos soluciones empresariales escalables que se adaptan a las necesidades específicas de tu organización.</p>
+                        <h3>Comercios & Restaurantes</h3>
+                        <p>Soluciones digitales pensadas para impulsar las ventas y la gestión de tu negocio local.</p>
                         <ul class="service-features">
-                            <li>Sistemas de gestión empresarial</li>
-                            <li>Automatización de procesos</li>
-                            <li>Integración de sistemas legacy</li>
-                            <li>Análisis de datos y reporting</li>
+                            <li><strong>Apps de Pedidos a Domicilio:</strong> Tu propia app para recibir pedidos sin depender de terceros.</li>
+                            <li><strong>Sistemas de Gestión (TPV):</strong> Controla mesas, inventario y facturación desde una tablet.</li>
+                            <li><strong>Menús Digitales (QR):</strong> Escanea y pide desde la mesa. Sin contacto y eficiente.</li>
+                            <li><strong>Programas de Fidelización:</strong> Apps con puntos y recompensas para clientes frecuentes.</li>
                         </ul>
-                    </div>
-                </div>
-                <div class="col-lg-6">
-                    <div class="service-card">
-                        <div class="service-icon">
-                            <i class="fas fa-cogs"></i>
+                        <div class="tech-stack" style="justify-content: center;">
+                            <span class="tech-tag">QR Code</span>
+                            <span class="tech-tag">Pagos online</span>
+                            <span class="tech-tag">Dashboard</span>
+                            <span class="tech-tag">IoT</span>
                         </div>
-                        <h3>Custom Programming</h3>
-                        <p>Desarrollamos software personalizado que se ajusta exactamente a tus requerimientos y procesos de negocio.</p>
-                        <ul class="service-features">
-                            <li>Desarrollo a medida</li>
-                            <li>Integraciones específicas</li>
-                            <li>Soluciones únicas</li>
-                            <li>Soporte técnico especializado</li>
-                        </ul>
+                        <a href="#contact" class="btn btn-primary mt-3">Digitalizar mi Negocio</a>
                     </div>
                 </div>
             </div>
@@ -1542,7 +1685,7 @@
             <div class="profile-container">
                 <div class="profile-card">
                     <div class="profile-header">
-                        <img src="media/BCHINO.jpeg" alt="Matías Felipe Whiat" class="profile-avatar">
+                        <img src="media/BCHINO.jpeg" alt="Matías Felipe Whiat" class="profile-avatar" oncontextmenu="return false;">
                         <div class="profile-info">
                             <h1 class="profile-name">Matías Felipe Whiat</h1>
                             <p class="profile-title">CEO & Fundador de Whiat Company - Garantias Financueras y Juiridicas s.a.s</p>
@@ -1593,9 +1736,9 @@
     <section class="cta">
         <div class="container">
             <div class="cta-content">
-                <h2>¡Únete Hoy!</h2>
-                <p>Ya sea que seas una empresa en busca de talento o un programador buscando tu próximo desafío, estamos aquí para ti.</p>
-                <a href="#contact" class="btn btn-primary">Comenzar Ahora</a>
+                <h2>¡Hagamos realidad tu proyecto digital!</h2>
+                <p>Ya sea una app móvil, un sitio web o el mantenimiento de tus sistemas, estamos listos para ayudarte.</p>
+                <a href="#contact" class="btn btn-primary">Solicitar una Consultoría Gratuita</a>
             </div>
         </div>
     </section>
@@ -1632,7 +1775,10 @@
                             <label for="service" class="form-label">Servicio de Interés</label>
                             <select class="form-control" id="service" name="service">
                                 <option value="">Selecciona un servicio</option>
-                                <option value="fullstack">Full-Stack Development</option>
+                                <option value="app-movil">App Móvil (Empresas/Comercios)</option>
+                                <option value="app-restaurante">App para Restaurante / Comercio</option>
+                                <option value="mantenimiento">Mantenimiento Web y Datos</option>
+                                <option value="fullstack">Desarrollo Web Fullstack</option>
                                 <option value="web-basico">Desarrollo Web Básico</option>
                                 <option value="web-profesional">Desarrollo Web Profesional</option>
                                 <option value="web-enterprise">Desarrollo Web Enterprise</option>
@@ -1659,8 +1805,8 @@
         <div class="container">
             <div class="footer-content">
                 <div class="footer-about">
-                    <img src="MEDIA/wcl remov.png" alt="Logo" class="footer-logo">
-                    <p>Impulsamos la evolución de la industria legal hacia un futuro más eficiente, seguro y digital. Tu confianza en nosotros es el primer paso hacia un nuevo estándar de excelencia tecnológica en el derecho.</p>
+                    <img src="MEDIA/wcl remov.png" alt="Logo" class="footer-logo" oncontextmenu="return false;">
+                    <p>Impulsamos la evolución de los negocios hacia un futuro más digital. Creamos soluciones a medida para empresas de todos los tamaños.</p>
                     <div class="contact-links">
                         <a href="https://www.instagram.com/matiaswhiat/" target="_blank" class="contact-item">
                             <i class="fab fa-instagram"></i>
@@ -1680,16 +1826,17 @@
                     <div class="footer-column">
                         <h4>Servicios</h4>
                         <ul class="footer-links-list">
+                            <li><a href="#mobile-apps">Apps Móviles</a></li>
+                            <li><a href="#comercios">Soluciones para Comercios</a></li>
                             <li><a href="#fullstack">Desarrollo Web Fullstack</a></li>
-                            <li><a href="#services">Blockchain Implementation</a></li>
-                            <li><a href="#services">Enterprise Solutions</a></li>
-                            <li><a href="#services">Custom Programming</a></li>
+                            <li><a href="#services">Blockchain & Enterprise</a></li>
                         </ul>
                     </div>
                     <div class="footer-column">
                         <h4>Enlaces</h4>
                         <ul class="footer-links-list">
                             <li><a href="#services">Servicios</a></li>
+                            <li><a href="#mobile-apps">Apps Móviles</a></li>
                             <li><a href="#fullstack">Desarrollo Web</a></li>
                             <li><a href="#profile">Perfil Profesional</a></li>
                             <li><a href="#contact">Contacto</a></li>
@@ -1726,24 +1873,103 @@
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     
     <script>
-        // ==================== //
-        // FAVICON ANIMADO DINÁMICO PARA WHIAT COMPANY //
-        // ==================== //
+        // ========== BLOQUE 2: PROTECCIÓN AVANZADA CONTRA COPIA EN JAVASCRIPT ==========
+        
+        // 1. Deshabilitar el menú contextual (clic derecho) en toda la página
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+            return false;
+        });
+        
+        // 2. Deshabilitar teclas comunes de copia y desarrollo
+        document.addEventListener('keydown', function(e) {
+            // Deshabilitar Ctrl+C, Ctrl+X, Ctrl+S, Ctrl+U (ver código fuente)
+            if (e.ctrlKey && (e.key === 'c' || e.key === 'C' || 
+                              e.key === 'x' || e.key === 'X' ||
+                              e.key === 's' || e.key === 'S' ||
+                              e.key === 'u' || e.key === 'U')) {
+                e.preventDefault();
+                return false;
+            }
+            
+            // Deshabilitar F12 (herramientas de desarrollo)
+            if (e.key === 'F12') {
+                e.preventDefault();
+                return false;
+            }
+            
+            // Deshabilitar Ctrl+Shift+I (herramientas de desarrollo)
+            if (e.ctrlKey && e.shiftKey && (e.key === 'i' || e.key === 'I')) {
+                e.preventDefault();
+                return false;
+            }
+            
+            // Deshabilitar Ctrl+Shift+J (consola)
+            if (e.ctrlKey && e.shiftKey && (e.key === 'j' || e.key === 'J')) {
+                e.preventDefault();
+                return false;
+            }
+            
+            // Deshabilitar Ctrl+Shift+C (inspeccionar elemento)
+            if (e.ctrlKey && e.shiftKey && (e.key === 'c' || e.key === 'C')) {
+                e.preventDefault();
+                return false;
+            }
+        });
+        
+        // 3. Detectar cuando intentan abrir herramientas de desarrollo
+        setInterval(function() {
+            const before = new Date();
+            debugger; // Esto puede ralentizar herramientas de desarrollo
+            const after = new Date();
+            if (after - before > 100) {
+                // Si hay un retraso significativo, podrían estar usando dev tools
+                // No hacemos nada agresivo, solo registro
+                console.log('Posible intento de inspección detectado');
+            }
+        }, 1000);
+        
+        // 4. Proteger imágenes específicas
+        function protectImages() {
+            const images = document.querySelectorAll('img');
+            images.forEach(img => {
+                img.setAttribute('oncontextmenu', 'return false;');
+                img.setAttribute('ondragstart', 'return false;');
+            });
+        }
+        
+        // 5. Ejecutar protección después de que la página cargue
+        window.addEventListener('load', function() {
+            protectImages();
+            
+            // También proteger imágenes que se carguen dinámicamente
+            const observer = new MutationObserver(function(mutations) {
+                mutations.forEach(function(mutation) {
+                    if (mutation.addedNodes.length) {
+                        protectImages();
+                    }
+                });
+            });
+            
+            observer.observe(document.body, {
+                childList: true,
+                subtree: true
+            });
+        });
+        
+        // ========== BLOQUE 3: FUNCIONES EXISTENTES (SE MANTIENEN) ==========
         
         function createAnimatedFavicon() {
-            // Crear un elemento link para el favicon
             const faviconLink = document.createElement('link');
             faviconLink.rel = 'icon';
             faviconLink.type = 'image/png';
             document.head.appendChild(faviconLink);
             
-            // Crear canvas para el favicon animado
             const canvas = document.createElement('canvas');
             canvas.width = 32;
             canvas.height = 32;
             const ctx = canvas.getContext('2d');
             
-            // Colores para la animación (escala de verdes neón)
             const colors = [
                 '#00ff88', '#00cc6a', '#33ff99', '#00aa55',
                 '#66ffaa', '#009944', '#99ffcc', '#22dd77'
@@ -1754,24 +1980,18 @@
             let rotation = 0;
             
             function drawFavicon() {
-                // Limpiar canvas
                 ctx.clearRect(0, 0, 32, 32);
-                
-                // Configurar fondo negro
                 ctx.fillStyle = '#0A0A0A';
                 ctx.fillRect(0, 0, 32, 32);
                 
-                // Tiempo para animaciones
                 const time = Date.now() / 1000;
                 const pulse = 0.8 + 0.2 * Math.sin(time * 2);
                 
-                // Dibujar logo futurista "WC" con efecto 3D
                 ctx.save();
                 ctx.translate(16, 16);
                 ctx.rotate(rotation);
                 ctx.scale(pulse, pulse);
                 
-                // Círculo exterior con gradiente neón
                 const gradient = ctx.createRadialGradient(0, 0, 0, 0, 0, 14);
                 gradient.addColorStop(0, colors[colorIndex]);
                 gradient.addColorStop(0.7, colors[(colorIndex + 2) % colors.length]);
@@ -1782,12 +2002,10 @@
                 ctx.fillStyle = gradient;
                 ctx.fill();
                 
-                // Borde brillante neón
                 ctx.strokeStyle = colors[colorIndex];
                 ctx.lineWidth = 2;
                 ctx.stroke();
                 
-                // Logo "WC" estilizado
                 ctx.fillStyle = '#0A0A0A';
                 ctx.font = 'bold 12px Arial';
                 ctx.textAlign = 'center';
@@ -1796,7 +2014,6 @@
                 
                 ctx.restore();
                 
-                // Partículas neón girando alrededor
                 for (let i = 0; i < 4; i++) {
                     const particleAngle = rotation * 2 + (i * Math.PI / 2);
                     const particleRadius = 16;
@@ -1808,7 +2025,6 @@
                     ctx.arc(x, y, 1.5, 0, Math.PI * 2);
                     ctx.fill();
                     
-                    // Efecto de estela
                     ctx.beginPath();
                     ctx.strokeStyle = colors[(colorIndex + i + 2) % colors.length];
                     ctx.lineWidth = 0.5;
@@ -1817,10 +2033,8 @@
                     ctx.stroke();
                 }
                 
-                // Actualizar favicon
                 faviconLink.href = canvas.toDataURL('image/png');
                 
-                // Avanzar animaciones
                 frame++;
                 rotation += 0.03;
                 
@@ -1828,20 +2042,14 @@
                     colorIndex = (colorIndex + 1) % colors.length;
                 }
                 
-                // Continuar animación
                 requestAnimationFrame(drawFavicon);
             }
             
-            // Iniciar animación
             drawFavicon();
         }
         
-        // ==================== //
-        // PRELOADER FUNCTIONS //
-        // ==================== //
-        
+        // Preloader
         window.addEventListener('load', function() {
-            // Iniciar favicon animado
             createAnimatedFavicon();
             
             let progress = 0;
@@ -1873,7 +2081,7 @@
             }, 30);
         });
 
-        // Efecto de partículas de fondo
+        // Efecto de partículas
         particlesJS('particles-js', {
             particles: {
                 number: {
@@ -1976,7 +2184,7 @@
             lastScrollY = window.scrollY;
         });
 
-        // Smooth scrolling for anchor links
+        // Smooth scrolling
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
@@ -1994,18 +2202,16 @@
             });
         });
 
-        // Controlador para el selector de idioma
+        // Idioma
         const languageToggle = document.getElementById('languageToggle');
         const languageDropdown = document.getElementById('languageDropdown');
         const languageOptions = document.querySelectorAll('.language-option');
         
-        // Mostrar/ocultar el dropdown de idiomas
         languageToggle.addEventListener('click', function(e) {
             e.stopPropagation();
             languageDropdown.classList.toggle('show');
         });
         
-        // Inicializar Google Translate
         let googleTranslateElement = null;
         
         function initializeGoogleTranslate() {
@@ -2017,7 +2223,6 @@
                     autoDisplay: false
                 }, 'google_translate_element');
                 
-                // Ocultar completamente el widget
                 hideGoogleTranslateWidget();
                 
                 console.log('Google Translate inicializado');
@@ -2027,51 +2232,41 @@
             }
         }
         
-        // Ocultar completamente el widget de Google Translate
         function hideGoogleTranslateWidget() {
-            // Ocultar el contenedor principal
             const translateContainer = document.getElementById('google_translate_element');
             if (translateContainer) {
                 translateContainer.style.display = 'none';
             }
             
-            // Ocultar la barra de Google
             const googleBanner = document.querySelector('.goog-te-banner-frame');
             if (googleBanner) {
                 googleBanner.style.display = 'none';
             }
             
-            // Ocultar el selector de idiomas de Google
             const googleSelect = document.querySelector('.goog-te-gadget');
             if (googleSelect) {
                 googleSelect.style.display = 'none';
             }
             
-            // Remover el espacio que deja Google Translate
             const skipTranslate = document.querySelector('.skiptranslate');
             if (skipTranslate) {
                 skipTranslate.style.display = 'none';
             }
         }
         
-        // Cambiar idioma usando Google Translate
         function changeLanguage(lang) {
             if (window.google && window.google.translate && window.google.translate.TranslateElement) {
-                // Obtener el select de Google Translate
                 const translateSelect = document.querySelector('.goog-te-combo');
                 if (translateSelect) {
                     translateSelect.value = lang;
                     
-                    // Disparar el evento de cambio
                     const event = new Event('change', { bubbles: true });
                     translateSelect.dispatchEvent(event);
                     
                     console.log(`Idioma cambiado a: ${lang}`);
                     
-                    // Actualizar la interfaz del botón
                     updateLanguageButton(lang);
                     
-                    // Mostrar mensaje
                     showLanguageMessage(lang);
                 }
             } else {
@@ -2079,17 +2274,13 @@
             }
         }
         
-        // Actualizar el botón de idioma
         function updateLanguageButton(lang) {
-            // Remover clase active de todas las opciones
             languageOptions.forEach(opt => opt.classList.remove('active'));
             
-            // Encontrar y activar la opción correspondiente
             const optionToActivate = document.querySelector(`.language-option[data-lang="${lang}"]`);
             if (optionToActivate) {
                 optionToActivate.classList.add('active');
                 
-                // Actualizar el texto del botón
                 const langText = optionToActivate.textContent.trim();
                 const flagSrc = optionToActivate.querySelector('.language-flag').src;
                 
@@ -2101,9 +2292,7 @@
             }
         }
         
-        // Mostrar mensaje de cambio de idioma
         function showLanguageMessage(lang) {
-            // Crear mensaje temporal
             const message = document.createElement('div');
             message.style.position = 'fixed';
             message.style.bottom = '100px';
@@ -2118,7 +2307,6 @@
             message.style.fontSize = '0.9rem';
             message.style.fontWeight = '500';
             
-            // Mensajes según el idioma
             const messages = {
                 'es': '🌐 Idioma cambiado a Español',
                 'en': '🌐 Language changed to English',
@@ -2130,7 +2318,6 @@
             message.textContent = messages[lang] || '🌐 Idioma cambiado';
             document.body.appendChild(message);
             
-            // Remover mensaje después de 3 segundos
             setTimeout(() => {
                 message.style.opacity = '0';
                 message.style.transition = 'opacity 0.5s ease';
@@ -2140,26 +2327,22 @@
             }, 3000);
         }
         
-        // Configurar eventos para las opciones de idioma
         languageOptions.forEach(option => {
             option.addEventListener('click', function(e) {
                 e.preventDefault();
                 const lang = this.getAttribute('data-lang');
                 changeLanguage(lang);
                 
-                // Cerrar el dropdown
                 languageDropdown.classList.remove('show');
             });
         });
         
-        // Cerrar dropdown al hacer clic fuera
         document.addEventListener('click', function(e) {
             if (!languageToggle.contains(e.target) && !languageDropdown.contains(e.target)) {
                 languageDropdown.classList.remove('show');
             }
         });
         
-        // Navbar background on scroll
         window.addEventListener('scroll', function() {
             const navbar = document.querySelector('header');
             if (window.scrollY > 50) {
@@ -2171,7 +2354,7 @@
             }
         });
         
-        // Efecto de aparición para la sección de perfil
+        // Observers para animaciones
         const profileSection = document.querySelector('.profile-section');
         const profileCard = document.querySelector('.profile-card');
         
@@ -2191,7 +2374,6 @@
             profileCard.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
         }
         
-        // Efecto de aparición para la sección de desarrollo web
         const fullstackSection = document.querySelector('.fullstack-section');
         const fullstackCard = document.querySelector('.fullstack-card');
         
@@ -2211,26 +2393,46 @@
             fullstackCard.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
         }
         
-        // Resaltar automáticamente la opción "Desarrollo Web Fullstack" en el formulario cuando se hace clic en los botones de cotización
+        // Resaltar servicio en formulario
         document.querySelectorAll('a[href="#contact"]').forEach(button => {
             button.addEventListener('click', function() {
-                // Añadir un pequeño retraso para asegurar que el formulario esté visible
                 setTimeout(() => {
                     const serviceSelect = document.getElementById('service');
                     if (serviceSelect) {
-                        serviceSelect.value = 'fullstack';
+                        const parentSection = this.closest('section');
+                        if (parentSection) {
+                            const sectionId = parentSection.id;
+                            if (sectionId === 'mobile-apps') {
+                                const card = this.closest('.service-card');
+                                if (card) {
+                                    const title = card.querySelector('h3')?.textContent || '';
+                                    if (title.includes('Aplicaciones Móviles')) serviceSelect.value = 'app-movil';
+                                    else if (title.includes('Mantenimiento & Soporte')) serviceSelect.value = 'mantenimiento';
+                                    else if (title.includes('Comercios & Restaurantes')) serviceSelect.value = 'app-restaurante';
+                                }
+                            } else if (sectionId === 'fullstack') {
+                                const card = this.closest('.pricing-card');
+                                if (card) {
+                                    const title = card.querySelector('h3')?.textContent || '';
+                                    if (title.includes('Básico')) serviceSelect.value = 'web-basico';
+                                    else if (title.includes('Profesional')) serviceSelect.value = 'web-profesional';
+                                    else if (title.includes('Enterprise')) serviceSelect.value = 'web-enterprise';
+                                    else serviceSelect.value = 'fullstack';
+                                } else {
+                                    serviceSelect.value = 'fullstack';
+                                }
+                            }
+                        }
                     }
                 }, 500);
             });
         });
         
-        // Inicializar Google Translate cuando se cargue el script
         function googleTranslateElementInit() {
             console.log('googleTranslateElementInit llamado');
             initializeGoogleTranslate();
         }
         
-        // Verificar si Google Translate está cargado
         function checkGoogleTranslateLoaded() {
             if (typeof google !== 'undefined' && google.translate) {
                 console.log('Google Translate está disponible');
@@ -2241,13 +2443,11 @@
             }
         }
         
-        // Iniciar la verificación después de que la página cargue
         window.addEventListener('load', function() {
             setTimeout(checkGoogleTranslateLoaded, 1000);
         });
     </script>
     
-    <!-- Script de Google Translate - Cargado pero oculto -->
     <div id="google_translate_element" style="display: none;"></div>
     <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </body>
