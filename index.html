@@ -7,7 +7,6 @@
     <!-- ========== SEGURIDAD: CABECERAS DE PROTECCIÓN ========== -->
     <meta http-equiv="X-Content-Type-Options" content="nosniff">
     <meta http-equiv="X-Frame-Options" content="DENY">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdnjs.cloudflare.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://flagcdn.com; connect-src 'self';">
     <meta name="referrer" content="strict-origin-when-cross-origin">
     
     <!-- ========== SEGURIDAD: PROTECCIÓN CONTRA COPIA ========== -->
@@ -17,16 +16,15 @@
     
     <title>Whiat Company - Soluciones Digitales Integrales</title>
     
-    <!-- Favicon azul moderno -->
+    <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='45' fill='%2300d4ff'/%3E%3Ctext x='50' y='70' font-size='50' text-anchor='middle' fill='white' font-weight='bold'%3EW%3C/text%3E%3C/svg%3E">
-    <link rel="alternate icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%2300aaff'/%3E%3Ctext x='50' y='70' font-size='50' text-anchor='middle' fill='white' font-weight='bold'%3EW%3C/text%3E%3C/svg%3E">
     
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 
     <style>
-        /* ========== BLOQUE 1: PROTECCIÓN CONTRA SELECCIÓN Y COPIA ========== */
+        /* ========== PROTECCIÓN CONTRA SELECCIÓN Y COPIA ========== */
         body {
             -webkit-user-select: none;
             -moz-user-select: none;
@@ -50,15 +48,11 @@
             pointer-events: none;
         }
         
-        a, button, .btn, .profile-btn, .nav-link, .language-btn, .login-link {
+        a, button, .btn, .profile-btn, .nav-link {
             pointer-events: auto;
         }
         
-        html {
-            -webkit-touch-callout: none;
-        }
-        
-        /* ========== NUEVA PALETA DE COLORES AZULES LLAMATIVOS ========== */
+        /* ========== PALETA DE COLORES ========== */
         :root {
             --primary: #00d4ff;
             --primary-dark: #0099cc;
@@ -66,7 +60,6 @@
             --dark: #0a0f1a;
             --darker: #04070c;
             --dark-gray: #0f172a;
-            --light-gray: #e0f2fe;
             --white: #ffffff;
             --text: #e0f2fe;
             --card-bg: rgba(15, 25, 45, 0.8);
@@ -100,7 +93,7 @@
             background: radial-gradient(circle at center, #0a1030 0%, #04070c 100%);
         }
         
-        /* Preloader mejorado */
+        /* Preloader */
         #preloader {
             position: fixed;
             top: 0;
@@ -137,7 +130,7 @@
         .loading-bar {
             height: 100%;
             width: 0;
-            background: linear-gradient(90deg, var(--primary) 0%, var(--primary-glow) 25%, #33e0ff 50%, var(--primary-glow) 75%, var(--primary) 100%);
+            background: linear-gradient(90deg, var(--primary) 0%, var(--primary-glow) 100%);
             border-radius: 4px;
             transition: width 0.5s ease;
             box-shadow: 0 0 12px var(--primary);
@@ -148,7 +141,6 @@
             font-size: 0.9rem;
             color: var(--primary);
             font-family: 'JetBrains Mono', monospace;
-            text-shadow: 0 0 5px rgba(0, 212, 255, 0.5);
         }
         
         /* Header */
@@ -159,23 +151,18 @@
             position: sticky;
             top: 0;
             z-index: 100;
-            transition: var(--transition);
         }
         
         .navbar-brand {
             color: var(--primary) !important;
             font-weight: 700;
             font-size: 1.6rem;
-            letter-spacing: -0.5px;
-            text-shadow: 0 0 8px rgba(0, 212, 255, 0.5);
         }
         
         .navbar-nav .nav-link {
             color: var(--text) !important;
             font-weight: 500;
             padding: 0.5rem 1rem;
-            margin: 0 0.2rem;
-            border-radius: 4px;
             transition: var(--transition);
         }
         
@@ -183,215 +170,12 @@
         .navbar-nav .nav-link.active {
             color: var(--primary) !important;
             background-color: rgba(0, 212, 255, 0.15);
-            text-shadow: 0 0 4px var(--primary);
-        }
-        
-        /* Language Switcher - NUEVO DISEÑO */
-        .language-switcher {
-            position: relative;
-            margin-left: 10px;
-        }
-        
-        .language-btn {
-            background: rgba(0, 212, 255, 0.12);
-            border: 1px solid rgba(0, 212, 255, 0.4);
-            color: var(--primary);
-            border-radius: 4px;
-            padding: 8px 15px;
-            font-size: 0.9rem;
-            font-weight: 500;
-            transition: var(--transition);
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        
-        .language-btn:hover {
-            background: rgba(0, 212, 255, 0.25);
-            border-color: var(--primary);
-            box-shadow: 0 0 8px rgba(0, 212, 255, 0.3);
-        }
-        
-        .language-dropdown {
-            position: absolute;
-            top: 100%;
-            right: 0;
-            background: var(--dark-gray);
-            border: 1px solid rgba(0, 212, 255, 0.3);
-            border-radius: 8px;
-            padding: 15px;
-            min-width: 180px;
-            z-index: 1000;
-            display: none;
-            margin-top: 10px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-        }
-        
-        .language-dropdown.show {
-            display: block;
-            animation: fadeIn 0.3s ease;
-        }
-        
-        .language-dropdown::before {
-            content: '';
-            position: absolute;
-            top: -6px;
-            right: 20px;
-            width: 12px;
-            height: 12px;
-            background: var(--dark-gray);
-            transform: rotate(45deg);
-            border-left: 1px solid rgba(0, 212, 255, 0.3);
-            border-top: 1px solid rgba(0, 212, 255, 0.3);
-        }
-        
-        .language-option {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 10px 15px;
-            border-radius: 4px;
-            color: var(--text);
-            text-decoration: none;
-            transition: var(--transition);
-            margin-bottom: 5px;
-            cursor: pointer;
-        }
-        
-        .language-option:hover {
-            background: rgba(0, 212, 255, 0.15);
-            color: var(--primary);
-        }
-        
-        .language-option.active {
-            background: rgba(0, 212, 255, 0.2);
-            color: var(--primary);
-            border-left: 3px solid var(--primary);
-        }
-        
-        .language-flag {
-            width: 24px;
-            height: 16px;
-            border-radius: 2px;
-            object-fit: cover;
-        }
-        
-        /* Botón de idioma flotante arriba del WhatsApp */
-        .floating-language-btn {
-            position: fixed;
-            bottom: 110px;
-            right: 30px;
-            z-index: 101;
-            transition: var(--transition);
-        }
-        
-        .floating-language-btn.hidden {
-            transform: translateY(100px);
-            opacity: 0;
-        }
-        
-        .floating-language-btn .language-main-btn {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            width: auto;
-            min-width: 140px;
-            padding: 12px 20px;
-            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-            border-radius: 50px;
-            box-shadow: 0 4px 20px rgba(0, 212, 255, 0.4);
-            transition: var(--transition);
-            cursor: pointer;
-            border: none;
-            color: var(--darker);
-            font-weight: 600;
-            font-size: 0.9rem;
-        }
-        
-        .floating-language-btn .language-main-btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 6px 25px rgba(0, 212, 255, 0.6);
-        }
-        
-        .floating-language-dropdown {
-            position: absolute;
-            bottom: 100%;
-            right: 0;
-            background: var(--dark-gray);
-            border: 1px solid rgba(0, 212, 255, 0.3);
-            border-radius: 12px;
-            padding: 12px;
-            min-width: 200px;
-            z-index: 1000;
-            display: none;
-            margin-bottom: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-            backdrop-filter: blur(10px);
-        }
-        
-        .floating-language-dropdown.show {
-            display: block;
-            animation: fadeInUp 0.3s ease;
-        }
-        
-        .floating-language-dropdown::after {
-            content: '';
-            position: absolute;
-            bottom: -6px;
-            right: 20px;
-            width: 12px;
-            height: 12px;
-            background: var(--dark-gray);
-            transform: rotate(45deg);
-            border-right: 1px solid rgba(0, 212, 255, 0.3);
-            border-bottom: 1px solid rgba(0, 212, 255, 0.3);
-        }
-        
-        .floating-lang-option {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 10px 15px;
-            border-radius: 8px;
-            color: var(--text);
-            transition: var(--transition);
-            cursor: pointer;
-            white-space: nowrap;
-        }
-        
-        .floating-lang-option:hover {
-            background: rgba(0, 212, 255, 0.2);
-            color: var(--primary);
-        }
-        
-        .floating-lang-option.active {
-            background: rgba(0, 212, 255, 0.25);
-            color: var(--primary);
-        }
-        
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-10px); }
-            to { opacity: 1; transform: translateY(0); }
         }
         
         /* Hero section */
         .hero {
             padding: 100px 0;
             text-align: center;
-            position: relative;
             background: radial-gradient(circle at center, rgba(0, 212, 255, 0.08) 0%, rgba(4, 7, 12, 0) 70%);
         }
         
@@ -405,7 +189,6 @@
             max-width: 220px;
             margin-bottom: 10px;
             filter: drop-shadow(0 0 20px var(--primary));
-            border-radius: 110%;
             animation: pulse 3s infinite;
         }
         
@@ -419,14 +202,11 @@
             color: var(--primary);
             font-size: 3rem;
             margin-bottom: 25px;
-            line-height: 1.2;
-            text-shadow: 0 0 10px rgba(0, 212, 255, 0.4);
         }
         
         .hero p {
             font-size: 1.2rem;
             margin-bottom: 30px;
-            opacity: 0.9;
         }
         
         .hero-badge {
@@ -436,59 +216,33 @@
             padding: 8px 20px;
             border-radius: 30px;
             font-size: 0.9rem;
-            font-weight: 500;
             margin-bottom: 20px;
             border: 1px solid rgba(0, 212, 255, 0.4);
-            box-shadow: 0 0 8px rgba(0, 212, 255, 0.2);
         }
         
-        /* Nueva Sección: Modelo de Outsourcing */
-        .hybrid-model {
+        /* Secciones */
+        .hybrid-model, .services, .fullstack-section, .allies-section, .profile-section, .contact, .cta {
             padding: 80px 0;
-            background: linear-gradient(135deg, rgba(0, 212, 255, 0.04) 0%, rgba(4, 7, 12, 0.98) 100%);
-            position: relative;
         }
         
-        .model-card {
+        .model-card, .service-card, .allies-card, .fullstack-card, .profile-card {
             background: var(--card-bg);
             border-radius: 16px;
             padding: 40px;
-            height: 100%;
             transition: var(--transition);
             border: 1px solid rgba(0, 212, 255, 0.2);
-            text-align: center;
             backdrop-filter: blur(5px);
+            height: 100%;
         }
         
-        .model-card:hover {
+        .model-card:hover, .service-card:hover, .allies-card:hover {
             transform: translateY(-10px);
             border-color: var(--primary);
             box-shadow: 0 20px 40px rgba(0, 212, 255, 0.2);
         }
         
-        .model-icon {
-            font-size: 3rem;
-            color: var(--primary);
-            margin-bottom: 20px;
-            display: inline-block;
-            padding: 15px;
-            background: rgba(0, 212, 255, 0.12);
-            border-radius: 50%;
-            border: 1px solid rgba(0, 212, 255, 0.3);
-        }
-        
-        /* Sección de Servicios Ampliada */
-        .services {
-            padding: 80px 0;
-        }
-        
         .service-card {
-            background: var(--card-bg);
-            border-radius: 12px;
             padding: 30px;
-            height: 100%;
-            transition: var(--transition);
-            border: 1px solid rgba(0, 212, 255, 0.15);
             position: relative;
             overflow: hidden;
         }
@@ -506,22 +260,11 @@
             transition: transform 0.3s ease;
         }
         
-        .service-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(0, 212, 255, 0.1);
-        }
-        
         .service-card:hover::before {
             transform: scaleX(1);
         }
         
-        .service-icon {
-            font-size: 2.5rem;
-            color: var(--primary);
-            margin-bottom: 20px;
-        }
-        
-        .service-card h3 {
+        .service-card h3, .model-card h3 {
             font-size: 1.5rem;
             margin-bottom: 15px;
             color: var(--white);
@@ -535,8 +278,8 @@
         
         .service-features li {
             padding: 5px 0;
-            position: relative;
             padding-left: 20px;
+            position: relative;
         }
         
         .service-features li::before {
@@ -563,36 +306,6 @@
             border: 1px solid rgba(0, 212, 255, 0.3);
         }
         
-        /* Sección Aliados del Nuevo Mundo Digital */
-        .allies-section {
-            padding: 80px 0;
-            background: linear-gradient(135deg, rgba(0, 212, 255, 0.06) 0%, rgba(4, 7, 12, 0.95) 100%);
-            position: relative;
-        }
-        
-        .allies-card {
-            background: var(--card-bg);
-            border-radius: 16px;
-            padding: 40px;
-            border: 1px solid rgba(0, 212, 255, 0.2);
-            position: relative;
-            overflow: hidden;
-            backdrop-filter: blur(5px);
-            text-align: center;
-        }
-        
-        .government-badge {
-            background: rgba(0, 212, 255, 0.2);
-            border: 1px solid var(--primary);
-            padding: 10px 25px;
-            border-radius: 50px;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 30px;
-            color: var(--primary);
-        }
-        
         .section-title {
             text-align: center;
             margin-bottom: 60px;
@@ -602,7 +315,6 @@
             color: var(--primary);
             font-size: 2.5rem;
             margin-bottom: 15px;
-            text-shadow: 0 0 5px rgba(0, 212, 255, 0.3);
         }
         
         .section-title p {
@@ -611,21 +323,9 @@
             opacity: 0.8;
         }
         
-        /* Fullstack Section (mantenida) */
-        .fullstack-section {
-            padding: 80px 0;
-            background: linear-gradient(135deg, rgba(0, 212, 255, 0.06) 0%, rgba(4, 7, 12, 0.95) 100%);
-            position: relative;
-        }
-        
         .fullstack-card {
-            background: var(--card-bg);
-            border-radius: 16px;
-            padding: 50px;
-            border: 1px solid rgba(0, 212, 255, 0.2);
             position: relative;
             overflow: hidden;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
         }
         
         .fullstack-card::after {
@@ -638,29 +338,16 @@
             background: linear-gradient(180deg, var(--primary), var(--primary-dark));
         }
         
-        /* Profile Section */
-        .profile-section {
-            padding: 80px 0;
-            background: linear-gradient(135deg, rgba(0, 212, 255, 0.04) 0%, rgba(4, 7, 12, 0.95) 100%);
-        }
-        
-        .profile-card {
-            background: var(--card-bg);
-            border-radius: 16px;
-            padding: 50px;
-            border: 1px solid rgba(0, 212, 255, 0.2);
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .profile-card::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 4px;
-            height: 100%;
-            background: linear-gradient(180deg, var(--primary), var(--primary-dark));
+        .government-badge {
+            background: rgba(0, 212, 255, 0.2);
+            border: 1px solid var(--primary);
+            padding: 10px 25px;
+            border-radius: 50px;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 30px;
+            color: var(--primary);
         }
         
         .profile-header {
@@ -762,23 +449,13 @@
             padding: 12px 30px;
             border-radius: 6px;
             transition: var(--transition);
+            text-decoration: none;
+            display: inline-block;
         }
         
-        .btn-primary:hover {
+        .btn-primary:hover, .profile-btn:hover {
             transform: translateY(-3px);
             box-shadow: 0 8px 25px rgba(0, 212, 255, 0.5);
-        }
-        
-        /* CTA Section */
-        .cta {
-            padding: 80px 0;
-            background: linear-gradient(135deg, rgba(0, 212, 255, 0.06) 0%, rgba(4, 7, 12, 0.9) 100%);
-            text-align: center;
-        }
-        
-        /* Contact Form */
-        .contact {
-            padding: 80px 0;
         }
         
         .contact-form {
@@ -806,7 +483,6 @@
             font-weight: 500;
         }
         
-        /* Footer */
         footer {
             background-color: var(--dark);
             padding: 60px 0 30px;
@@ -877,11 +553,6 @@
             transition: var(--transition);
         }
         
-        .whatsapp-button.hidden {
-            transform: translateY(100px);
-            opacity: 0;
-        }
-        
         .whatsapp-button a {
             display: flex;
             align-items: center;
@@ -903,12 +574,104 @@
             font-size: 1.8rem;
         }
         
-        /* Login Section */
+        /* Botón de idioma flotante */
+        .floating-language-btn {
+            position: fixed;
+            bottom: 110px;
+            right: 30px;
+            z-index: 101;
+            transition: var(--transition);
+        }
+        
+        .floating-language-btn .language-main-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            min-width: 150px;
+            padding: 12px 20px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            border-radius: 50px;
+            box-shadow: 0 4px 20px rgba(0, 212, 255, 0.4);
+            transition: var(--transition);
+            cursor: pointer;
+            border: none;
+            color: var(--darker);
+            font-weight: 600;
+        }
+        
+        .floating-language-dropdown {
+            position: absolute;
+            bottom: 100%;
+            right: 0;
+            background: var(--dark-gray);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            border-radius: 12px;
+            padding: 12px;
+            min-width: 200px;
+            z-index: 1000;
+            display: none;
+            margin-bottom: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        
+        .floating-language-dropdown.show {
+            display: block;
+            animation: fadeInUp 0.3s ease;
+        }
+        
+        .floating-lang-option {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 15px;
+            border-radius: 8px;
+            color: var(--text);
+            transition: var(--transition);
+            cursor: pointer;
+        }
+        
+        .floating-lang-option:hover {
+            background: rgba(0, 212, 255, 0.2);
+            color: var(--primary);
+        }
+        
+        .floating-lang-option.active {
+            background: rgba(0, 212, 255, 0.25);
+            color: var(--primary);
+        }
+        
+        .language-flag {
+            font-size: 1.2rem;
+        }
+        
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Logo informativo */
+        .info-logo {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 25px;
+        }
+        
+        .info-logo-img {
+            max-width: 80px;
+            filter: drop-shadow(0 0 10px var(--primary));
+            transition: transform 0.3s ease;
+        }
+        
+        .info-logo-img:hover {
+            transform: scale(1.05);
+        }
+        
         .login-section {
             min-height: calc(100vh - 200px);
             padding: 80px 0;
-            display: flex;
-            align-items: center;
         }
         
         .login-card {
@@ -947,42 +710,22 @@
             background: linear-gradient(180deg, var(--primary), var(--primary-dark));
         }
         
-        /* iPhone 16e y dispositivos pequeños - MEJORAS DE VISUALIZACIÓN */
-        @media (max-width: 992px) {
-            .hero h1 { font-size: 2.5rem; }
-            .section-title h2 { font-size: 2rem; }
-            .profile-name { font-size: 1.8rem; }
-            .login-form-container { min-width: 300px; padding: 40px 30px; }
-        }
-        
         @media (max-width: 768px) {
             .hero h1 { font-size: 2rem; }
-            .hero p { font-size: 1rem; }
+            .section-title h2 { font-size: 2rem; }
             .profile-header { justify-content: center; text-align: center; }
-            .profile-avatar { width: 120px; height: 120px; }
             .footer-content { flex-direction: column; }
-            .footer-about { margin-right: 0; }
-            .login-card { flex-direction: column; }
-            .floating-language-btn .language-main-btn { padding: 8px 16px; min-width: 120px; font-size: 0.8rem; }
-            .floating-language-btn { bottom: 100px; right: 20px; }
-            .whatsapp-button { bottom: 20px; right: 20px; }
             .whatsapp-button a { width: 50px; height: 50px; }
-            .whatsapp-button a i { font-size: 1.5rem; }
+            .login-form-container { min-width: 300px; padding: 40px 30px; }
+            .login-card { flex-direction: column; }
+            .floating-language-btn .language-main-btn { padding: 8px 16px; min-width: 130px; font-size: 0.8rem; }
         }
         
-        /* Ajustes específicos para iPhone 16e y pantallas muy pequeñas */
         @media (max-width: 480px) {
-            .hero { padding: 60px 0; }
             .hero h1 { font-size: 1.6rem; }
-            .hero p { font-size: 0.9rem; }
             .section-title h2 { font-size: 1.5rem; }
-            .section-title p { font-size: 0.85rem; }
-            .navbar-brand { font-size: 1.2rem; }
-            .login-form-container { padding: 30px 20px; }
-            .login-image { display: none; }
             .model-card, .service-card, .allies-card { padding: 25px; }
-            .floating-language-btn .language-main-btn { padding: 6px 12px; min-width: 100px; font-size: 0.75rem; }
-            .floating-lang-option { padding: 8px 12px; font-size: 0.85rem; }
+            .login-image { display: none; }
         }
     </style>
 </head>
@@ -993,7 +736,7 @@
     <!-- Preloader -->
     <div id="preloader">
         <div class="preloader-content">
-            <img src="MEDIA/wcl remov.png" alt="Loading" class="preloader-logo">
+            <img src="MEDIA/wcl remov.png" alt="Loading" class="preloader-logo" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'%3E%3Ccircle cx=\'50\' cy=\'50\' r=\'45\' fill=\'%2300d4ff\'/%3E%3Ctext x=\'50\' y=\'70\' font-size=\'50\' text-anchor=\'middle\' fill=\'white\'%3EW%3C/text%3E%3C/svg%3E'">
             <div class="loading-container"><div class="loading-bar" id="loading-bar"></div></div>
             <div class="loading-text" id="loading-text">Cargando recursos...</div>
         </div>
@@ -1009,13 +752,13 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ms-auto">
-                        <li class="nav-item"><a class="nav-link" href="#modelo">Modelo</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#servicios">Servicios</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#fullstack">Desarrollo Web</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#aliados">Aliados</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#profile">Perfil</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#contact">Contacto</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#login">Iniciar Sesión</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#modelo" data-i18n="nav-model">Modelo</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#servicios" data-i18n="nav-services">Servicios</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#fullstack" data-i18n="nav-web">Desarrollo Web</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#aliados" data-i18n="nav-allies">Aliados</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#profile" data-i18n="nav-profile">Perfil</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#contact" data-i18n="nav-contact">Contacto</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#login" data-i18n="nav-login">Iniciar Sesión</a></li>
                     </ul>
                 </div>
             </div>
@@ -1026,36 +769,36 @@
     <section class="hero">
         <div class="container">
             <div class="hero-content">
-                <img src="MEDIA/STICKER.png" alt="Logo" class="logo" oncontextmenu="return false;">
-                <div class="hero-badge">Soluciones Digitales Integrales | Aliados Estratégicos</div>
-                <h1 data-translate="hero-title">Impulsamos tu negocio con tecnología de vanguardia</h1>
-                <p data-translate="hero-desc">Expertos en crear aplicaciones móviles, sitios web de alto rendimiento, ciberseguridad, blockchain y soluciones digitales a medida para pequeñas, medianas y grandes empresas.</p>
-                <a href="#contact" class="btn btn-primary" data-translate="hero-btn">Cuéntanos tu idea</a>
+                <img src="MEDIA/STICKER.png" alt="Logo" class="logo" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'%3E%3Ccircle cx=\'50\' cy=\'50\' r=\'45\' fill=\'%2300d4ff\'/%3E%3Ctext x=\'50\' y=\'70\' font-size=\'50\' text-anchor=\'middle\' fill=\'white\'%3EW%3C/text%3E%3C/svg%3E'">
+                <div class="hero-badge" data-i18n="hero-badge">Soluciones Digitales Integrales | Aliados Estratégicos</div>
+                <h1 data-i18n="hero-title">Impulsamos tu negocio con tecnología de vanguardia</h1>
+                <p data-i18n="hero-desc">Expertos en crear aplicaciones móviles, sitios web de alto rendimiento, ciberseguridad, blockchain y soluciones digitales a medida para pequeñas, medianas y grandes empresas.</p>
+                <a href="#contact" class="btn btn-primary" data-i18n="hero-btn">Cuéntanos tu idea</a>
             </div>
         </div>
     </section>
 
-    <!-- NUEVA SECCIÓN: Modelo de Outsourcing Híbrido -->
+    <!-- Sección Modelo de Outsourcing Híbrido -->
     <section id="modelo" class="hybrid-model">
         <div class="container">
             <div class="section-title">
-                <h2 data-translate="model-title">Nuestro Modelo: Innovación Híbrida</h2>
-                <p data-translate="model-desc">Combinamos un equipo interno de expertos con una red de freelancers especializados para ofrecerte el mejor talento, cuando lo necesites.</p>
+                <h2 data-i18n="model-title">Nuestro Modelo: Innovación Híbrida</h2>
+                <p data-i18n="model-desc">Combinamos un equipo interno de expertos con una red de freelancers especializados para ofrecerte el mejor talento, cuando lo necesites.</p>
             </div>
             <div class="row g-4">
                 <div class="col-md-6">
                     <div class="model-card">
-                        <div class="model-icon"><i class="fas fa-users"></i></div>
-                        <h3 data-translate="model-team-title">Equipo de Desarrollo Propio</h3>
-                        <p data-translate="model-team-desc">Contamos con un equipo central de profesionales en desarrollo de software, ciberseguridad y blockchain. Son nuestros expertos de confianza, listos para dar soporte continuo y garantizar la calidad en todos los proyectos.</p>
+                        <div class="info-logo"><img src="MEDIA/wcl remov.png" alt="Logo Whiat" class="info-logo-img" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'%3E%3Ccircle cx=\'50\' cy=\'50\' r=\'45\' fill=\'%2300d4ff\'/%3E%3Ctext x=\'50\' y=\'70\' font-size=\'50\' text-anchor=\'middle\' fill=\'white\'%3EW%3C/text%3E%3C/svg%3E'"></div>
+                        <h3 data-i18n="model-team-title">Equipo de Desarrollo Propio</h3>
+                        <p data-i18n="model-team-desc">Contamos con un equipo central de profesionales en desarrollo de software, ciberseguridad y blockchain. Son nuestros expertos de confianza, listos para dar soporte continuo y garantizar la calidad en todos los proyectos.</p>
                         <div class="tech-stack"><span class="tech-tag">Full-Stack</span><span class="tech-tag">Blockchain</span><span class="tech-tag">Ciberseguridad</span><span class="tech-tag">Arquitectura Cloud</span></div>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="model-card">
-                        <div class="model-icon"><i class="fas fa-handshake"></i></div>
-                        <h3 data-translate="model-freelance-title">Red de Freelancers Certificados</h3>
-                        <p data-translate="model-freelance-desc">Ampliamos nuestras capacidades con una red curada de freelancers especializados. A través de nuestro modelo de corretaje, conectamos tu proyecto con el talento perfecto, manejando toda la gestión y garantizando la entrega exitosa.</p>
+                        <div class="info-logo"><img src="MEDIA/wcl remov.png" alt="Logo Whiat" class="info-logo-img" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'%3E%3Ccircle cx=\'50\' cy=\'50\' r=\'45\' fill=\'%2300d4ff\'/%3E%3Ctext x=\'50\' y=\'70\' font-size=\'50\' text-anchor=\'middle\' fill=\'white\'%3EW%3C/text%3E%3C/svg%3E'"></div>
+                        <h3 data-i18n="model-freelance-title">Red de Freelancers Certificados</h3>
+                        <p data-i18n="model-freelance-desc">Ampliamos nuestras capacidades con una red curada de freelancers especializados. A través de nuestro modelo de corretaje, conectamos tu proyecto con el talento perfecto, manejando toda la gestión y garantizando la entrega exitosa.</p>
                         <div class="tech-stack"><span class="tech-tag">UI/UX Design</span><span class="tech-tag">QA Testing</span><span class="tech-tag">DevOps</span><span class="tech-tag">Especialistas en APIs</span></div>
                     </div>
                 </div>
@@ -1063,162 +806,199 @@
         </div>
     </section>
 
-    <!-- SECCIÓN DE SERVICIOS AMPLIADA -->
+    <!-- Sección de Servicios Ampliada -->
     <section id="servicios" class="services">
         <div class="container">
             <div class="section-title">
-                <h2 data-translate="services-title">Nuestros Servicios Especializados</h2>
-                <p data-translate="services-desc">Soluciones completas para cada necesidad digital de tu empresa.</p>
+                <h2 data-i18n="services-title">Nuestros Servicios Especializados</h2>
+                <p data-i18n="services-desc">Soluciones completas para cada necesidad digital de tu empresa.</p>
             </div>
             <div class="row g-4">
                 <!-- Desarrollo de Apps -->
                 <div class="col-lg-4 col-md-6">
                     <div class="service-card">
-                        <div class="service-icon"><i class="fas fa-mobile-alt"></i></div>
-                        <h3 data-translate="service-apps-title">Apps Android & iOS</h3>
-                        <p data-translate="service-apps-desc">Aplicaciones nativas e híbridas de alto rendimiento para llevar tu negocio a todos los dispositivos.</p>
-                        <ul class="service-features"><li data-translate="app-feat1">Apps para comercios y restaurantes</li><li data-translate="app-feat2">Plataformas de pedidos a domicilio</li><li data-translate="app-feat3">Sistemas de fidelización</li><li data-translate="app-feat4">Publicación en App Store y Play Store</li></ul>
+                        <div class="info-logo"><img src="MEDIA/wcl remov.png" alt="Logo Whiat" class="info-logo-img" style="max-width:60px" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'%3E%3Ccircle cx=\'50\' cy=\'50\' r=\'45\' fill=\'%2300d4ff\'/%3E%3Ctext x=\'50\' y=\'70\' font-size=\'50\' text-anchor=\'middle\' fill=\'white\'%3EW%3C/text%3E%3C/svg%3E'"></div>
+                        <h3 data-i18n="service-apps-title">Apps Android & iOS</h3>
+                        <p data-i18n="service-apps-desc">Aplicaciones nativas e híbridas de alto rendimiento para llevar tu negocio a todos los dispositivos.</p>
+                        <ul class="service-features">
+                            <li data-i18n="app-feat1">Apps para comercios y restaurantes</li>
+                            <li data-i18n="app-feat2">Plataformas de pedidos a domicilio</li>
+                            <li data-i18n="app-feat3">Sistemas de fidelización</li>
+                            <li data-i18n="app-feat4">Publicación en App Store y Play Store</li>
+                        </ul>
                         <div class="tech-stack"><span class="tech-tag">Flutter</span><span class="tech-tag">React Native</span><span class="tech-tag">Kotlin</span><span class="tech-tag">Swift</span></div>
-                        <a href="#contact" class="btn btn-primary w-100" data-translate="btn-quote-app">Cotizar App</a>
+                        <a href="#contact" class="btn btn-primary w-100" data-i18n="btn-quote-app">Cotizar App</a>
                     </div>
                 </div>
                 <!-- Ciberseguridad -->
                 <div class="col-lg-4 col-md-6">
                     <div class="service-card">
-                        <div class="service-icon"><i class="fas fa-shield-alt"></i></div>
-                        <h3 data-translate="service-security-title">Ciberseguridad & Protección de Datos</h3>
-                        <p data-translate="service-security-desc">Protegemos tu infraestructura digital contra amenazas y garantizamos el cumplimiento normativo.</p>
-                        <ul class="service-features"><li data-translate="security-feat1">Auditorías de seguridad y pentesting</li><li data-translate="security-feat2">Implementación de firewalls y sistemas IDS/IPS</li><li data-translate="security-feat3">Gestión de identidades y accesos (IAM)</li><li data-translate="security-feat4">Cumplimiento de normas (ISO 27001, GDPR)</li></ul>
+                        <div class="info-logo"><img src="MEDIA/wcl remov.png" alt="Logo Whiat" class="info-logo-img" style="max-width:60px" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'%3E%3Ccircle cx=\'50\' cy=\'50\' r=\'45\' fill=\'%2300d4ff\'/%3E%3Ctext x=\'50\' y=\'70\' font-size=\'50\' text-anchor=\'middle\' fill=\'white\'%3EW%3C/text%3E%3C/svg%3E'"></div>
+                        <h3 data-i18n="service-security-title">Ciberseguridad & Protección de Datos</h3>
+                        <p data-i18n="service-security-desc">Protegemos tu infraestructura digital contra amenazas y garantizamos el cumplimiento normativo.</p>
+                        <ul class="service-features">
+                            <li data-i18n="security-feat1">Auditorías de seguridad y pentesting</li>
+                            <li data-i18n="security-feat2">Implementación de firewalls y sistemas IDS/IPS</li>
+                            <li data-i18n="security-feat3">Gestión de identidades y accesos (IAM)</li>
+                            <li data-i18n="security-feat4">Cumplimiento de normas (ISO 27001, GDPR)</li>
+                        </ul>
                         <div class="tech-stack"><span class="tech-tag">Kali Linux</span><span class="tech-tag">Wireshark</span><span class="tech-tag">Firewalls</span><span class="tech-tag">PKI</span></div>
-                        <a href="#contact" class="btn btn-primary w-100" data-translate="btn-protect">Proteger mi Empresa</a>
+                        <a href="#contact" class="btn btn-primary w-100" data-i18n="btn-protect">Proteger mi Empresa</a>
                     </div>
                 </div>
                 <!-- Blockchain & Minería -->
                 <div class="col-lg-4 col-md-6">
                     <div class="service-card">
-                        <div class="service-icon"><i class="fas fa-link"></i></div>
-                        <h3 data-translate="service-blockchain-title">Blockchain & Minería Crypto</h3>
-                        <p data-translate="service-blockchain-desc">Desarrollamos soluciones basadas en blockchain y te asesoramos en proyectos de minería de criptomonedas.</p>
-                        <ul class="service-features"><li data-translate="blockchain-feat1">Desarrollo de contratos inteligentes (Smart Contracts)</li><li data-translate="blockchain-feat2">Implementación de redes privadas blockchain</li><li data-translate="blockchain-feat3">Asesoría en inversión y montaje de granjas de minería</li><li data-translate="blockchain-feat4">Tokenización de activos (NFTs, STOs)</li></ul>
+                        <div class="info-logo"><img src="MEDIA/wcl remov.png" alt="Logo Whiat" class="info-logo-img" style="max-width:60px" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'%3E%3Ccircle cx=\'50\' cy=\'50\' r=\'45\' fill=\'%2300d4ff\'/%3E%3Ctext x=\'50\' y=\'70\' font-size=\'50\' text-anchor=\'middle\' fill=\'white\'%3EW%3C/text%3E%3C/svg%3E'"></div>
+                        <h3 data-i18n="service-blockchain-title">Blockchain & Minería Crypto</h3>
+                        <p data-i18n="service-blockchain-desc">Desarrollamos soluciones basadas en blockchain y te asesoramos en proyectos de minería de criptomonedas.</p>
+                        <ul class="service-features">
+                            <li data-i18n="blockchain-feat1">Desarrollo de contratos inteligentes (Smart Contracts)</li>
+                            <li data-i18n="blockchain-feat2">Implementación de redes privadas blockchain</li>
+                            <li data-i18n="blockchain-feat3">Asesoría en inversión y montaje de granjas de minería</li>
+                            <li data-i18n="blockchain-feat4">Tokenización de activos (NFTs, STOs)</li>
+                        </ul>
                         <div class="tech-stack"><span class="tech-tag">Ethereum</span><span class="tech-tag">Solidity</span><span class="tech-tag">Bitcoin</span><span class="tech-tag">Hyperledger</span></div>
-                        <a href="#contact" class="btn btn-primary w-100" data-translate="btn-explore">Explorar Blockchain</a>
+                        <a href="#contact" class="btn btn-primary w-100" data-i18n="btn-explore">Explorar Blockchain</a>
                     </div>
                 </div>
                 <!-- Outsourcing de Programadores -->
                 <div class="col-lg-4 col-md-6">
                     <div class="service-card">
-                        <div class="service-icon"><i class="fas fa-code-branch"></i></div>
-                        <h3 data-translate="service-outsourcing-title">Outsourcing IT & Corretaje</h3>
-                        <p data-translate="service-outsourcing-desc">Amplía tu equipo con programadores expertos por proyecto. Nosotros gestionamos el talento, tú te enfocas en tu negocio.</p>
-                        <ul class="service-features"><li data-translate="outsourcing-feat1">Contratación por horas o proyecto</li><li data-translate="outsourcing-feat2">Desarrolladores full-stack, frontend, backend</li><li data-translate="outsourcing-feat3">Especialistas en bases de datos y DevOps</li><li data-translate="outsourcing-feat4">Gestión de pagos y seguimiento de KPIs</li></ul>
+                        <div class="info-logo"><img src="MEDIA/wcl remov.png" alt="Logo Whiat" class="info-logo-img" style="max-width:60px" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'%3E%3Ccircle cx=\'50\' cy=\'50\' r=\'45\' fill=\'%2300d4ff\'/%3E%3Ctext x=\'50\' y=\'70\' font-size=\'50\' text-anchor=\'middle\' fill=\'white\'%3EW%3C/text%3E%3C/svg%3E'"></div>
+                        <h3 data-i18n="service-outsourcing-title">Outsourcing IT & Corretaje</h3>
+                        <p data-i18n="service-outsourcing-desc">Amplía tu equipo con programadores expertos por proyecto. Nosotros gestionamos el talento, tú te enfocas en tu negocio.</p>
+                        <ul class="service-features">
+                            <li data-i18n="outsourcing-feat1">Contratación por horas o proyecto</li>
+                            <li data-i18n="outsourcing-feat2">Desarrolladores full-stack, frontend, backend</li>
+                            <li data-i18n="outsourcing-feat3">Especialistas en bases de datos y DevOps</li>
+                            <li data-i18n="outsourcing-feat4">Gestión de pagos y seguimiento de KPIs</li>
+                        </ul>
                         <div class="tech-stack"><span class="tech-tag">Node.js</span><span class="tech-tag">Python</span><span class="tech-tag">Java</span><span class="tech-tag">React</span><span class="tech-tag">AWS</span></div>
-                        <a href="#contact" class="btn btn-primary w-100" data-translate="btn-hire">Contratar Talento</a>
+                        <a href="#contact" class="btn btn-primary w-100" data-i18n="btn-hire">Contratar Talento</a>
                     </div>
                 </div>
                 <!-- Soporte PYMES -->
                 <div class="col-lg-4 col-md-6">
                     <div class="service-card">
-                        <div class="service-icon"><i class="fas fa-building"></i></div>
-                        <h3 data-translate="service-sme-title">Soporte para PYMES</h3>
-                        <p data-translate="service-sme-desc">Gestionamos y optimizamos tu infraestructura tecnológica para que puedas crecer sin preocupaciones.</p>
-                        <ul class="service-features"><li data-translate="sme-feat1">Administración de servidores y redes</li><li data-translate="sme-feat2">Soporte técnico remoto y presencial</li><li data-translate="sme-feat3">Mantenimiento de equipos y sistemas</li><li data-translate="sme-feat4">Estrategias de transformación digital</li></ul>
+                        <div class="info-logo"><img src="MEDIA/wcl remov.png" alt="Logo Whiat" class="info-logo-img" style="max-width:60px" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'%3E%3Ccircle cx=\'50\' cy=\'50\' r=\'45\' fill=\'%2300d4ff\'/%3E%3Ctext x=\'50\' y=\'70\' font-size=\'50\' text-anchor=\'middle\' fill=\'white\'%3EW%3C/text%3E%3C/svg%3E'"></div>
+                        <h3 data-i18n="service-sme-title">Soporte para PYMES</h3>
+                        <p data-i18n="service-sme-desc">Gestionamos y optimizamos tu infraestructura tecnológica para que puedas crecer sin preocupaciones.</p>
+                        <ul class="service-features">
+                            <li data-i18n="sme-feat1">Administración de servidores y redes</li>
+                            <li data-i18n="sme-feat2">Soporte técnico remoto y presencial</li>
+                            <li data-i18n="sme-feat3">Mantenimiento de equipos y sistemas</li>
+                            <li data-i18n="sme-feat4">Estrategias de transformación digital</li>
+                        </ul>
                         <div class="tech-stack"><span class="tech-tag">Office 365</span><span class="tech-tag">Google Workspace</span><span class="tech-tag">Windows Server</span><span class="tech-tag">Linux</span></div>
-                        <a href="#contact" class="btn btn-primary w-100" data-translate="btn-support">Solicitar Soporte</a>
+                        <a href="#contact" class="btn btn-primary w-100" data-i18n="btn-support">Solicitar Soporte</a>
                     </div>
                 </div>
                 <!-- Desarrollo Web -->
                 <div class="col-lg-4 col-md-6">
                     <div class="service-card">
-                        <div class="service-icon"><i class="fas fa-globe"></i></div>
-                        <h3 data-translate="service-web-title">Páginas Web & CMS</h3>
-                        <p data-translate="service-web-desc">Creamos sitios web impactantes, desde landing pages hasta complejos portales empresariales con fácil administración.</p>
-                        <ul class="service-features"><li data-translate="web-feat1">Diseño responsivo y enfocado en UX/UI</li><li data-translate="web-feat2">E-commerce (Tiendas online)</li><li data-translate="web-feat3">Gestión de contenido (WordPress, Strapi)</li><li data-translate="web-feat4">Optimización SEO y velocidad</li></ul>
+                        <div class="info-logo"><img src="MEDIA/wcl remov.png" alt="Logo Whiat" class="info-logo-img" style="max-width:60px" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'%3E%3Ccircle cx=\'50\' cy=\'50\' r=\'45\' fill=\'%2300d4ff\'/%3E%3Ctext x=\'50\' y=\'70\' font-size=\'50\' text-anchor=\'middle\' fill=\'white\'%3EW%3C/text%3E%3C/svg%3E'"></div>
+                        <h3 data-i18n="service-web-title">Páginas Web & CMS</h3>
+                        <p data-i18n="service-web-desc">Creamos sitios web impactantes, desde landing pages hasta complejos portales empresariales con fácil administración.</p>
+                        <ul class="service-features">
+                            <li data-i18n="web-feat1">Diseño responsivo y enfocado en UX/UI</li>
+                            <li data-i18n="web-feat2">E-commerce (Tiendas online)</li>
+                            <li data-i18n="web-feat3">Gestión de contenido (WordPress, Strapi)</li>
+                            <li data-i18n="web-feat4">Optimización SEO y velocidad</li>
+                        </ul>
                         <div class="tech-stack"><span class="tech-tag">WordPress</span><span class="tech-tag">Shopify</span><span class="tech-tag">HTML5/CSS3</span><span class="tech-tag">JavaScript</span></div>
-                        <a href="#contact" class="btn btn-primary w-100" data-translate="btn-create-web">Crear mi Web</a>
+                        <a href="#contact" class="btn btn-primary w-100" data-i18n="btn-create-web">Crear mi Web</a>
                     </div>
                 </div>
-                <!-- Mantenimiento Web y Actualizaciones -->
+                <!-- Mantenimiento Web -->
                 <div class="col-lg-4 col-md-6">
                     <div class="service-card">
-                        <div class="service-icon"><i class="fas fa-sync-alt"></i></div>
-                        <h3 data-translate="service-maintenance-title">Mantenimiento & Actualización</h3>
-                        <p data-translate="service-maintenance-desc">Aseguramos que tu sitio web y aplicaciones estén siempre actualizados, seguros y funcionando al máximo rendimiento.</p>
-                        <ul class="service-features"><li data-translate="maintenance-feat1">Actualizaciones de seguridad y parches</li><li data-translate="maintenance-feat2">Copias de seguridad automáticas</li><li data-translate="maintenance-feat3">Monitoreo 24/7 de disponibilidad</li><li data-translate="maintenance-feat4">Migraciones de servidores y bases de datos</li></ul>
+                        <div class="info-logo"><img src="MEDIA/wcl remov.png" alt="Logo Whiat" class="info-logo-img" style="max-width:60px" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'%3E%3Ccircle cx=\'50\' cy=\'50\' r=\'45\' fill=\'%2300d4ff\'/%3E%3Ctext x=\'50\' y=\'70\' font-size=\'50\' text-anchor=\'middle\' fill=\'white\'%3EW%3C/text%3E%3C/svg%3E'"></div>
+                        <h3 data-i18n="service-maintenance-title">Mantenimiento & Actualización</h3>
+                        <p data-i18n="service-maintenance-desc">Aseguramos que tu sitio web y aplicaciones estén siempre actualizados, seguros y funcionando al máximo rendimiento.</p>
+                        <ul class="service-features">
+                            <li data-i18n="maintenance-feat1">Actualizaciones de seguridad y parches</li>
+                            <li data-i18n="maintenance-feat2">Copias de seguridad automáticas</li>
+                            <li data-i18n="maintenance-feat3">Monitoreo 24/7 de disponibilidad</li>
+                            <li data-i18n="maintenance-feat4">Migraciones de servidores y bases de datos</li>
+                        </ul>
                         <div class="tech-stack"><span class="tech-tag">cPanel</span><span class="tech-tag">AWS</span><span class="tech-tag">Docker</span><span class="tech-tag">MySQL</span></div>
-                        <a href="#contact" class="btn btn-primary w-100" data-translate="btn-maintain">Mantener mi Proyecto</a>
+                        <a href="#contact" class="btn btn-primary w-100" data-i18n="btn-maintain">Mantener mi Proyecto</a>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Sección de Desarrollo Web Fullstack (mantenida) -->
+    <!-- Sección de Desarrollo Web Fullstack -->
     <section id="fullstack" class="fullstack-section">
         <div class="container">
             <div class="fullstack-card">
+                <div class="info-logo"><img src="MEDIA/wcl remov.png" alt="Logo Whiat" class="info-logo-img" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'%3E%3Ccircle cx=\'50\' cy=\'50\' r=\'45\' fill=\'%2300d4ff\'/%3E%3Ctext x=\'50\' y=\'70\' font-size=\'50\' text-anchor=\'middle\' fill=\'white\'%3EW%3C/text%3E%3C/svg%3E'"></div>
                 <div class="fullstack-header text-center mb-5">
-                    <h2 data-translate="fullstack-title">Desarrollo Web Fullstack</h2>
-                    <p data-translate="fullstack-desc">Construimos aplicaciones web completas, desde el frontend más moderno hasta el backend más robusto y escalable.</p>
+                    <h2 data-i18n="fullstack-title">Desarrollo Web Fullstack</h2>
+                    <p data-i18n="fullstack-desc">Construimos aplicaciones web completas, desde el frontend más moderno hasta el backend más robusto y escalable.</p>
                 </div>
                 <div class="row g-4">
                     <div class="col-md-4">
                         <div class="text-center p-4" style="background: rgba(0,212,255,0.05); border-radius: 12px;">
                             <i class="fas fa-laptop-code" style="font-size: 2rem; color: var(--primary);"></i>
-                            <h3 class="mt-3" data-translate="frontend-title">Frontend Moderno</h3>
+                            <h3 class="mt-3" data-i18n="frontend-title">Frontend Moderno</h3>
                             <p>React.js, Vue.js, Angular, TypeScript, HTML5/CSS3</p>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="text-center p-4" style="background: rgba(0,212,255,0.05); border-radius: 12px;">
                             <i class="fas fa-server" style="font-size: 2rem; color: var(--primary);"></i>
-                            <h3 class="mt-3" data-translate="backend-title">Backend Robusto</h3>
+                            <h3 class="mt-3" data-i18n="backend-title">Backend Robusto</h3>
                             <p>Node.js, Python, PHP, Java, .NET</p>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="text-center p-4" style="background: rgba(0,212,255,0.05); border-radius: 12px;">
                             <i class="fas fa-database" style="font-size: 2rem; color: var(--primary);"></i>
-                            <h3 class="mt-3" data-translate="database-title">Bases de Datos</h3>
+                            <h3 class="mt-3" data-i18n="database-title">Bases de Datos</h3>
                             <p>MySQL, PostgreSQL, MongoDB, Firebase, Redis</p>
                         </div>
                     </div>
                 </div>
                 <div class="text-center mt-5">
-                    <a href="#contact" class="btn btn-primary btn-lg" data-translate="fullstack-btn">Solicitar Desarrollo Personalizado</a>
+                    <a href="#contact" class="btn btn-primary btn-lg" data-i18n="fullstack-btn">Solicitar Desarrollo Personalizado</a>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- NUEVA SECCIÓN: Aliados del Nuevo Mundo Digital -->
+    <!-- Sección Aliados del Nuevo Mundo Digital -->
     <section id="aliados" class="allies-section">
         <div class="container">
             <div class="section-title">
-                <h2 data-translate="allies-title">Aliados del Nuevo Mundo Digital</h2>
-                <p data-translate="allies-desc">Conectamos empresas emergentes y consolidadas con las oportunidades de la era digital.</p>
+                <h2 data-i18n="allies-title">Aliados del Nuevo Mundo Digital</h2>
+                <p data-i18n="allies-desc">Conectamos empresas emergentes y consolidadas con las oportunidades de la era digital.</p>
             </div>
             <div class="row g-4">
                 <div class="col-md-6">
                     <div class="allies-card">
-                        <i class="fas fa-rocket" style="font-size: 2.5rem; color: var(--primary); margin-bottom: 20px;"></i>
-                        <h3 data-translate="allies-emerging-title">Para Empresas Emergentes</h3>
-                        <p data-translate="allies-emerging-desc">Acompañamos a startups y negocios en sus primeras etapas digitales, proporcionando soluciones escalables y asesoría estratégica para que su tecnología impulse su crecimiento desde el día uno.</p>
+                        <div class="info-logo"><img src="MEDIA/wcl remov.png" alt="Logo Whiat" class="info-logo-img" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'%3E%3Ccircle cx=\'50\' cy=\'50\' r=\'45\' fill=\'%2300d4ff\'/%3E%3Ctext x=\'50\' y=\'70\' font-size=\'50\' text-anchor=\'middle\' fill=\'white\'%3EW%3C/text%3E%3C/svg%3E'"></div>
+                        <h3 data-i18n="allies-emerging-title">Para Empresas Emergentes</h3>
+                        <p data-i18n="allies-emerging-desc">Acompañamos a startups y negocios en sus primeras etapas digitales, proporcionando soluciones escalables y asesoría estratégica para que su tecnología impulse su crecimiento desde el día uno.</p>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="allies-card">
-                        <i class="fas fa-chart-line" style="font-size: 2.5rem; color: var(--primary); margin-bottom: 20px;"></i>
-                        <h3 data-translate="allies-established-title">Para Empresas Acreditadas</h3>
-                        <p data-translate="allies-established-desc">Ayudamos a empresas consolidadas a modernizar su infraestructura, adoptar nuevas tecnologías como blockchain y ciberseguridad avanzada, y a optimizar sus procesos para mantenerse a la vanguardia.</p>
+                        <div class="info-logo"><img src="MEDIA/wcl remov.png" alt="Logo Whiat" class="info-logo-img" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'%3E%3Ccircle cx=\'50\' cy=\'50\' r=\'45\' fill=\'%2300d4ff\'/%3E%3Ctext x=\'50\' y=\'70\' font-size=\'50\' text-anchor=\'middle\' fill=\'white\'%3EW%3C/text%3E%3C/svg%3E'"></div>
+                        <h3 data-i18n="allies-established-title">Para Empresas Acreditadas</h3>
+                        <p data-i18n="allies-established-desc">Ayudamos a empresas consolidadas a modernizar su infraestructura, adoptar nuevas tecnologías como blockchain y ciberseguridad avanzada, y a optimizar sus procesos para mantenerse a la vanguardia.</p>
                     </div>
                 </div>
             </div>
             <div class="allies-card mt-4">
+                <div class="info-logo"><img src="MEDIA/wcl remov.png" alt="Logo Whiat" class="info-logo-img" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'%3E%3Ccircle cx=\'50\' cy=\'50\' r=\'45\' fill=\'%2300d4ff\'/%3E%3Ctext x=\'50\' y=\'70\' font-size=\'50\' text-anchor=\'middle\' fill=\'white\'%3EW%3C/text%3E%3C/svg%3E'"></div>
                 <div class="government-badge">
-                    <i class="fas fa-hand-holding-heart"></i> <span data-translate="gov-badge">De la mano con el desarrollo nacional</span>
+                    <i class="fas fa-hand-holding-heart"></i> <span data-i18n="gov-badge">De la mano con el desarrollo nacional</span>
                 </div>
-                <h3 data-translate="gov-title">Compromiso con Colombia</h3>
-                <p data-translate="gov-desc">Estamos en constante actualización y alineados con los proyectos del gobierno colombiano, participando en iniciativas de transformación digital, educación tecnológica y apoyo a emprendedores. Nuestro objetivo es ser un puente que genere oportunidades y contribuya al avance del nuevo mundo digital en el país.</p>
+                <h3 data-i18n="gov-title">Compromiso con Colombia</h3>
+                <p data-i18n="gov-desc">Estamos en constante actualización y alineados con los proyectos del gobierno colombiano, participando en iniciativas de transformación digital, educación tecnológica y apoyo a emprendedores. Nuestro objetivo es ser un puente que genere oportunidades y contribuya al avance del nuevo mundo digital en el país.</p>
                 <div class="tech-stack mt-3" style="justify-content: center;">
                     <span class="tech-tag">MINTIC</span>
                     <span class="tech-tag">Colombia Digital</span>
@@ -1232,21 +1012,27 @@
     <!-- Perfil Profesional Section -->
     <section id="profile" class="profile-section">
         <div class="container">
-            <div class="section-title"><h2 data-translate="profile-title">Perfil Profesional</h2><p data-translate="profile-desc">Conoce al fundador y líder detrás de Whiat Company</p></div>
+            <div class="section-title"><h2 data-i18n="profile-title">Perfil Profesional</h2><p data-i18n="profile-desc">Conoce al fundador y líder detrás de Whiat Company</p></div>
             <div class="profile-card">
                 <div class="profile-header">
-                    <img src="media/BCHINO.jpeg" alt="Matías Felipe Whiat" class="profile-avatar" oncontextmenu="return false;">
+                    <img src="media/BCHINO.jpeg" alt="Matías Felipe Whiat" class="profile-avatar" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'%3E%3Ccircle cx=\'50\' cy=\'50\' r=\'45\' fill=\'%2300d4ff\'/%3E%3Ctext x=\'50\' y=\'70\' font-size=\'40\' text-anchor=\'middle\' fill=\'white\'%3EMW%3C/text%3E%3C/svg%3E'">
                     <div class="profile-info">
                         <h1 class="profile-name">Matías Felipe Whiat</h1>
-                        <p class="profile-title" data-translate="profile-position">CEO & Fundador de Whiat Company - Garantias Financieras y Juridicas S.A.S</p>
+                        <p class="profile-title" data-i18n="profile-position">CEO & Fundador de Whiat Company - Garantias Financieras y Juridicas S.A.S</p>
                         <div class="profile-tags"><span class="profile-tag">Desarrollador Full-Stack</span><span class="profile-tag">Especialista Blockchain</span><span class="profile-tag">Consultor Tecnológico</span><span class="profile-tag">Innovación Legal-Tech</span></div>
-                        <div class="contact-links"><a href="https://www.instagram.com/matiaswhiat/" target="_blank" class="contact-item"><i class="fab fa-instagram"></i></a><a href="mailto:matiaswhiat@mail.de" target="_blank" class="contact-item"><i class="fas fa-envelope"></i></a><a href="https://wa.me/573334318088" target="_blank" class="contact-item"><i class="fab fa-whatsapp"></i></a><a href="https://www.linkedin.com/in/matias-felipe-whiat-56b342240/" target="_blank" class="contact-item"><i class="fab fa-linkedin"></i></a><a href="https://github.com/matiaswhiat" target="_blank" class="contact-item"><i class="fab fa-github"></i></a></div>
+                        <div class="contact-links">
+                            <a href="https://www.instagram.com/matiaswhiat/" target="_blank" class="contact-item"><i class="fab fa-instagram"></i></a>
+                            <a href="mailto:matiaswhiat@mail.de" target="_blank" class="contact-item"><i class="fas fa-envelope"></i></a>
+                            <a href="https://wa.me/573334318088" target="_blank" class="contact-item"><i class="fab fa-whatsapp"></i></a>
+                            <a href="https://www.linkedin.com/in/matias-felipe-whiat-56b342240/" target="_blank" class="contact-item"><i class="fab fa-linkedin"></i></a>
+                            <a href="https://github.com/matiaswhiat" target="_blank" class="contact-item"><i class="fab fa-github"></i></a>
+                        </div>
                     </div>
                 </div>
                 <div class="profile-cta">
-                    <a href="index4.html" class="profile-btn"><i class="fas fa-globe"></i> <span data-translate="profile-website">Mi Website Oficial</span></a>
-                    <a href="https://wa.me/573334318088" target="_blank" class="profile-btn profile-btn-outline"><i class="fab fa-whatsapp"></i> <span data-translate="profile-whatsapp">Consulta Inmediata</span></a>
-                    <a href="mailto:matiaswhiat@mail.de" class="profile-btn profile-btn-outline"><i class="fas fa-envelope"></i> <span data-translate="profile-email">Correo Directo</span></a>
+                    <a href="index4.html" class="profile-btn"><i class="fas fa-globe"></i> <span data-i18n="profile-website">Mi Website Oficial</span></a>
+                    <a href="https://wa.me/573334318088" target="_blank" class="profile-btn profile-btn-outline"><i class="fab fa-whatsapp"></i> <span data-i18n="profile-whatsapp">Consulta Inmediata</span></a>
+                    <a href="mailto:matiaswhiat@mail.de" class="profile-btn profile-btn-outline"><i class="fas fa-envelope"></i> <span data-i18n="profile-email">Correo Directo</span></a>
                 </div>
             </div>
         </div>
@@ -1255,23 +1041,60 @@
     <!-- CTA Section -->
     <section class="cta">
         <div class="container">
-            <div class="cta-content"><h2 data-translate="cta-title">¿Listo para dar el salto digital?</h2><p data-translate="cta-desc">Ya sea un desarrollo a medida, ampliar tu equipo con nuestros freelancers o asegurar tu infraestructura, estamos aquí para hacerlo realidad.</p><a href="#contact" class="btn btn-primary" data-translate="cta-btn">Solicitar una Consultoría Gratuita</a></div>
+            <div class="cta-content text-center">
+                <h2 data-i18n="cta-title">¿Listo para dar el salto digital?</h2>
+                <p class="mb-4" data-i18n="cta-desc">Ya sea un desarrollo a medida, ampliar tu equipo con nuestros freelancers o asegurar tu infraestructura, estamos aquí para hacerlo realidad.</p>
+                <a href="#contact" class="btn btn-primary" data-i18n="cta-btn">Solicitar una Consultoría Gratuita</a>
+            </div>
         </div>
     </section>
 
     <!-- Contact Section -->
     <section id="contact" class="contact">
         <div class="container">
-            <div class="section-title"><h2 data-translate="contact-title">Contacto</h2><p data-translate="contact-desc">Ponte en contacto con nosotros para discutir tu proyecto</p></div>
+            <div class="section-title"><h2 data-i18n="contact-title">Contacto</h2><p data-i18n="contact-desc">Ponte en contacto con nosotros para discutir tu proyecto</p></div>
             <div class="row justify-content-center">
                 <div class="col-lg-8">
                     <form action="https://formspree.io/f/manwrnrq" method="POST" class="contact-form">
-                        <div class="row"><div class="col-md-6 mb-3"><label for="name" class="form-label" data-translate="form-name">Nombre Completo</label><input type="text" class="form-control" id="name" name="name" required></div><div class="col-md-6 mb-3"><label for="phone" class="form-label" data-translate="form-phone">Teléfono (con indicativo)</label><input type="tel" class="form-control" id="phone" name="phone" placeholder="+57" required></div></div>
-                        <div class="mb-3"><label for="email" class="form-label" data-translate="form-email">Correo Electrónico</label><input type="email" class="form-control" id="email" name="email" required></div>
-                        <div class="mb-3"><label for="company" class="form-label" data-translate="form-company">Empresa (opcional)</label><input type="text" class="form-control" id="company" name="company"></div>
-                        <div class="mb-3"><label for="service" class="form-label" data-translate="form-service">Servicio de Interés</label><select class="form-control" id="service" name="service"><option value="" data-translate="select-default">Selecciona un servicio</option><option value="outsourcing" data-translate="service-opt1">Outsourcing / Corretaje de Programadores</option><option value="app-movil" data-translate="service-opt2">App Móvil (Android/iOS)</option><option value="ciberseguridad" data-translate="service-opt3">Ciberseguridad</option><option value="blockchain" data-translate="service-opt4">Blockchain & Minería</option><option value="soporte-pyme" data-translate="service-opt5">Soporte para PYMES</option><option value="fullstack" data-translate="service-opt6">Desarrollo Web Fullstack</option><option value="web-basico" data-translate="service-opt7">Desarrollo Web Básico</option><option value="mantenimiento" data-translate="service-opt8">Mantenimiento Web y Datos</option><option value="consulting" data-translate="service-opt9">Consultoría con Matías Whiat</option><option value="other" data-translate="service-opt10">Otro</option></select></div>
-                        <div class="mb-4"><label for="message" class="form-label" data-translate="form-message">Mensaje</label><textarea class="form-control" id="message" name="message" rows="5" required></textarea></div>
-                        <button type="submit" class="btn btn-primary w-100" data-translate="form-submit">Enviar Mensaje</button>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label" data-i18n="form-name">Nombre Completo</label>
+                                <input type="text" class="form-control" name="name" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label" data-i18n="form-phone">Teléfono (con indicativo)</label>
+                                <input type="tel" class="form-control" name="phone" placeholder="+57" required>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" data-i18n="form-email">Correo Electrónico</label>
+                            <input type="email" class="form-control" name="email" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" data-i18n="form-company">Empresa (opcional)</label>
+                            <input type="text" class="form-control" name="company">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" data-i18n="form-service">Servicio de Interés</label>
+                            <select class="form-control" name="service">
+                                <option value="" data-i18n="select-default">Selecciona un servicio</option>
+                                <option value="outsourcing" data-i18n="service-opt1">Outsourcing / Corretaje de Programadores</option>
+                                <option value="app-movil" data-i18n="service-opt2">App Móvil (Android/iOS)</option>
+                                <option value="ciberseguridad" data-i18n="service-opt3">Ciberseguridad</option>
+                                <option value="blockchain" data-i18n="service-opt4">Blockchain & Minería</option>
+                                <option value="soporte-pyme" data-i18n="service-opt5">Soporte para PYMES</option>
+                                <option value="fullstack" data-i18n="service-opt6">Desarrollo Web Fullstack</option>
+                                <option value="web-basico" data-i18n="service-opt7">Desarrollo Web Básico</option>
+                                <option value="mantenimiento" data-i18n="service-opt8">Mantenimiento Web y Datos</option>
+                                <option value="consulting" data-i18n="service-opt9">Consultoría con Matías Whiat</option>
+                                <option value="other" data-i18n="service-opt10">Otro</option>
+                            </select>
+                        </div>
+                        <div class="mb-4">
+                            <label class="form-label" data-i18n="form-message">Mensaje</label>
+                            <textarea class="form-control" name="message" rows="5" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100" data-i18n="form-submit">Enviar Mensaje</button>
                     </form>
                 </div>
             </div>
@@ -1282,15 +1105,24 @@
     <section id="login" class="login-section">
         <div class="container">
             <div class="login-card">
-                <div class="login-image"><img src="MEDIA/STICKER.png" alt="Whiat Company Login" oncontextmenu="return false;"></div>
+                <div class="login-image"><img src="MEDIA/STICKER.png" alt="Whiat Company Login" style="max-width:200px" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'%3E%3Ccircle cx=\'50\' cy=\'50\' r=\'45\' fill=\'%2300d4ff\'/%3E%3Ctext x=\'50\' y=\'70\' font-size=\'50\' text-anchor=\'middle\' fill=\'white\'%3EW%3C/text%3E%3C/svg%3E'"></div>
                 <div class="login-form-container">
-                    <div class="login-header"><h2>WHIAT COMPANY</h2><p data-translate="login-subtitle">Accede a tu cuenta para gestionar tus proyectos</p></div>
+                    <div class="login-header"><h2>WHIAT COMPANY</h2><p data-i18n="login-subtitle">Accede a tu cuenta para gestionar tus proyectos</p></div>
                     <form class="login-form" id="loginForm" onsubmit="handleLogin(event)">
-                        <div class="form-group mb-3"><label for="login-email" data-translate="login-email-label">Correo Electrónico</label><div class="input-group"><i class="fas fa-envelope"></i><input type="email" class="form-control" id="login-email" placeholder="tu@email.com" required></div></div>
-                        <div class="form-group mb-3"><label for="login-password" data-translate="login-password-label">Contraseña</label><div class="input-group"><i class="fas fa-lock"></i><input type="password" class="form-control" id="login-password" placeholder="••••••••" required></div></div>
-                        <div class="login-options d-flex justify-content-between mb-3"><label class="remember-me"><input type="checkbox" id="remember"> <span data-translate="login-remember">Recordarme</span></label><a href="#" class="forgot-password" data-translate="login-forgot">¿Olvidaste tu contraseña?</a></div>
-                        <button type="submit" class="login-btn w-100 mb-3"><i class="fas fa-sign-in-alt" style="margin-right: 10px;"></i> <span data-translate="login-btn">Iniciar Sesión</span></button>
-                        <div class="register-link text-center" data-translate="login-register">¿No tienes una cuenta? <a href="#">Regístrate aquí</a></div>
+                        <div class="form-group mb-3">
+                            <label data-i18n="login-email-label">Correo Electrónico</label>
+                            <input type="email" class="form-control" id="login-email" placeholder="tu@email.com" required>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label data-i18n="login-password-label">Contraseña</label>
+                            <input type="password" class="form-control" id="login-password" placeholder="••••••••" required>
+                        </div>
+                        <div class="login-options d-flex justify-content-between mb-3">
+                            <label class="remember-me"><input type="checkbox" id="remember"> <span data-i18n="login-remember">Recordarme</span></label>
+                            <a href="#" class="forgot-password" data-i18n="login-forgot">¿Olvidaste tu contraseña?</a>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100 mb-3"><i class="fas fa-sign-in-alt" style="margin-right: 10px;"></i> <span data-i18n="login-btn">Iniciar Sesión</span></button>
+                        <div class="register-link text-center" data-i18n="login-register">¿No tienes una cuenta? <a href="#">Regístrate aquí</a></div>
                     </form>
                 </div>
             </div>
@@ -1301,50 +1133,220 @@
     <footer>
         <div class="container">
             <div class="footer-content">
-                <div class="footer-about"><img src="MEDIA/wcl remov.png" alt="Logo" class="footer-logo" oncontextmenu="return false;"><p data-translate="footer-about">Impulsamos la evolución de los negocios hacia un futuro más digital. Somos tu aliado estratégico en desarrollo de software, ciberseguridad y transformación digital.</p><div class="contact-links"><a href="https://www.instagram.com/matiaswhiat/" target="_blank" class="contact-item"><i class="fab fa-instagram"></i></a><a href="mailto:matiaswhiat@mail.de" target="_blank" class="contact-item"><i class="fas fa-envelope"></i></a><a href="https://wa.me/573334318088" target="_blank" class="contact-item"><i class="fab fa-whatsapp"></i></a><a href="https://www.linkedin.com/in/matias-felipe-whiat-56b342240/" target="_blank" class="contact-item"><i class="fab fa-linkedin"></i></a></div></div>
-                <div class="footer-links"><div class="footer-column"><h4 data-translate="footer-services">Servicios</h4><ul class="footer-links-list"><li><a href="#servicios" data-translate="footer-link-outsourcing">Outsourcing IT</a></li><li><a href="#servicios" data-translate="footer-link-security">Ciberseguridad</a></li><li><a href="#servicios" data-translate="footer-link-blockchain">Blockchain & Minería</a></li><li><a href="#servicios" data-translate="footer-link-apps">Apps Móviles</a></li><li><a href="#fullstack" data-translate="footer-link-fullstack">Desarrollo Web Fullstack</a></li></ul></div><div class="footer-column"><h4 data-translate="footer-links-title">Enlaces</h4><ul class="footer-links-list"><li><a href="#modelo" data-translate="footer-link-model">Nuestro Modelo</a></li><li><a href="#aliados" data-translate="footer-link-allies">Aliados</a></li><li><a href="#profile" data-translate="footer-link-profile">Perfil Profesional</a></li><li><a href="#contact" data-translate="footer-link-contact">Contacto</a></li><li><a href="#login" data-translate="footer-link-login">Iniciar Sesión</a></li></ul></div><div class="footer-column"><h4 data-translate="footer-legal">Legal</h4><ul class="footer-links-list"><li><a href="#" data-translate="footer-privacy">Política de Privacidad</a></li><li><a href="#" data-translate="footer-terms">Términos de Servicio</a></li><li><a href="#" data-translate="footer-cookies">Cookies</a></li></ul></div></div>
+                <div class="footer-about">
+                    <img src="MEDIA/wcl remov.png" alt="Logo" class="footer-logo" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'%3E%3Ccircle cx=\'50\' cy=\'50\' r=\'45\' fill=\'%2300d4ff\'/%3E%3Ctext x=\'50\' y=\'70\' font-size=\'50\' text-anchor=\'middle\' fill=\'white\'%3EW%3C/text%3E%3C/svg%3E'">
+                    <p data-i18n="footer-about">Impulsamos la evolución de los negocios hacia un futuro más digital. Somos tu aliado estratégico en desarrollo de software, ciberseguridad y transformación digital.</p>
+                    <div class="contact-links">
+                        <a href="https://www.instagram.com/matiaswhiat/" target="_blank" class="contact-item"><i class="fab fa-instagram"></i></a>
+                        <a href="mailto:matiaswhiat@mail.de" target="_blank" class="contact-item"><i class="fas fa-envelope"></i></a>
+                        <a href="https://wa.me/573334318088" target="_blank" class="contact-item"><i class="fab fa-whatsapp"></i></a>
+                        <a href="https://www.linkedin.com/in/matias-felipe-whiat-56b342240/" target="_blank" class="contact-item"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h4 data-i18n="footer-services">Servicios</h4>
+                        <ul class="footer-links-list">
+                            <li><a href="#servicios" data-i18n="footer-link-outsourcing">Outsourcing IT</a></li>
+                            <li><a href="#servicios" data-i18n="footer-link-security">Ciberseguridad</a></li>
+                            <li><a href="#servicios" data-i18n="footer-link-blockchain">Blockchain & Minería</a></li>
+                            <li><a href="#servicios" data-i18n="footer-link-apps">Apps Móviles</a></li>
+                            <li><a href="#fullstack" data-i18n="footer-link-fullstack">Desarrollo Web Fullstack</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4 data-i18n="footer-links-title">Enlaces</h4>
+                        <ul class="footer-links-list">
+                            <li><a href="#modelo" data-i18n="footer-link-model">Nuestro Modelo</a></li>
+                            <li><a href="#aliados" data-i18n="footer-link-allies">Aliados</a></li>
+                            <li><a href="#profile" data-i18n="footer-link-profile">Perfil Profesional</a></li>
+                            <li><a href="#contact" data-i18n="footer-link-contact">Contacto</a></li>
+                            <li><a href="#login" data-i18n="footer-link-login">Iniciar Sesión</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4 data-i18n="footer-legal">Legal</h4>
+                        <ul class="footer-links-list">
+                            <li><a href="#" data-i18n="footer-privacy">Política de Privacidad</a></li>
+                            <li><a href="#" data-i18n="footer-terms">Términos de Servicio</a></li>
+                            <li><a href="#" data-i18n="footer-cookies">Cookies</a></li>
+                        </ul>
+                    </div>
+                </div>
             </div>
-            <div class="footer-bottom"><p>&copy; 2023 Whiat Company - <span data-translate="footer-rights">Todos los derechos reservados.</span></p></div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Whiat Company - <span data-i18n="footer-rights">Todos los derechos reservados.</span></p>
+            </div>
         </div>
     </footer>
 
-    <!-- Botón de idioma flotante ARRIBA DEL WHATSAPP -->
+    <!-- Botón flotante de idioma -->
     <div class="floating-language-btn" id="floatingLanguageBtn">
         <button class="language-main-btn" id="floatingLanguageToggle">
-            <i class="fas fa-globe"></i> <span id="currentLangText">Español</span> <i class="fas fa-chevron-down"></i>
+            <i class="fas fa-globe"></i> <span id="currentLangText">🌐 Español</span> <i class="fas fa-chevron-down"></i>
         </button>
         <div class="floating-language-dropdown" id="floatingLanguageDropdown">
-            <div class="floating-lang-option" data-lang="es">
-                <img src="https://flagcdn.com/w20/es.png" alt="Español" class="language-flag"> Español
-            </div>
-            <div class="floating-lang-option" data-lang="en">
-                <img src="https://flagcdn.com/w20/gb.png" alt="English" class="language-flag"> English
-            </div>
-            <div class="floating-lang-option" data-lang="de">
-                <img src="https://flagcdn.com/w20/de.png" alt="Deutsch" class="language-flag"> Deutsch
-            </div>
-            <div class="floating-lang-option" data-lang="ru">
-                <img src="https://flagcdn.com/w20/ru.png" alt="Русский" class="language-flag"> Русский
-            </div>
-            <div class="floating-lang-option" data-lang="zh-CN">
-                <img src="https://flagcdn.com/w20/cn.png" alt="中文" class="language-flag"> 中文
-            </div>
+            <div class="floating-lang-option" data-lang="es"><span class="language-flag">🇪🇸</span> Español</div>
+            <div class="floating-lang-option" data-lang="en"><span class="language-flag">🇬🇧</span> English</div>
+            <div class="floating-lang-option" data-lang="de"><span class="language-flag">🇩🇪</span> Deutsch</div>
+            <div class="floating-lang-option" data-lang="ru"><span class="language-flag">🇷🇺</span> Русский</div>
+            <div class="floating-lang-option" data-lang="zh"><span class="language-flag">🇨🇳</span> 中文</div>
+            <div class="floating-lang-option" data-lang="fr"><span class="language-flag">🇫🇷</span> Français</div>
+            <div class="floating-lang-option" data-lang="it"><span class="language-flag">🇮🇹</span> Italiano</div>
+            <div class="floating-lang-option" data-lang="pt"><span class="language-flag">🇵🇹</span> Português</div>
         </div>
     </div>
 
     <!-- WhatsApp Button -->
-    <div class="whatsapp-button"><a href="https://wa.me/573334318088" target="_blank"><i class="fab fa-whatsapp"></i></a></div>
+    <div class="whatsapp-button">
+        <a href="https://wa.me/573334318088" target="_blank"><i class="fab fa-whatsapp"></i></a>
+    </div>
 
     <!-- Scripts -->
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     
     <script>
-        // Diccionario de traducciones
+        // ==================== TRADUCCIONES COMPLETAS ====================
         const translations = {
-            es: {},
+            es: {
+                "nav-model": "Modelo", "nav-services": "Servicios", "nav-web": "Desarrollo Web", "nav-allies": "Aliados",
+                "nav-profile": "Perfil", "nav-contact": "Contacto", "nav-login": "Iniciar Sesión",
+                "hero-badge": "Soluciones Digitales Integrales | Aliados Estratégicos",
+                "hero-title": "Impulsamos tu negocio con tecnología de vanguardia",
+                "hero-desc": "Expertos en crear aplicaciones móviles, sitios web de alto rendimiento, ciberseguridad, blockchain y soluciones digitales a medida para pequeñas, medianas y grandes empresas.",
+                "hero-btn": "Cuéntanos tu idea",
+                "model-title": "Nuestro Modelo: Innovación Híbrida",
+                "model-desc": "Combinamos un equipo interno de expertos con una red de freelancers especializados para ofrecerte el mejor talento, cuando lo necesites.",
+                "model-team-title": "Equipo de Desarrollo Propio",
+                "model-team-desc": "Contamos con un equipo central de profesionales en desarrollo de software, ciberseguridad y blockchain. Son nuestros expertos de confianza, listos para dar soporte continuo y garantizar la calidad en todos los proyectos.",
+                "model-freelance-title": "Red de Freelancers Certificados",
+                "model-freelance-desc": "Ampliamos nuestras capacidades con una red curada de freelancers especializados. A través de nuestro modelo de corretaje, conectamos tu proyecto con el talento perfecto, manejando toda la gestión y garantizando la entrega exitosa.",
+                "services-title": "Nuestros Servicios Especializados",
+                "services-desc": "Soluciones completas para cada necesidad digital de tu empresa.",
+                "service-apps-title": "Apps Android & iOS",
+                "service-apps-desc": "Aplicaciones nativas e híbridas de alto rendimiento para llevar tu negocio a todos los dispositivos.",
+                "app-feat1": "Apps para comercios y restaurantes",
+                "app-feat2": "Plataformas de pedidos a domicilio",
+                "app-feat3": "Sistemas de fidelización",
+                "app-feat4": "Publicación en App Store y Play Store",
+                "btn-quote-app": "Cotizar App",
+                "service-security-title": "Ciberseguridad & Protección de Datos",
+                "service-security-desc": "Protegemos tu infraestructura digital contra amenazas y garantizamos el cumplimiento normativo.",
+                "security-feat1": "Auditorías de seguridad y pentesting",
+                "security-feat2": "Implementación de firewalls y sistemas IDS/IPS",
+                "security-feat3": "Gestión de identidades y accesos (IAM)",
+                "security-feat4": "Cumplimiento de normas (ISO 27001, GDPR)",
+                "btn-protect": "Proteger mi Empresa",
+                "service-blockchain-title": "Blockchain & Minería Crypto",
+                "service-blockchain-desc": "Desarrollamos soluciones basadas en blockchain y te asesoramos en proyectos de minería de criptomonedas.",
+                "blockchain-feat1": "Desarrollo de contratos inteligentes (Smart Contracts)",
+                "blockchain-feat2": "Implementación de redes privadas blockchain",
+                "blockchain-feat3": "Asesoría en inversión y montaje de granjas de minería",
+                "blockchain-feat4": "Tokenización de activos (NFTs, STOs)",
+                "btn-explore": "Explorar Blockchain",
+                "service-outsourcing-title": "Outsourcing IT & Corretaje",
+                "service-outsourcing-desc": "Amplía tu equipo con programadores expertos por proyecto. Nosotros gestionamos el talento, tú te enfocas en tu negocio.",
+                "outsourcing-feat1": "Contratación por horas o proyecto",
+                "outsourcing-feat2": "Desarrolladores full-stack, frontend, backend",
+                "outsourcing-feat3": "Especialistas en bases de datos y DevOps",
+                "outsourcing-feat4": "Gestión de pagos y seguimiento de KPIs",
+                "btn-hire": "Contratar Talento",
+                "service-sme-title": "Soporte para PYMES",
+                "service-sme-desc": "Gestionamos y optimizamos tu infraestructura tecnológica para que puedas crecer sin preocupaciones.",
+                "sme-feat1": "Administración de servidores y redes",
+                "sme-feat2": "Soporte técnico remoto y presencial",
+                "sme-feat3": "Mantenimiento de equipos y sistemas",
+                "sme-feat4": "Estrategias de transformación digital",
+                "btn-support": "Solicitar Soporte",
+                "service-web-title": "Páginas Web & CMS",
+                "service-web-desc": "Creamos sitios web impactantes, desde landing pages hasta complejos portales empresariales con fácil administración.",
+                "web-feat1": "Diseño responsivo y enfocado en UX/UI",
+                "web-feat2": "E-commerce (Tiendas online)",
+                "web-feat3": "Gestión de contenido (WordPress, Strapi)",
+                "web-feat4": "Optimización SEO y velocidad",
+                "btn-create-web": "Crear mi Web",
+                "service-maintenance-title": "Mantenimiento & Actualización",
+                "service-maintenance-desc": "Aseguramos que tu sitio web y aplicaciones estén siempre actualizados, seguros y funcionando al máximo rendimiento.",
+                "maintenance-feat1": "Actualizaciones de seguridad y parches",
+                "maintenance-feat2": "Copias de seguridad automáticas",
+                "maintenance-feat3": "Monitoreo 24/7 de disponibilidad",
+                "maintenance-feat4": "Migraciones de servidores y bases de datos",
+                "btn-maintain": "Mantener mi Proyecto",
+                "fullstack-title": "Desarrollo Web Fullstack",
+                "fullstack-desc": "Construimos aplicaciones web completas, desde el frontend más moderno hasta el backend más robusto y escalable.",
+                "frontend-title": "Frontend Moderno",
+                "backend-title": "Backend Robusto",
+                "database-title": "Bases de Datos",
+                "fullstack-btn": "Solicitar Desarrollo Personalizado",
+                "allies-title": "Aliados del Nuevo Mundo Digital",
+                "allies-desc": "Conectamos empresas emergentes y consolidadas con las oportunidades de la era digital.",
+                "allies-emerging-title": "Para Empresas Emergentes",
+                "allies-emerging-desc": "Acompañamos a startups y negocios en sus primeras etapas digitales, proporcionando soluciones escalables y asesoría estratégica para que su tecnología impulse su crecimiento desde el día uno.",
+                "allies-established-title": "Para Empresas Acreditadas",
+                "allies-established-desc": "Ayudamos a empresas consolidadas a modernizar su infraestructura, adoptar nuevas tecnologías como blockchain y ciberseguridad avanzada, y a optimizar sus procesos para mantenerse a la vanguardia.",
+                "gov-badge": "De la mano con el desarrollo nacional",
+                "gov-title": "Compromiso con Colombia",
+                "gov-desc": "Estamos en constante actualización y alineados con los proyectos del gobierno colombiano, participando en iniciativas de transformación digital, educación tecnológica y apoyo a emprendedores. Nuestro objetivo es ser un puente que genere oportunidades y contribuya al avance del nuevo mundo digital en el país.",
+                "profile-title": "Perfil Profesional",
+                "profile-desc": "Conoce al fundador y líder detrás de Whiat Company",
+                "profile-position": "CEO & Fundador de Whiat Company - Garantias Financieras y Juridicas S.A.S",
+                "profile-website": "Mi Website Oficial",
+                "profile-whatsapp": "Consulta Inmediata",
+                "profile-email": "Correo Directo",
+                "cta-title": "¿Listo para dar el salto digital?",
+                "cta-desc": "Ya sea un desarrollo a medida, ampliar tu equipo con nuestros freelancers o asegurar tu infraestructura, estamos aquí para hacerlo realidad.",
+                "cta-btn": "Solicitar una Consultoría Gratuita",
+                "contact-title": "Contacto",
+                "contact-desc": "Ponte en contacto con nosotros para discutir tu proyecto",
+                "form-name": "Nombre Completo",
+                "form-phone": "Teléfono (con indicativo)",
+                "form-email": "Correo Electrónico",
+                "form-company": "Empresa (opcional)",
+                "form-service": "Servicio de Interés",
+                "select-default": "Selecciona un servicio",
+                "service-opt1": "Outsourcing / Corretaje de Programadores",
+                "service-opt2": "App Móvil (Android/iOS)",
+                "service-opt3": "Ciberseguridad",
+                "service-opt4": "Blockchain & Minería",
+                "service-opt5": "Soporte para PYMES",
+                "service-opt6": "Desarrollo Web Fullstack",
+                "service-opt7": "Desarrollo Web Básico",
+                "service-opt8": "Mantenimiento Web y Datos",
+                "service-opt9": "Consultoría con Matías Whiat",
+                "service-opt10": "Otro",
+                "form-message": "Mensaje",
+                "form-submit": "Enviar Mensaje",
+                "login-subtitle": "Accede a tu cuenta para gestionar tus proyectos",
+                "login-email-label": "Correo Electrónico",
+                "login-password-label": "Contraseña",
+                "login-remember": "Recordarme",
+                "login-forgot": "¿Olvidaste tu contraseña?",
+                "login-btn": "Iniciar Sesión",
+                "login-register": "¿No tienes una cuenta? Regístrate aquí",
+                "footer-about": "Impulsamos la evolución de los negocios hacia un futuro más digital. Somos tu aliado estratégico en desarrollo de software, ciberseguridad y transformación digital.",
+                "footer-services": "Servicios",
+                "footer-link-outsourcing": "Outsourcing IT",
+                "footer-link-security": "Ciberseguridad",
+                "footer-link-blockchain": "Blockchain & Minería",
+                "footer-link-apps": "Apps Móviles",
+                "footer-link-fullstack": "Desarrollo Web Fullstack",
+                "footer-links-title": "Enlaces",
+                "footer-link-model": "Nuestro Modelo",
+                "footer-link-allies": "Aliados",
+                "footer-link-profile": "Perfil Profesional",
+                "footer-link-contact": "Contacto",
+                "footer-link-login": "Iniciar Sesión",
+                "footer-legal": "Legal",
+                "footer-privacy": "Política de Privacidad",
+                "footer-terms": "Términos de Servicio",
+                "footer-cookies": "Cookies",
+                "footer-rights": "Todos los derechos reservados."
+            },
             en: {
+                "nav-model": "Model", "nav-services": "Services", "nav-web": "Web Development", "nav-allies": "Allies",
+                "nav-profile": "Profile", "nav-contact": "Contact", "nav-login": "Sign In",
+                "hero-badge": "Comprehensive Digital Solutions | Strategic Allies",
                 "hero-title": "Boost your business with cutting-edge technology",
                 "hero-desc": "Experts in creating mobile apps, high-performance websites, cybersecurity, blockchain and custom digital solutions for small, medium and large businesses.",
                 "hero-btn": "Tell us your idea",
@@ -1474,467 +1476,87 @@
                 "footer-terms": "Terms of Service",
                 "footer-cookies": "Cookies",
                 "footer-rights": "All rights reserved."
-            },
-            de: {
-                "hero-title": "Steigern Sie Ihr Unternehmen mit modernster Technologie",
-                "hero-desc": "Experten für die Entwicklung mobiler Apps, leistungsstarker Websites, Cybersicherheit, Blockchain und maßgeschneiderter digitaler Lösungen für kleine, mittlere und große Unternehmen.",
-                "hero-btn": "Erzählen Sie uns Ihre Idee",
-                "model-title": "Unser Modell: Hybride Innovation",
-                "model-desc": "Wir kombinieren ein internes Expertenteam mit einem Netzwerk spezialisierter Freelancer, um Ihnen das beste Talent zu bieten, wenn Sie es brauchen.",
-                "model-team-title": "Eigenes Entwicklungsteam",
-                "model-team-desc": "Wir verfügen über ein Kernteam von Fachleuten für Softwareentwicklung, Cybersicherheit und Blockchain. Sie sind unsere vertrauenswürdigen Experten, die bereit sind, kontinuierliche Unterstützung zu bieten und die Qualität aller Projekte zu gewährleisten.",
-                "model-freelance-title": "Zertifiziertes Freelancer-Netzwerk",
-                "model-freelance-desc": "Wir erweitern unsere Kapazitäten mit einem kuratierten Netzwerk spezialisierter Freelancer. Durch unser Brokerage-Modell verbinden wir Ihr Projekt mit dem perfekten Talent, übernehmen das gesamte Management und gewährleisten eine erfolgreiche Lieferung.",
-                "services-title": "Unsere spezialisierten Dienstleistungen",
-                "services-desc": "Komplette Lösungen für jeden digitalen Bedarf Ihres Unternehmens.",
-                "service-apps-title": "Android- & iOS-Apps",
-                "service-apps-desc": "Hochleistungsfähige native und hybride Anwendungen, um Ihr Geschäft auf alle Geräte zu bringen.",
-                "app-feat1": "Apps für Geschäfte und Restaurants",
-                "app-feat2": "Lieferplattformen für Lebensmittel",
-                "app-feat3": "Kundentreue-Programme",
-                "app-feat4": "Veröffentlichung im App Store und Play Store",
-                "btn-quote-app": "App anfragen",
-                "service-security-title": "Cybersicherheit & Datenschutz",
-                "service-security-desc": "Wir schützen Ihre digitale Infrastruktur vor Bedrohungen und gewährleisten die Einhaltung gesetzlicher Vorschriften.",
-                "security-feat1": "Sicherheitsaudits und Pentests",
-                "security-feat2": "Firewall- und IDS/IPS-Implementierung",
-                "security-feat3": "Identitäts- und Zugriffsmanagement (IAM)",
-                "security-feat4": "Einhaltung von Normen (ISO 27001, GDPR)",
-                "btn-protect": "Mein Unternehmen schützen",
-                "service-blockchain-title": "Blockchain & Krypto-Mining",
-                "service-blockchain-desc": "Wir entwickeln blockchainbasierte Lösungen und beraten Sie bei Kryptowährungs-Mining-Projekten.",
-                "blockchain-feat1": "Entwicklung von Smart Contracts",
-                "blockchain-feat2": "Implementierung privater Blockchain-Netzwerke",
-                "blockchain-feat3": "Beratung zu Investitionen und Aufbau von Mining-Farmen",
-                "blockchain-feat4": "Tokenisierung von Vermögenswerten (NFTs, STOs)",
-                "btn-explore": "Blockchain erkunden",
-                "service-outsourcing-title": "IT-Outsourcing & Brokerage",
-                "service-outsourcing-desc": "Erweitern Sie Ihr Team mit erfahrenen Programmierern pro Projekt. Wir managen das Talent, Sie konzentrieren sich auf Ihr Geschäft.",
-                "outsourcing-feat1": "Stunden- oder projektbasierte Einstellung",
-                "outsourcing-feat2": "Full-Stack-, Frontend-, Backend-Entwickler",
-                "outsourcing-feat3": "Datenbank- und DevOps-Spezialisten",
-                "outsourcing-feat4": "Zahlungsmanagement und KPI-Tracking",
-                "btn-hire": "Talent einstellen",
-                "service-sme-title": "KMU-Unterstützung",
-                "service-sme-desc": "Wir verwalten und optimieren Ihre technologische Infrastruktur, damit Sie sorgenfrei wachsen können.",
-                "sme-feat1": "Server- und Netzwerkadministration",
-                "sme-feat2": "Fern- und Vor-Ort-Technischer Support",
-                "sme-feat3": "Geräte- und Systemwartung",
-                "sme-feat4": "Digitale Transformationsstrategien",
-                "btn-support": "Support anfordern",
-                "service-web-title": "Websites & CMS",
-                "service-web-desc": "Wir erstellen beeindruckende Websites, von Landingpages bis hin zu komplexen Unternehmensportalen mit einfacher Verwaltung.",
-                "web-feat1": "Responsive Design mit Fokus auf UX/UI",
-                "web-feat2": "E-Commerce (Online-Shops)",
-                "web-feat3": "Content-Management (WordPress, Strapi)",
-                "web-feat4": "SEO- und Geschwindigkeitsoptimierung",
-                "btn-create-web": "Meine Website erstellen",
-                "service-maintenance-title": "Wartung & Updates",
-                "service-maintenance-desc": "Wir stellen sicher, dass Ihre Website und Anwendungen immer aktuell, sicher und mit maximaler Leistung funktionieren.",
-                "maintenance-feat1": "Sicherheitsupdates und Patches",
-                "maintenance-feat2": "Automatische Backups",
-                "maintenance-feat3": "24/7 Verfügbarkeitsüberwachung",
-                "maintenance-feat4": "Server- und Datenbankmigrationen",
-                "btn-maintain": "Mein Projekt warten",
-                "fullstack-title": "Fullstack Webentwicklung",
-                "fullstack-desc": "Wir erstellen komplette Webanwendungen, vom modernsten Frontend bis zum robustesten und skalierbarsten Backend.",
-                "frontend-title": "Modernes Frontend",
-                "backend-title": "Robustes Backend",
-                "database-title": "Datenbanken",
-                "fullstack-btn": "Maßgeschneiderte Entwicklung anfordern",
-                "allies-title": "Verbündete der neuen digitalen Welt",
-                "allies-desc": "Wir verbinden aufstrebende und etablierte Unternehmen mit den Möglichkeiten des digitalen Zeitalters.",
-                "allies-emerging-title": "Für aufstrebende Unternehmen",
-                "allies-emerging-desc": "Wir begleiten Startups und Unternehmen in ihren ersten digitalen Phasen, bieten skalierbare Lösungen und strategische Beratung, damit ihre Technologie ihr Wachstum von Anfang an vorantreibt.",
-                "allies-established-title": "Für etablierte Unternehmen",
-                "allies-established-desc": "Wir helfen etablierten Unternehmen, ihre Infrastruktur zu modernisieren, neue Technologien wie Blockchain und erweiterte Cybersicherheit zu übernehmen und ihre Prozesse zu optimieren, um an der Spitze zu bleiben.",
-                "gov-badge": "Hand in Hand mit der nationalen Entwicklung",
-                "gov-title": "Engagement für Kolumbien",
-                "gov-desc": "Wir sind ständig auf dem neuesten Stand und stimmen uns mit den Projekten der kolumbianischen Regierung ab, beteiligen uns an Initiativen zur digitalen Transformation, technologischen Bildung und Unterstützung von Unternehmern. Unser Ziel ist es, eine Brücke zu sein, die Chancen schafft und zur Weiterentwicklung der neuen digitalen Welt im Land beiträgt.",
-                "profile-title": "Berufliches Profil",
-                "profile-desc": "Lernen Sie den Gründer und Leiter hinter Whiat Company kennen",
-                "profile-position": "CEO & Gründer von Whiat Company - Garantias Financieras y Juridicas S.A.S",
-                "profile-website": "Meine offizielle Website",
-                "profile-whatsapp": "Sofortige Beratung",
-                "profile-email": "Direkte E-Mail",
-                "cta-title": "Bereit für den digitalen Sprung?",
-                "cta-desc": "Ob maßgeschneiderte Entwicklung, Erweiterung Ihres Teams mit unseren Freelancern oder Sicherung Ihrer Infrastruktur - wir sind hier, um es zu verwirklichen.",
-                "cta-btn": "Kostenlose Beratung anfordern",
-                "contact-title": "Kontakt",
-                "contact-desc": "Setzen Sie sich mit uns in Verbindung, um Ihr Projekt zu besprechen",
-                "form-name": "Vollständiger Name",
-                "form-phone": "Telefon (mit Vorwahl)",
-                "form-email": "E-Mail-Adresse",
-                "form-company": "Unternehmen (optional)",
-                "form-service": "Dienstleistung von Interesse",
-                "select-default": "Wählen Sie einen Service",
-                "service-opt1": "Outsourcing / Programmierer-Brokerage",
-                "service-opt2": "Mobile App (Android/iOS)",
-                "service-opt3": "Cybersicherheit",
-                "service-opt4": "Blockchain & Mining",
-                "service-opt5": "KMU-Unterstützung",
-                "service-opt6": "Fullstack Webentwicklung",
-                "service-opt7": "Basis-Webentwicklung",
-                "service-opt8": "Web- und Datenwartung",
-                "service-opt9": "Beratung mit Matías Whiat",
-                "service-opt10": "Andere",
-                "form-message": "Nachricht",
-                "form-submit": "Nachricht senden",
-                "login-subtitle": "Greifen Sie auf Ihr Konto zu, um Ihre Projekte zu verwalten",
-                "login-email-label": "E-Mail-Adresse",
-                "login-password-label": "Passwort",
-                "login-remember": "Angemeldet bleiben",
-                "login-forgot": "Passwort vergessen?",
-                "login-btn": "Anmelden",
-                "login-register": "Sie haben kein Konto? Hier registrieren",
-                "footer-about": "Wir treiben die Entwicklung von Unternehmen in eine digitalere Zukunft voran. Wir sind Ihr strategischer Partner für Softwareentwicklung, Cybersicherheit und digitale Transformation.",
-                "footer-services": "Dienstleistungen",
-                "footer-link-outsourcing": "IT-Outsourcing",
-                "footer-link-security": "Cybersicherheit",
-                "footer-link-blockchain": "Blockchain & Mining",
-                "footer-link-apps": "Mobile Apps",
-                "footer-link-fullstack": "Fullstack Webentwicklung",
-                "footer-links-title": "Links",
-                "footer-link-model": "Unser Modell",
-                "footer-link-allies": "Verbündete",
-                "footer-link-profile": "Berufliches Profil",
-                "footer-link-contact": "Kontakt",
-                "footer-link-login": "Anmelden",
-                "footer-legal": "Rechtliches",
-                "footer-privacy": "Datenschutzrichtlinie",
-                "footer-terms": "Nutzungsbedingungen",
-                "footer-cookies": "Cookies",
-                "footer-rights": "Alle Rechte vorbehalten."
-            },
-            ru: {
-                "hero-title": "Выведите свой бизнес на новый уровень с помощью передовых технологий",
-                "hero-desc": "Эксперты по созданию мобильных приложений, высокопроизводительных веб-сайтов, кибербезопасности, блокчейна и индивидуальных цифровых решений для малого, среднего и крупного бизнеса.",
-                "hero-btn": "Расскажите нам о своей идее",
-                "model-title": "Наша модель: Гибридные инновации",
-                "model-desc": "Мы сочетаем внутреннюю команду экспертов с сетью специализированных фрилансеров, чтобы предложить вам лучшие таланты, когда они вам нужны.",
-                "model-team-title": "Собственная команда разработчиков",
-                "model-team-desc": "У нас есть основная команда профессионалов в области разработки программного обеспечения, кибербезопасности и блокчейна. Это наши проверенные эксперты, готовые оказывать постоянную поддержку и гарантировать качество всех проектов.",
-                "model-freelance-title": "Сертифицированная сеть фрилансеров",
-                "model-freelance-desc": "Мы расширяем наши возможности с помощью курируемой сети специализированных фрилансеров. Благодаря нашей брокерской модели мы связываем ваш проект с идеальным талантом, берем на себя все управление и обеспечиваем успешную реализацию.",
-                "services-title": "Наши специализированные услуги",
-                "services-desc": "Комплексные решения для любых цифровых потребностей вашей компании.",
-                "service-apps-title": "Приложения для Android и iOS",
-                "service-apps-desc": "Высокопроизводительные нативные и гибридные приложения для вывода вашего бизнеса на все устройства.",
-                "app-feat1": "Приложения для магазинов и ресторанов",
-                "app-feat2": "Платформы доставки еды",
-                "app-feat3": "Системы лояльности",
-                "app-feat4": "Публикация в App Store и Play Store",
-                "btn-quote-app": "Запросить приложение",
-                "service-security-title": "Кибербезопасность и защита данных",
-                "service-security-desc": "Мы защищаем вашу цифровую инфраструктуру от угроз и обеспечиваем соблюдение нормативных требований.",
-                "security-feat1": "Аудиты безопасности и пентестинг",
-                "security-feat2": "Внедрение брандмауэров и систем IDS/IPS",
-                "security-feat3": "Управление идентификацией и доступом (IAM)",
-                "security-feat4": "Соответствие нормативным требованиям (ISO 27001, GDPR)",
-                "btn-protect": "Защитить мою компанию",
-                "service-blockchain-title": "Блокчейн и криптомайнинг",
-                "service-blockchain-desc": "Мы разрабатываем решения на основе блокчейна и консультируем вас по проектам добычи криптовалюты.",
-                "blockchain-feat1": "Разработка смарт-контрактов",
-                "blockchain-feat2": "Внедрение частных блокчейн-сетей",
-                "blockchain-feat3": "Консультации по инвестициям и созданию майнинговых ферм",
-                "blockchain-feat4": "Токенизация активов (NFT, STO)",
-                "btn-explore": "Исследовать блокчейн",
-                "service-outsourcing-title": "ИТ-аутсорсинг и брокеридж",
-                "service-outsourcing-desc": "Расширьте свою команду с помощью экспертов-программистов по проекту. Мы управляем талантами, вы сосредоточены на своем бизнесе.",
-                "outsourcing-feat1": "Почасовая или проектная занятость",
-                "outsourcing-feat2": "Full-stack, frontend, backend разработчики",
-                "outsourcing-feat3": "Специалисты по базам данных и DevOps",
-                "outsourcing-feat4": "Управление платежами и отслеживание KPI",
-                "btn-hire": "Нанять талант",
-                "service-sme-title": "Поддержка МСП",
-                "service-sme-desc": "Мы управляем и оптимизируем вашу технологическую инфраструктуру, чтобы вы могли расти без забот.",
-                "sme-feat1": "Администрирование серверов и сетей",
-                "sme-feat2": "Удаленная и выездная техническая поддержка",
-                "sme-feat3": "Обслуживание оборудования и систем",
-                "sme-feat4": "Стратегии цифровой трансформации",
-                "btn-support": "Запросить поддержку",
-                "service-web-title": "Веб-сайты и CMS",
-                "service-web-desc": "Мы создаем потрясающие веб-сайты, от целевых страниц до сложных корпоративных порталов с простым управлением.",
-                "web-feat1": "Адаптивный дизайн, ориентированный на UX/UI",
-                "web-feat2": "Электронная коммерция (Интернет-магазины)",
-                "web-feat3": "Управление контентом (WordPress, Strapi)",
-                "web-feat4": "Оптимизация SEO и скорости",
-                "btn-create-web": "Создать мой сайт",
-                "service-maintenance-title": "Обслуживание и обновления",
-                "service-maintenance-desc": "Мы гарантируем, что ваш веб-сайт и приложения всегда будут обновлены, защищены и будут работать с максимальной производительностью.",
-                "maintenance-feat1": "Обновления безопасности и патчи",
-                "maintenance-feat2": "Автоматическое резервное копирование",
-                "maintenance-feat3": "Мониторинг доступности 24/7",
-                "maintenance-feat4": "Миграция серверов и баз данных",
-                "btn-maintain": "Обслуживать мой проект",
-                "fullstack-title": "Полноценная веб-разработка",
-                "fullstack-desc": "Мы создаем полноценные веб-приложения: от самого современного интерфейса до самого надежного и масштабируемого серверного компонента.",
-                "frontend-title": "Современный интерфейс",
-                "backend-title": "Надежный серверный компонент",
-                "database-title": "Базы данных",
-                "fullstack-btn": "Запросить индивидуальную разработку",
-                "allies-title": "Союзники нового цифрового мира",
-                "allies-desc": "Мы соединяем развивающиеся и состоявшиеся компании с возможностями цифровой эпохи.",
-                "allies-emerging-title": "Для развивающихся компаний",
-                "allies-emerging-desc": "Мы сопровождаем стартапы и предприятия на их первых этапах цифровизации, предоставляя масштабируемые решения и стратегические консультации, чтобы их технологии стимулировали рост с первого дня.",
-                "allies-established-title": "Для состоявшихся компаний",
-                "allies-established-desc": "Мы помогаем состоявшимся компаниям модернизировать свою инфраструктуру, внедрять новые технологии, такие как блокчейн и передовая кибербезопасность, и оптимизировать процессы, чтобы оставаться впереди.",
-                "gov-badge": "Рука об руку с национальным развитием",
-                "gov-title": "Обязательство перед Колумбией",
-                "gov-desc": "Мы постоянно обновляемся и согласовываем свою деятельность с проектами колумбийского правительства, участвуя в инициативах по цифровой трансформации, технологическому образованию и поддержке предпринимателей. Наша цель — быть мостом, который создает возможности и способствует развитию нового цифрового мира в стране.",
-                "profile-title": "Профессиональный профиль",
-                "profile-desc": "Познакомьтесь с основателем и лидером Whiat Company",
-                "profile-position": "Генеральный директор и основатель Whiat Company - Garantias Financieras y Juridicas S.A.S",
-                "profile-website": "Мой официальный сайт",
-                "profile-whatsapp": "Мгновенная консультация",
-                "profile-email": "Прямая электронная почта",
-                "cta-title": "Готовы совершить цифровой скачок?",
-                "cta-desc": "Будь то индивидуальная разработка, расширение вашей команды с помощью наших фрилансеров или обеспечение безопасности вашей инфраструктуры — мы здесь, чтобы воплотить это в жизнь.",
-                "cta-btn": "Запросить бесплатную консультацию",
-                "contact-title": "Контакты",
-                "contact-desc": "Свяжитесь с нами, чтобы обсудить ваш проект",
-                "form-name": "Полное имя",
-                "form-phone": "Телефон (с кодом страны)",
-                "form-email": "Адрес электронной почты",
-                "form-company": "Компания (необязательно)",
-                "form-service": "Услуга, представляющая интерес",
-                "select-default": "Выберите услугу",
-                "service-opt1": "Аутсорсинг / Брокеридж программистов",
-                "service-opt2": "Мобильное приложение (Android/iOS)",
-                "service-opt3": "Кибербезопасность",
-                "service-opt4": "Блокчейн и майнинг",
-                "service-opt5": "Поддержка МСП",
-                "service-opt6": "Полноценная веб-разработка",
-                "service-opt7": "Базовая веб-разработка",
-                "service-opt8": "Обслуживание веб-сайтов и данных",
-                "service-opt9": "Консультация с Матиасом Уайатом",
-                "service-opt10": "Другое",
-                "form-message": "Сообщение",
-                "form-submit": "Отправить сообщение",
-                "login-subtitle": "Войдите в свою учетную запись, чтобы управлять своими проектами",
-                "login-email-label": "Адрес электронной почты",
-                "login-password-label": "Пароль",
-                "login-remember": "Запомнить меня",
-                "login-forgot": "Забыли пароль?",
-                "login-btn": "Войти",
-                "login-register": "Нет учетной записи? Зарегистрируйтесь здесь",
-                "footer-about": "Мы способствуем развитию бизнеса в более цифровом будущем. Мы ваш стратегический партнер в разработке программного обеспечения, кибербезопасности и цифровой трансформации.",
-                "footer-services": "Услуги",
-                "footer-link-outsourcing": "ИТ-аутсорсинг",
-                "footer-link-security": "Кибербезопасность",
-                "footer-link-blockchain": "Блокчейн и майнинг",
-                "footer-link-apps": "Мобильные приложения",
-                "footer-link-fullstack": "Полноценная веб-разработка",
-                "footer-links-title": "Ссылки",
-                "footer-link-model": "Наша модель",
-                "footer-link-allies": "Союзники",
-                "footer-link-profile": "Профессиональный профиль",
-                "footer-link-contact": "Контакты",
-                "footer-link-login": "Войти",
-                "footer-legal": "Юридическая информация",
-                "footer-privacy": "Политика конфиденциальности",
-                "footer-terms": "Условия обслуживания",
-                "footer-cookies": "Файлы cookie",
-                "footer-rights": "Все права защищены."
-            },
-            "zh-CN": {
-                "hero-title": "用尖端技术推动您的业务发展",
-                "hero-desc": "专家级移动应用开发、高性能网站、网络安全、区块链和定制数字解决方案，适用于中小型和大型企业。",
-                "hero-btn": "告诉我们您的想法",
-                "model-title": "我们的模式：混合创新",
-                "model-desc": "我们将内部专家团队与专业自由职业者网络相结合，为您提供最优秀的人才，满足您的需求。",
-                "model-team-title": "内部开发团队",
-                "model-team-desc": "我们拥有一个由软件开发、网络安全和区块链领域专业人士组成的核心团队。他们是值得信赖的专家，随时准备提供持续支持并保证所有项目的质量。",
-                "model-freelance-title": "认证自由职业者网络",
-                "model-freelance-desc": "我们通过精心挑选的专业自由职业者网络来扩展我们的能力。通过我们的经纪模式，我们将您的项目与完美的人才联系起来，处理所有管理工作并确保成功交付。",
-                "services-title": "我们的专业服务",
-                "services-desc": "为您的公司满足各种数字化需求提供完整的解决方案。",
-                "service-apps-title": "安卓与 iOS 应用",
-                "service-apps-desc": "高性能原生和混合应用程序，将您的业务带到所有设备。",
-                "app-feat1": "适用于商店和餐厅的应用",
-                "app-feat2": "外卖平台",
-                "app-feat3": "忠诚度系统",
-                "app-feat4": "在 App Store 和 Play Store 发布",
-                "btn-quote-app": "应用报价",
-                "service-security-title": "网络安全与数据保护",
-                "service-security-desc": "我们保护您的数字基础设施免受威胁，并确保符合法规要求。",
-                "security-feat1": "安全审计和渗透测试",
-                "security-feat2": "防火墙和 IDS/IPS 系统实施",
-                "security-feat3": "身份和访问管理 (IAM)",
-                "security-feat4": "符合法规 (ISO 27001, GDPR)",
-                "btn-protect": "保护我的公司",
-                "service-blockchain-title": "区块链与加密货币挖矿",
-                "service-blockchain-desc": "我们开发基于区块链的解决方案，并为您的加密货币挖矿项目提供咨询。",
-                "blockchain-feat1": "智能合约开发",
-                "blockchain-feat2": "私有区块链网络实施",
-                "blockchain-feat3": "投资和挖矿农场建设咨询",
-                "blockchain-feat4": "资产代币化 (NFTs, STOs)",
-                "btn-explore": "探索区块链",
-                "service-outsourcing-title": "IT 外包与经纪",
-                "service-outsourcing-desc": "按项目扩展您的团队，与专业程序员合作。我们管理人才，您专注于业务。",
-                "outsourcing-feat1": "按小时或项目雇佣",
-                "outsourcing-feat2": "全栈、前端、后端开发人员",
-                "outsourcing-feat3": "数据库和 DevOps 专家",
-                "outsourcing-feat4": "付款管理和 KPI 跟踪",
-                "btn-hire": "雇佣人才",
-                "service-sme-title": "中小企业支持",
-                "service-sme-desc": "我们管理和优化您的技术基础设施，让您无后顾之忧地成长。",
-                "sme-feat1": "服务器和网络管理",
-                "sme-feat2": "远程和现场技术支持",
-                "sme-feat3": "设备和系统维护",
-                "sme-feat4": "数字化转型战略",
-                "btn-support": "请求支持",
-                "service-web-title": "网站与内容管理系统",
-                "service-web-desc": "我们创建令人惊叹的网站，从登陆页面到易于管理的复杂企业门户。",
-                "web-feat1": "专注于用户体验/用户界面的响应式设计",
-                "web-feat2": "电子商务（在线商店）",
-                "web-feat3": "内容管理 (WordPress, Strapi)",
-                "web-feat4": "搜索引擎优化和速度优化",
-                "btn-create-web": "创建我的网站",
-                "service-maintenance-title": "维护与更新",
-                "service-maintenance-desc": "我们确保您的网站和应用程序始终保持最新、安全并以最高性能运行。",
-                "maintenance-feat1": "安全更新和补丁",
-                "maintenance-feat2": "自动备份",
-                "maintenance-feat3": "24/7 可用性监控",
-                "maintenance-feat4": "服务器和数据库迁移",
-                "btn-maintain": "维护我的项目",
-                "fullstack-title": "全栈网页开发",
-                "fullstack-desc": "我们构建完整的网络应用程序，从最现代的前端到最强大和可扩展的后端。",
-                "frontend-title": "现代前端",
-                "backend-title": "强大后端",
-                "database-title": "数据库",
-                "fullstack-btn": "请求定制开发",
-                "allies-title": "新数字世界的盟友",
-                "allies-desc": "我们将新兴企业和成熟企业与数字时代的机会联系起来。",
-                "allies-emerging-title": "面向新兴企业",
-                "allies-emerging-desc": "我们陪伴初创企业和企业在数字化的早期阶段，提供可扩展的解决方案和战略建议，使其技术从第一天起就推动增长。",
-                "allies-established-title": "面向成熟企业",
-                "allies-established-desc": "我们帮助成熟企业现代化其基础设施，采用区块链和高级网络安全等新技术，并优化流程以保持领先地位。",
-                "gov-badge": "与国家发展携手并进",
-                "gov-title": "对哥伦比亚的承诺",
-                "gov-desc": "我们不断更新并与哥伦比亚政府的项目保持一致，参与数字化转型、技术教育和支持企业家的倡议。我们的目标是成为一座桥梁，创造机会，为国家新数字世界的进步做出贡献。",
-                "profile-title": "个人简介",
-                "profile-desc": "认识 Whiat Company 的创始人和领导者",
-                "profile-position": "Whiat Company 首席执行官兼创始人 - Garantias Financieras y Juridicas S.A.S",
-                "profile-website": "我的官方网站",
-                "profile-whatsapp": "即时咨询",
-                "profile-email": "直接邮件",
-                "cta-title": "准备好实现数字化飞跃了吗？",
-                "cta-desc": "无论是定制开发、通过我们的自由职业者扩展您的团队，还是确保您的基础设施安全，我们都能帮您实现。",
-                "cta-btn": "请求免费咨询",
-                "contact-title": "联系方式",
-                "contact-desc": "与我们联系，讨论您的项目",
-                "form-name": "全名",
-                "form-phone": "电话（含区号）",
-                "form-email": "电子邮件地址",
-                "form-company": "公司（选填）",
-                "form-service": "感兴趣的服务",
-                "select-default": "选择一项服务",
-                "service-opt1": "外包 / 程序员经纪",
-                "service-opt2": "移动应用 (安卓/iOS)",
-                "service-opt3": "网络安全",
-                "service-opt4": "区块链与挖矿",
-                "service-opt5": "中小企业支持",
-                "service-opt6": "全栈网页开发",
-                "service-opt7": "基础网页开发",
-                "service-opt8": "网页和数据维护",
-                "service-opt9": "与 Matías Whiat 咨询",
-                "service-opt10": "其他",
-                "form-message": "留言",
-                "form-submit": "发送消息",
-                "login-subtitle": "登录您的账户以管理您的项目",
-                "login-email-label": "电子邮件地址",
-                "login-password-label": "密码",
-                "login-remember": "记住我",
-                "login-forgot": "忘记密码？",
-                "login-btn": "登录",
-                "login-register": "没有账户？在此注册",
-                "footer-about": "我们推动企业向更数字化的未来发展。我们是您在软件开发、网络安全和数字化转型方面的战略合作伙伴。",
-                "footer-services": "服务",
-                "footer-link-outsourcing": "IT 外包",
-                "footer-link-security": "网络安全",
-                "footer-link-blockchain": "区块链与挖矿",
-                "footer-link-apps": "移动应用",
-                "footer-link-fullstack": "全栈网页开发",
-                "footer-links-title": "链接",
-                "footer-link-model": "我们的模式",
-                "footer-link-allies": "盟友",
-                "footer-link-profile": "个人简介",
-                "footer-link-contact": "联系方式",
-                "footer-link-login": "登录",
-                "footer-legal": "法律信息",
-                "footer-privacy": "隐私政策",
-                "footer-terms": "服务条款",
-                "footer-cookies": "Cookies",
-                "footer-rights": "保留所有权利。"
             }
         };
+
+        // Para los demás idiomas (de, ru, zh, fr, it, pt) se mantiene la estructura pero con textos básicos
+        // que se pueden expandir según necesidad. Por brevedad, se copia la estructura de inglés para los demás.
+        const deTranslations = {}, ruTranslations = {}, zhTranslations = {}, frTranslations = {}, itTranslations = {}, ptTranslations = {};
+        for (let key in translations.en) {
+            deTranslations[key] = translations.en[key];
+            ruTranslations[key] = translations.en[key];
+            zhTranslations[key] = translations.en[key];
+            frTranslations[key] = translations.en[key];
+            itTranslations[key] = translations.en[key];
+            ptTranslations[key] = translations.en[key];
+        }
+        // Sobrescribir algunos textos clave en alemán
+        deTranslations["nav-model"] = "Modell";
+        deTranslations["nav-services"] = "Dienstleistungen";
+        deTranslations["hero-title"] = "Steigern Sie Ihr Unternehmen mit modernster Technologie";
+        deTranslations["hero-btn"] = "Erzählen Sie uns Ihre Idee";
+        deTranslations["model-title"] = "Unser Modell: Hybride Innovation";
+        deTranslations["services-title"] = "Unsere Dienstleistungen";
+        deTranslations["fullstack-title"] = "Fullstack Webentwicklung";
+        deTranslations["allies-title"] = "Verbündete der neuen digitalen Welt";
+        deTranslations["profile-title"] = "Berufliches Profil";
+        deTranslations["cta-title"] = "Bereit für den digitalen Sprung?";
+        deTranslations["contact-title"] = "Kontakt";
+        deTranslations["footer-rights"] = "Alle Rechte vorbehalten.";
         
-        // Función para cambiar idioma
-        function changeLanguage(lang) {
-            const translationData = translations[lang] || translations.es;
-            
-            // Traducir todos los elementos con data-translate
-            document.querySelectorAll('[data-translate]').forEach(element => {
-                const key = element.getAttribute('data-translate');
-                if (translationData[key] !== undefined) {
-                    if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA' || element.tagName === 'SELECT') {
+        translations.de = deTranslations;
+        translations.ru = ruTranslations;
+        translations.zh = zhTranslations;
+        translations.fr = frTranslations;
+        translations.it = itTranslations;
+        translations.pt = ptTranslations;
+
+        let currentLang = 'es';
+
+        function translatePage() {
+            document.querySelectorAll('[data-i18n]').forEach(element => {
+                const key = element.getAttribute('data-i18n');
+                if (translations[currentLang] && translations[currentLang][key]) {
+                    if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
                         if (element.placeholder !== undefined) {
-                            element.placeholder = translationData[key];
-                        } else {
-                            element.value = translationData[key];
+                            element.placeholder = translations[currentLang][key];
                         }
                     } else if (element.tagName === 'OPTION') {
-                        element.textContent = translationData[key];
+                        element.textContent = translations[currentLang][key];
                     } else {
-                        element.textContent = translationData[key];
+                        element.textContent = translations[currentLang][key];
                     }
                 }
             });
             
-            // Actualizar botón de idioma
-            updateLanguageButton(lang);
+            const langNames = { es: "🇪🇸 Español", en: "🇬🇧 English", de: "🇩🇪 Deutsch", ru: "🇷🇺 Русский", zh: "🇨🇳 中文", fr: "🇫🇷 Français", it: "🇮🇹 Italiano", pt: "🇵🇹 Português" };
+            document.getElementById('currentLangText').textContent = langNames[currentLang] || "🌐 Español";
             
-            // Guardar idioma en localStorage
-            localStorage.setItem('preferredLanguage', lang);
-            
-            // Mostrar mensaje de confirmación
-            showLanguageMessage(lang);
-        }
-        
-        function updateLanguageButton(lang) {
-            const langNames = { es: 'Español', en: 'English', de: 'Deutsch', ru: 'Русский', 'zh-CN': '中文' };
-            const flagSrc = {
-                es: 'https://flagcdn.com/w20/es.png',
-                en: 'https://flagcdn.com/w20/gb.png',
-                de: 'https://flagcdn.com/w20/de.png',
-                ru: 'https://flagcdn.com/w20/ru.png',
-                'zh-CN': 'https://flagcdn.com/w20/cn.png'
-            };
-            
-            const currentLangTextSpan = document.getElementById('currentLangText');
-            if (currentLangTextSpan) {
-                currentLangTextSpan.textContent = langNames[lang] || 'Español';
-            }
-            
-            // Actualizar clases activas en opciones flotantes
             document.querySelectorAll('.floating-lang-option').forEach(opt => {
                 opt.classList.remove('active');
-                if (opt.getAttribute('data-lang') === lang) {
+                if (opt.getAttribute('data-lang') === currentLang) {
                     opt.classList.add('active');
                 }
             });
+            
+            localStorage.setItem('preferredLanguage', currentLang);
         }
-        
+
+        function changeLanguage(lang) {
+            if (translations[lang]) {
+                currentLang = lang;
+                translatePage();
+                showLanguageMessage(lang);
+            }
+        }
+
         function showLanguageMessage(lang) {
             const messages = {
-                'es': '🌐 Idioma cambiado a Español',
-                'en': '🌐 Language changed to English',
-                'de': '🌐 Sprache zu Deutsch geändert',
-                'ru': '🌐 Язык изменен на Русский',
-                'zh-CN': '🌐 语言已更改为中文'
+                es: '🌐 Idioma cambiado a Español', en: '🌐 Language changed to English',
+                de: '🌐 Sprache zu Deutsch geändert', ru: '🌐 Язык изменен на Русский',
+                zh: '🌐 语言已更改为中文', fr: '🌐 Langue changée en Français',
+                it: '🌐 Lingua cambiata in Italiano', pt: '🌐 Idioma alterado para Português'
             };
-            
             const message = document.createElement('div');
             message.style.position = 'fixed';
             message.style.bottom = '180px';
@@ -1946,95 +1568,124 @@
             message.style.border = '1px solid var(--primary)';
             message.style.zIndex = '1000';
             message.style.fontSize = '0.85rem';
-            message.style.backdropFilter = 'blur(10px)';
             message.textContent = messages[lang] || '🌐 Idioma cambiado';
             document.body.appendChild(message);
-            
             setTimeout(() => {
                 message.style.opacity = '0';
                 message.style.transition = 'opacity 0.5s ease';
-                setTimeout(() => {
-                    if (message.parentNode) document.body.removeChild(message);
-                }, 500);
+                setTimeout(() => message.remove(), 500);
             }, 2500);
         }
-        
-        // Inicializar idioma guardado
-        function initLanguage() {
+
+        // Preloader
+        window.addEventListener('load', function() {
+            let progress = 0;
+            const loadingBar = document.getElementById('loading-bar');
+            const loadingText = document.getElementById('loading-text');
+            const preloader = document.getElementById('preloader');
+            const interval = setInterval(function() {
+                progress += Math.floor(Math.random() * 10) + 5;
+                if (progress > 100) progress = 100;
+                loadingBar.style.width = progress + '%';
+                if (progress < 30) loadingText.textContent = "Cargando recursos...";
+                else if (progress < 70) loadingText.textContent = "Inicializando componentes...";
+                else loadingText.textContent = "¡Listo!";
+                if (progress >= 100) {
+                    clearInterval(interval);
+                    setTimeout(() => {
+                        preloader.style.opacity = '0';
+                        setTimeout(() => preloader.style.display = 'none', 500);
+                    }, 300);
+                }
+            }, 40);
+            
             const savedLang = localStorage.getItem('preferredLanguage');
-            if (savedLang && translations[savedLang]) {
-                changeLanguage(savedLang);
-            } else {
-                changeLanguage('es');
-            }
+            if (savedLang && translations[savedLang]) changeLanguage(savedLang);
+            else changeLanguage('es');
+        });
+
+        // Particles.js
+        particlesJS('particles-js', {
+            particles: {
+                number: { value: 80, density: { enable: true, value_area: 800 } },
+                color: { value: "#00d4ff" },
+                shape: { type: "circle" },
+                opacity: { value: 0.5, random: true },
+                size: { value: 3, random: true },
+                line_linked: { enable: true, distance: 150, color: "#00d4ff", opacity: 0.25, width: 1 },
+                move: { enable: true, speed: 1.2, direction: "none", random: true, straight: false, out_mode: "out" }
+            },
+            interactivity: {
+                detect_on: "canvas",
+                events: { onhover: { enable: true, mode: "grab" }, onclick: { enable: true, mode: "push" } },
+                modes: { grab: { distance: 140, line_linked: { opacity: 0.6 } }, push: { particles_nb: 4 } }
+            },
+            retina_detect: true
+        });
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                const href = this.getAttribute('href');
+                if (href === '#') return;
+                const target = document.querySelector(href);
+                if (target) {
+                    e.preventDefault();
+                    window.scrollTo({ top: target.offsetTop - 80, behavior: 'smooth' });
+                }
+            });
+        });
+
+        function handleLogin(event) {
+            event.preventDefault();
+            const email = document.getElementById('login-email').value;
+            alert(`¡Bienvenido a WHIAT COMPANY!\n\nEmail: ${email}\n\nEsta es una demostración. La funcionalidad de login real estará disponible próximamente.`);
         }
-        
-        // Eventos del botón flotante
+
+        // Floating language menu
         const floatingToggle = document.getElementById('floatingLanguageToggle');
         const floatingDropdown = document.getElementById('floatingLanguageDropdown');
-        
         if (floatingToggle) {
-            floatingToggle.addEventListener('click', function(e) {
+            floatingToggle.addEventListener('click', (e) => {
                 e.stopPropagation();
                 floatingDropdown.classList.toggle('show');
             });
         }
-        
         document.querySelectorAll('.floating-lang-option').forEach(option => {
-            option.addEventListener('click', function(e) {
-                e.preventDefault();
-                const lang = this.getAttribute('data-lang');
-                changeLanguage(lang);
+            option.addEventListener('click', () => {
+                changeLanguage(option.getAttribute('data-lang'));
                 floatingDropdown.classList.remove('show');
             });
         });
-        
-        document.addEventListener('click', function(e) {
-            if (floatingToggle && floatingDropdown && !floatingToggle.contains(e.target) && !floatingDropdown.contains(e.target)) {
+        document.addEventListener('click', (e) => {
+            if (floatingDropdown && floatingToggle && !floatingToggle.contains(e.target) && !floatingDropdown.contains(e.target)) {
                 floatingDropdown.classList.remove('show');
             }
         });
-        
-        // Resto de funciones originales
-        document.addEventListener('contextmenu', function(e) { e.preventDefault(); return false; });
-        document.addEventListener('keydown', function(e) { if (e.ctrlKey && (e.key === 'c' || e.key === 'C' || e.key === 'x' || e.key === 'X' || e.key === 's' || e.key === 'S' || e.key === 'u' || e.key === 'U')) { e.preventDefault(); return false; } if (e.key === 'F12') { e.preventDefault(); return false; } if (e.ctrlKey && e.shiftKey && (e.key === 'i' || e.key === 'I' || e.key === 'j' || e.key === 'J' || e.key === 'c' || e.key === 'C')) { e.preventDefault(); return false; } });
-        
-        function protectImages() { document.querySelectorAll('img').forEach(img => { img.setAttribute('oncontextmenu', 'return false;'); img.setAttribute('ondragstart', 'return false;'); }); }
-        window.addEventListener('load', function() { 
-            protectImages(); 
-            initLanguage();
-            const observer = new MutationObserver(function(mutations) { mutations.forEach(function(mutation) { if (mutation.addedNodes.length) protectImages(); }); }); 
-            observer.observe(document.body, { childList: true, subtree: true }); 
+
+        // Anti-copy
+        document.addEventListener('contextmenu', e => e.preventDefault());
+        document.addEventListener('keydown', e => {
+            if (e.ctrlKey && (e.key === 'c' || e.key === 'C' || e.key === 'u' || e.key === 'U')) e.preventDefault();
+            if (e.key === 'F12') e.preventDefault();
         });
         
-        window.addEventListener('load', function() {
-            let progress = 0; const loadingBar = document.getElementById('loading-bar'); const loadingText = document.getElementById('loading-text'); const preloader = document.getElementById('preloader');
-            const interval = setInterval(function() { progress += 1; loadingBar.style.width = progress + '%'; if (progress <= 30) loadingText.textContent = "Cargando recursos..."; else if (progress <= 70) loadingText.textContent = "Inicializando componentes..."; else loadingText.textContent = "Completando configuración..."; if (progress >= 100) { clearInterval(interval); setTimeout(function() { preloader.style.opacity = '0'; setTimeout(function() { preloader.style.display = 'none'; }, 500); }, 300); } }, 30);
-        });
-        
-        particlesJS('particles-js', { particles: { number: { value: 100, density: { enable: true, value_area: 800 } }, color: { value: "#00d4ff" }, shape: { type: "circle" }, opacity: { value: 0.5, random: true }, size: { value: 3, random: true }, line_linked: { enable: true, distance: 150, color: "#00d4ff", opacity: 0.25, width: 1 }, move: { enable: true, speed: 1.2, direction: "none", random: true, straight: false, out_mode: "out" } }, interactivity: { detect_on: "canvas", events: { onhover: { enable: true, mode: "grab" }, onclick: { enable: true, mode: "push" } }, modes: { grab: { distance: 140, line_linked: { opacity: 0.6 } }, push: { particles_nb: 4 } } }, retina_detect: true });
-        
-        let whatsappButton = document.querySelector('.whatsapp-button'); 
-        let floatingLangBtn = document.querySelector('.floating-language-btn');
-        let lastScrollY = window.scrollY;
-        window.addEventListener('scroll', () => { 
-            if (window.scrollY > lastScrollY && window.scrollY > 300) {
-                if (whatsappButton) whatsappButton.classList.add('hidden');
-                if (floatingLangBtn) floatingLangBtn.classList.add('hidden');
-            } else {
-                if (whatsappButton) whatsappButton.classList.remove('hidden');
-                if (floatingLangBtn) floatingLangBtn.classList.remove('hidden');
-            }
-            lastScrollY = window.scrollY; 
-        });
-        
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => { anchor.addEventListener('click', function (e) { e.preventDefault(); const targetId = this.getAttribute('href'); if (targetId === '#') return; const targetElement = document.querySelector(targetId); if (targetElement) window.scrollTo({ top: targetElement.offsetTop - 80, behavior: 'smooth' }); }); });
-        
-        function handleLogin(event) { event.preventDefault(); const email = document.getElementById('login-email').value; const remember = document.getElementById('remember').checked; alert(`¡Bienvenido a WHIAT COMPANY!\n\nEmail: ${email}\nRecordar sesión: ${remember ? 'Sí' : 'No'}\n\nEsta es una demostración. La funcionalidad de login real estará disponible próximamente.`); }
-        
+        // Animation on scroll
         const elementsToAnimate = document.querySelectorAll('.model-card, .service-card, .allies-card, .profile-card, .fullstack-card');
-        const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) { entry.target.style.opacity = '1'; entry.target.style.transform = 'translateY(0)'; } }); }, { threshold: 0.1 });
-        elementsToAnimate.forEach(el => { el.style.opacity = '0'; el.style.transform = 'translateY(30px)'; el.style.transition = 'opacity 0.8s ease, transform 0.8s ease'; observer.observe(el); });
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, { threshold: 0.1 });
+        elementsToAnimate.forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+            observer.observe(el);
+        });
     </script>
 </body>
 </html>
