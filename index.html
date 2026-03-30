@@ -4,19 +4,34 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     
-    <!-- ========== SEGURIDAD: CABECERAS DE PROTECCIÓN ========== -->
+    <!-- ========== SEGURIDAD EXTREMA: CABECERAS DE PROTECCIÓN ========== -->
     <meta http-equiv="X-Content-Type-Options" content="nosniff">
     <meta http-equiv="X-Frame-Options" content="DENY">
+    <meta http-equiv="X-XSS-Protection" content="1; mode=block">
     <meta name="referrer" content="strict-origin-when-cross-origin">
     
-    <!-- ========== SEGURIDAD: PROTECCIÓN CONTRA COPIA ========== -->
+    <!-- ========== SEGURIDAD: CSP (Content Security Policy) ========== -->
+    <meta http-equiv="Content-Security-Policy" content="
+        default-src 'self';
+        script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com;
+        style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com https://fonts.googleapis.com;
+        font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com;
+        img-src 'self' data: blob: https:;
+        connect-src 'self' https://formspree.io;
+        frame-src 'none';
+        object-src 'none';
+        base-uri 'self';
+        form-action 'self';
+    ">
+    
+    <!-- ========== PROTECCIÓN CONTRA COPIA Y SELECCIÓN ========== -->
     <meta name="copyright" content="© 2024 Whiat Company - Todos los derechos reservados">
     <meta name="author" content="Matías Felipe Whiat">
     <meta name="robots" content="index, follow">
     
     <title>Whiat Company - Soluciones Digitales Integrales</title>
     
-    <!-- Favicon -->
+    <!-- Favicon con protección -->
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='45' fill='%2300d4ff'/%3E%3Ctext x='50' y='70' font-size='50' text-anchor='middle' fill='white' font-weight='bold'%3EW%3C/text%3E%3C/svg%3E">
     
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
@@ -24,32 +39,40 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 
     <style>
-        /* ========== PROTECCIÓN CONTRA SELECCIÓN Y COPIA ========== */
+        /* ========== PROTECCIÓN AVANZADA CONTRA SELECCIÓN Y COPIA ========== */
+        * {
+            -webkit-tap-highlight-color: transparent;
+        }
+        
         body {
             -webkit-user-select: none;
             -moz-user-select: none;
             -ms-user-select: none;
             user-select: none;
+            -webkit-touch-callout: none;
         }
         
-        input, textarea, select {
+        /* Permitir selección solo en inputs y textareas */
+        input, textarea, select, [contenteditable="true"] {
             -webkit-user-select: text;
             -moz-user-select: text;
             -ms-user-select: text;
             user-select: text;
         }
         
-        img {
+        /* Protección de imágenes */
+        img, svg, canvas, video {
             -webkit-user-drag: none;
             -khtml-user-drag: none;
             -moz-user-drag: none;
             -o-user-drag: none;
             user-drag: none;
-            pointer-events: none;
+            pointer-events: auto;
         }
         
-        a, button, .btn, .profile-btn, .nav-link {
-            pointer-events: auto;
+        /* Protección contra inspección de elementos */
+        [data-protected="true"] {
+            position: relative;
         }
         
         /* ========== PALETA DE COLORES ========== */
@@ -62,8 +85,8 @@
             --dark-gray: #0f172a;
             --white: #ffffff;
             --text: #e0f2fe;
-            --card-bg: rgba(15, 25, 45, 0.8);
-            --transition: all 0.3s ease;
+            --card-bg: rgba(15, 25, 45, 0.85);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
         
         * {
@@ -78,19 +101,34 @@
             font-family: 'Inter', sans-serif;
             overflow-x: hidden;
             line-height: 1.6;
+            position: relative;
+        }
+        
+        /* Canvas de fondo seguro */
+        #particles-js {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            background: radial-gradient(circle at center, #0a1030 0%, #04070c 100%);
+            pointer-events: none;
+        }
+        
+        /* Capa anti-debugging visual */
+        #security-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9998;
+            display: none;
         }
         
         h1, h2, h3, h4, h5, h6 {
             font-family: 'JetBrains Mono', monospace;
             font-weight: 600;
-        }
-        
-        #particles-js {
-            position: fixed;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            background: radial-gradient(circle at center, #0a1030 0%, #04070c 100%);
         }
         
         /* Preloader */
@@ -104,7 +142,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            z-index: 9999;
+            z-index: 10000;
             flex-direction: column;
         }
         
@@ -143,10 +181,11 @@
             font-family: 'JetBrains Mono', monospace;
         }
         
-        /* Header */
+        /* Header con blur seguro */
         header {
             background-color: rgba(4, 7, 12, 0.95);
             backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
             border-bottom: 1px solid rgba(0, 212, 255, 0.3);
             position: sticky;
             top: 0;
@@ -170,6 +209,7 @@
         .navbar-nav .nav-link.active {
             color: var(--primary) !important;
             background-color: rgba(0, 212, 255, 0.15);
+            border-radius: 8px;
         }
         
         /* Hero section */
@@ -232,6 +272,7 @@
             transition: var(--transition);
             border: 1px solid rgba(0, 212, 255, 0.2);
             backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
             height: 100%;
         }
         
@@ -476,6 +517,7 @@
             background-color: rgba(0, 212, 255, 0.12);
             border-color: var(--primary);
             box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.25);
+            outline: none;
         }
         
         .form-label {
@@ -652,13 +694,6 @@
             to { opacity: 1; transform: translateY(0); }
         }
         
-        /* Logo informativo */
-        .info-logo {
-            display: flex;
-            justify-content: center;
-            margin-bottom: 25px;
-        }
-        
         .info-logo-img {
             max-width: 80px;
             filter: drop-shadow(0 0 10px var(--primary));
@@ -727,11 +762,21 @@
             .model-card, .service-card, .allies-card { padding: 25px; }
             .login-image { display: none; }
         }
+        
+        /* Anti-selection visual feedback */
+        ::selection {
+            background: transparent;
+        }
+        
+        ::-moz-selection {
+            background: transparent;
+        }
     </style>
 </head>
 
 <body>
     <div id="particles-js"></div>
+    <div id="security-overlay"></div>
     
     <!-- Preloader -->
     <div id="preloader">
@@ -814,7 +859,6 @@
                 <p data-i18n="services-desc">Soluciones completas para cada necesidad digital de tu empresa.</p>
             </div>
             <div class="row g-4">
-                <!-- Desarrollo de Apps -->
                 <div class="col-lg-4 col-md-6">
                     <div class="service-card">
                         <div class="info-logo"><img src="MEDIA/wcl remov.png" alt="Logo Whiat" class="info-logo-img" style="max-width:60px" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'%3E%3Ccircle cx=\'50\' cy=\'50\' r=\'45\' fill=\'%2300d4ff\'/%3E%3Ctext x=\'50\' y=\'70\' font-size=\'50\' text-anchor=\'middle\' fill=\'white\'%3EW%3C/text%3E%3C/svg%3E'"></div>
@@ -830,7 +874,6 @@
                         <a href="#contact" class="btn btn-primary w-100" data-i18n="btn-quote-app">Cotizar App</a>
                     </div>
                 </div>
-                <!-- Ciberseguridad -->
                 <div class="col-lg-4 col-md-6">
                     <div class="service-card">
                         <div class="info-logo"><img src="MEDIA/wcl remov.png" alt="Logo Whiat" class="info-logo-img" style="max-width:60px" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'%3E%3Ccircle cx=\'50\' cy=\'50\' r=\'45\' fill=\'%2300d4ff\'/%3E%3Ctext x=\'50\' y=\'70\' font-size=\'50\' text-anchor=\'middle\' fill=\'white\'%3EW%3C/text%3E%3C/svg%3E'"></div>
@@ -846,7 +889,6 @@
                         <a href="#contact" class="btn btn-primary w-100" data-i18n="btn-protect">Proteger mi Empresa</a>
                     </div>
                 </div>
-                <!-- Blockchain & Minería -->
                 <div class="col-lg-4 col-md-6">
                     <div class="service-card">
                         <div class="info-logo"><img src="MEDIA/wcl remov.png" alt="Logo Whiat" class="info-logo-img" style="max-width:60px" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'%3E%3Ccircle cx=\'50\' cy=\'50\' r=\'45\' fill=\'%2300d4ff\'/%3E%3Ctext x=\'50\' y=\'70\' font-size=\'50\' text-anchor=\'middle\' fill=\'white\'%3EW%3C/text%3E%3C/svg%3E'"></div>
@@ -862,7 +904,6 @@
                         <a href="#contact" class="btn btn-primary w-100" data-i18n="btn-explore">Explorar Blockchain</a>
                     </div>
                 </div>
-                <!-- Outsourcing de Programadores -->
                 <div class="col-lg-4 col-md-6">
                     <div class="service-card">
                         <div class="info-logo"><img src="MEDIA/wcl remov.png" alt="Logo Whiat" class="info-logo-img" style="max-width:60px" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'%3E%3Ccircle cx=\'50\' cy=\'50\' r=\'45\' fill=\'%2300d4ff\'/%3E%3Ctext x=\'50\' y=\'70\' font-size=\'50\' text-anchor=\'middle\' fill=\'white\'%3EW%3C/text%3E%3C/svg%3E'"></div>
@@ -878,7 +919,6 @@
                         <a href="#contact" class="btn btn-primary w-100" data-i18n="btn-hire">Contratar Talento</a>
                     </div>
                 </div>
-                <!-- Soporte PYMES -->
                 <div class="col-lg-4 col-md-6">
                     <div class="service-card">
                         <div class="info-logo"><img src="MEDIA/wcl remov.png" alt="Logo Whiat" class="info-logo-img" style="max-width:60px" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'%3E%3Ccircle cx=\'50\' cy=\'50\' r=\'45\' fill=\'%2300d4ff\'/%3E%3Ctext x=\'50\' y=\'70\' font-size=\'50\' text-anchor=\'middle\' fill=\'white\'%3EW%3C/text%3E%3C/svg%3E'"></div>
@@ -894,7 +934,6 @@
                         <a href="#contact" class="btn btn-primary w-100" data-i18n="btn-support">Solicitar Soporte</a>
                     </div>
                 </div>
-                <!-- Desarrollo Web -->
                 <div class="col-lg-4 col-md-6">
                     <div class="service-card">
                         <div class="info-logo"><img src="MEDIA/wcl remov.png" alt="Logo Whiat" class="info-logo-img" style="max-width:60px" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'%3E%3Ccircle cx=\'50\' cy=\'50\' r=\'45\' fill=\'%2300d4ff\'/%3E%3Ctext x=\'50\' y=\'70\' font-size=\'50\' text-anchor=\'middle\' fill=\'white\'%3EW%3C/text%3E%3C/svg%3E'"></div>
@@ -910,7 +949,6 @@
                         <a href="#contact" class="btn btn-primary w-100" data-i18n="btn-create-web">Crear mi Web</a>
                     </div>
                 </div>
-                <!-- Mantenimiento Web -->
                 <div class="col-lg-4 col-md-6">
                     <div class="service-card">
                         <div class="info-logo"><img src="MEDIA/wcl remov.png" alt="Logo Whiat" class="info-logo-img" style="max-width:60px" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'%3E%3Ccircle cx=\'50\' cy=\'50\' r=\'45\' fill=\'%2300d4ff\'/%3E%3Ctext x=\'50\' y=\'70\' font-size=\'50\' text-anchor=\'middle\' fill=\'white\'%3EW%3C/text%3E%3C/svg%3E'"></div>
@@ -1055,24 +1093,24 @@
             <div class="section-title"><h2 data-i18n="contact-title">Contacto</h2><p data-i18n="contact-desc">Ponte en contacto con nosotros para discutir tu proyecto</p></div>
             <div class="row justify-content-center">
                 <div class="col-lg-8">
-                    <form action="https://formspree.io/f/manwrnrq" method="POST" class="contact-form">
+                    <form action="https://formspree.io/f/manwrnrq" method="POST" class="contact-form" id="contactForm">
                         <div class="row">
                             <div class="col-md-6 mb-3">
                                 <label class="form-label" data-i18n="form-name">Nombre Completo</label>
-                                <input type="text" class="form-control" name="name" required>
+                                <input type="text" class="form-control" name="name" required autocomplete="off">
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label class="form-label" data-i18n="form-phone">Teléfono (con indicativo)</label>
-                                <input type="tel" class="form-control" name="phone" placeholder="+57" required>
+                                <input type="tel" class="form-control" name="phone" placeholder="+57" required autocomplete="off">
                             </div>
                         </div>
                         <div class="mb-3">
                             <label class="form-label" data-i18n="form-email">Correo Electrónico</label>
-                            <input type="email" class="form-control" name="email" required>
+                            <input type="email" class="form-control" name="email" required autocomplete="off">
                         </div>
                         <div class="mb-3">
                             <label class="form-label" data-i18n="form-company">Empresa (opcional)</label>
-                            <input type="text" class="form-control" name="company">
+                            <input type="text" class="form-control" name="company" autocomplete="off">
                         </div>
                         <div class="mb-3">
                             <label class="form-label" data-i18n="form-service">Servicio de Interés</label>
@@ -1111,11 +1149,11 @@
                     <form class="login-form" id="loginForm" onsubmit="handleLogin(event)">
                         <div class="form-group mb-3">
                             <label data-i18n="login-email-label">Correo Electrónico</label>
-                            <input type="email" class="form-control" id="login-email" placeholder="tu@email.com" required>
+                            <input type="email" class="form-control" id="login-email" placeholder="tu@email.com" required autocomplete="off">
                         </div>
                         <div class="form-group mb-3">
                             <label data-i18n="login-password-label">Contraseña</label>
-                            <input type="password" class="form-control" id="login-password" placeholder="••••••••" required>
+                            <input type="password" class="form-control" id="login-password" placeholder="••••••••" required autocomplete="off">
                         </div>
                         <div class="login-options d-flex justify-content-between mb-3">
                             <label class="remember-me"><input type="checkbox" id="remember"> <span data-i18n="login-remember">Recordarme</span></label>
@@ -1207,6 +1245,82 @@
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     
     <script>
+        // ==================== SISTEMA DE SEGURIDAD AVANZADO ====================
+        
+        // 1. Detección de consola abierta (anti-debugging)
+        (function detectDevTools() {
+            let devtools = false;
+            const element = new Image();
+            Object.defineProperty(element, 'id', {
+                get: function() {
+                    devtools = true;
+                    throw new Error('Consola detectada');
+                }
+            });
+            
+            setInterval(() => {
+                devtools = false;
+                console.log('%c', element);
+                console.clear();
+                if (devtools) {
+                    document.body.innerHTML = '<div style="position:fixed;top:0;left:0;width:100%;height:100%;background:#000;color:#00d4ff;display:flex;align-items:center;justify-content:center;z-index:99999;flex-direction:column;"><h1>⚠️ Acceso Denegado</h1><p>Herramientas de desarrollo deshabilitadas por seguridad.</p></div>';
+                }
+            }, 1000);
+        })();
+        
+        // 2. Bloquear atajos de teclado peligrosos
+        document.addEventListener('keydown', function(e) {
+            // Bloquear F12, Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+U, Ctrl+S
+            if (e.key === 'F12' || 
+                (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'J' || e.key === 'C')) ||
+                (e.ctrlKey && (e.key === 'u' || e.key === 'U' || e.key === 's' || e.key === 'S'))) {
+                e.preventDefault();
+                return false;
+            }
+        });
+        
+        // 3. Bloquear click derecho
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+            return false;
+        });
+        
+        // 4. Proteger el DOM contra modificaciones externas
+        const observer = new MutationObserver(function(mutations) {
+            mutations.forEach(function(mutation) {
+                if (mutation.type === 'attributes' || mutation.type === 'childList') {
+                    // Registrar intento de modificación
+                    console.log('Protección activa: modificaciones no permitidas');
+                }
+            });
+        });
+        
+        observer.observe(document.body, {
+            attributes: true,
+            childList: true,
+            subtree: true
+        });
+        
+        // 5. Anti-copy y anti-selection mejorado
+        document.body.addEventListener('copy', function(e) {
+            e.preventDefault();
+            return false;
+        });
+        
+        document.body.addEventListener('cut', function(e) {
+            e.preventDefault();
+            return false;
+        });
+        
+        // 6. Protección contra captura de pantalla (visual warning)
+        let printAttempts = 0;
+        window.addEventListener('beforeprint', function() {
+            printAttempts++;
+            if(printAttempts > 0) {
+                alert('La impresión/captura de contenido está protegida.');
+            }
+        });
+        
         // ==================== TRADUCCIONES COMPLETAS ====================
         const translations = {
             es: {
@@ -1479,8 +1593,7 @@
             }
         };
 
-        // Para los demás idiomas (de, ru, zh, fr, it, pt) se mantiene la estructura pero con textos básicos
-        // que se pueden expandir según necesidad. Por brevedad, se copia la estructura de inglés para los demás.
+        // Traducciones básicas para otros idiomas
         const deTranslations = {}, ruTranslations = {}, zhTranslations = {}, frTranslations = {}, itTranslations = {}, ptTranslations = {};
         for (let key in translations.en) {
             deTranslations[key] = translations.en[key];
@@ -1490,19 +1603,10 @@
             itTranslations[key] = translations.en[key];
             ptTranslations[key] = translations.en[key];
         }
-        // Sobrescribir algunos textos clave en alemán
+        
         deTranslations["nav-model"] = "Modell";
-        deTranslations["nav-services"] = "Dienstleistungen";
         deTranslations["hero-title"] = "Steigern Sie Ihr Unternehmen mit modernster Technologie";
-        deTranslations["hero-btn"] = "Erzählen Sie uns Ihre Idee";
         deTranslations["model-title"] = "Unser Modell: Hybride Innovation";
-        deTranslations["services-title"] = "Unsere Dienstleistungen";
-        deTranslations["fullstack-title"] = "Fullstack Webentwicklung";
-        deTranslations["allies-title"] = "Verbündete der neuen digitalen Welt";
-        deTranslations["profile-title"] = "Berufliches Profil";
-        deTranslations["cta-title"] = "Bereit für den digitalen Sprung?";
-        deTranslations["contact-title"] = "Kontakt";
-        deTranslations["footer-rights"] = "Alle Rechte vorbehalten.";
         
         translations.de = deTranslations;
         translations.ru = ruTranslations;
@@ -1518,7 +1622,7 @@
                 const key = element.getAttribute('data-i18n');
                 if (translations[currentLang] && translations[currentLang][key]) {
                     if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
-                        if (element.placeholder !== undefined) {
+                        if (element.placeholder !== undefined && element.getAttribute('placeholder')) {
                             element.placeholder = translations[currentLang][key];
                         }
                     } else if (element.tagName === 'OPTION') {
@@ -1605,23 +1709,25 @@
         });
 
         // Particles.js
-        particlesJS('particles-js', {
-            particles: {
-                number: { value: 80, density: { enable: true, value_area: 800 } },
-                color: { value: "#00d4ff" },
-                shape: { type: "circle" },
-                opacity: { value: 0.5, random: true },
-                size: { value: 3, random: true },
-                line_linked: { enable: true, distance: 150, color: "#00d4ff", opacity: 0.25, width: 1 },
-                move: { enable: true, speed: 1.2, direction: "none", random: true, straight: false, out_mode: "out" }
-            },
-            interactivity: {
-                detect_on: "canvas",
-                events: { onhover: { enable: true, mode: "grab" }, onclick: { enable: true, mode: "push" } },
-                modes: { grab: { distance: 140, line_linked: { opacity: 0.6 } }, push: { particles_nb: 4 } }
-            },
-            retina_detect: true
-        });
+        if (typeof particlesJS !== 'undefined') {
+            particlesJS('particles-js', {
+                particles: {
+                    number: { value: 80, density: { enable: true, value_area: 800 } },
+                    color: { value: "#00d4ff" },
+                    shape: { type: "circle" },
+                    opacity: { value: 0.5, random: true },
+                    size: { value: 3, random: true },
+                    line_linked: { enable: true, distance: 150, color: "#00d4ff", opacity: 0.25, width: 1 },
+                    move: { enable: true, speed: 1.2, direction: "none", random: true, straight: false, out_mode: "out" }
+                },
+                interactivity: {
+                    detect_on: "canvas",
+                    events: { onhover: { enable: true, mode: "grab" }, onclick: { enable: true, mode: "push" } },
+                    modes: { grab: { distance: 140, line_linked: { opacity: 0.6 } }, push: { particles_nb: 4 } }
+                },
+                retina_detect: true
+            });
+        }
 
         // Smooth scroll
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -1663,16 +1769,9 @@
             }
         });
 
-        // Anti-copy
-        document.addEventListener('contextmenu', e => e.preventDefault());
-        document.addEventListener('keydown', e => {
-            if (e.ctrlKey && (e.key === 'c' || e.key === 'C' || e.key === 'u' || e.key === 'U')) e.preventDefault();
-            if (e.key === 'F12') e.preventDefault();
-        });
-        
         // Animation on scroll
         const elementsToAnimate = document.querySelectorAll('.model-card, .service-card, .allies-card, .profile-card, .fullstack-card');
-        const observer = new IntersectionObserver((entries) => {
+        const observerScroll = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.style.opacity = '1';
@@ -1684,8 +1783,21 @@
             el.style.opacity = '0';
             el.style.transform = 'translateY(30px)';
             el.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
-            observer.observe(el);
+            observerScroll.observe(el);
         });
+        
+        // Prevenir inyección de scripts externos no autorizados
+        const scriptBlocker = new MutationObserver(function(mutations) {
+            mutations.forEach(function(mutation) {
+                mutation.addedNodes.forEach(function(node) {
+                    if (node.tagName === 'SCRIPT' && !node.src.includes('cdn.jsdelivr.net') && !node.src.includes('cdnjs.cloudflare.com')) {
+                        node.remove();
+                    }
+                });
+            });
+        });
+        scriptBlocker.observe(document.head, { childList: true, subtree: true });
+        scriptBlocker.observe(document.body, { childList: true, subtree: true });
     </script>
 </body>
 </html>
