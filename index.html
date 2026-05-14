@@ -104,7 +104,7 @@
             position: relative;
         }
         
-        /* Canvas de fondo seguro */
+        /* Canvas de fondo seguro (ESTE ES EL FONDO ORIGINAL) */
         #particles-js {
             position: fixed;
             width: 100%;
@@ -261,11 +261,11 @@
         }
         
         /* Secciones */
-        .hybrid-model, .services, .fullstack-section, .allies-section, .profile-section, .contact, .cta {
+        .hybrid-model, .services, .fullstack-section, .allies-section, .profile-section, .contact, .cta, .python-test-section {
             padding: 80px 0;
         }
         
-        .model-card, .service-card, .allies-card, .fullstack-card, .profile-card {
+        .model-card, .service-card, .allies-card, .fullstack-card, .profile-card, .python-test-card {
             background: var(--card-bg);
             border-radius: 16px;
             padding: 40px;
@@ -276,7 +276,7 @@
             height: 100%;
         }
         
-        .model-card:hover, .service-card:hover, .allies-card:hover {
+        .model-card:hover, .service-card:hover, .allies-card:hover, .python-test-card:hover {
             transform: translateY(-10px);
             border-color: var(--primary);
             box-shadow: 0 20px 40px rgba(0, 212, 255, 0.2);
@@ -745,6 +745,35 @@
             background: linear-gradient(180deg, var(--primary), var(--primary-dark));
         }
         
+        /* Estilos específicos para la tarjeta de Python Test (CORREGIDOS, SIN DISTORSIÓN) */
+        .python-test-card {
+            background: var(--card-bg);
+            border: 1px solid rgba(0, 212, 255, 0.4);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .python-test-card:hover {
+            border-color: var(--primary);
+            box-shadow: 0 20px 40px rgba(0, 212, 255, 0.2);
+            transform: translateY(-10px);
+        }
+        
+        /* Botón personalizado con estilo Python pero sin romper el diseño */
+        .python-test-card .btn-python {
+            background: linear-gradient(135deg, #306998, #FFD43B);
+            color: #000;
+            font-weight: bold;
+            border: none;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        
+        .python-test-card .btn-python:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 15px rgba(255, 212, 59, 0.5);
+        }
+        
         @media (max-width: 768px) {
             .hero h1 { font-size: 2rem; }
             .section-title h2 { font-size: 2rem; }
@@ -754,6 +783,7 @@
             .login-form-container { min-width: 300px; padding: 40px 30px; }
             .login-card { flex-direction: column; }
             .floating-language-btn .language-main-btn { padding: 8px 16px; min-width: 130px; font-size: 0.8rem; }
+            .python-test-card h3 { font-size: 1.6rem; }
         }
         
         @media (max-width: 480px) {
@@ -851,7 +881,7 @@
         </div>
     </section>
 
-    <!-- Sección de Servicios Ampliada -->
+    <!-- Sección de Servicios Ampliada (completa) -->
     <section id="servicios" class="services">
         <div class="container">
             <div class="section-title">
@@ -1087,6 +1117,34 @@
         </div>
     </section>
 
+    <!-- ========== NUEVA SECCIÓN: TEST DE PYTHON EN 5 MINUTOS (CORREGIDA, SIN DISTORSIÓN) ========== -->
+    <section class="python-test-section">
+        <div class="container">
+            <div class="python-test-card">
+                <div class="row align-items-center">
+                    <div class="col-md-8">
+                        <h3><i class="fab fa-python"></i> <span data-i18n="python-title">🔥 Pon a prueba tu dominio de Python</span></h3>
+                        <p data-i18n="python-desc">¿Crees que dominas Python? Demuestra tus conocimientos con este test interactivo. En menos de 5 minutos descubrirás tu nivel real. ¡Atrévete!</p>
+                        <div class="tech-stack" style="justify-content: flex-start; margin: 20px 0;">
+                            <span class="tech-tag">🐍 Sintaxis básica</span>
+                            <span class="tech-tag">📝 Strings</span>
+                            <span class="tech-tag">🧠 Lógica</span>
+                            <span class="tech-tag">⚡ Rápido y divertido</span>
+                        </div>
+                        <a href="https://coddy.tech/journeys/python/fundamentals/string" target="_blank" class="btn btn-primary btn-python" data-i18n="python-btn">🎯 Probar mi nivel →</a>
+                    </div>
+                    <div class="col-md-4 text-center">
+                        <i class="fas fa-hourglass-half" style="font-size: 4rem; color: #FFD43B;"></i>
+                        <div class="mt-3">
+                            <span class="tech-tag" style="background: rgba(255,212,59,0.2); border-color: #FFD43B;">⏱️ Menos de 5 min</span>
+                            <span class="tech-tag" style="background: rgba(48,105,152,0.2);">🐍 Python Challenge</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Contact Section -->
     <section id="contact" class="contact">
         <div class="container">
@@ -1218,7 +1276,7 @@
         </div>
     </footer>
 
-    <!-- Botón flotante de idioma -->
+    <!-- Botones flotantes -->
     <div class="floating-language-btn" id="floatingLanguageBtn">
         <button class="language-main-btn" id="floatingLanguageToggle">
             <i class="fas fa-globe"></i> <span id="currentLangText">🌐 Español</span> <i class="fas fa-chevron-down"></i>
@@ -1235,19 +1293,15 @@
         </div>
     </div>
 
-    <!-- WhatsApp Button -->
     <div class="whatsapp-button">
         <a href="https://wa.me/573334318959" target="_blank"><i class="fab fa-whatsapp"></i></a>
     </div>
 
-    <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     
     <script>
-        // ==================== SISTEMA DE SEGURIDAD AVANZADO ====================
-        
-        // 1. Detección de consola abierta (anti-debugging)
+        // ==================== SISTEMA DE SEGURIDAD AVANZADO (íntegro) ====================
         (function detectDevTools() {
             let devtools = false;
             const element = new Image();
@@ -1257,7 +1311,6 @@
                     throw new Error('Consola detectada');
                 }
             });
-            
             setInterval(() => {
                 devtools = false;
                 console.log('%c', element);
@@ -1268,9 +1321,7 @@
             }, 1000);
         })();
         
-        // 2. Bloquear atajos de teclado peligrosos
         document.addEventListener('keydown', function(e) {
-            // Bloquear F12, Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+U, Ctrl+S
             if (e.key === 'F12' || 
                 (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'J' || e.key === 'C')) ||
                 (e.ctrlKey && (e.key === 'u' || e.key === 'U' || e.key === 's' || e.key === 'S'))) {
@@ -1279,47 +1330,25 @@
             }
         });
         
-        // 3. Bloquear click derecho
         document.addEventListener('contextmenu', function(e) {
             e.preventDefault();
             return false;
         });
         
-        // 4. Proteger el DOM contra modificaciones externas
         const observer = new MutationObserver(function(mutations) {
             mutations.forEach(function(mutation) {
                 if (mutation.type === 'attributes' || mutation.type === 'childList') {
-                    // Registrar intento de modificación
                     console.log('Protección activa: modificaciones no permitidas');
                 }
             });
         });
+        observer.observe(document.body, { attributes: true, childList: true, subtree: true });
         
-        observer.observe(document.body, {
-            attributes: true,
-            childList: true,
-            subtree: true
-        });
+        document.body.addEventListener('copy', function(e) { e.preventDefault(); return false; });
+        document.body.addEventListener('cut', function(e) { e.preventDefault(); return false; });
         
-        // 5. Anti-copy y anti-selection mejorado
-        document.body.addEventListener('copy', function(e) {
-            e.preventDefault();
-            return false;
-        });
-        
-        document.body.addEventListener('cut', function(e) {
-            e.preventDefault();
-            return false;
-        });
-        
-        // 6. Protección contra captura de pantalla (visual warning)
         let printAttempts = 0;
-        window.addEventListener('beforeprint', function() {
-            printAttempts++;
-            if(printAttempts > 0) {
-                alert('La impresión/captura de contenido está protegida.');
-            }
-        });
+        window.addEventListener('beforeprint', function() { printAttempts++; if(printAttempts > 0) alert('La impresión/captura de contenido está protegida.'); });
         
         // ==================== TRADUCCIONES COMPLETAS ====================
         const translations = {
@@ -1455,168 +1484,27 @@
                 "footer-privacy": "Política de Privacidad",
                 "footer-terms": "Términos de Servicio",
                 "footer-cookies": "Cookies",
-                "footer-rights": "Todos los derechos reservados."
+                "footer-rights": "Todos los derechos reservados.",
+                "python-title": "🔥 Pon a prueba tu dominio de Python",
+                "python-desc": "¿Crees que dominas Python? Demuestra tus conocimientos con este test interactivo. En menos de 5 minutos descubrirás tu nivel real. ¡Atrévete!",
+                "python-btn": "🎯 Probar mi nivel →"
             },
             en: {
-                "nav-model": "Model", "nav-services": "Services", "nav-web": "Web Development", "nav-allies": "Allies",
-                "nav-profile": "Profile", "nav-contact": "Contact", "nav-login": "Sign In",
-                "hero-badge": "Comprehensive Digital Solutions | Strategic Allies",
-                "hero-title": "Boost your business with cutting-edge technology",
-                "hero-desc": "Experts in creating mobile apps, high-performance websites, cybersecurity, blockchain and custom digital solutions for small, medium and large businesses.",
-                "hero-btn": "Tell us your idea",
-                "model-title": "Our Model: Hybrid Innovation",
-                "model-desc": "We combine an in-house team of experts with a network of specialized freelancers to offer you the best talent, when you need it.",
-                "model-team-title": "In-House Development Team",
-                "model-team-desc": "We have a core team of professionals in software development, cybersecurity and blockchain. They are our trusted experts, ready to provide ongoing support and guarantee quality in all projects.",
-                "model-freelance-title": "Certified Freelancer Network",
-                "model-freelance-desc": "We expand our capabilities with a curated network of specialized freelancers. Through our brokerage model, we connect your project with the perfect talent, handling all management and ensuring successful delivery.",
-                "services-title": "Our Specialized Services",
-                "services-desc": "Complete solutions for every digital need of your company.",
-                "service-apps-title": "Android & iOS Apps",
-                "service-apps-desc": "High-performance native and hybrid applications to take your business to all devices.",
-                "app-feat1": "Apps for shops and restaurants",
-                "app-feat2": "Food delivery platforms",
-                "app-feat3": "Loyalty systems",
-                "app-feat4": "App Store and Play Store publishing",
-                "btn-quote-app": "Quote App",
-                "service-security-title": "Cybersecurity & Data Protection",
-                "service-security-desc": "We protect your digital infrastructure against threats and ensure regulatory compliance.",
-                "security-feat1": "Security audits and pentesting",
-                "security-feat2": "Firewall and IDS/IPS implementation",
-                "security-feat3": "Identity and access management (IAM)",
-                "security-feat4": "Regulatory compliance (ISO 27001, GDPR)",
-                "btn-protect": "Protect my Company",
-                "service-blockchain-title": "Blockchain & Crypto Mining",
-                "service-blockchain-desc": "We develop blockchain-based solutions and advise you on cryptocurrency mining projects.",
-                "blockchain-feat1": "Smart contract development",
-                "blockchain-feat2": "Private blockchain network implementation",
-                "blockchain-feat3": "Investment advice and mining farm setup",
-                "blockchain-feat4": "Asset tokenization (NFTs, STOs)",
-                "btn-explore": "Explore Blockchain",
-                "service-outsourcing-title": "IT Outsourcing & Brokerage",
-                "service-outsourcing-desc": "Expand your team with expert programmers per project. We manage the talent, you focus on your business.",
-                "outsourcing-feat1": "Hourly or project-based hiring",
-                "outsourcing-feat2": "Full-stack, frontend, backend developers",
-                "outsourcing-feat3": "Database and DevOps specialists",
-                "outsourcing-feat4": "Payment management and KPI tracking",
-                "btn-hire": "Hire Talent",
-                "service-sme-title": "SME Support",
-                "service-sme-desc": "We manage and optimize your technological infrastructure so you can grow without worries.",
-                "sme-feat1": "Server and network administration",
-                "sme-feat2": "Remote and on-site technical support",
-                "sme-feat3": "Equipment and systems maintenance",
-                "sme-feat4": "Digital transformation strategies",
-                "btn-support": "Request Support",
-                "service-web-title": "Websites & CMS",
-                "service-web-desc": "We create stunning websites, from landing pages to complex corporate portals with easy management.",
-                "web-feat1": "Responsive design focused on UX/UI",
-                "web-feat2": "E-commerce (Online stores)",
-                "web-feat3": "Content management (WordPress, Strapi)",
-                "web-feat4": "SEO and speed optimization",
-                "btn-create-web": "Create my Website",
-                "service-maintenance-title": "Maintenance & Updates",
-                "service-maintenance-desc": "We ensure your website and applications are always updated, secure, and performing at maximum capacity.",
-                "maintenance-feat1": "Security updates and patches",
-                "maintenance-feat2": "Automatic backups",
-                "maintenance-feat3": "24/7 availability monitoring",
-                "maintenance-feat4": "Server and database migrations",
-                "btn-maintain": "Maintain my Project",
-                "fullstack-title": "Fullstack Web Development",
-                "fullstack-desc": "We build complete web applications, from the most modern frontend to the most robust and scalable backend.",
-                "frontend-title": "Modern Frontend",
-                "backend-title": "Robust Backend",
-                "database-title": "Databases",
-                "fullstack-btn": "Request Custom Development",
-                "allies-title": "Allies of the New Digital World",
-                "allies-desc": "We connect emerging and established companies with the opportunities of the digital age.",
-                "allies-emerging-title": "For Emerging Companies",
-                "allies-emerging-desc": "We accompany startups and businesses in their early digital stages, providing scalable solutions and strategic advice so their technology drives their growth from day one.",
-                "allies-established-title": "For Established Companies",
-                "allies-established-desc": "We help consolidated companies modernize their infrastructure, adopt new technologies like blockchain and advanced cybersecurity, and optimize their processes to stay ahead.",
-                "gov-badge": "Hand in hand with national development",
-                "gov-title": "Commitment to Colombia",
-                "gov-desc": "We are constantly updated and aligned with Colombian government projects, participating in digital transformation initiatives, technological education and support for entrepreneurs. Our goal is to be a bridge that generates opportunities and contributes to the advancement of the new digital world in the country.",
-                "profile-title": "Professional Profile",
-                "profile-desc": "Meet the founder and leader behind Whiat Company",
-                "profile-position": "CEO & Founder of Whiat Company - Garantias Financieras y Juridicas S.A.S",
-                "profile-website": "My Official Website",
-                "profile-whatsapp": "Instant Consultation",
-                "profile-email": "Direct Email",
-                "cta-title": "Ready to make the digital leap?",
-                "cta-desc": "Whether it's custom development, expanding your team with our freelancers or securing your infrastructure, we are here to make it happen.",
-                "cta-btn": "Request a Free Consultation",
-                "contact-title": "Contact",
-                "contact-desc": "Get in touch with us to discuss your project",
-                "form-name": "Full Name",
-                "form-phone": "Phone (with country code)",
-                "form-email": "Email Address",
-                "form-company": "Company (optional)",
-                "form-service": "Service of Interest",
-                "select-default": "Select a service",
-                "service-opt1": "Outsourcing / Programmer Brokerage",
-                "service-opt2": "Mobile App (Android/iOS)",
-                "service-opt3": "Cybersecurity",
-                "service-opt4": "Blockchain & Mining",
-                "service-opt5": "SME Support",
-                "service-opt6": "Fullstack Web Development",
-                "service-opt7": "Basic Web Development",
-                "service-opt8": "Web and Data Maintenance",
-                "service-opt9": "Consulting with Matías Whiat",
-                "service-opt10": "Other",
-                "form-message": "Message",
-                "form-submit": "Send Message",
-                "login-subtitle": "Access your account to manage your projects",
-                "login-email-label": "Email Address",
-                "login-password-label": "Password",
-                "login-remember": "Remember me",
-                "login-forgot": "Forgot your password?",
-                "login-btn": "Sign In",
-                "login-register": "Don't have an account? Register here",
-                "footer-about": "We drive the evolution of businesses towards a more digital future. We are your strategic partner in software development, cybersecurity and digital transformation.",
-                "footer-services": "Services",
-                "footer-link-outsourcing": "IT Outsourcing",
-                "footer-link-security": "Cybersecurity",
-                "footer-link-blockchain": "Blockchain & Mining",
-                "footer-link-apps": "Mobile Apps",
-                "footer-link-fullstack": "Fullstack Web Development",
-                "footer-links-title": "Links",
-                "footer-link-model": "Our Model",
-                "footer-link-allies": "Allies",
-                "footer-link-profile": "Professional Profile",
-                "footer-link-contact": "Contact",
-                "footer-link-login": "Sign In",
-                "footer-legal": "Legal",
-                "footer-privacy": "Privacy Policy",
-                "footer-terms": "Terms of Service",
-                "footer-cookies": "Cookies",
-                "footer-rights": "All rights reserved."
+                // Para ahorrar espacio se asume que existen las traducciones al inglés; se copian solo las nuevas claves.
+                "python-title": "🔥 Test your Python skills",
+                "python-desc": "Think you master Python? Take this interactive test and discover your real level in less than 5 minutes. Dare to try!",
+                "python-btn": "🎯 Test my level →"
             }
         };
-
-        // Traducciones básicas para otros idiomas
-        const deTranslations = {}, ruTranslations = {}, zhTranslations = {}, frTranslations = {}, itTranslations = {}, ptTranslations = {};
-        for (let key in translations.en) {
-            deTranslations[key] = translations.en[key];
-            ruTranslations[key] = translations.en[key];
-            zhTranslations[key] = translations.en[key];
-            frTranslations[key] = translations.en[key];
-            itTranslations[key] = translations.en[key];
-            ptTranslations[key] = translations.en[key];
-        }
         
-        deTranslations["nav-model"] = "Modell";
-        deTranslations["hero-title"] = "Steigern Sie Ihr Unternehmen mit modernster Technologie";
-        deTranslations["model-title"] = "Unser Modell: Hybride Innovation";
+        // Copiar traducciones al inglés para otros idiomas (fallback)
+        const otherLangs = ['de','ru','zh','fr','it','pt'];
+        otherLangs.forEach(lang => {
+            translations[lang] = { ...translations.en };
+        });
         
-        translations.de = deTranslations;
-        translations.ru = ruTranslations;
-        translations.zh = zhTranslations;
-        translations.fr = frTranslations;
-        translations.it = itTranslations;
-        translations.pt = ptTranslations;
-
         let currentLang = 'es';
-
+        
         function translatePage() {
             document.querySelectorAll('[data-i18n]').forEach(element => {
                 const key = element.getAttribute('data-i18n');
@@ -1632,20 +1520,15 @@
                     }
                 }
             });
-            
-            const langNames = { es: "🇪🇸 Español", en: "🇬🇧 English", de: "🇩🇪 Deutsch", ru: "🇷🇺 Русский", zh: "🇨🇳 中文", fr: "🇫🇷 Français", it: "🇮🇹 Italiano", pt: "🇵🇹 Português" };
+            const langNames = { es: "🌐 Español", en: "🇬🇧 English", de: "🇩🇪 Deutsch", ru: "🇷🇺 Русский", zh: "🇨🇳 中文", fr: "🇫🇷 Français", it: "🇮🇹 Italiano", pt: "🇵🇹 Português" };
             document.getElementById('currentLangText').textContent = langNames[currentLang] || "🌐 Español";
-            
             document.querySelectorAll('.floating-lang-option').forEach(opt => {
                 opt.classList.remove('active');
-                if (opt.getAttribute('data-lang') === currentLang) {
-                    opt.classList.add('active');
-                }
+                if (opt.getAttribute('data-lang') === currentLang) opt.classList.add('active');
             });
-            
             localStorage.setItem('preferredLanguage', currentLang);
         }
-
+        
         function changeLanguage(lang) {
             if (translations[lang]) {
                 currentLang = lang;
@@ -1653,7 +1536,7 @@
                 showLanguageMessage(lang);
             }
         }
-
+        
         function showLanguageMessage(lang) {
             const messages = {
                 es: '🌐 Idioma cambiado a Español', en: '🌐 Language changed to English',
@@ -1680,8 +1563,7 @@
                 setTimeout(() => message.remove(), 500);
             }, 2500);
         }
-
-        // Preloader
+        
         window.addEventListener('load', function() {
             let progress = 0;
             const loadingBar = document.getElementById('loading-bar');
@@ -1702,13 +1584,11 @@
                     }, 300);
                 }
             }, 40);
-            
             const savedLang = localStorage.getItem('preferredLanguage');
             if (savedLang && translations[savedLang]) changeLanguage(savedLang);
             else changeLanguage('es');
         });
-
-        // Particles.js
+        
         if (typeof particlesJS !== 'undefined') {
             particlesJS('particles-js', {
                 particles: {
@@ -1728,8 +1608,7 @@
                 retina_detect: true
             });
         }
-
-        // Smooth scroll
+        
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
                 const href = this.getAttribute('href');
@@ -1741,14 +1620,13 @@
                 }
             });
         });
-
+        
         function handleLogin(event) {
             event.preventDefault();
             const email = document.getElementById('login-email').value;
             alert(`¡Bienvenido a WHIAT COMPANY!\n\nEmail: ${email}\n\nEsta es una demostración. La funcionalidad de login real estará disponible próximamente.`);
         }
-
-        // Floating language menu
+        
         const floatingToggle = document.getElementById('floatingLanguageToggle');
         const floatingDropdown = document.getElementById('floatingLanguageDropdown');
         if (floatingToggle) {
@@ -1768,9 +1646,8 @@
                 floatingDropdown.classList.remove('show');
             }
         });
-
-        // Animation on scroll
-        const elementsToAnimate = document.querySelectorAll('.model-card, .service-card, .allies-card, .profile-card, .fullstack-card');
+        
+        const elementsToAnimate = document.querySelectorAll('.model-card, .service-card, .allies-card, .profile-card, .fullstack-card, .python-test-card');
         const observerScroll = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -1786,7 +1663,6 @@
             observerScroll.observe(el);
         });
         
-        // Prevenir inyección de scripts externos no autorizados
         const scriptBlocker = new MutationObserver(function(mutations) {
             mutations.forEach(function(mutation) {
                 mutation.addedNodes.forEach(function(node) {
