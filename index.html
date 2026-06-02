@@ -32,780 +32,18 @@
     <title>Whiat Company - Soluciones Digitales Integrales</title>
     
     <!-- ========== NUEVO FAVICON CON EL LOGO REAL ========== -->
-    <link rel="icon" type="image/png" sizes="32x32" href="MEDIA/LOGO_REAL_QR-removebg-preview.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="MEDIA/LOGO_REAL_QR-removebg-preview.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="MEDIA/CAPI-WHIAT.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="MEDIA/CAPI-WHIAT.png">
     <link rel="shortcut icon" href="MEDIA/LOGO_REAL_QR-removebg-preview.png">
     
+    <!-- Librerías externas -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-
-    <style>
-        /* ========== PROTECCIÓN AVANZADA CONTRA SELECCIÓN Y COPIA ========== */
-        * {
-            -webkit-tap-highlight-color: transparent;
-        }
-        
-        body {
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            user-select: none;
-            -webkit-touch-callout: none;
-        }
-        
-        /* Permitir selección solo en inputs y textareas */
-        input, textarea, select, [contenteditable="true"] {
-            -webkit-user-select: text;
-            -moz-user-select: text;
-            -ms-user-select: text;
-            user-select: text;
-        }
-        
-        /* Protección de imágenes */
-        img, svg, canvas, video {
-            -webkit-user-drag: none;
-            -khtml-user-drag: none;
-            -moz-user-drag: none;
-            -o-user-drag: none;
-            user-drag: none;
-            pointer-events: auto;
-        }
-        
-        /* Protección contra inspección de elementos */
-        [data-protected="true"] {
-            position: relative;
-        }
-        
-        /* ========== PALETA DE COLORES ========== */
-        :root {
-            --primary: #00d4ff;
-            --primary-dark: #0099cc;
-            --primary-glow: #00eaff;
-            --dark: #0a0f1a;
-            --darker: #04070c;
-            --dark-gray: #0f172a;
-            --white: #ffffff;
-            --text: #e0f2fe;
-            --card-bg: rgba(15, 25, 45, 0.85);
-            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            background-color: var(--darker);
-            color: var(--text);
-            font-family: 'Inter', sans-serif;
-            overflow-x: hidden;
-            line-height: 1.6;
-            position: relative;
-        }
-        
-        /* Canvas de fondo seguro (ESTE ES EL FONDO ORIGINAL) */
-        #particles-js {
-            position: fixed;
-            width: 100%;
-            height: 100%;
-            z-index: -2;
-            background: radial-gradient(circle at center, #0a1030 0%, #04070c 100%);
-            pointer-events: none;
-        }
-        
-        /* Capa anti-debugging visual */
-        #security-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 9998;
-            display: none;
-        }
-        
-        h1, h2, h3, h4, h5, h6 {
-            font-family: 'JetBrains Mono', monospace;
-            font-weight: 600;
-        }
-        
-        /* Preloader */
-        #preloader {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: var(--darker);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 10000;
-            flex-direction: column;
-        }
-        
-        .preloader-content {
-            text-align: center;
-        }
-        
-        .preloader-logo {
-            max-width: 180px;
-            margin-bottom: 30px;
-            filter: drop-shadow(0 0 15px var(--primary));
-        }
-        
-        .loading-container {
-            width: 300px;
-            height: 4px;
-            background-color: rgba(0, 212, 255, 0.2);
-            border-radius: 4px;
-            margin: 20px auto;
-            overflow: hidden;
-        }
-        
-        .loading-bar {
-            height: 100%;
-            width: 0;
-            background: linear-gradient(90deg, var(--primary) 0%, var(--primary-glow) 100%);
-            border-radius: 4px;
-            transition: width 0.5s ease;
-            box-shadow: 0 0 12px var(--primary);
-        }
-        
-        .loading-text {
-            margin-top: 15px;
-            font-size: 0.9rem;
-            color: var(--primary);
-            font-family: 'JetBrains Mono', monospace;
-        }
-        
-        /* Header con blur seguro */
-        header {
-            background-color: rgba(4, 7, 12, 0.95);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(0, 212, 255, 0.3);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-        
-        .navbar-brand {
-            color: var(--primary) !important;
-            font-weight: 700;
-            font-size: 1.6rem;
-        }
-        
-        .navbar-nav .nav-link {
-            color: var(--text) !important;
-            font-weight: 500;
-            padding: 0.5rem 1rem;
-            transition: var(--transition);
-        }
-        
-        .navbar-nav .nav-link:hover,
-        .navbar-nav .nav-link.active {
-            color: var(--primary) !important;
-            background-color: rgba(0, 212, 255, 0.15);
-            border-radius: 8px;
-        }
-        
-        /* Hero section */
-        .hero {
-            padding: 100px 0;
-            text-align: center;
-            background: radial-gradient(circle at center, rgba(0, 212, 255, 0.08) 0%, rgba(4, 7, 12, 0) 70%);
-        }
-        
-        .hero-content {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-        
-        .logo {
-            max-width: 220px;
-            margin-bottom: 10px;
-            filter: drop-shadow(0 0 20px var(--primary));
-            animation: pulse 3s infinite;
-        }
-        
-        @keyframes pulse {
-            0% { filter: drop-shadow(0 0 5px var(--primary)); }
-            50% { filter: drop-shadow(0 0 25px var(--primary-glow)); }
-            100% { filter: drop-shadow(0 0 5px var(--primary)); }
-        }
-        
-        .hero h1 {
-            color: var(--primary);
-            font-size: 3rem;
-            margin-bottom: 25px;
-        }
-        
-        .hero p {
-            font-size: 1.2rem;
-            margin-bottom: 30px;
-        }
-        
-        .hero-badge {
-            display: inline-block;
-            background: rgba(0, 212, 255, 0.15);
-            color: var(--primary);
-            padding: 8px 20px;
-            border-radius: 30px;
-            font-size: 0.9rem;
-            margin-bottom: 20px;
-            border: 1px solid rgba(0, 212, 255, 0.4);
-        }
-        
-        /* Secciones */
-        .hybrid-model, .services, .fullstack-section, .allies-section, .profile-section, .contact, .cta, .python-test-section {
-            padding: 80px 0;
-        }
-        
-        .model-card, .service-card, .allies-card, .fullstack-card, .profile-card, .python-test-card {
-            background: var(--card-bg);
-            border-radius: 16px;
-            padding: 40px;
-            transition: var(--transition);
-            border: 1px solid rgba(0, 212, 255, 0.2);
-            backdrop-filter: blur(5px);
-            -webkit-backdrop-filter: blur(5px);
-            height: 100%;
-        }
-        
-        .model-card:hover, .service-card:hover, .allies-card:hover, .python-test-card:hover {
-            transform: translateY(-10px);
-            border-color: var(--primary);
-            box-shadow: 0 20px 40px rgba(0, 212, 255, 0.2);
-        }
-        
-        .service-card {
-            padding: 30px;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .service-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 4px;
-            background: linear-gradient(90deg, var(--primary), var(--primary-dark));
-            transform: scaleX(0);
-            transform-origin: left;
-            transition: transform 0.3s ease;
-        }
-        
-        .service-card:hover::before {
-            transform: scaleX(1);
-        }
-        
-        .service-card h3, .model-card h3 {
-            font-size: 1.5rem;
-            margin-bottom: 15px;
-            color: var(--white);
-        }
-        
-        .service-features {
-            list-style: none;
-            padding: 0;
-            margin: 20px 0;
-        }
-        
-        .service-features li {
-            padding: 5px 0;
-            padding-left: 20px;
-            position: relative;
-        }
-        
-        .service-features li::before {
-            content: '▸';
-            position: absolute;
-            left: 0;
-            color: var(--primary);
-        }
-        
-        .tech-stack {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin: 20px 0;
-            justify-content: center;
-        }
-        
-        .tech-tag {
-            background: rgba(0, 212, 255, 0.12);
-            color: var(--primary);
-            padding: 5px 15px;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            border: 1px solid rgba(0, 212, 255, 0.3);
-        }
-        
-        .section-title {
-            text-align: center;
-            margin-bottom: 60px;
-        }
-        
-        .section-title h2 {
-            color: var(--primary);
-            font-size: 2.5rem;
-            margin-bottom: 15px;
-        }
-        
-        .section-title p {
-            max-width: 600px;
-            margin: 0 auto;
-            opacity: 0.8;
-        }
-        
-        .fullstack-card {
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .fullstack-card::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 6px;
-            height: 100%;
-            background: linear-gradient(180deg, var(--primary), var(--primary-dark));
-        }
-        
-        .government-badge {
-            background: rgba(0, 212, 255, 0.2);
-            border: 1px solid var(--primary);
-            padding: 10px 25px;
-            border-radius: 50px;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 30px;
-            color: var(--primary);
-        }
-        
-        .profile-header {
-            display: flex;
-            align-items: center;
-            margin-bottom: 40px;
-            gap: 30px;
-            flex-wrap: wrap;
-        }
-        
-        .profile-avatar {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            border: 4px solid var(--primary);
-            object-fit: cover;
-            box-shadow: 0 0 35px rgba(0, 212, 255, 0.4);
-        }
-        
-        .profile-name {
-            color: var(--primary);
-            font-size: 2.2rem;
-            margin-bottom: 10px;
-        }
-        
-        .profile-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin: 20px 0;
-        }
-        
-        .profile-tag {
-            background: rgba(0, 212, 255, 0.12);
-            color: var(--primary);
-            padding: 6px 15px;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            border: 1px solid rgba(0, 212, 255, 0.3);
-        }
-        
-        .contact-links {
-            display: flex;
-            gap: 15px;
-            margin-top: 20px;
-        }
-        
-        .contact-item {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 40px;
-            height: 40px;
-            background: rgba(0, 212, 255, 0.12);
-            border-radius: 50%;
-            color: var(--text);
-            text-decoration: none;
-            transition: var(--transition);
-        }
-        
-        .contact-item:hover {
-            background: var(--primary);
-            color: var(--darker);
-            transform: translateY(-3px);
-        }
-        
-        .profile-cta {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 15px;
-            margin-top: 30px;
-        }
-        
-        .profile-btn {
-            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-            border: none;
-            color: var(--darker);
-            font-weight: 600;
-            padding: 12px 30px;
-            border-radius: 6px;
-            transition: var(--transition);
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-        }
-        
-        .profile-btn-outline {
-            background: transparent;
-            border: 2px solid var(--primary);
-            color: var(--primary);
-        }
-        
-        .btn-primary {
-            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-            border: none;
-            color: var(--darker);
-            font-weight: 600;
-            padding: 12px 30px;
-            border-radius: 6px;
-            transition: var(--transition);
-            text-decoration: none;
-            display: inline-block;
-        }
-        
-        .btn-primary:hover, .profile-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(0, 212, 255, 0.5);
-        }
-        
-        .contact-form {
-            background: var(--card-bg);
-            padding: 40px;
-            border-radius: 12px;
-            border: 1px solid rgba(0, 212, 255, 0.2);
-        }
-        
-        .form-control {
-            background-color: rgba(0, 212, 255, 0.08);
-            border: 1px solid rgba(0, 212, 255, 0.2);
-            color: var(--text);
-            padding: 12px 15px;
-        }
-        
-        .form-control:focus {
-            background-color: rgba(0, 212, 255, 0.12);
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.25);
-            outline: none;
-        }
-        
-        .form-label {
-            color: var(--primary);
-            font-weight: 500;
-        }
-        
-        footer {
-            background-color: var(--dark);
-            padding: 60px 0 30px;
-            border-top: 1px solid rgba(0, 212, 255, 0.15);
-        }
-        
-        .footer-content {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            margin-bottom: 40px;
-        }
-        
-        .footer-about {
-            flex: 1;
-            min-width: 300px;
-            margin-right: 40px;
-        }
-        
-        .footer-links {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 40px;
-        }
-        
-        .footer-column h4 {
-            color: var(--primary);
-            margin-bottom: 20px;
-        }
-        
-        .footer-links-list {
-            list-style: none;
-            padding: 0;
-        }
-        
-        .footer-links-list li {
-            margin-bottom: 10px;
-        }
-        
-        .footer-links-list a {
-            color: var(--text);
-            text-decoration: none;
-            transition: var(--transition);
-        }
-        
-        .footer-links-list a:hover {
-            color: var(--primary);
-        }
-        
-        .footer-bottom {
-            text-align: center;
-            padding-top: 30px;
-            border-top: 1px solid rgba(0, 212, 255, 0.1);
-        }
-        
-        .footer-logo {
-            max-width: 180px;
-            margin-bottom: 20px;
-            filter: drop-shadow(0 0 5px var(--primary));
-        }
-        
-        /* WhatsApp Button */
-        .whatsapp-button {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            z-index: 100;
-            transition: var(--transition);
-        }
-        
-        .whatsapp-button a {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 60px;
-            height: 60px;
-            background: linear-gradient(135deg, #25D366, #128C7E);
-            border-radius: 50%;
-            box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
-            transition: var(--transition);
-        }
-        
-        .whatsapp-button a:hover {
-            transform: scale(1.1);
-        }
-        
-        .whatsapp-button i {
-            color: white;
-            font-size: 1.8rem;
-        }
-        
-        /* Botón de idioma flotante */
-        .floating-language-btn {
-            position: fixed;
-            bottom: 110px;
-            right: 30px;
-            z-index: 101;
-            transition: var(--transition);
-        }
-        
-        .floating-language-btn .language-main-btn {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            min-width: 150px;
-            padding: 12px 20px;
-            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-            border-radius: 50px;
-            box-shadow: 0 4px 20px rgba(0, 212, 255, 0.4);
-            transition: var(--transition);
-            cursor: pointer;
-            border: none;
-            color: var(--darker);
-            font-weight: 600;
-        }
-        
-        .floating-language-dropdown {
-            position: absolute;
-            bottom: 100%;
-            right: 0;
-            background: var(--dark-gray);
-            border: 1px solid rgba(0, 212, 255, 0.3);
-            border-radius: 12px;
-            padding: 12px;
-            min-width: 200px;
-            z-index: 1000;
-            display: none;
-            margin-bottom: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-            max-height: 400px;
-            overflow-y: auto;
-        }
-        
-        .floating-language-dropdown.show {
-            display: block;
-            animation: fadeInUp 0.3s ease;
-        }
-        
-        .floating-lang-option {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 10px 15px;
-            border-radius: 8px;
-            color: var(--text);
-            transition: var(--transition);
-            cursor: pointer;
-        }
-        
-        .floating-lang-option:hover {
-            background: rgba(0, 212, 255, 0.2);
-            color: var(--primary);
-        }
-        
-        .floating-lang-option.active {
-            background: rgba(0, 212, 255, 0.25);
-            color: var(--primary);
-        }
-        
-        .language-flag {
-            font-size: 1.2rem;
-        }
-        
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        .info-logo-img {
-            max-width: 80px;
-            filter: drop-shadow(0 0 10px var(--primary));
-            transition: transform 0.3s ease;
-        }
-        
-        .info-logo-img:hover {
-            transform: scale(1.05);
-        }
-        
-        .login-section {
-            min-height: calc(100vh - 200px);
-            padding: 80px 0;
-        }
-        
-        .login-card {
-            background: var(--card-bg);
-            border-radius: 24px;
-            overflow: hidden;
-            border: 1px solid rgba(0, 212, 255, 0.2);
-            display: flex;
-            flex-wrap: wrap;
-        }
-        
-        .login-image {
-            flex: 1;
-            min-width: 300px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 40px;
-        }
-        
-        .login-form-container {
-            flex: 1;
-            min-width: 400px;
-            padding: 60px 50px;
-            background: rgba(15, 25, 45, 0.95);
-            position: relative;
-        }
-        
-        .login-form-container::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 4px;
-            height: 100%;
-            background: linear-gradient(180deg, var(--primary), var(--primary-dark));
-        }
-        
-        /* Estilos específicos para la tarjeta de Python Test (CORREGIDOS, SIN DISTORSIÓN) */
-        .python-test-card {
-            background: var(--card-bg);
-            border: 1px solid rgba(0, 212, 255, 0.4);
-            transition: var(--transition);
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .python-test-card:hover {
-            border-color: var(--primary);
-            box-shadow: 0 20px 40px rgba(0, 212, 255, 0.2);
-            transform: translateY(-10px);
-        }
-        
-        /* Botón personalizado con estilo Python pero sin romper el diseño */
-        .python-test-card .btn-python {
-            background: linear-gradient(135deg, #306998, #FFD43B);
-            color: #000;
-            font-weight: bold;
-            border: none;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-        }
-        
-        .python-test-card .btn-python:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 15px rgba(255, 212, 59, 0.5);
-        }
-        
-        @media (max-width: 768px) {
-            .hero h1 { font-size: 2rem; }
-            .section-title h2 { font-size: 2rem; }
-            .profile-header { justify-content: center; text-align: center; }
-            .footer-content { flex-direction: column; }
-            .whatsapp-button a { width: 50px; height: 50px; }
-            .login-form-container { min-width: 300px; padding: 40px 30px; }
-            .login-card { flex-direction: column; }
-            .floating-language-btn .language-main-btn { padding: 8px 16px; min-width: 130px; font-size: 0.8rem; }
-            .python-test-card h3 { font-size: 1.6rem; }
-        }
-        
-        @media (max-width: 480px) {
-            .hero h1 { font-size: 1.6rem; }
-            .section-title h2 { font-size: 1.5rem; }
-            .model-card, .service-card, .allies-card { padding: 25px; }
-            .login-image { display: none; }
-        }
-        
-        /* Anti-selection visual feedback */
-        ::selection {
-            background: transparent;
-        }
-        
-        ::-moz-selection {
-            background: transparent;
-        }
-    </style>
+    
+    <!-- Estilos propios -->
+    <link rel="stylesheet" href="styles.css">
 </head>
-
 <body>
     <div id="particles-js"></div>
     <div id="security-overlay"></div>
@@ -855,8 +93,6 @@
         </div>
     </section>
 
-
-
     <!-- Sección de Servicios Ampliada (completa) -->
     <section id="servicios" class="services">
         <div class="container">
@@ -867,7 +103,7 @@
             <div class="row g-4">
                 <div class="col-lg-4 col-md-6">
                     <div class="service-card">
-                        <div class="info-logo"><img src="MEDIA/12.png" alt="Logo Whiat" class="info-logo-img" style="max-width:60px" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'%3E%3Ccircle cx=\'50\' cy=\'50\' r=\'45\' fill=\'%2300d4ff\'/%3E%3Ctext x=\'50\' y=\'70\' font-size=\'50\' text-anchor=\'middle\' fill=\'white\'%3EW%3C/text%3E%3C/svg%3E'"></div>
+                        <div class="info-logo"><img src="MEDIA/STICKER-CAPI.png" alt="Logo Whiat" class="info-logo-img" style="max-width:60px" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'%3E%3Ccircle cx=\'50\' cy=\'50\' r=\'45\' fill=\'%2300d4ff\'/%3E%3Ctext x=\'50\' y=\'70\' font-size=\'50\' text-anchor=\'middle\' fill=\'white\'%3EW%3C/text%3E%3C/svg%3E'"></div>
                         <h3 data-i18n="service-apps-title">Apps Android & iOS</h3>
                         <p data-i18n="service-apps-desc">Aplicaciones nativas e híbridas de alto rendimiento para llevar tu negocio a todos los dispositivos.</p>
                         <ul class="service-features">
@@ -882,7 +118,7 @@
                 </div>
                 <div class="col-lg-4 col-md-6">
                     <div class="service-card">
-                        <div class="info-logo"><img src="MEDIA/12.png" alt="Logo Whiat" class="info-logo-img" style="max-width:60px" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'%3E%3Ccircle cx=\'50\' cy=\'50\' r=\'45\' fill=\'%2300d4ff\'/%3E%3Ctext x=\'50\' y=\'70\' font-size=\'50\' text-anchor=\'middle\' fill=\'white\'%3EW%3C/text%3E%3C/svg%3E'"></div>
+                        <div class="info-logo"><img src="MEDIA/STICKER-CAPI.png" alt="Logo Whiat" class="info-logo-img" style="max-width:60px" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'%3E%3Ccircle cx=\'50\' cy=\'50\' r=\'45\' fill=\'%2300d4ff\'/%3E%3Ctext x=\'50\' y=\'70\' font-size=\'50\' text-anchor=\'middle\' fill=\'white\'%3EW%3C/text%3E%3C/svg%3E'"></div>
                         <h3 data-i18n="service-security-title">Ciberseguridad & Protección de Datos</h3>
                         <p data-i18n="service-security-desc">Protegemos tu infraestructura digital contra amenazas y garantizamos el cumplimiento normativo.</p>
                         <ul class="service-features">
@@ -897,7 +133,7 @@
                 </div>
                 <div class="col-lg-4 col-md-6">
                     <div class="service-card">
-                        <div class="info-logo"><img src="MEDIA/12.png" alt="Logo Whiat" class="info-logo-img" style="max-width:60px" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'%3E%3Ccircle cx=\'50\' cy=\'50\' r=\'45\' fill=\'%2300d4ff\'/%3E%3Ctext x=\'50\' y=\'70\' font-size=\'50\' text-anchor=\'middle\' fill=\'white\'%3EW%3C/text%3E%3C/svg%3E'"></div>
+                        <div class="info-logo"><img src="MEDIA/STICKER-CAPI.png" alt="Logo Whiat" class="info-logo-img" style="max-width:60px" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'%3E%3Ccircle cx=\'50\' cy=\'50\' r=\'45\' fill=\'%2300d4ff\'/%3E%3Ctext x=\'50\' y=\'70\' font-size=\'50\' text-anchor=\'middle\' fill=\'white\'%3EW%3C/text%3E%3C/svg%3E'"></div>
                         <h3 data-i18n="service-blockchain-title">Blockchain & Minería Crypto</h3>
                         <p data-i18n="service-blockchain-desc">Desarrollamos soluciones basadas en blockchain y te asesoramos en proyectos de minería de criptomonedas.</p>
                         <ul class="service-features">
@@ -912,7 +148,7 @@
                 </div>
                 <div class="col-lg-4 col-md-6">
                     <div class="service-card">
-                        <div class="info-logo"><img src="MEDIA/12.png" alt="Logo Whiat" class="info-logo-img" style="max-width:60px" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'%3E%3Ccircle cx=\'50\' cy=\'50\' r=\'45\' fill=\'%2300d4ff\'/%3E%3Ctext x=\'50\' y=\'70\' font-size=\'50\' text-anchor=\'middle\' fill=\'white\'%3EW%3C/text%3E%3C/svg%3E'"></div>
+                        <div class="info-logo"><img src="MEDIA/STICKER-CAPI.png" alt="Logo Whiat" class="info-logo-img" style="max-width:60px" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'%3E%3Ccircle cx=\'50\' cy=\'50\' r=\'45\' fill=\'%2300d4ff\'/%3E%3Ctext x=\'50\' y=\'70\' font-size=\'50\' text-anchor=\'middle\' fill=\'white\'%3EW%3C/text%3E%3C/svg%3E'"></div>
                         <h3 data-i18n="service-outsourcing-title">Outsourcing IT & Corretaje</h3>
                         <p data-i18n="service-outsourcing-desc">Amplía tu equipo con programadores expertos por proyecto. Nosotros gestionamos el talento, tú te enfocas en tu negocio.</p>
                         <ul class="service-features">
@@ -927,7 +163,7 @@
                 </div>
                 <div class="col-lg-4 col-md-6">
                     <div class="service-card">
-                        <div class="info-logo"><img src="MEDIA/12.png" alt="Logo Whiat" class="info-logo-img" style="max-width:60px" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'%3E%3Ccircle cx=\'50\' cy=\'50\' r=\'45\' fill=\'%2300d4ff\'/%3E%3Ctext x=\'50\' y=\'70\' font-size=\'50\' text-anchor=\'middle\' fill=\'white\'%3EW%3C/text%3E%3C/svg%3E'"></div>
+                        <div class="info-logo"><img src="MEDIA/STICKER-CAPI.png" alt="Logo Whiat" class="info-logo-img" style="max-width:60px" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'%3E%3Ccircle cx=\'50\' cy=\'50\' r=\'45\' fill=\'%2300d4ff\'/%3E%3Ctext x=\'50\' y=\'70\' font-size=\'50\' text-anchor=\'middle\' fill=\'white\'%3EW%3C/text%3E%3C/svg%3E'"></div>
                         <h3 data-i18n="service-sme-title">Soporte para PYMES</h3>
                         <p data-i18n="service-sme-desc">Gestionamos y optimizamos tu infraestructura tecnológica para que puedas crecer sin preocupaciones.</p>
                         <ul class="service-features">
@@ -942,7 +178,7 @@
                 </div>
                 <div class="col-lg-4 col-md-6">
                     <div class="service-card">
-                        <div class="info-logo"><img src="MEDIA/12.png" alt="Logo Whiat" class="info-logo-img" style="max-width:60px" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'%3E%3Ccircle cx=\'50\' cy=\'50\' r=\'45\' fill=\'%2300d4ff\'/%3E%3Ctext x=\'50\' y=\'70\' font-size=\'50\' text-anchor=\'middle\' fill=\'white\'%3EW%3C/text%3E%3C/svg%3E'"></div>
+                        <div class="info-logo"><img src="MEDIA/STICKER-CAPI.png" alt="Logo Whiat" class="info-logo-img" style="max-width:60px" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'%3E%3Ccircle cx=\'50\' cy=\'50\' r=\'45\' fill=\'%2300d4ff\'/%3E%3Ctext x=\'50\' y=\'70\' font-size=\'50\' text-anchor=\'middle\' fill=\'white\'%3EW%3C/text%3E%3C/svg%3E'"></div>
                         <h3 data-i18n="service-web-title">Páginas Web & CMS</h3>
                         <p data-i18n="service-web-desc">Creamos sitios web impactantes, desde landing pages hasta complejos portales empresariales con fácil administración.</p>
                         <ul class="service-features">
@@ -957,7 +193,7 @@
                 </div>
                 <div class="col-lg-4 col-md-6">
                     <div class="service-card">
-                        <div class="info-logo"><img src="MEDIA/12.png" alt="Logo Whiat" class="info-logo-img" style="max-width:60px" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'%3E%3Ccircle cx=\'50\' cy=\'50\' r=\'45\' fill=\'%2300d4ff\'/%3E%3Ctext x=\'50\' y=\'70\' font-size=\'50\' text-anchor=\'middle\' fill=\'white\'%3EW%3C/text%3E%3C/svg%3E'"></div>
+                        <div class="info-logo"><img src="MEDIA/STICKER-CAPI.png" alt="Logo Whiat" class="info-logo-img" style="max-width:60px" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'%3E%3Ccircle cx=\'50\' cy=\'50\' r=\'45\' fill=\'%2300d4ff\'/%3E%3Ctext x=\'50\' y=\'70\' font-size=\'50\' text-anchor=\'middle\' fill=\'white\'%3EW%3C/text%3E%3C/svg%3E'"></div>
                         <h3 data-i18n="service-maintenance-title">Mantenimiento & Actualización</h3>
                         <p data-i18n="service-maintenance-desc">Aseguramos que tu sitio web y aplicaciones estén siempre actualizados, seguros y funcionando al máximo rendimiento.</p>
                         <ul class="service-features">
@@ -978,7 +214,7 @@
     <section id="fullstack" class="fullstack-section">
         <div class="container">
             <div class="fullstack-card">
-                <div class="info-logo"><img src="MEDIA/12.png" alt="Logo Whiat" class="info-logo-img" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'%3E%3Ccircle cx=\'50\' cy=\'50\' r=\'45\' fill=\'%2300d4ff\'/%3E%3Ctext x=\'50\' y=\'70\' font-size=\'50\' text-anchor=\'middle\' fill=\'white\'%3EW%3C/text%3E%3C/svg%3E'"></div>
+                <div class="info-logo"><img src="MEDIA/STICKER-CAPI.png" alt="Logo Whiat" class="info-logo-img" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'%3E%3Ccircle cx=\'50\' cy=\'50\' r=\'45\' fill=\'%2300d4ff\'/%3E%3Ctext x=\'50\' y=\'70\' font-size=\'50\' text-anchor=\'middle\' fill=\'white\'%3EW%3C/text%3E%3C/svg%3E'"></div>
                 <div class="fullstack-header text-center mb-5">
                     <h2 data-i18n="fullstack-title">Desarrollo Web Fullstack</h2>
                     <p data-i18n="fullstack-desc">Construimos aplicaciones web completas, desde el frontend más moderno hasta el backend más robusto y escalable.</p>
@@ -1023,21 +259,21 @@
             <div class="row g-4">
                 <div class="col-md-6">
                     <div class="allies-card">
-                        <div class="info-logo"><img src="MEDIA/12.png" alt="Logo Whiat" class="info-logo-img" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'%3E%3Ccircle cx=\'50\' cy=\'50\' r=\'45\' fill=\'%2300d4ff\'/%3E%3Ctext x=\'50\' y=\'70\' font-size=\'50\' text-anchor=\'middle\' fill=\'white\'%3EW%3C/text%3E%3C/svg%3E'"></div>
+                        <div class="info-logo"><img src="MEDIA/STICKER-CAPI.png" alt="Logo Whiat" class="info-logo-img" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'%3E%3Ccircle cx=\'50\' cy=\'50\' r=\'45\' fill=\'%2300d4ff\'/%3E%3Ctext x=\'50\' y=\'70\' font-size=\'50\' text-anchor=\'middle\' fill=\'white\'%3EW%3C/text%3E%3C/svg%3E'"></div>
                         <h3 data-i18n="allies-emerging-title">Para Empresas Emergentes</h3>
                         <p data-i18n="allies-emerging-desc">Acompañamos a startups y negocios en sus primeras etapas digitales, proporcionando soluciones escalables y asesoría estratégica para que su tecnología impulse su crecimiento desde el día uno.</p>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="allies-card">
-                        <div class="info-logo"><img src="MEDIA/12.png" alt="Logo Whiat" class="info-logo-img" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'%3E%3Ccircle cx=\'50\' cy=\'50\' r=\'45\' fill=\'%2300d4ff\'/%3E%3Ctext x=\'50\' y=\'70\' font-size=\'50\' text-anchor=\'middle\' fill=\'white\'%3EW%3C/text%3E%3C/svg%3E'"></div>
+                        <div class="info-logo"><img src="MEDIA/STICKER-CAPI.png" alt="Logo Whiat" class="info-logo-img" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'%3E%3Ccircle cx=\'50\' cy=\'50\' r=\'45\' fill=\'%2300d4ff\'/%3E%3Ctext x=\'50\' y=\'70\' font-size=\'50\' text-anchor=\'middle\' fill=\'white\'%3EW%3C/text%3E%3C/svg%3E'"></div>
                         <h3 data-i18n="allies-established-title">Para Empresas Acreditadas</h3>
                         <p data-i18n="allies-established-desc">Ayudamos a empresas consolidadas a modernizar su infraestructura, adoptar nuevas tecnologías como blockchain y ciberseguridad avanzada, y a optimizar sus procesos para mantenerse a la vanguardia.</p>
                     </div>
                 </div>
             </div>
             <div class="allies-card mt-4">
-                <div class="info-logo"><img src="MEDIA/12.png" alt="Logo Whiat" class="info-logo-img" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'%3E%3Ccircle cx=\'50\' cy=\'50\' r=\'45\' fill=\'%2300d4ff\'/%3E%3Ctext x=\'50\' y=\'70\' font-size=\'50\' text-anchor=\'middle\' fill=\'white\'%3EW%3C/text%3E%3C/svg%3E'"></div>
+                <div class="info-logo"><img src="MEDIA/STICKER-CAPI.png" alt="Logo Whiat" class="info-logo-img" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'%3E%3Ccircle cx=\'50\' cy=\'50\' r=\'45\' fill=\'%2300d4ff\'/%3E%3Ctext x=\'50\' y=\'70\' font-size=\'50\' text-anchor=\'middle\' fill=\'white\'%3EW%3C/text%3E%3C/svg%3E'"></div>
                 <div class="government-badge">
                     <i class="fas fa-hand-holding-heart"></i> <span data-i18n="gov-badge">De la mano con el desarrollo nacional</span>
                 </div>
@@ -1260,12 +496,7 @@
         <div class="floating-language-dropdown" id="floatingLanguageDropdown">
             <div class="floating-lang-option" data-lang="es"><span class="language-flag">🇪🇸</span> Español</div>
             <div class="floating-lang-option" data-lang="en"><span class="language-flag">🇬🇧</span> English</div>
-            <div class="floating-lang-option" data-lang="de"><span class="language-flag">🇩🇪</span> Deutsch</div>
-            <div class="floating-lang-option" data-lang="ru"><span class="language-flag">🇷🇺</span> Русский</div>
-            <div class="floating-lang-option" data-lang="zh"><span class="language-flag">🇨🇳</span> 中文</div>
-            <div class="floating-lang-option" data-lang="fr"><span class="language-flag">🇫🇷</span> Français</div>
-            <div class="floating-lang-option" data-lang="it"><span class="language-flag">🇮🇹</span> Italiano</div>
-            <div class="floating-lang-option" data-lang="pt"><span class="language-flag">🇵🇹</span> Português</div>
+        
         </div>
     </div>
 
@@ -1273,382 +504,9 @@
         <a href="https://wa.me/573334318959" target="_blank"><i class="fab fa-whatsapp"></i></a>
     </div>
 
+    <!-- Scripts externos -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
-    
-    <script>
-        // ==================== SISTEMA DE SEGURIDAD AVANZADO (íntegro) ====================
-        (function detectDevTools() {
-            let devtools = false;
-            const element = new Image();
-            Object.defineProperty(element, 'id', {
-                get: function() {
-                    devtools = true;
-                    throw new Error('Consola detectada');
-                }
-            });
-            setInterval(() => {
-                devtools = false;
-                console.log('%c', element);
-                console.clear();
-                if (devtools) {
-                    document.body.innerHTML = '<div style="position:fixed;top:0;left:0;width:100%;height:100%;background:#000;color:#00d4ff;display:flex;align-items:center;justify-content:center;z-index:99999;flex-direction:column;"><h1>⚠️ Acceso Denegado</h1><p>Herramientas de desarrollo deshabilitadas por seguridad.</p></div>';
-                }
-            }, 1000);
-        })();
-        
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'F12' || 
-                (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'J' || e.key === 'C')) ||
-                (e.ctrlKey && (e.key === 'u' || e.key === 'U' || e.key === 's' || e.key === 'S'))) {
-                e.preventDefault();
-                return false;
-            }
-        });
-        
-        document.addEventListener('contextmenu', function(e) {
-            e.preventDefault();
-            return false;
-        });
-        
-        const observer = new MutationObserver(function(mutations) {
-            mutations.forEach(function(mutation) {
-                if (mutation.type === 'attributes' || mutation.type === 'childList') {
-                    console.log('Protección activa: modificaciones no permitidas');
-                }
-            });
-        });
-        observer.observe(document.body, { attributes: true, childList: true, subtree: true });
-        
-        document.body.addEventListener('copy', function(e) { e.preventDefault(); return false; });
-        document.body.addEventListener('cut', function(e) { e.preventDefault(); return false; });
-        
-        let printAttempts = 0;
-        window.addEventListener('beforeprint', function() { printAttempts++; if(printAttempts > 0) alert('La impresión/captura de contenido está protegida.'); });
-        
-        // ==================== TRADUCCIONES COMPLETAS ====================
-        const translations = {
-            es: {
-                "nav-model": "Modelo", "nav-services": "Servicios", "nav-web": "Desarrollo Web", "nav-allies": "Aliados",
-                "nav-profile": "Perfil", "nav-contact": "Contacto", "nav-login": "Iniciar Sesión",
-                "hero-badge": "Soluciones Digitales Integrales | Aliados Estratégicos",
-                "hero-title": "Impulsamos tu negocio con tecnología de vanguardia",
-                "hero-desc": "Expertos en crear aplicaciones móviles, sitios web de alto rendimiento, ciberseguridad, blockchain y soluciones digitales a medida para pequeñas, medianas y grandes empresas.",
-                "hero-btn": "Cuéntanos tu idea",
-                "model-title": "Nuestro Modelo: Innovación Híbrida",
-                "model-desc": "Combinamos un equipo interno de expertos con una red de freelancers especializados para ofrecerte el mejor talento, cuando lo necesites.",
-                "model-team-title": "Equipo de Desarrollo Propio",
-                "model-team-desc": "Contamos con un equipo central de profesionales en desarrollo de software, ciberseguridad y blockchain. Son nuestros expertos de confianza, listos para dar soporte continuo y garantizar la calidad en todos los proyectos.",
-                "model-freelance-title": "Red de Freelancers Certificados",
-                "model-freelance-desc": "Ampliamos nuestras capacidades con una red curada de freelancers especializados. A través de nuestro modelo de corretaje, conectamos tu proyecto con el talento perfecto, manejando toda la gestión y garantizando la entrega exitosa.",
-                "services-title": "Nuestros Servicios Especializados",
-                "services-desc": "Soluciones completas para cada necesidad digital de tu empresa.",
-                "service-apps-title": "Apps Android & iOS",
-                "service-apps-desc": "Aplicaciones nativas e híbridas de alto rendimiento para llevar tu negocio a todos los dispositivos.",
-                "app-feat1": "Apps para comercios y restaurantes",
-                "app-feat2": "Plataformas de pedidos a domicilio",
-                "app-feat3": "Sistemas de fidelización",
-                "app-feat4": "Publicación en App Store y Play Store",
-                "btn-quote-app": "Cotizar App",
-                "service-security-title": "Ciberseguridad & Protección de Datos",
-                "service-security-desc": "Protegemos tu infraestructura digital contra amenazas y garantizamos el cumplimiento normativo.",
-                "security-feat1": "Auditorías de seguridad y pentesting",
-                "security-feat2": "Implementación de firewalls y sistemas IDS/IPS",
-                "security-feat3": "Gestión de identidades y accesos (IAM)",
-                "security-feat4": "Cumplimiento de normas (ISO 27001, GDPR)",
-                "btn-protect": "Proteger mi Empresa",
-                "service-blockchain-title": "Blockchain & Minería Crypto",
-                "service-blockchain-desc": "Desarrollamos soluciones basadas en blockchain y te asesoramos en proyectos de minería de criptomonedas.",
-                "blockchain-feat1": "Desarrollo de contratos inteligentes (Smart Contracts)",
-                "blockchain-feat2": "Implementación de redes privadas blockchain",
-                "blockchain-feat3": "Asesoría en inversión y montaje de granjas de minería",
-                "blockchain-feat4": "Tokenización de activos (NFTs, STOs)",
-                "btn-explore": "Explorar Blockchain",
-                "service-outsourcing-title": "Outsourcing IT & Corretaje",
-                "service-outsourcing-desc": "Amplía tu equipo con programadores expertos por proyecto. Nosotros gestionamos el talento, tú te enfocas en tu negocio.",
-                "outsourcing-feat1": "Contratación por horas o proyecto",
-                "outsourcing-feat2": "Desarrolladores full-stack, frontend, backend",
-                "outsourcing-feat3": "Especialistas en bases de datos y DevOps",
-                "outsourcing-feat4": "Gestión de pagos y seguimiento de KPIs",
-                "btn-hire": "Contratar Talento",
-                "service-sme-title": "Soporte para PYMES",
-                "service-sme-desc": "Gestionamos y optimizamos tu infraestructura tecnológica para que puedas crecer sin preocupaciones.",
-                "sme-feat1": "Administración de servidores y redes",
-                "sme-feat2": "Soporte técnico remoto y presencial",
-                "sme-feat3": "Mantenimiento de equipos y sistemas",
-                "sme-feat4": "Estrategias de transformación digital",
-                "btn-support": "Solicitar Soporte",
-                "service-web-title": "Páginas Web & CMS",
-                "service-web-desc": "Creamos sitios web impactantes, desde landing pages hasta complejos portales empresariales con fácil administración.",
-                "web-feat1": "Diseño responsivo y enfocado en UX/UI",
-                "web-feat2": "E-commerce (Tiendas online)",
-                "web-feat3": "Gestión de contenido (WordPress, Strapi)",
-                "web-feat4": "Optimización SEO y velocidad",
-                "btn-create-web": "Crear mi Web",
-                "service-maintenance-title": "Mantenimiento & Actualización",
-                "service-maintenance-desc": "Aseguramos que tu sitio web y aplicaciones estén siempre actualizados, seguros y funcionando al máximo rendimiento.",
-                "maintenance-feat1": "Actualizaciones de seguridad y parches",
-                "maintenance-feat2": "Copias de seguridad automáticas",
-                "maintenance-feat3": "Monitoreo 24/7 de disponibilidad",
-                "maintenance-feat4": "Migraciones de servidores y bases de datos",
-                "btn-maintain": "Mantener mi Proyecto",
-                "fullstack-title": "Desarrollo Web Fullstack",
-                "fullstack-desc": "Construimos aplicaciones web completas, desde el frontend más moderno hasta el backend más robusto y escalable.",
-                "frontend-title": "Frontend Moderno",
-                "backend-title": "Backend Robusto",
-                "database-title": "Bases de Datos",
-                "fullstack-btn": "Solicitar Desarrollo Personalizado",
-                "allies-title": "Aliados del Nuevo Mundo Digital",
-                "allies-desc": "Conectamos empresas emergentes y consolidadas con las oportunidades de la era digital.",
-                "allies-emerging-title": "Para Empresas Emergentes",
-                "allies-emerging-desc": "Acompañamos a startups y negocios en sus primeras etapas digitales, proporcionando soluciones escalables y asesoría estratégica para que su tecnología impulse su crecimiento desde el día uno.",
-                "allies-established-title": "Para Empresas Acreditadas",
-                "allies-established-desc": "Ayudamos a empresas consolidadas a modernizar su infraestructura, adoptar nuevas tecnologías como blockchain y ciberseguridad avanzada, y a optimizar sus procesos para mantenerse a la vanguardia.",
-                "gov-badge": "De la mano con el desarrollo nacional",
-                "gov-title": "Compromiso con Colombia",
-                "gov-desc": "Estamos en constante actualización y alineados con los proyectos del gobierno colombiano, participando en iniciativas de transformación digital, educación tecnológica y apoyo a emprendedores. Nuestro objetivo es ser un puente que genere oportunidades y contribuya al avance del nuevo mundo digital en el país.",
-                "profile-title": "Perfil Profesional",
-                "profile-desc": "Conoce al fundador y líder detrás de Whiat Company",
-                "profile-position": "CEO & Fundador de Whiat Company - Garantias Financieras y Juridicas S.A.S",
-                "profile-website": "Mi Website Oficial",
-                "profile-whatsapp": "Consulta Inmediata",
-                "profile-email": "Correo Directo",
-                "cta-title": "¿Listo para dar el salto digital?",
-                "cta-desc": "Ya sea un desarrollo a medida, ampliar tu equipo con nuestros freelancers o asegurar tu infraestructura, estamos aquí para hacerlo realidad.",
-                "cta-btn": "Solicitar una Consultoría Gratuita",
-                "contact-title": "Contacto",
-                "contact-desc": "Ponte en contacto con nosotros para discutir tu proyecto",
-                "form-name": "Nombre Completo",
-                "form-phone": "Teléfono (con indicativo)",
-                "form-email": "Correo Electrónico",
-                "form-company": "Empresa (opcional)",
-                "form-service": "Servicio de Interés",
-                "select-default": "Selecciona un servicio",
-                "service-opt1": "Outsourcing / Corretaje de Programadores",
-                "service-opt2": "App Móvil (Android/iOS)",
-                "service-opt3": "Ciberseguridad",
-                "service-opt4": "Blockchain & Minería",
-                "service-opt5": "Soporte para PYMES",
-                "service-opt6": "Desarrollo Web Fullstack",
-                "service-opt7": "Desarrollo Web Básico",
-                "service-opt8": "Mantenimiento Web y Datos",
-                "service-opt9": "Consultoría con Matías Whiat",
-                "service-opt10": "Otro",
-                "form-message": "Mensaje",
-                "form-submit": "Enviar Mensaje",
-                "login-subtitle": "Accede a tu cuenta para gestionar tus proyectos",
-                "login-email-label": "Correo Electrónico",
-                "login-password-label": "Contraseña",
-                "login-remember": "Recordarme",
-                "login-forgot": "¿Olvidaste tu contraseña?",
-                "login-btn": "Iniciar Sesión",
-                "login-register": "¿No tienes una cuenta? Regístrate aquí",
-                "footer-about": "Impulsamos la evolución de los negocios hacia un futuro más digital. Somos tu aliado estratégico en desarrollo de software, ciberseguridad y transformación digital.",
-                "footer-services": "Servicios",
-                "footer-link-outsourcing": "Outsourcing IT",
-                "footer-link-security": "Ciberseguridad",
-                "footer-link-blockchain": "Blockchain & Minería",
-                "footer-link-apps": "Apps Móviles",
-                "footer-link-fullstack": "Desarrollo Web Fullstack",
-                "footer-links-title": "Enlaces",
-                "footer-link-model": "Nuestro Modelo",
-                "footer-link-allies": "Aliados",
-                "footer-link-profile": "Perfil Profesional",
-                "footer-link-contact": "Contacto",
-                "footer-link-login": "Iniciar Sesión",
-                "footer-legal": "Legal",
-                "footer-privacy": "Política de Privacidad",
-                "footer-terms": "Términos de Servicio",
-                "footer-cookies": "Cookies",
-                "footer-rights": "Todos los derechos reservados.",
-                "python-title": "🔥 Pon a prueba tu dominio de Python",
-                "python-desc": "¿Crees que dominas Python? Demuestra tus conocimientos con este test interactivo. En menos de 5 minutos descubrirás tu nivel real. ¡Atrévete!",
-                "python-btn": "🎯 Probar mi nivel →"
-            },
-            en: {
-                "python-title": "🔥 Test your Python skills",
-                "python-desc": "Think you master Python? Take this interactive test and discover your real level in less than 5 minutes. Dare to try!",
-                "python-btn": "🎯 Test my level →"
-            }
-        };
-        
-        // Copiar traducciones al inglés para otros idiomas (fallback)
-        const otherLangs = ['de','ru','zh','fr','it','pt'];
-        otherLangs.forEach(lang => {
-            translations[lang] = { ...translations.en };
-        });
-        
-        let currentLang = 'es';
-        
-        function translatePage() {
-            document.querySelectorAll('[data-i18n]').forEach(element => {
-                const key = element.getAttribute('data-i18n');
-                if (translations[currentLang] && translations[currentLang][key]) {
-                    if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
-                        if (element.placeholder !== undefined && element.getAttribute('placeholder')) {
-                            element.placeholder = translations[currentLang][key];
-                        }
-                    } else if (element.tagName === 'OPTION') {
-                        element.textContent = translations[currentLang][key];
-                    } else {
-                        element.textContent = translations[currentLang][key];
-                    }
-                }
-            });
-            const langNames = { es: "🌐 Español", en: "🇬🇧 English", de: "🇩🇪 Deutsch", ru: "🇷🇺 Русский", zh: "🇨🇳 中文", fr: "🇫🇷 Français", it: "🇮🇹 Italiano", pt: "🇵🇹 Português" };
-            document.getElementById('currentLangText').textContent = langNames[currentLang] || "🌐 Español";
-            document.querySelectorAll('.floating-lang-option').forEach(opt => {
-                opt.classList.remove('active');
-                if (opt.getAttribute('data-lang') === currentLang) opt.classList.add('active');
-            });
-            localStorage.setItem('preferredLanguage', currentLang);
-        }
-        
-        function changeLanguage(lang) {
-            if (translations[lang]) {
-                currentLang = lang;
-                translatePage();
-                showLanguageMessage(lang);
-            }
-        }
-        
-        function showLanguageMessage(lang) {
-            const messages = {
-                es: '🌐 Idioma cambiado a Español', en: '🌐 Language changed to English',
-                de: '🌐 Sprache zu Deutsch geändert', ru: '🌐 Язык изменен на Русский',
-                zh: '🌐 语言已更改为中文', fr: '🌐 Langue changée en Français',
-                it: '🌐 Lingua cambiata in Italiano', pt: '🌐 Idioma alterado para Português'
-            };
-            const message = document.createElement('div');
-            message.style.position = 'fixed';
-            message.style.bottom = '180px';
-            message.style.right = '30px';
-            message.style.background = 'var(--dark-gray)';
-            message.style.color = 'var(--primary)';
-            message.style.padding = '12px 20px';
-            message.style.borderRadius = '8px';
-            message.style.border = '1px solid var(--primary)';
-            message.style.zIndex = '1000';
-            message.style.fontSize = '0.85rem';
-            message.textContent = messages[lang] || '🌐 Idioma cambiado';
-            document.body.appendChild(message);
-            setTimeout(() => {
-                message.style.opacity = '0';
-                message.style.transition = 'opacity 0.5s ease';
-                setTimeout(() => message.remove(), 500);
-            }, 2500);
-        }
-        
-        window.addEventListener('load', function() {
-            let progress = 0;
-            const loadingBar = document.getElementById('loading-bar');
-            const loadingText = document.getElementById('loading-text');
-            const preloader = document.getElementById('preloader');
-            const interval = setInterval(function() {
-                progress += Math.floor(Math.random() * 10) + 5;
-                if (progress > 100) progress = 100;
-                loadingBar.style.width = progress + '%';
-                if (progress < 30) loadingText.textContent = "Cargando recursos...";
-                else if (progress < 70) loadingText.textContent = "Inicializando componentes...";
-                else loadingText.textContent = "¡Listo!";
-                if (progress >= 100) {
-                    clearInterval(interval);
-                    setTimeout(() => {
-                        preloader.style.opacity = '0';
-                        setTimeout(() => preloader.style.display = 'none', 500);
-                    }, 300);
-                }
-            }, 40);
-            const savedLang = localStorage.getItem('preferredLanguage');
-            if (savedLang && translations[savedLang]) changeLanguage(savedLang);
-            else changeLanguage('es');
-        });
-        
-        if (typeof particlesJS !== 'undefined') {
-            particlesJS('particles-js', {
-                particles: {
-                    number: { value: 80, density: { enable: true, value_area: 800 } },
-                    color: { value: "#00d4ff" },
-                    shape: { type: "circle" },
-                    opacity: { value: 0.5, random: true },
-                    size: { value: 3, random: true },
-                    line_linked: { enable: true, distance: 150, color: "#00d4ff", opacity: 0.25, width: 1 },
-                    move: { enable: true, speed: 1.2, direction: "none", random: true, straight: false, out_mode: "out" }
-                },
-                interactivity: {
-                    detect_on: "canvas",
-                    events: { onhover: { enable: true, mode: "grab" }, onclick: { enable: true, mode: "push" } },
-                    modes: { grab: { distance: 140, line_linked: { opacity: 0.6 } }, push: { particles_nb: 4 } }
-                },
-                retina_detect: true
-            });
-        }
-        
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                const href = this.getAttribute('href');
-                if (href === '#') return;
-                const target = document.querySelector(href);
-                if (target) {
-                    e.preventDefault();
-                    window.scrollTo({ top: target.offsetTop - 80, behavior: 'smooth' });
-                }
-            });
-        });
-        
-        function handleLogin(event) {
-            event.preventDefault();
-            const email = document.getElementById('login-email').value;
-            alert(`¡Bienvenido a WHIAT COMPANY!\n\nEmail: ${email}\n\nEsta es una demostración. La funcionalidad de login real estará disponible próximamente.`);
-        }
-        
-        const floatingToggle = document.getElementById('floatingLanguageToggle');
-        const floatingDropdown = document.getElementById('floatingLanguageDropdown');
-        if (floatingToggle) {
-            floatingToggle.addEventListener('click', (e) => {
-                e.stopPropagation();
-                floatingDropdown.classList.toggle('show');
-            });
-        }
-        document.querySelectorAll('.floating-lang-option').forEach(option => {
-            option.addEventListener('click', () => {
-                changeLanguage(option.getAttribute('data-lang'));
-                floatingDropdown.classList.remove('show');
-            });
-        });
-        document.addEventListener('click', (e) => {
-            if (floatingDropdown && floatingToggle && !floatingToggle.contains(e.target) && !floatingDropdown.contains(e.target)) {
-                floatingDropdown.classList.remove('show');
-            }
-        });
-        
-        const elementsToAnimate = document.querySelectorAll('.model-card, .service-card, .allies-card, .profile-card, .fullstack-card, .python-test-card');
-        const observerScroll = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
-                }
-            });
-        }, { threshold: 0.1 });
-        elementsToAnimate.forEach(el => {
-            el.style.opacity = '0';
-            el.style.transform = 'translateY(30px)';
-            el.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
-            observerScroll.observe(el);
-        });
-        
-        const scriptBlocker = new MutationObserver(function(mutations) {
-            mutations.forEach(function(mutation) {
-                mutation.addedNodes.forEach(function(node) {
-                    if (node.tagName === 'SCRIPT' && !node.src.includes('cdn.jsdelivr.net') && !node.src.includes('cdnjs.cloudflare.com')) {
-                        node.remove();
-                    }
-                });
-            });
-        });
-        scriptBlocker.observe(document.head, { childList: true, subtree: true });
-        scriptBlocker.observe(document.body, { childList: true, subtree: true });
-    </script>
+    <script src="java.js" defer></script>
 </body>
 </html>
