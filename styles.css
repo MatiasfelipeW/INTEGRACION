@@ -11,12 +11,24 @@ body {
     -webkit-touch-callout: none;
 }
 
-/* Permitir selección solo en inputs y textareas */
-input, textarea, select, [contenteditable="true"] {
+/* ========== FORMULARIOS: TEXTO SIEMPRE BLANCO (FIX) ========== */
+input, textarea, select, [contenteditable="true"],
+input:focus, textarea:focus, select:focus, [contenteditable="true"]:focus,
+input:active, textarea:active, select:active,
+.form-control, .form-control:focus, .form-control:active {
     -webkit-user-select: text;
     -moz-user-select: text;
     -ms-user-select: text;
     user-select: text;
+    color: #ffffff !important;           /* BLANCO EN TODAS LAS SITUACIONES */
+    background-color: #0a0f1a !important; /* Fondo oscuro sólido para que el blanco resalte */
+    caret-color: #ffffff !important;      /* Cursor blanco */
+}
+
+/* Placeholders (texto de ejemplo) más tenue pero legible */
+::placeholder {
+    color: #a0b4d0 !important;
+    opacity: 1;
 }
 
 /* Protección de imágenes */
@@ -465,15 +477,13 @@ header {
     border: 1px solid rgba(0, 212, 255, 0.2);
 }
 
+/* Nota: .form-control ya tiene el color blanco forzado arriba, pero mantengo bordes y sombras originales */
 .form-control {
-    background-color: rgba(0, 212, 255, 0.08);
     border: 1px solid rgba(0, 212, 255, 0.2);
-    color: var(--text);
     padding: 12px 15px;
 }
 
 .form-control:focus {
-    background-color: rgba(0, 212, 255, 0.12);
     border-color: var(--primary);
     box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.25);
     outline: none;
