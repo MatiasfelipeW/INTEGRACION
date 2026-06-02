@@ -10,7 +10,7 @@
     <meta http-equiv="X-XSS-Protection" content="1; mode=block">
     <meta name="referrer" content="strict-origin-when-cross-origin">
     
-    <!-- ========== SEGURIDAD: CSP (Content Security Policy) ========== -->
+    <!-- ========== SEGURIDAD: CSP (Content Security Policy) - CORREGIDO para permitir Formspree ========== -->
     <meta http-equiv="Content-Security-Policy" content="
         default-src 'self';
         script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com;
@@ -21,7 +21,7 @@
         frame-src 'none';
         object-src 'none';
         base-uri 'self';
-        form-action 'self';
+        form-action 'self' https://formspree.io;
     ">
     
     <!-- ========== PROTECCIÓN CONTRA COPIA Y SELECCIÓN ========== -->
@@ -1466,7 +1466,6 @@
                 "python-btn": "🎯 Probar mi nivel →"
             },
             en: {
-                // Solo se muestran las nuevas claves; el resto se heredan del español o se copian en el código real
                 "python-title": "🔥 Test your Python skills",
                 "python-desc": "Think you master Python? Take this interactive test and discover your real level in less than 5 minutes. Dare to try!",
                 "python-btn": "🎯 Test my level →"
