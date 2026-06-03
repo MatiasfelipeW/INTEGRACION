@@ -2,8 +2,14 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <title>Matías Felipe Whiat - Innovador Digital</title>
+    
+    <!-- ========== SEGURIDAD ========== -->
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+    <meta http-equiv="Permissions-Policy" content="geolocation=(), microphone=(), camera=(), magnetometer=(), gyroscope=(), clipboard-read=(), payment=()">
+    <meta http-equiv="X-XSS-Protection" content="1; mode=block">
     
     <!-- Favicon animado dinámico -->
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🔮</text></svg>" type="image/svg+xml">
@@ -18,6 +24,37 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
     
     <style>
+        /* ========== ANTI-SELECTION & ANTI-DRAG ========== */
+        * {
+            -webkit-user-select: none !important;
+            -moz-user-select: none !important;
+            -ms-user-select: none !important;
+            user-select: none !important;
+            -webkit-tap-highlight-color: transparent;
+            -webkit-touch-callout: none !important;
+        }
+        
+        /* Excepciones para elementos que necesitan ser seleccionables (inputs, textarea) */
+        input, textarea, [contenteditable="true"] {
+            -webkit-user-select: text !important;
+            -moz-user-select: text !important;
+            -ms-user-select: text !important;
+            user-select: text !important;
+        }
+        
+        img, video, iframe {
+            -webkit-user-drag: none !important;
+            user-drag: none !important;
+            pointer-events: auto;
+        }
+        
+        ::selection {
+            background: transparent;
+        }
+        ::-moz-selection {
+            background: transparent;
+        }
+        
         :root {
             --dark-bg: #0a0a0a;
             --darker-bg: #050505;
@@ -31,7 +68,6 @@
             --grid-color: rgba(0, 212, 255, 0.15);
             --section-gradient: linear-gradient(135deg, rgba(10, 15, 30, 0.9), rgba(5, 10, 25, 0.95));
             
-            /* Colores de marcas */
             --instagram: linear-gradient(45deg, #405DE6, #5851DB, #833AB4, #C13584, #E1306C, #FD1D1D, #F56040, #F77737, #FCAF45, #FFDC80);
             --linkedin: #0077B5;
             --whatsapp: #25D366;
@@ -75,7 +111,6 @@
             overflow: hidden;
         }
         
-        /* Red neuronal animada */
         .neural-network {
             position: absolute;
             top: 0;
@@ -85,7 +120,6 @@
             opacity: 0.3;
         }
         
-        /* Partículas holográficas */
         .holographic-particles {
             position: absolute;
             top: 0;
@@ -119,7 +153,6 @@
             }
         }
         
-        /* Líneas de conexión */
         .connection-line {
             position: absolute;
             background: linear-gradient(90deg, transparent, var(--accent), transparent);
@@ -218,7 +251,7 @@
             width: 100%;
         }
         
-        /* Hero Section futurista */
+        /* Hero Section */
         .hero-section {
             min-height: 100vh;
             display: flex;
@@ -324,7 +357,7 @@
             background: rgba(0, 212, 255, 0.05);
         }
         
-        /* Secciones con efecto de vidrio */
+        /* Secciones */
         .section {
             padding: 120px 0;
             position: relative;
@@ -362,15 +395,7 @@
             box-shadow: 0 0 10px var(--accent-glow);
         }
         
-        /* Sección Sobre Mí */
-        #about {
-            position: relative;
-        }
-        
-        .about-content {
-            position: relative;
-        }
-        
+        /* About */
         .about-img-container {
             position: relative;
             border-radius: 15px;
@@ -429,7 +454,6 @@
             border-radius: 4px;
             font-weight: 600;
             color: var(--accent-light);
-            position: relative;
         }
         
         .cybersecurity-badge {
@@ -487,16 +511,7 @@
             box-shadow: 0 5px 15px rgba(0, 212, 255, 0.2);
         }
         
-        /* Sección Whiat Company */
-        #whiat {
-            position: relative;
-        }
-        
-        .whiat-content {
-            position: relative;
-            z-index: 2;
-        }
-        
+        /* Whiat Company */
         .whiat-card {
             background-color: var(--card-bg);
             border-radius: 15px;
@@ -534,10 +549,6 @@
             margin-bottom: 25px;
             color: var(--text-light);
             font-size: 1.1rem;
-        }
-        
-        .whiat-features {
-            margin-top: 60px;
         }
         
         .feature-card {
@@ -592,11 +603,7 @@
             font-size: 1rem;
         }
         
-        /* Sección Redes Sociales - CON LETRAS GRANDES */
-        #encuentrame {
-            position: relative;
-        }
-        
+        /* Social Cards */
         .social-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -640,7 +647,6 @@
             border-color: rgba(0, 212, 255, 0.4);
         }
         
-        /* Contenedor de logo con letras grandes */
         .logo-container {
             height: 180px;
             width: 100%;
@@ -678,31 +684,11 @@
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
         }
         
-        /* Colores específicos para cada plataforma */
-        .instagram-logo {
-            background: var(--instagram);
-            color: white;
-        }
-        
-        .linkedin-logo {
-            background: var(--linkedin);
-            color: white;
-        }
-        
-        .whatsapp-logo {
-            background: var(--whatsapp);
-            color: white;
-        }
-        
-        .email-logo {
-            background: var(--gmail);
-            color: white;
-        }
-        
-        .website-logo {
-            background: linear-gradient(135deg, #0a0a1a, #0a1525);
-            color: var(--accent);
-        }
+        .instagram-logo { background: var(--instagram); color: white; }
+        .linkedin-logo { background: var(--linkedin); color: white; }
+        .whatsapp-logo { background: var(--whatsapp); color: white; }
+        .email-logo { background: var(--gmail); color: white; }
+        .website-logo { background: linear-gradient(135deg, #0a0a1a, #0a1525); color: var(--accent); }
         
         .social-card-body {
             padding: 30px;
@@ -744,11 +730,7 @@
             box-shadow: 0 5px 15px rgba(0, 212, 255, 0.2);
         }
         
-        /* Sección Video */
-        #whiat-company {
-            position: relative;
-        }
-        
+        /* Video */
         .video-container {
             position: relative;
             padding-bottom: 56.25%;
@@ -819,7 +801,7 @@
             margin-right: 12px;
         }
         
-        /* Footer futurista */
+        /* Footer */
         footer {
             background-color: rgba(8, 8, 15, 0.95);
             color: var(--text-light);
@@ -920,7 +902,6 @@
             transform: translateY(0);
         }
         
-        /* Efecto de brillo en elementos */
         .glow-effect {
             position: relative;
         }
@@ -945,85 +926,30 @@
         
         /* Responsive */
         @media (max-width: 1200px) {
-            .hero-title {
-                font-size: 3.5rem;
-            }
-            
-            .logo-text {
-                font-size: 4rem;
-            }
+            .hero-title { font-size: 3.5rem; }
+            .logo-text { font-size: 4rem; }
         }
-        
         @media (max-width: 992px) {
-            .hero-title {
-                font-size: 3rem;
-            }
-            
-            .about-text {
-                padding-left: 0;
-                margin-top: 50px;
-            }
-            
-            .section {
-                padding: 100px 0;
-            }
-            
-            .section-title {
-                font-size: 2.5rem;
-            }
-            
-            .logo-text {
-                font-size: 3.5rem;
-            }
+            .hero-title { font-size: 3rem; }
+            .about-text { padding-left: 0; margin-top: 50px; }
+            .section { padding: 100px 0; }
+            .section-title { font-size: 2.5rem; }
+            .logo-text { font-size: 3.5rem; }
         }
-        
         @media (max-width: 768px) {
-            .hero-section {
-                padding: 160px 0 100px;
-            }
-            
-            .hero-title {
-                font-size: 2.5rem;
-            }
-            
-            .hero-subtitle {
-                font-size: 1.3rem;
-            }
-            
-            .social-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .video-title {
-                font-size: 2.3rem;
-            }
-            
-            .logo-text {
-                font-size: 3rem;
-            }
+            .hero-section { padding: 160px 0 100px; }
+            .hero-title { font-size: 2.5rem; }
+            .hero-subtitle { font-size: 1.3rem; }
+            .social-grid { grid-template-columns: 1fr; }
+            .video-title { font-size: 2.3rem; }
+            .logo-text { font-size: 3rem; }
         }
-        
         @media (max-width: 576px) {
-            .hero-title {
-                font-size: 2.2rem;
-            }
-            
-            .hero-badges {
-                justify-content: center;
-            }
-            
-            .footer-links {
-                flex-direction: column;
-                gap: 15px;
-            }
-            
-            .section-title {
-                font-size: 2.2rem;
-            }
-            
-            .logo-text {
-                font-size: 2.5rem;
-            }
+            .hero-title { font-size: 2.2rem; }
+            .hero-badges { justify-content: center; }
+            .footer-links { flex-direction: column; gap: 15px; }
+            .section-title { font-size: 2.2rem; }
+            .logo-text { font-size: 2.5rem; }
         }
     </style>
 </head>
@@ -1052,13 +978,12 @@
         </div>
     </nav>
 
-    <!-- Sección Hero -->
+    <!-- Hero -->
     <section class="hero-section">
         <div class="container">
             <div class="hero-content text-center">
                 <h1 class="hero-title animate__animated animate__fadeInDown">MATÍAS FELIPE WHIAT</h1>
                 <p class="hero-subtitle animate__animated animate__fadeIn animate__delay-1s">Desarrollador Full Stack | Especialista en IA Legal | Innovador Digital</p>
-                
                 <div class="hero-badges animate__animated animate__fadeInUp animate__delay-1s">
                     <span class="hero-badge">JavaScript</span>
                     <span class="hero-badge">Python</span>
@@ -1067,7 +992,6 @@
                     <span class="hero-badge">Derecho Digital</span>
                     <span class="hero-badge">Ciberseguridad</span>
                 </div>
-                
                 <a href="#about" class="hero-btn animate__animated animate__fadeInUp animate__delay-2s">
                     <i class="fas fa-chevron-down me-2"></i>EXPLORAR PERFIL
                 </a>
@@ -1075,27 +999,23 @@
         </div>
     </section>
 
-    <!-- Sección Sobre Mí -->
+    <!-- Sobre Mí -->
     <section id="about" class="section">
         <div class="container">
             <h2 class="section-title animate__animated animate__fadeIn">SOBRE MÍ</h2>
-            
             <div class="row align-items-center">
                 <div class="col-lg-6 mb-5 mb-lg-0">
                     <div class="about-img-container floating">
-                        <img src="media/BCHINO.jpeg" class="about-img" alt="Matías Felipe Whiat">
+                        <img src="media/BCHINO.jpeg" class="about-img" alt="Matías Felipe Whiat" draggable="false">
                     </div>
                 </div>
                 <div class="col-lg-6 about-content">
                     <div class="about-text">
                         <p>Soy un profesional apasionado por las leyes, la programación y la traducción. Actualmente vivo en Córdoba, Argentina. Además, soy propietario de <span class="highlight">Whiat Company</span>, una empresa dedicada al desarrollo de IA y soluciones de sistemas de automatización, y representante legal de <span class="highlight">Garantías Financieras y Jurídicas S.A.S.</span>.</p>
-                        
                         <p>Mi trayectoria se ha enfocado en ofrecer soluciones innovadoras a empresas, soy estudiante de ingeniería en telecomunicaciones en la Universidad de Antioquia, manteniendo siempre el profesionalismo y la ética que me caracteriza. En Whiat Company ayudamos a empresas de todo el mundo con desarrollo web personalizado y bases de datos escalables.</p>
-                        
                         <div class="cybersecurity-badge glow-effect">
                             <i class="fas fa-shield-alt me-2"></i>ACTUALMENTE ESTUDIANDO CIBERSEGURIDAD CON INGÉNIA Y LA UNIVERSIDAD DE ANTIOQUIA
                         </div>
-                        
                         <div class="tech-stack">
                             <span class="tech-badge">JavaScript</span>
                             <span class="tech-badge">Python</span>
@@ -1112,11 +1032,10 @@
         </div>
     </section>
 
-    <!-- Sección Whiat Company -->
+    <!-- Whiat Company -->
     <section id="whiat" class="section">
         <div class="container">
             <h2 class="section-title animate__animated animate__fadeIn">WHIAT COMPANY</h2>
-            
             <div class="whiat-content">
                 <div class="row justify-content-center">
                     <div class="col-lg-10">
@@ -1132,32 +1051,25 @@
                         </div>
                     </div>
                 </div>
-                
                 <div class="whiat-features">
                     <div class="row">
                         <div class="col-md-4 mb-4">
                             <div class="feature-card glow-effect">
-                                <div class="feature-icon">
-                                    <i class="fas fa-brain"></i>
-                                </div>
+                                <div class="feature-icon"><i class="fas fa-brain"></i></div>
                                 <h3 class="feature-title">IA Legal</h3>
                                 <p class="feature-text">Desarrollamos sistemas de inteligencia artificial especializados en el ámbito legal para optimizar procesos y mejorar la toma de decisiones.</p>
                             </div>
                         </div>
                         <div class="col-md-4 mb-4">
                             <div class="feature-card glow-effect">
-                                <div class="feature-icon">
-                                    <i class="fas fa-code"></i>
-                                </div>
+                                <div class="feature-icon"><i class="fas fa-code"></i></div>
                                 <h3 class="feature-title">Desarrollo Web</h3>
                                 <p class="feature-text">Creamos sitios web personalizados y aplicaciones escalables adaptadas a las necesidades específicas de cada cliente.</p>
                             </div>
                         </div>
                         <div class="col-md-4 mb-4">
                             <div class="feature-card glow-effect">
-                                <div class="feature-icon">
-                                    <i class="fas fa-shield-alt"></i>
-                                </div>
+                                <div class="feature-icon"><i class="fas fa-shield-alt"></i></div>
                                 <h3 class="feature-title">Seguridad Digital</h3>
                                 <p class="feature-text">Implementamos soluciones de blockchain y ciberseguridad para garantizar la seguridad y transparencia en transacciones y documentos legales.</p>
                             </div>
@@ -1168,97 +1080,67 @@
         </div>
     </section>
 
-    <!-- Sección Redes Sociales -->
+    <!-- Redes Sociales -->
     <section id="encuentrame" class="section">
         <div class="container">
             <h2 class="section-title animate__animated animate__fadeIn">CONÉCTATE CONMIGO</h2>
-            
             <div class="social-grid">
-                <!-- Tarjeta 1 - Instagram -->
                 <div class="social-card glow-effect">
-                    <div class="logo-container instagram-logo">
-                        <div class="logo-text">IG</div>
-                    </div>
+                    <div class="logo-container instagram-logo"><div class="logo-text">IG</div></div>
                     <div class="social-card-body">
                         <h3 class="social-card-title">Instagram</h3>
                         <p class="social-card-text">Sígueme para más contenido sobre desarrollo, ciberseguridad y tecnología.</p>
-                        <a href="https://www.instagram.com/matiaswhiat/" target="_blank" class="social-btn">
-                            <i class="fab fa-instagram me-2"></i>Conectar
-                        </a>
+                        <a href="https://www.instagram.com/matiaswhiat/" target="_blank" class="social-btn"><i class="fab fa-instagram me-2"></i>Conectar</a>
                     </div>
                 </div>
-                
-                <!-- Tarjeta 2 - LinkedIn -->
                 <div class="social-card glow-effect">
-                    <div class="logo-container linkedin-logo">
-                        <div class="logo-text">IN</div>
-                    </div>
+                    <div class="logo-container linkedin-logo"><div class="logo-text">IN</div></div>
                     <div class="social-card-body">
                         <h3 class="social-card-title">LinkedIn</h3>
                         <p class="social-card-text">Conecta conmigo profesionalmente en LinkedIn.</p>
-                        <a href="https://www.linkedin.com/in/matias-felipe-whiat-56b342240/" target="_blank" class="social-btn">
-                            <i class="fab fa-linkedin me-2"></i>Conectar
-                        </a>
+                        <a href="https://www.linkedin.com/in/matias-felipe-whiat-56b342240/" target="_blank" class="social-btn"><i class="fab fa-linkedin me-2"></i>Conectar</a>
                     </div>
                 </div>
-                
-                <!-- Tarjeta 3 - WhatsApp -->
                 <div class="social-card glow-effect">
-                    <div class="logo-container whatsapp-logo">
-                        <div class="logo-text">WA</div>
-                    </div>
+                    <div class="logo-container whatsapp-logo"><div class="logo-text">WA</div></div>
                     <div class="social-card-body">
                         <h3 class="social-card-title">WhatsApp</h3>
                         <p class="social-card-text">Contáctame directamente por WhatsApp Business.</p>
-                        <a href="https://wa.me/573508312629" target="_blank" class="social-btn">
-                            <i class="fab fa-whatsapp me-2"></i>Contactar
-                        </a>
+                        <a href="https://wa.me/573508312629" target="_blank" class="social-btn"><i class="fab fa-whatsapp me-2"></i>Contactar</a>
                     </div>
                 </div>
-                
-                <!-- Tarjeta 4 - Correo -->
                 <div class="social-card glow-effect">
-                    <div class="logo-container email-logo">
-                        <div class="logo-text">@</div>
-                    </div>
+                    <div class="logo-container email-logo"><div class="logo-text">@</div></div>
                     <div class="social-card-body">
                         <h3 class="social-card-title">Email</h3>
                         <p class="social-card-text">Envíame un correo electrónico para consultas profesionales.</p>
-                        <a href="mailto:matiaswhiat@mail.de" target="_blank" class="social-btn">
-                            <i class="fas fa-envelope me-2"></i>Enviar Email
-                        </a>
+                        <a href="mailto:matiaswhiat@mail.de" target="_blank" class="social-btn"><i class="fas fa-envelope me-2"></i>Enviar Email</a>
                     </div>
                 </div>
-                
-                <!-- Tarjeta 5 - Whiat Company -->
+                <!-- Tarjeta Whiat Company con dominio corregido -->
                 <div class="social-card glow-effect">
-                    <div class="logo-container website-logo">
-                        <div class="logo-text">WC</div>
-                    </div>
+                    <div class="logo-container website-logo"><div class="logo-text">WC</div></div>
                     <div class="social-card-body">
                         <h3 class="social-card-title">Whiat Company</h3>
                         <p class="social-card-text">Visita el sitio web oficial de mi empresa.</p>
-                        <a href="https://whiatcompany.online" target="_blank" class="social-btn">
-                            <i class="fas fa-external-link-alt me-2"></i>Visitar Sitio
-                        </a>
+                        <a href="https://whiatcompany.lat" target="_blank" class="social-btn"><i class="fas fa-external-link-alt me-2"></i>Visitar Sitio</a>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Sección Video -->
+    <!-- Video -->
     <section id="whiat-company" class="section">
         <div class="container">
             <div class="video-content">
                 <h2 class="video-title animate__animated animate__fadeIn">WHIAT COMPANY</h2>
                 <p class="video-text animate__animated animate__fadeIn animate__delay-1s">Descubre más sobre nuestras soluciones innovadoras en IA, desarrollo legal y ciberseguridad.</p>
-                
                 <div class="video-container glow-effect">
                     <iframe src="https://www.youtube.com/embed/Bvy8wD5d4qM" allowfullscreen></iframe>
                 </div>
-                
-                <a href="https://whiatcompany.online" target="_blank" class="video-btn animate__animated animate__fadeInUp animate__delay-2s">
+                <!-- Botón con dominio corregido -->
+                <a href="https://whiatcompany.lat" target="_blank" class="video-btn animate__animated animate__fadeInUp animate__delay-2s">
                     <i class="fas fa-external-link-alt me-2"></i>VISITAR SITIO WEB
                 </a>
             </div>
@@ -1270,131 +1152,112 @@
         <div class="container">
             <div class="footer-content">
                 <div class="footer-logo">MATÍAS WHIAT</div>
-                
                 <div class="footer-links">
                     <a href="#about" class="footer-link">Sobre Mí</a>
                     <a href="#whiat" class="footer-link">Whiat Company</a>
                     <a href="#encuentrame" class="footer-link">Conéctate</a>
                     <a href="#whiat-company" class="footer-link">Video</a>
                 </div>
-                
-                <p class="footer-copyright">
-                    &copy; 2024 Matías Felipe Whiat. Todos los derechos reservados.<br>
-                    <span class="d-block d-sm-inline mt-2">Diseñado con <i class="fas fa-heart" style="color: var(--accent);"></i> y dedicación</span>
-                </p>
+                <p class="footer-copyright">&copy; 2024 Matías Felipe Whiat. Todos los derechos reservados.<br><span class="d-block d-sm-inline mt-2">Diseñado con <i class="fas fa-heart" style="color: var(--accent);"></i> y dedicación</span></p>
             </div>
         </div>
     </footer>
 
-    <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        // Crear partículas holográficas
+        // ========== MEDIDAS DE SEGURIDAD ==========
+        (function() {
+            'use strict';
+            // 1. Bloquear clic derecho
+            document.addEventListener('contextmenu', function(e) {
+                e.preventDefault();
+                return false;
+            });
+            // 2. Bloquear arrastre
+            document.addEventListener('dragstart', function(e) {
+                e.preventDefault();
+                return false;
+            });
+            // 3. Bloquear selección de texto
+            document.addEventListener('selectstart', function(e) {
+                e.preventDefault();
+                return false;
+            });
+            // 4. Bloquear copia/corte/pegado
+            document.addEventListener('copy', function(e) { e.preventDefault(); return false; });
+            document.addEventListener('cut', function(e) { e.preventDefault(); return false; });
+            document.addEventListener('paste', function(e) { e.preventDefault(); return false; });
+            // 5. Bloquear teclas de desarrollador
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'F12' || e.keyCode === 123) { e.preventDefault(); return false; }
+                if (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'C' || e.key === 'J' || e.keyCode === 73 || e.keyCode === 67 || e.keyCode === 74)) { e.preventDefault(); return false; }
+                if (e.ctrlKey && (e.key === 'u' || e.key === 'U' || e.keyCode === 85)) { e.preventDefault(); return false; }
+                if (e.ctrlKey && (e.key === 's' || e.key === 'S' || e.keyCode === 83)) { e.preventDefault(); return false; }
+                if (e.ctrlKey && (e.key === 'c' || e.key === 'C' || e.keyCode === 67)) { e.preventDefault(); return false; }
+                if (e.ctrlKey && (e.key === 'x' || e.key === 'X' || e.keyCode === 88)) { e.preventDefault(); return false; }
+                if (e.key === 'PrintScreen' || e.keyCode === 44) { e.preventDefault(); return false; }
+                if (e.ctrlKey && (e.key === 'p' || e.key === 'P' || e.keyCode === 80)) { e.preventDefault(); return false; }
+            });
+        })();
+        
+        // Funciones originales (partículas, favicon animado, etc.)
         function createHolographicParticles() {
             const holographicParticles = document.getElementById('holographicParticles');
             const particleCount = 80;
-            
             for (let i = 0; i < particleCount; i++) {
                 const particle = document.createElement('div');
                 particle.classList.add('h-particle');
-                
-                // Posición aleatoria
-                const left = Math.random() * 100;
-                particle.style.left = `${left}%`;
-                
-                // Tamaño aleatorio
+                particle.style.left = `${Math.random() * 100}%`;
                 const size = 2 + Math.random() * 8;
                 particle.style.width = `${size}px`;
                 particle.style.height = `${size}px`;
-                
-                // Animación aleatoria
-                const delay = Math.random() * 20;
-                const duration = 15 + Math.random() * 25;
-                particle.style.animationDelay = `${delay}s`;
-                particle.style.animationDuration = `${duration}s`;
-                
+                particle.style.animationDelay = `${Math.random() * 20}s`;
+                particle.style.animationDuration = `${15 + Math.random() * 25}s`;
                 holographicParticles.appendChild(particle);
             }
         }
         
-        // Crear red neuronal
         function createNeuralNetwork() {
             const neuralNetwork = document.getElementById('neuralNetwork');
             const lineCount = 40;
-            
             for (let i = 0; i < lineCount; i++) {
                 const line = document.createElement('div');
                 line.classList.add('connection-line');
-                
-                // Posición y tamaño aleatorios
-                const top = Math.random() * 100;
-                const left = Math.random() * 100;
-                const width = 50 + Math.random() * 200;
-                const angle = Math.random() * 360;
-                
-                line.style.top = `${top}%`;
-                line.style.left = `${left}%`;
-                line.style.width = `${width}px`;
-                line.style.transform = `rotate(${angle}deg)`;
-                
-                // Animación aleatoria
-                const delay = Math.random() * 5;
-                line.style.animationDelay = `${delay}s`;
-                
+                line.style.top = `${Math.random() * 100}%`;
+                line.style.left = `${Math.random() * 100}%`;
+                line.style.width = `${50 + Math.random() * 200}px`;
+                line.style.transform = `rotate(${Math.random() * 360}deg)`;
+                line.style.animationDelay = `${Math.random() * 5}s`;
                 neuralNetwork.appendChild(line);
             }
         }
         
-        // Sistema de favicon animado dinámico
         function createAnimatedFavicon() {
-            // Crear un elemento link para el favicon
             const faviconLink = document.createElement('link');
             faviconLink.rel = 'icon';
             faviconLink.type = 'image/png';
             document.head.appendChild(faviconLink);
-            
-            // Crear canvas para el favicon animado
             const canvas = document.createElement('canvas');
             canvas.width = 32;
             canvas.height = 32;
             const ctx = canvas.getContext('2d');
-            
-            // Colores para la animación
-            const colors = [
-                '#00d4ff', '#ff00ff', '#00ffaa', '#ffff00', 
-                '#ff7700', '#aa00ff', '#00aaff', '#ff0066'
-            ];
-            
+            const colors = ['#00d4ff', '#ff00ff', '#00ffaa', '#ffff00', '#ff7700', '#aa00ff', '#00aaff', '#ff0066'];
             let frame = 0;
             let colorIndex = 0;
-            
             function drawFavicon() {
-                // Limpiar canvas
                 ctx.clearRect(0, 0, 32, 32);
-                
-                // Configurar fondo
                 ctx.fillStyle = '#0a0a0a';
                 ctx.fillRect(0, 0, 32, 32);
-                
-                // Dibujar logotipo W animado
                 const time = Date.now() / 1000;
                 const angle = (time * 2) % (Math.PI * 2);
                 const scale = 0.8 + 0.2 * Math.sin(time * 3);
-                
-                // Configurar estilo
                 ctx.strokeStyle = colors[colorIndex];
                 ctx.fillStyle = colors[colorIndex];
                 ctx.lineWidth = 3;
-                ctx.lineJoin = 'round';
-                ctx.lineCap = 'round';
-                
-                // Dibujar logotipo W estilizado con efecto 3D
                 ctx.save();
                 ctx.translate(16, 16);
                 ctx.rotate(angle);
                 ctx.scale(scale, scale);
-                
-                // Letra W estilizada
                 ctx.beginPath();
                 ctx.moveTo(-8, 8);
                 ctx.lineTo(-4, -8);
@@ -1402,167 +1265,87 @@
                 ctx.lineTo(4, -8);
                 ctx.lineTo(8, 8);
                 ctx.stroke();
-                
-                // Puntos en las esquinas para efecto futurista
                 ctx.beginPath();
                 ctx.arc(-8, 8, 1.5, 0, Math.PI * 2);
                 ctx.arc(8, 8, 1.5, 0, Math.PI * 2);
                 ctx.fill();
-                
                 ctx.restore();
-                
-                // Efecto de partículas girando alrededor
                 for (let i = 0; i < 4; i++) {
                     const particleAngle = angle + (i * Math.PI / 2) + time * 2;
-                    const particleRadius = 12;
-                    const x = 16 + Math.cos(particleAngle) * particleRadius;
-                    const y = 16 + Math.sin(particleAngle) * particleRadius;
-                    
+                    const x = 16 + Math.cos(particleAngle) * 12;
+                    const y = 16 + Math.sin(particleAngle) * 12;
                     ctx.beginPath();
                     ctx.fillStyle = colors[(colorIndex + i + 1) % colors.length];
                     ctx.arc(x, y, 1.2, 0, Math.PI * 2);
                     ctx.fill();
                 }
-                
-                // Actualizar favicon
                 faviconLink.href = canvas.toDataURL('image/png');
-                
-                // Avanzar frame y cambiar color periódicamente
                 frame++;
-                if (frame % 20 === 0) {
-                    colorIndex = (colorIndex + 1) % colors.length;
-                }
-                
-                // Continuar animación
+                if (frame % 20 === 0) colorIndex = (colorIndex + 1) % colors.length;
                 requestAnimationFrame(drawFavicon);
             }
-            
-            // Iniciar animación
             drawFavicon();
         }
         
-        // Efecto de navbar al hacer scroll
+        // Navbar scroll
         window.addEventListener('scroll', function() {
             const navbar = document.querySelector('.navbar');
-            if (window.scrollY > 50) {
-                navbar.classList.add('scrolled');
-            } else {
-                navbar.classList.remove('scrolled');
-            }
-            
-            // Resaltar enlace activo en navbar
+            if (window.scrollY > 50) navbar.classList.add('scrolled');
+            else navbar.classList.remove('scrolled');
             const sections = document.querySelectorAll('section');
             const navLinks = document.querySelectorAll('.nav-link');
-            
             let current = '';
             sections.forEach(section => {
                 const sectionTop = section.offsetTop;
-                const sectionHeight = section.clientHeight;
-                if (scrollY >= (sectionTop - 200)) {
-                    current = section.getAttribute('id');
-                }
+                if (scrollY >= (sectionTop - 200)) current = section.getAttribute('id');
             });
-            
             navLinks.forEach(link => {
                 link.classList.remove('active');
-                if (link.getAttribute('href') === `#${current}`) {
-                    link.classList.add('active');
-                }
+                if (link.getAttribute('href') === `#${current}`) link.classList.add('active');
             });
         });
         
-        // Animación para elementos al hacer scroll
+        // Animación al hacer scroll
         const animateOnScroll = function() {
             const elements = document.querySelectorAll('.fade-in');
-            
             elements.forEach(element => {
                 const elementPosition = element.getBoundingClientRect().top;
-                const screenPosition = window.innerHeight / 1.2;
-                
-                if (elementPosition < screenPosition) {
-                    element.classList.add('visible');
-                }
+                if (elementPosition < window.innerHeight / 1.2) element.classList.add('visible');
             });
         };
         
-        // Añadir clase fade-in a elementos que queremos animar
         document.addEventListener('DOMContentLoaded', function() {
             createHolographicParticles();
             createNeuralNetwork();
             createAnimatedFavicon();
-            
             const elementsToAnimate = document.querySelectorAll('.about-img-container, .about-text, .whiat-card, .feature-card, .social-card, .video-container');
-            elementsToAnimate.forEach(el => {
-                el.classList.add('fade-in');
-            });
-            
+            elementsToAnimate.forEach(el => el.classList.add('fade-in'));
             animateOnScroll();
-            
-            // Añadir animación de entrada a elementos específicos
-            const observerOptions = {
-                threshold: 0.1,
-                rootMargin: '0px 0px -100px 0px'
-            };
-            
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('animate__animated', 'animate__fadeInUp');
-                        observer.unobserve(entry.target);
-                    }
+                    if (entry.isIntersecting) entry.target.classList.add('animate__animated', 'animate__fadeInUp');
                 });
-            }, observerOptions);
-            
-            // Observar elementos específicos para animación
-            document.querySelectorAll('.hero-badge, .tech-badge, .social-btn, .video-btn').forEach(el => {
-                observer.observe(el);
-            });
+            }, { threshold: 0.1 });
+            document.querySelectorAll('.hero-badge, .tech-badge, .social-btn, .video-btn').forEach(el => observer.observe(el));
         });
-        
         window.addEventListener('scroll', animateOnScroll);
         
-        // Efecto de clic en botones
+        // Efecto ripple en botones
         document.querySelectorAll('.hero-btn, .social-btn, .video-btn').forEach(button => {
             button.addEventListener('click', function(e) {
-                // Efecto de onda
                 const ripple = document.createElement('span');
                 const rect = this.getBoundingClientRect();
                 const size = Math.max(rect.width, rect.height);
                 const x = e.clientX - rect.left - size / 2;
                 const y = e.clientY - rect.top - size / 2;
-                
-                ripple.style.cssText = `
-                    position: absolute;
-                    border-radius: 50%;
-                    background: rgba(255, 255, 255, 0.5);
-                    transform: scale(0);
-                    animation: ripple-animation 0.6s linear;
-                    width: ${size}px;
-                    height: ${size}px;
-                    top: ${y}px;
-                    left: ${x}px;
-                    pointer-events: none;
-                `;
-                
+                ripple.style.cssText = `position: absolute; border-radius: 50%; background: rgba(255,255,255,0.5); transform: scale(0); animation: ripple-animation 0.6s linear; width: ${size}px; height: ${size}px; top: ${y}px; left: ${x}px; pointer-events: none;`;
                 this.appendChild(ripple);
-                
-                setTimeout(() => {
-                    ripple.remove();
-                }, 600);
+                setTimeout(() => ripple.remove(), 600);
             });
         });
-        
-        // Añadir estilo para la animación de ripple
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes ripple-animation {
-                to {
-                    transform: scale(4);
-                    opacity: 0;
-                }
-            }
-        `;
-        document.head.appendChild(style);
+        const styleSheet = document.createElement("style");
+        styleSheet.textContent = `@keyframes ripple-animation { to { transform: scale(4); opacity: 0; } }`;
+        document.head.appendChild(styleSheet);
     </script>
 </body>
 </html>
