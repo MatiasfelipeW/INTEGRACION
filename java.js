@@ -430,26 +430,38 @@ window.addEventListener('load', function() {
     const loadingBar = document.getElementById('loading-bar');
     const loadingText = document.getElementById('loading-text');
     const preloader = document.getElementById('preloader');
+    
+    const startTime = Date.now();
+    const minDuration = 2500; // Duración mínima en milisegundos (2.5 segundos)
+    
     const interval = setInterval(function() {
-        progress += Math.floor(Math.random() * 10) + 5;
+        // Incremento más pequeño para que dure más
+        progress += Math.floor(Math.random() * 5) + 2; // entre 2 y 6
         if (progress > 100) progress = 100;
+        
         if (loadingBar) loadingBar.style.width = progress + '%';
+        
         if (loadingText) {
             if (progress < 30) loadingText.textContent = "Cargando recursos...";
             else if (progress < 70) loadingText.textContent = "Inicializando componentes...";
-            else loadingText.textContent = "¡Listo!";
+            else loadingText.textContent = "¡Casi listo!";
         }
-        if (progress >= 100) {
+        
+        const elapsed = Date.now() - startTime;
+        // Si ya pasó el tiempo mínimo y el progreso llegó a 100%
+        if (progress >= 100 && elapsed >= minDuration) {
             clearInterval(interval);
+            // Esperar un poco más antes de desvanecer
             setTimeout(() => {
                 if (preloader) {
                     preloader.style.opacity = '0';
                     setTimeout(() => preloader.style.display = 'none', 500);
                 }
-            }, 300);
+            }, 800); // 0.8 segundos extra
         }
-    }, 40);
+    }, 60); // Intervalo más lento (60ms en lugar de 40ms)
     
+    // Guardar idioma (el resto del código sigue igual)
     const savedLang = localStorage.getItem('preferredLanguage');
     if (savedLang && translations.hasOwnProperty(savedLang)) changeLanguage(savedLang);
     else changeLanguage('es');

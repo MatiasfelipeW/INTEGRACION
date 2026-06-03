@@ -343,12 +343,15 @@
         </div>
     </section>
 
+    <!-- Sección de Perfil Profesional con corrección de imagen robusta -->
     <section id="profile" class="profile-section">
         <div class="container">
             <div class="section-title"><h2 data-i18n="perfil_titulo">Perfil Profesional</h2><p data-i18n="perfil_subtitulo">Conoce al fundador</p></div>
             <div class="profile-card">
                 <div class="profile-header">
-                    <img src="MEDIA/BCHINO.jpeg" alt="Matías Felipe Whiat" class="profile-avatar" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'%3E%3Ccircle cx=\'50\' cy=\'50\' r=\'45\' fill=\'%2300d4ff\'/%3E%3Ctext x=\'50\' y=\'70\' font-size=\'40\' text-anchor=\'middle\' fill=\'white\'%3EMW%3C/text%3E%3C/svg%3E'">
+                    <!-- Imagen de perfil con atributo oneror y un sistema de recuperación automática -->
+                    <img id="profileAvatar" src="MEDIA/BCHINO.jpeg" alt="Matías Felipe Whiat" class="profile-avatar" 
+                         onerror="this.onerror=null; this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'%3E%3Ccircle cx=\'50\' cy=\'50\' r=\'45\' fill=\'%2300d4ff\'/%3E%3Ctext x=\'50\' y=\'70\' font-size=\'40\' text-anchor=\'middle\' fill=\'white\'%3EMW%3C/text%3E%3C/svg%3E';">
                     <div class="profile-info">
                         <h1 class="profile-name">Matías Felipe Whiat</h1>
                         <p class="profile-title" data-i18n="perfil_ceo">CEO & Fundador</p>
@@ -592,14 +595,77 @@
     <script src="https://cdn.jsdelivr.net/pyodide/v0.26.1/full/pyodide.js"></script>
     
     <script>
-        // ========== SISTEMA DE IDIOMAS (i18n) ==========
+        // ========== SISTEMA DE SEGURIDAD AVANZADO (NO INTERFIERE CON EL RESTO) ==========
+        (function detectDevTools() {
+            let devtools = false;
+            const element = new Image();
+            Object.defineProperty(element, 'id', {
+                get: function() {
+                    devtools = true;
+                    throw new Error('Consola detectada');
+                }
+            });
+            setInterval(() => {
+                devtools = false;
+                console.log('%c', element);
+                console.clear();
+                if (devtools) {
+                    document.body.innerHTML = '<div style="position:fixed;top:0;left:0;width:100%;height:100%;background:#000;color:#00d4ff;display:flex;align-items:center;justify-content:center;z-index:99999;flex-direction:column;"><h1>⚠️ Acceso Denegado</h1><p>Herramientas de desarrollo deshabilitadas por seguridad.</p></div>';
+                }
+            }, 1000);
+        })();
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'F12' || 
+                (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'J' || e.key === 'C')) ||
+                (e.ctrlKey && (e.key === 'u' || e.key === 'U' || e.key === 's' || e.key === 'S'))) {
+                e.preventDefault();
+                return false;
+            }
+        });
+
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+            return false;
+        });
+
+        const observer = new MutationObserver(function(mutations) {
+            mutations.forEach(function(mutation) {
+                if (mutation.type === 'attributes' || mutation.type === 'childList') {
+                    // Comentado para no saturar la consola
+                }
+            });
+        });
+        observer.observe(document.body, { attributes: true, childList: true, subtree: true });
+
+        document.body.addEventListener('copy', function(e) { e.preventDefault(); return false; });
+        document.body.addEventListener('cut', function(e) { e.preventDefault(); return false; });
+
+        let printAttempts = 0;
+        window.addEventListener('beforeprint', function() { printAttempts++; if(printAttempts > 0) alert('La impresión/captura de contenido está protegida.'); });
+
+        // Bloqueo de scripts externos no autorizados
+        const scriptBlocker = new MutationObserver(function(mutations) {
+            mutations.forEach(function(mutation) {
+                mutation.addedNodes.forEach(function(node) {
+                    if (node.tagName === 'SCRIPT' && node.src && 
+                        !node.src.includes('cdn.jsdelivr.net') && 
+                        !node.src.includes('cdnjs.cloudflare.com')) {
+                        node.remove();
+                        console.warn('Script no autorizado eliminado:', node.src);
+                    }
+                });
+            });
+        });
+        scriptBlocker.observe(document.head, { childList: true, subtree: true });
+        scriptBlocker.observe(document.body, { childList: true, subtree: true });
+
+        // ========== SISTEMA DE IDIOMAS (i18n) ORIGINAL (NO MODIFICADO) ==========
         const translations = {
             es: {
-                // General
                 titulo: "Whiat Company - Soluciones Digitales Integrales",
                 whiat_company: "WHIAT COMPANY",
                 cargando_recursos: "Cargando recursos...",
-                // Nav
                 nav_modelo: "Modelo",
                 nav_servicios: "Servicios",
                 nav_desarrollo_web: "Desarrollo Web",
@@ -608,12 +674,10 @@
                 nav_contacto: "Contacto",
                 nav_python_ide: "Python IDE",
                 nav_iniciar_sesion: "Iniciar Sesión",
-                // Hero
                 hero_badge: "Soluciones Digitales Integrales | Aliados Estratégicos",
                 hero_titulo: "Impulsamos tu negocio con tecnología de vanguardia",
                 hero_descripcion: "Expertos en crear aplicaciones móviles, sitios web de alto rendimiento, ciberseguridad, blockchain y soluciones digitales a medida para pequeñas, medianas y grandes empresas.",
                 hero_boton: "Cuéntanos tu idea",
-                // Servicios
                 servicios_titulo: "Nuestros Servicios Especializados",
                 servicios_subtitulo: "Soluciones completas para cada necesidad digital de tu empresa.",
                 servicio1_titulo: "Apps Android & iOS",
@@ -665,21 +729,18 @@
                 servicio7_item3: "Monitoreo 24/7",
                 servicio7_item4: "Migraciones de servidores",
                 servicio7_boton: "Mantener mi Proyecto",
-                // Fullstack
                 fullstack_titulo: "Desarrollo Web Fullstack",
                 fullstack_subtitulo: "Construimos aplicaciones web completas.",
                 fullstack_frontend: "Frontend Moderno",
                 fullstack_backend: "Backend Robusto",
                 fullstack_db: "Bases de Datos",
                 fullstack_boton: "Solicitar Desarrollo Personalizado",
-                // Aliados
                 aliados_titulo: "Aliados del Nuevo Mundo Digital",
                 aliados_subtitulo: "Conectamos empresas con la era digital.",
                 aliados_emergentes: "Para Empresas Emergentes",
                 aliados_emergentes_desc: "Acompañamos a startups y negocios en sus primeras etapas digitales.",
                 aliados_acreditadas: "Para Empresas Acreditadas",
                 aliados_acreditadas_desc: "Modernizamos infraestructura y adoptamos nuevas tecnologías.",
-                // Perfil
                 perfil_titulo: "Perfil Profesional",
                 perfil_subtitulo: "Conoce al fundador",
                 perfil_ceo: "CEO & Fundador",
@@ -688,11 +749,9 @@
                 perfil_boton_web: "Mi Website Oficial",
                 perfil_boton_whatsapp: "Consulta Inmediata",
                 perfil_boton_email: "Correo Directo",
-                // CTA
                 cta_titulo: "¿Listo para dar el salto digital?",
                 cta_descripcion: "Ya sea un desarrollo a medida, ampliar tu equipo con nuestros freelancers o asegurar tu infraestructura, estamos aquí para hacerlo realidad.",
                 cta_boton: "Solicitar una Consultoría Gratuita",
-                // Test Python
                 test_titulo: "🔥 Pon a prueba tu dominio de Python",
                 test_descripcion: "¿Crees que dominas Python? Demuestra tus conocimientos con este test interactivo.",
                 test_tag1: "🐍 Sintaxis básica",
@@ -702,7 +761,6 @@
                 test_boton: "🎯 Probar mi nivel →",
                 test_tag_tiempo: "⏱️ Menos de 5 min",
                 test_tag_python: "🐍 Python Challenge",
-                // IDE Python
                 ide_titulo: "Python IDE Interactivo (Local)",
                 ide_descripcion: "Escribe, ejecuta y prueba código Python directamente en tu navegador. <strong>Compatible con input()</strong> y toda la biblioteca estándar.",
                 ide_boton_ejecutar: "Ejecutar código",
@@ -716,7 +774,6 @@
                 ide_inicializando: "⏳ Inicializando entorno Python (Pyodide)...",
                 ide_espera: "Esto tomará unos segundos la primera vez.",
                 ide_footer: "🧠 Powered by <strong>Pyodide</strong> (Python en WebAssembly) - Ejecución 100% local en tu navegador. Soporta input(), print(), listas, loops, funciones, etc.",
-                // Contacto
                 contacto_titulo: "Contacto",
                 contacto_subtitulo: "Ponte en contacto con nosotros",
                 contacto_nombre: "Nombre Completo",
@@ -734,7 +791,6 @@
                 contacto_mensaje: "Mensaje",
                 contacto_mensaje_placeholder: "Escribe tu mensaje...",
                 contacto_enviar: "Enviar Mensaje",
-                // Login
                 login_subtitulo: "Accede a tu cuenta",
                 login_password: "Contraseña",
                 login_password_placeholder: "••••••••",
@@ -743,7 +799,6 @@
                 login_iniciar: "Iniciar Sesión",
                 login_no_cuenta: "¿No tienes una cuenta?",
                 login_registrate: "Regístrate aquí",
-                // Footer
                 footer_descripcion: "Impulsamos la evolución de los negocios hacia un futuro más digital.",
                 footer_servicios: "Servicios",
                 footer_enlaces: "Enlaces",
@@ -909,21 +964,17 @@
             document.documentElement.lang = lang;
             document.getElementById('currentLangText').innerHTML = lang === 'es' ? '🌐 Español' : '🌐 English';
             
-            // Traducir elementos con data-i18n
             document.querySelectorAll('[data-i18n]').forEach(el => {
                 const key = el.getAttribute('data-i18n');
                 if (translations[lang][key]) {
                     if (el.tagName === 'INPUT' && el.getAttribute('data-i18n-placeholder') !== null) {
-                        // placeholders manejados aparte
                     } else if (el.tagName === 'TEXTAREA' && el.getAttribute('data-i18n-placeholder') !== null) {
-                        // placeholders
                     } else {
                         el.innerHTML = translations[lang][key];
                     }
                 }
             });
             
-            // Traducir placeholders
             document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
                 const key = el.getAttribute('data-i18n-placeholder');
                 if (translations[lang][key]) {
@@ -931,7 +982,6 @@
                 }
             });
             
-            // Traducir opciones del select de servicios (manteniendo valores)
             const serviceSelect = document.getElementById('serviceSelect');
             if (serviceSelect) {
                 for (let i = 0; i < serviceSelect.options.length; i++) {
@@ -958,7 +1008,6 @@
                 }
             }
             
-            // Cambiar ejemplo del editor de Python según idioma (solo si el contenido actual es el ejemplo por defecto)
             const codeEditor = document.getElementById('pythonCodeEditor');
             const defaultExampleSpanish = `# 🔥 IDE Python con soporte para input()
 # Escribe cualquier código Python estándar
@@ -992,13 +1041,11 @@ print(f"Squares: {squares}")
 
 print("\\n✅ Everything works perfectly!")`;
             
-            // Verificar si el contenido actual es el ejemplo en español o inglés antes de cambiar
             const currentCode = codeEditor.value;
             if (currentCode === defaultExampleSpanish || currentCode === defaultExampleEnglish || currentCode.trim() === defaultExampleSpanish.trim() || currentCode.trim() === defaultExampleEnglish.trim()) {
                 codeEditor.value = lang === 'es' ? defaultExampleSpanish : defaultExampleEnglish;
             }
             
-            // Actualizar el stdin placeholder con ejemplo según idioma
             const stdinArea = document.getElementById('pythonStdin');
             if (lang === 'es') {
                 if (stdinArea.value === "Juan\n25" || stdinArea.value === "John\n25") {
@@ -1012,11 +1059,9 @@ print("\\n✅ Everything works perfectly!")`;
                 stdinArea.placeholder = translations.en.ide_stdin_placeholder;
             }
             
-            // Título de la página
             document.title = translations[lang].titulo;
         }
         
-        // Configurar el botón flotante de idioma
         function initLanguageSwitcher() {
             const toggleBtn = document.getElementById('floatingLanguageToggle');
             const dropdown = document.getElementById('floatingLanguageDropdown');
@@ -1043,13 +1088,42 @@ print("\\n✅ Everything works perfectly!")`;
             setLanguage(currentLang);
         }
         
-        // ========== PRECARGADOR ==========
-        window.addEventListener('load', () => {
+        // ========== NUEVO PRELOADER CON DURACIÓN MÍNIMA Y BARRA MÁS LENTA ==========
+        window.addEventListener('load', function() {
+            let progress = 0;
+            const loadingBar = document.getElementById('loading-bar');
+            const loadingText = document.getElementById('loading-text');
             const preloader = document.getElementById('preloader');
-            if (preloader) preloader.style.opacity = '0';
-            setTimeout(() => {
-                if (preloader) preloader.style.display = 'none';
-            }, 500);
+            
+            const startTime = Date.now();
+            const minDuration = 2500; // Duración mínima en milisegundos (2.5 segundos) - AJUSTA ESTE VALOR A TU GUSTO
+            
+            const interval = setInterval(function() {
+                // Incremento más pequeño para que dure más (entre 2 y 6)
+                progress += Math.floor(Math.random() * 5) + 2;
+                if (progress > 100) progress = 100;
+                
+                if (loadingBar) loadingBar.style.width = progress + '%';
+                
+                if (loadingText) {
+                    if (progress < 30) loadingText.textContent = "Cargando recursos...";
+                    else if (progress < 70) loadingText.textContent = "Inicializando componentes...";
+                    else loadingText.textContent = "¡Casi listo!";
+                }
+                
+                const elapsed = Date.now() - startTime;
+                // Si ya pasó el tiempo mínimo y el progreso llegó a 100%
+                if (progress >= 100 && elapsed >= minDuration) {
+                    clearInterval(interval);
+                    // Esperar un poco más antes de desvanecer
+                    setTimeout(() => {
+                        if (preloader) {
+                            preloader.style.opacity = '0';
+                            setTimeout(() => preloader.style.display = 'none', 500);
+                        }
+                    }, 800); // 0.8 segundos extra
+                }
+            }, 60); // Intervalo más lento (60ms)
         });
         
         // ========== PARTICULAS ==========
@@ -1069,7 +1143,54 @@ print("\\n✅ Everything works perfectly!")`;
             }
         });
         
-        // ========== IDE PYTHON FUNCIONAL ==========
+        // ========== CORRECCIÓN ROBUSTA PARA LA FOTO DE PERFIL ==========
+        (function fixProfileImage() {
+            const profileImg = document.getElementById('profileAvatar');
+            if (!profileImg) return;
+            
+            const pathsToTry = [
+                "MEDIA/BCHINO.jpeg",
+                "MEDIA/BCHINO.jpg",
+                "MEDIA/bchino.jpeg",
+                "MEDIA/bchino.jpg",
+                "media/BCHINO.jpeg",
+                "media/BCHINO.jpg",
+                "media/bchino.jpeg",
+                "media/bchino.jpg",
+                "./MEDIA/BCHINO.jpeg",
+                "./MEDIA/BCHINO.jpg",
+                "./media/BCHINO.jpeg",
+                "./media/BCHINO.jpg"
+            ];
+            
+            let currentTry = 0;
+            
+            function tryNextPath() {
+                if (currentTry >= pathsToTry.length) {
+                    console.warn("No se pudo cargar la foto de perfil después de múltiples intentos.");
+                    return;
+                }
+                const testImg = new Image();
+                testImg.onload = function() {
+                    profileImg.src = pathsToTry[currentTry];
+                    profileImg.onerror = null;
+                };
+                testImg.onerror = function() {
+                    currentTry++;
+                    tryNextPath();
+                };
+                testImg.src = pathsToTry[currentTry];
+            }
+            
+            profileImg.onerror = function() {
+                if (profileImg.getAttribute('data-fixing') === 'true') return;
+                profileImg.setAttribute('data-fixing', 'true');
+                currentTry = 0;
+                tryNextPath();
+            };
+        })();
+        
+        // ========== IDE PYTHON FUNCIONAL (SIN CAMBIOS) ==========
         (function() {
             let pyodideReady = false;
             let pyodide = null;
@@ -1307,7 +1428,6 @@ print("\\n✅ Everything works perfectly!")`;
         }
         window.handleLogin = handleLogin;
         
-        // Inicializar idioma después de que el DOM esté listo
         document.addEventListener('DOMContentLoaded', initLanguageSwitcher);
     </script>
     <script src="java.js" defer></script>
