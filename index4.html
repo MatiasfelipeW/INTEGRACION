@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Matías Felipe Whiat - Innovador Digital</title>
+    <title>Matías Felipe Whiat | Innovador Digital Full Stack</title>
     
     <!-- ========== SEGURIDAD ========== -->
     <meta http-equiv="X-Content-Type-Options" content="nosniff">
@@ -11,20 +11,17 @@
     <meta http-equiv="Permissions-Policy" content="geolocation=(), microphone=(), camera=(), magnetometer=(), gyroscope=(), clipboard-read=(), payment=()">
     <meta http-equiv="X-XSS-Protection" content="1; mode=block">
     
-    <!-- Favicon animado dinámico -->
+    <!-- Favicon animado -->
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🔮</text></svg>" type="image/svg+xml">
     
-    <!-- Bootstrap CSS -->
+    <!-- Bootstrap + FontAwesome + Google Fonts + Animate.css -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- FontAwesome -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600;700&family=Source+Code+Pro:wght@300;400;500&display=swap" rel="stylesheet">
-    <!-- Animate.css -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
     
     <style>
-        /* ========== ANTI-SELECTION & ANTI-DRAG ========== */
+        /* ========== ANTI-SELECTION & ANTI-DRAG (igual que antes) ========== */
         * {
             -webkit-user-select: none !important;
             -moz-user-select: none !important;
@@ -33,27 +30,18 @@
             -webkit-tap-highlight-color: transparent;
             -webkit-touch-callout: none !important;
         }
-        
-        /* Excepciones para elementos que necesitan ser seleccionables (inputs, textarea) */
         input, textarea, [contenteditable="true"] {
             -webkit-user-select: text !important;
             -moz-user-select: text !important;
             -ms-user-select: text !important;
             user-select: text !important;
         }
-        
         img, video, iframe {
             -webkit-user-drag: none !important;
             user-drag: none !important;
             pointer-events: auto;
         }
-        
-        ::selection {
-            background: transparent;
-        }
-        ::-moz-selection {
-            background: transparent;
-        }
+        ::selection, ::-moz-selection { background: transparent; }
         
         :root {
             --dark-bg: #0a0a0a;
@@ -67,7 +55,8 @@
             --border: rgba(0, 212, 255, 0.2);
             --grid-color: rgba(0, 212, 255, 0.15);
             --section-gradient: linear-gradient(135deg, rgba(10, 15, 30, 0.9), rgba(5, 10, 25, 0.95));
-            
+            --liquid-gold: #ffbb44;
+            --liquid-gold-glow: rgba(255, 187, 68, 0.3);
             --instagram: linear-gradient(45deg, #405DE6, #5851DB, #833AB4, #C13584, #E1306C, #FD1D1D, #F56040, #F77737, #FCAF45, #FFDC80);
             --linkedin: #0077B5;
             --whatsapp: #25D366;
@@ -75,16 +64,8 @@
             --website: var(--accent);
         }
         
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        html {
-            scroll-behavior: smooth;
-        }
-        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
         body {
             font-family: 'Montserrat', sans-serif;
             background-color: var(--dark-bg);
@@ -92,14 +73,9 @@
             overflow-x: hidden;
             line-height: 1.6;
         }
+        h1, h2, h3, h4, h5, h6 { font-family: 'Orbitron', sans-serif; font-weight: 600; color: var(--text-lighter); }
         
-        h1, h2, h3, h4, h5, h6 {
-            font-family: 'Orbitron', sans-serif;
-            font-weight: 600;
-            color: var(--text-lighter);
-        }
-        
-        /* Fondo futurista */
+        /* Fondo futurista (partículas, red neuronal) */
         .futuristic-bg {
             position: fixed;
             top: 0;
@@ -110,24 +86,8 @@
             background: radial-gradient(circle at 20% 50%, rgba(10, 15, 30, 0.9) 0%, rgba(5, 5, 15, 1) 70%);
             overflow: hidden;
         }
-        
-        .neural-network {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            opacity: 0.3;
-        }
-        
-        .holographic-particles {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-        }
-        
+        .neural-network { position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0.3; }
+        .holographic-particles { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
         .h-particle {
             position: absolute;
             background: rgba(0, 212, 255, 0.1);
@@ -135,24 +95,12 @@
             box-shadow: 0 0 10px var(--accent-glow);
             animation: h-particle-float linear infinite;
         }
-        
         @keyframes h-particle-float {
-            0% {
-                transform: translateY(100vh) translateX(0) rotate(0deg);
-                opacity: 0;
-            }
-            10% {
-                opacity: 0.7;
-            }
-            90% {
-                opacity: 0.7;
-            }
-            100% {
-                transform: translateY(-100px) translateX(20px) rotate(180deg);
-                opacity: 0;
-            }
+            0% { transform: translateY(100vh) translateX(0) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.7; }
+            90% { opacity: 0.7; }
+            100% { transform: translateY(-100px) translateX(20px) rotate(180deg); opacity: 0; }
         }
-        
         .connection-line {
             position: absolute;
             background: linear-gradient(90deg, transparent, var(--accent), transparent);
@@ -160,13 +108,9 @@
             box-shadow: 0 0 8px var(--accent-glow);
             animation: line-pulse 3s infinite;
         }
+        @keyframes line-pulse { 0%, 100% { opacity: 0.3; } 50% { opacity: 0.8; } }
         
-        @keyframes line-pulse {
-            0%, 100% { opacity: 0.3; }
-            50% { opacity: 0.8; }
-        }
-        
-        /* Navbar futurista */
+        /* Navbar */
         .navbar {
             background: rgba(10, 10, 15, 0.9);
             backdrop-filter: blur(15px);
@@ -175,13 +119,7 @@
             transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
             z-index: 1000;
         }
-        
-        .navbar.scrolled {
-            padding: 12px 0;
-            background: rgba(8, 8, 15, 0.95);
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
-        }
-        
+        .navbar.scrolled { padding: 12px 0; background: rgba(8, 8, 15, 0.95); box-shadow: 0 5px 20px rgba(0,0,0,0.3); }
         .navbar-brand {
             font-family: 'Orbitron', sans-serif;
             font-weight: 700;
@@ -190,7 +128,6 @@
             letter-spacing: 1.5px;
             position: relative;
         }
-        
         .navbar-brand::after {
             content: '';
             position: absolute;
@@ -203,11 +140,7 @@
             transition: transform 0.3s ease;
             box-shadow: 0 0 10px var(--accent-glow);
         }
-        
-        .navbar-brand:hover::after {
-            transform: scaleX(1);
-        }
-        
+        .navbar-brand:hover::after { transform: scaleX(1); }
         .nav-link {
             color: var(--text-light) !important;
             margin: 0 10px;
@@ -216,9 +149,7 @@
             font-weight: 500;
             transition: all 0.3s ease;
             font-size: 0.95rem;
-            letter-spacing: 0.5px;
         }
-        
         .nav-link::before {
             content: '>';
             position: absolute;
@@ -227,13 +158,7 @@
             transition: all 0.3s ease;
             color: var(--accent);
         }
-        
-        .nav-link:hover::before,
-        .nav-link.active::before {
-            opacity: 1;
-            left: -10px;
-        }
-        
+        .nav-link:hover::before, .nav-link.active::before { opacity: 1; left: -10px; }
         .nav-link::after {
             content: '';
             position: absolute;
@@ -245,13 +170,9 @@
             transition: width 0.3s ease;
             box-shadow: 0 0 8px var(--accent-glow);
         }
+        .nav-link:hover::after, .nav-link.active::after { width: 100%; }
         
-        .nav-link:hover::after,
-        .nav-link.active::after {
-            width: 100%;
-        }
-        
-        /* Hero Section */
+        /* Hero (mejorado) */
         .hero-section {
             min-height: 100vh;
             display: flex;
@@ -260,66 +181,46 @@
             padding: 150px 0 100px;
             overflow: hidden;
         }
-        
-        .hero-content {
-            position: relative;
-            z-index: 2;
-        }
-        
         .hero-title {
             font-size: 4rem;
             font-weight: 700;
             margin-bottom: 20px;
-            color: var(--text-lighter);
-            line-height: 1.1;
             text-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
-            position: relative;
         }
-        
         .hero-title::after {
             content: '';
             position: absolute;
             bottom: -10px;
-            left: 0;
+            left: 50%;
+            transform: translateX(-50%);
             width: 150px;
             height: 4px;
             background: var(--accent);
             box-shadow: 0 0 15px var(--accent-glow);
         }
-        
-        .hero-subtitle {
-            font-size: 1.5rem;
-            margin-bottom: 30px;
-            color: var(--accent-light);
-            font-weight: 400;
-            letter-spacing: 1px;
-        }
-        
+        .hero-subtitle { font-size: 1.5rem; margin-bottom: 30px; color: var(--accent-light); font-weight: 400; }
         .hero-badges {
             display: flex;
             flex-wrap: wrap;
+            justify-content: center;
             gap: 15px;
             margin-bottom: 40px;
         }
-        
         .hero-badge {
             background: rgba(0, 212, 255, 0.1);
             border: 1px solid var(--border);
             color: var(--accent-light);
             padding: 12px 24px;
             border-radius: 30px;
-            font-size: 0.9rem;
             font-family: 'Source Code Pro', monospace;
             transition: all 0.3s ease;
             backdrop-filter: blur(5px);
         }
-        
         .hero-badge:hover {
-            background: rgba(0, 212, 255, 0.2);
+            background: rgba(0,212,255,0.2);
             transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0, 212, 255, 0.2);
+            box-shadow: 0 5px 15px rgba(0,212,255,0.2);
         }
-        
         .hero-btn {
             background: transparent;
             color: var(--text-lighter);
@@ -327,42 +228,19 @@
             padding: 16px 36px;
             border-radius: 30px;
             font-weight: 600;
-            font-size: 1.1rem;
             transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
             backdrop-filter: blur(5px);
-            box-shadow: 0 0 20px rgba(0, 212, 255, 0.2);
+            box-shadow: 0 0 20px rgba(0,212,255,0.2);
         }
-        
-        .hero-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(0, 212, 255, 0.2), transparent);
-            transition: left 0.5s ease;
-        }
-        
-        .hero-btn:hover::before {
-            left: 100%;
-        }
-        
         .hero-btn:hover {
             transform: translateY(-3px);
             border-color: var(--accent-light);
-            box-shadow: 0 10px 25px rgba(0, 212, 255, 0.3);
-            background: rgba(0, 212, 255, 0.05);
+            background: rgba(0,212,255,0.05);
+            box-shadow: 0 10px 25px rgba(0,212,255,0.3);
         }
         
-        /* Secciones */
-        .section {
-            padding: 120px 0;
-            position: relative;
-        }
-        
+        /* Secciones generales */
+        .section { padding: 120px 0; position: relative; }
         .section::before {
             content: '';
             position: absolute;
@@ -373,16 +251,13 @@
             background: var(--section-gradient);
             z-index: -1;
         }
-        
         .section-title {
             font-size: 2.8rem;
             margin-bottom: 70px;
-            position: relative;
             text-align: center;
-            color: var(--text-lighter);
-            text-shadow: 0 0 15px rgba(0, 212, 255, 0.3);
+            text-shadow: 0 0 15px rgba(0,212,255,0.3);
+            position: relative;
         }
-        
         .section-title::after {
             content: '';
             position: absolute;
@@ -395,582 +270,258 @@
             box-shadow: 0 0 10px var(--accent-glow);
         }
         
-        /* About */
+        /* About (manteniendo estructura) */
         .about-img-container {
             position: relative;
             border-radius: 15px;
             overflow: hidden;
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.4);
             transition: all 0.5s ease;
             border: 1px solid var(--border);
         }
-        
-        .about-img-container::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(45deg, transparent, rgba(0, 212, 255, 0.1), transparent);
-            z-index: 1;
-            opacity: 0;
-            transition: opacity 0.5s ease;
-        }
-        
-        .about-img-container:hover::before {
-            opacity: 1;
-        }
-        
         .about-img-container:hover {
             transform: translateY(-10px) scale(1.02);
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5), 0 0 30px rgba(0, 212, 255, 0.2);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.5), 0 0 30px rgba(0,212,255,0.2);
         }
-        
-        .about-img {
-            width: 100%;
-            height: auto;
-            display: block;
-            transition: transform 0.8s ease;
-        }
-        
-        .about-img-container:hover .about-img {
-            transform: scale(1.05);
-        }
-        
-        .about-text {
-            padding-left: 40px;
-        }
-        
-        .about-text p {
-            margin-bottom: 25px;
-            font-size: 1.15rem;
-            color: var(--text-light);
-        }
-        
-        .highlight {
-            background: rgba(0, 212, 255, 0.15);
-            padding: 2px 8px;
-            border-radius: 4px;
-            font-weight: 600;
-            color: var(--accent-light);
-        }
-        
+        .about-img { width: 100%; height: auto; display: block; transition: transform 0.8s ease; }
+        .about-img-container:hover .about-img { transform: scale(1.05); }
+        .about-text p { margin-bottom: 25px; font-size: 1.15rem; }
+        .highlight { background: rgba(0,212,255,0.15); padding: 2px 8px; border-radius: 4px; color: var(--accent-light); font-weight: 600; }
         .cybersecurity-badge {
-            display: inline-block;
-            background: rgba(0, 30, 60, 0.5);
-            color: var(--text-lighter);
+            background: rgba(0,30,60,0.5);
             padding: 18px 28px;
             border-radius: 10px;
             margin: 25px 0;
-            font-weight: 600;
             border-left: 4px solid var(--accent);
             backdrop-filter: blur(10px);
             border: 1px solid var(--border);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-            position: relative;
-            overflow: hidden;
         }
-        
-        .cybersecurity-badge::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(0, 212, 255, 0.1), transparent);
-            transition: left 0.7s ease;
-        }
-        
-        .cybersecurity-badge:hover::before {
-            left: 100%;
-        }
-        
-        .tech-stack {
-            margin-top: 40px;
-        }
-        
+        .tech-stack { margin-top: 40px; }
         .tech-badge {
             display: inline-block;
-            background: rgba(0, 212, 255, 0.1);
+            background: rgba(0,212,255,0.1);
             color: var(--accent-light);
             padding: 12px 22px;
             border-radius: 30px;
             margin: 10px;
             font-family: 'Source Code Pro', monospace;
-            font-size: 0.9rem;
             border: 1px solid var(--border);
             transition: all 0.3s ease;
-            backdrop-filter: blur(5px);
         }
-        
         .tech-badge:hover {
-            background: rgba(0, 212, 255, 0.2);
+            background: rgba(0,212,255,0.2);
             transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0, 212, 255, 0.2);
+            box-shadow: 0 5px 15px rgba(0,212,255,0.2);
         }
         
-        /* Whiat Company */
-        .whiat-card {
+        /* Tarjetas de cursos / certificaciones */
+        .course-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
+            border: 1px solid var(--border);
+            padding: 1.5rem;
+            transition: all 0.4s ease;
+            height: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+        .course-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--accent);
+            box-shadow: 0 20px 30px -10px rgba(0,212,255,0.2);
+        }
+        .course-card.expired {
+            opacity: 0.85;
+            border-left: 4px solid #ffaa44;
+        }
+        .course-card.harvard {
+            border-top: 3px solid #a51c30;
+        }
+        .course-icon {
+            font-size: 2.5rem;
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+        .course-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        .course-org {
+            font-size: 0.9rem;
+            color: var(--accent-light);
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .course-status {
+            font-size: 0.8rem;
+            background: rgba(0,0,0,0.5);
+            display: inline-block;
+            padding: 0.2rem 0.8rem;
+            border-radius: 20px;
+            margin-top: 0.8rem;
+        }
+        .status-expired { color: #ffaa44; border: 1px solid #ffaa44; }
+        .status-active { color: #44ffaa; border: 1px solid #44ffaa; }
+        
+        /* idiomas y blockchain extra */
+        .lang-block {
+            background: rgba(0,0,0,0.3);
+            border-radius: 20px;
+            padding: 1.8rem;
+            text-align: center;
+            backdrop-filter: blur(8px);
+            border: 1px solid var(--border);
+        }
+        .lang-level {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--accent);
+        }
+        .crypto-badge {
+            background: linear-gradient(135deg, #f7931a, #ffd93d);
+            color: #0a0a0a;
+            font-weight: bold;
+        }
+        
+        /* Whiat Company Cards */
+        .whiat-card, .feature-card, .social-card, .liquidation-card {
             background-color: var(--card-bg);
             border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-            margin-bottom: 50px;
-            border: 1px solid var(--border);
             backdrop-filter: blur(15px);
+            border: 1px solid var(--border);
             transition: all 0.4s ease;
         }
-        
-        .whiat-card:hover {
+        .whiat-card:hover, .feature-card:hover, .social-card:hover, .liquidation-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4), 0 0 30px rgba(0, 212, 255, 0.1);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.4), 0 0 30px rgba(0,212,255,0.1);
+            border-color: rgba(0,212,255,0.4);
         }
-        
-        .card-header {
-            background-color: rgba(10, 20, 40, 0.9);
-            padding: 25px;
-            border-bottom: 1px solid var(--border);
+        .liquidation-card {
+            border-left: 4px solid var(--liquid-gold);
+            background: linear-gradient(135deg, rgba(20,20,35,0.9), rgba(10,10,25,0.95));
         }
-        
-        .card-title {
-            font-size: 1.7rem;
-            margin-bottom: 0;
-            color: var(--text-lighter);
-            text-shadow: 0 0 10px rgba(0, 212, 255, 0.3);
+        .liquid-status-badge {
+            background: rgba(255,187,68,0.15);
+            border: 1px solid var(--liquid-gold);
+            color: var(--liquid-gold);
+            border-radius: 40px;
+            padding: 8px 20px;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            backdrop-filter: blur(4px);
+            letter-spacing: 1px;
         }
-        
-        .card-body {
-            padding: 35px;
+        .link-liquidation-btn {
+            background: linear-gradient(95deg, rgba(255,187,68,0.2), rgba(0,212,255,0.1));
+            border: 1.5px solid var(--liquid-gold);
+            color: var(--liquid-gold);
+            padding: 12px 28px;
+            border-radius: 40px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            backdrop-filter: blur(5px);
         }
-        
-        .card-body p {
-            margin-bottom: 25px;
-            color: var(--text-light);
-            font-size: 1.1rem;
+        .link-liquidation-btn:hover {
+            background: var(--liquid-gold);
+            color: #0a0a0a;
+            border-color: var(--liquid-gold);
+            box-shadow: 0 0 20px rgba(255,187,68,0.5);
+            transform: translateY(-3px);
         }
-        
-        .feature-card {
-            background: var(--card-bg);
-            border-radius: 15px;
-            padding: 35px;
-            height: 100%;
-            transition: all 0.4s ease;
-            border: 1px solid var(--border);
-            position: relative;
-            overflow: hidden;
-            backdrop-filter: blur(15px);
-        }
-        
-        .feature-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(45deg, transparent, rgba(0, 212, 255, 0.05), transparent);
-            opacity: 0;
-            transition: opacity 0.4s ease;
-        }
-        
-        .feature-card:hover::before {
-            opacity: 1;
-        }
-        
-        .feature-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 25px rgba(0, 212, 255, 0.1);
-            border-color: rgba(0, 212, 255, 0.4);
-        }
-        
-        .feature-icon {
-            font-size: 3rem;
-            margin-bottom: 25px;
-            color: var(--accent);
-            text-shadow: 0 0 10px var(--accent-glow);
-        }
-        
-        .feature-title {
-            font-size: 1.4rem;
-            margin-bottom: 20px;
-            color: var(--text-lighter);
-        }
-        
-        .feature-text {
-            color: rgba(255, 255, 255, 0.85);
-            font-size: 1rem;
-        }
-        
-        /* Social Cards */
-        .social-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 35px;
-            margin-top: 60px;
-        }
-        
-        .social-card {
-            background: var(--card-bg);
-            border-radius: 15px;
-            overflow: hidden;
-            transition: all 0.5s ease;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
-            border: 1px solid var(--border);
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            position: relative;
-            backdrop-filter: blur(15px);
-        }
-        
-        .social-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(45deg, transparent, rgba(0, 212, 255, 0.05), transparent);
-            opacity: 0;
-            transition: opacity 0.5s ease;
-        }
-        
-        .social-card:hover::before {
-            opacity: 1;
-        }
-        
-        .social-card:hover {
-            transform: translateY(-12px);
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4), 0 0 30px rgba(0, 212, 255, 0.1);
-            border-color: rgba(0, 212, 255, 0.4);
-        }
-        
-        .logo-container {
+        .feature-icon { font-size: 3rem; margin-bottom: 25px; color: var(--accent); }
+        .social-card .logo-container {
             height: 180px;
-            width: 100%;
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: all 0.6s ease;
-            position: relative;
-            overflow: hidden;
         }
-        
-        .logo-container::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.2);
-            z-index: 1;
-        }
-        
-        .social-card:hover .logo-container {
-            transform: scale(1.05);
-        }
-        
-        .logo-text {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 4.5rem;
-            font-weight: 700;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            position: relative;
-            z-index: 2;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-        }
-        
-        .instagram-logo { background: var(--instagram); color: white; }
-        .linkedin-logo { background: var(--linkedin); color: white; }
-        .whatsapp-logo { background: var(--whatsapp); color: white; }
-        .email-logo { background: var(--gmail); color: white; }
+        .instagram-logo { background: var(--instagram); }
+        .linkedin-logo { background: var(--linkedin); }
+        .whatsapp-logo { background: var(--whatsapp); }
+        .email-logo { background: var(--gmail); }
         .website-logo { background: linear-gradient(135deg, #0a0a1a, #0a1525); color: var(--accent); }
         
-        .social-card-body {
-            padding: 30px;
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-        }
-        
-        .social-card-title {
-            font-size: 1.4rem;
-            margin-bottom: 15px;
-            color: var(--text-lighter);
-        }
-        
-        .social-card-text {
-            color: rgba(255, 255, 255, 0.85);
-            margin-bottom: 25px;
-            flex: 1;
-        }
-        
-        .social-btn {
-            background: transparent;
-            color: var(--text-lighter);
-            border: 1px solid var(--border);
-            padding: 14px 24px;
-            border-radius: 30px;
-            font-weight: 500;
-            transition: all 0.3s ease;
-            text-align: center;
-            display: block;
-            backdrop-filter: blur(5px);
-        }
-        
-        .social-btn:hover {
-            transform: translateY(-3px);
-            border-color: var(--accent);
-            background: rgba(0, 212, 255, 0.1);
-            color: var(--text-lighter);
-            box-shadow: 0 5px 15px rgba(0, 212, 255, 0.2);
-        }
-        
-        /* Video */
         .video-container {
             position: relative;
             padding-bottom: 56.25%;
             height: 0;
-            overflow: hidden;
             border-radius: 15px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-            margin-bottom: 50px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
             border: 1px solid var(--border);
-            transition: all 0.4s ease;
         }
+        .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
         
-        .video-container:hover {
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4), 0 0 30px rgba(0, 212, 255, 0.1);
-        }
-        
-        .video-container iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-        
-        .video-content {
-            text-align: center;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-        
-        .video-title {
-            font-size: 2.8rem;
-            margin-bottom: 25px;
-            color: var(--text-lighter);
-            text-shadow: 0 0 15px rgba(0, 212, 255, 0.3);
-        }
-        
-        .video-text {
-            font-size: 1.2rem;
-            margin-bottom: 40px;
-            opacity: 0.9;
-        }
-        
-        .video-btn {
-            background: transparent;
-            color: var(--text-lighter);
-            border: 2px solid var(--accent);
-            padding: 16px 36px;
-            border-radius: 30px;
-            font-weight: 500;
-            font-size: 1.1rem;
-            transition: all 0.3s ease;
-            display: inline-flex;
-            align-items: center;
-            backdrop-filter: blur(5px);
-            box-shadow: 0 0 20px rgba(0, 212, 255, 0.2);
-        }
-        
-        .video-btn:hover {
-            transform: translateY(-5px);
-            border-color: var(--accent-light);
-            background: rgba(0, 212, 255, 0.05);
-            box-shadow: 0 10px 25px rgba(0, 212, 255, 0.3);
-        }
-        
-        .video-btn i {
-            margin-right: 12px;
-        }
-        
-        /* Footer */
         footer {
-            background-color: rgba(8, 8, 15, 0.95);
-            color: var(--text-light);
-            padding: 60px 0 25px;
-            position: relative;
+            background-color: rgba(8,8,15,0.95);
             border-top: 1px solid var(--border);
+            padding: 60px 0 25px;
         }
-        
-        .footer-content {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-        }
-        
         .footer-logo {
             font-family: 'Orbitron', sans-serif;
-            font-weight: 700;
             font-size: 1.8rem;
-            color: var(--text-lighter);
             margin-bottom: 25px;
-            text-shadow: 0 0 10px rgba(0, 212, 255, 0.3);
             position: relative;
         }
-        
-        .footer-logo::after {
-            content: '';
-            position: absolute;
-            bottom: -8px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 60px;
-            height: 2px;
-            background: var(--accent);
-            box-shadow: 0 0 8px var(--accent-glow);
-        }
-        
-        .footer-links {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 25px;
-            margin-bottom: 35px;
-        }
-        
-        .footer-link {
-            color: rgba(255, 255, 255, 0.7);
-            text-decoration: none;
-            transition: all 0.3s ease;
-            position: relative;
-            font-weight: 500;
-        }
-        
-        .footer-link::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 1px;
-            background: var(--accent);
-            transition: width 0.3s ease;
-        }
-        
-        .footer-link:hover {
-            color: var(--text-lighter);
-        }
-        
-        .footer-link:hover::after {
-            width: 100%;
-        }
-        
-        .footer-copyright {
-            font-size: 0.95rem;
-            opacity: 0.8;
-            margin-top: 25px;
-        }
-        
-        /* Animaciones */
-        @keyframes float {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-12px); }
-            100% { transform: translateY(0px); }
-        }
-        
-        .floating {
-            animation: float 5s ease-in-out infinite;
-        }
+        .footer-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 25px; margin-bottom: 35px; }
+        .footer-link { color: rgba(255,255,255,0.7); text-decoration: none; transition: 0.3s; }
+        .footer-link:hover { color: var(--text-lighter); text-decoration: underline; }
         
         .fade-in {
             opacity: 0;
             transform: translateY(30px);
             transition: opacity 0.8s ease, transform 0.8s ease;
         }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
         
-        .fade-in.visible {
-            opacity: 1;
-            transform: translateY(0);
+        /* Badge especial para telecomunicaciones */
+        .telecom-badge {
+            background: linear-gradient(95deg, rgba(0,212,255,0.2), rgba(0,100,255,0.1));
+            border: 1px solid var(--accent);
+            color: var(--accent-light);
+            font-weight: bold;
+            animation: borderPulse 2s infinite;
         }
-        
-        .glow-effect {
-            position: relative;
-        }
-        
-        .glow-effect::after {
-            content: '';
-            position: absolute;
-            top: -2px;
-            left: -2px;
-            right: -2px;
-            bottom: -2px;
-            background: linear-gradient(45deg, var(--accent), var(--accent-light), var(--accent));
-            z-index: -1;
-            border-radius: inherit;
-            opacity: 0;
-            transition: opacity 0.4s ease;
-        }
-        
-        .glow-effect:hover::after {
-            opacity: 0.4;
-        }
-        
-        /* Responsive */
-        @media (max-width: 1200px) {
-            .hero-title { font-size: 3.5rem; }
-            .logo-text { font-size: 4rem; }
-        }
-        @media (max-width: 992px) {
-            .hero-title { font-size: 3rem; }
-            .about-text { padding-left: 0; margin-top: 50px; }
-            .section { padding: 100px 0; }
-            .section-title { font-size: 2.5rem; }
-            .logo-text { font-size: 3.5rem; }
+        @keyframes borderPulse {
+            0% { border-color: var(--accent); box-shadow: 0 0 0 0 rgba(0,212,255,0.4);}
+            50% { border-color: #80eaff; box-shadow: 0 0 12px 2px rgba(0,212,255,0.6);}
+            100% { border-color: var(--accent); box-shadow: 0 0 0 0 rgba(0,212,255,0.4);}
         }
         @media (max-width: 768px) {
-            .hero-section { padding: 160px 0 100px; }
             .hero-title { font-size: 2.5rem; }
-            .hero-subtitle { font-size: 1.3rem; }
-            .social-grid { grid-template-columns: 1fr; }
-            .video-title { font-size: 2.3rem; }
-            .logo-text { font-size: 3rem; }
-        }
-        @media (max-width: 576px) {
-            .hero-title { font-size: 2.2rem; }
-            .hero-badges { justify-content: center; }
-            .footer-links { flex-direction: column; gap: 15px; }
             .section-title { font-size: 2.2rem; }
-            .logo-text { font-size: 2.5rem; }
         }
     </style>
 </head>
 <body data-bs-spy="scroll" data-bs-target=".navbar" data-bs-offset="100">
-    <!-- Fondo futurista -->
     <div class="futuristic-bg">
         <div class="holographic-particles" id="holographicParticles"></div>
         <div class="neural-network" id="neuralNetwork"></div>
     </div>
     
-    <!-- Barra de navegación -->
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
         <div class="container">
             <a class="navbar-brand" href="#">MATÍAS WHIAT</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item"><a class="nav-link active" href="#about">SOBRE MÍ</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#education">FORMACIÓN</a></li>
                     <li class="nav-item"><a class="nav-link" href="#whiat">WHIAT COMPANY</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#garantias">GARANTÍAS (LIQ)</a></li>
+                    <li class="nav-item"><a class="nav-link" href="index3.html" target="_blank">🔗 DETALLE LIQUIDACIÓN</a></li>
                     <li class="nav-item"><a class="nav-link" href="#encuentrame">CONÉCTATE</a></li>
                     <li class="nav-item"><a class="nav-link" href="#whiat-company">VIDEO</a></li>
                 </ul>
@@ -978,19 +529,19 @@
         </div>
     </nav>
 
-    <!-- Hero -->
     <section class="hero-section">
         <div class="container">
             <div class="hero-content text-center">
                 <h1 class="hero-title animate__animated animate__fadeInDown">MATÍAS FELIPE WHIAT</h1>
-                <p class="hero-subtitle animate__animated animate__fadeIn animate__delay-1s">Desarrollador Full Stack | Especialista en IA Legal | Innovador Digital</p>
+                <p class="hero-subtitle animate__animated animate__fadeIn animate__delay-1s">Full Stack Dev · Legal AI · Blockchain & Crypto</p>
                 <div class="hero-badges animate__animated animate__fadeInUp animate__delay-1s">
-                    <span class="hero-badge">JavaScript</span>
-                    <span class="hero-badge">Python</span>
-                    <span class="hero-badge">Inteligencia Artificial</span>
-                    <span class="hero-badge glow-effect">Blockchain</span>
-                    <span class="hero-badge">Derecho Digital</span>
+                    <span class="hero-badge">Egg Cooperation</span>
+                    <span class="hero-badge">CS50 Harvard</span>
+                    <span class="hero-badge">Talento Tech</span>
                     <span class="hero-badge">Ciberseguridad</span>
+                    <span class="hero-badge">Inglés C1</span>
+                    <span class="hero-badge">Minería Blockchain</span>
+                    <span class="hero-badge telecom-badge"><i class="fas fa-satellite-dish"></i> Ing. Telecomunicaciones (UdeA - Híbrido)</span>
                 </div>
                 <a href="#about" class="hero-btn animate__animated animate__fadeInUp animate__delay-2s">
                     <i class="fas fa-chevron-down me-2"></i>EXPLORAR PERFIL
@@ -999,32 +550,35 @@
         </div>
     </section>
 
-    <!-- Sobre Mí -->
+    <!-- Sección Sobre Mí con énfasis en Ingeniería de Telecomunicaciones -->
     <section id="about" class="section">
         <div class="container">
-            <h2 class="section-title animate__animated animate__fadeIn">SOBRE MÍ</h2>
+            <h2 class="section-title">SOBRE MÍ</h2>
             <div class="row align-items-center">
                 <div class="col-lg-6 mb-5 mb-lg-0">
                     <div class="about-img-container floating">
                         <img src="media/BCHINO.jpeg" class="about-img" alt="Matías Felipe Whiat" draggable="false">
                     </div>
                 </div>
-                <div class="col-lg-6 about-content">
+                <div class="col-lg-6">
                     <div class="about-text">
-                        <p>Soy un profesional apasionado por las leyes, la programación y la traducción. Actualmente vivo en Córdoba, Argentina. Además, soy propietario de <span class="highlight">Whiat Company</span>, una empresa dedicada al desarrollo de IA y soluciones de sistemas de automatización, y representante legal de <span class="highlight">Garantías Financieras y Jurídicas S.A.S.</span>.</p>
-                        <p>Mi trayectoria se ha enfocado en ofrecer soluciones innovadoras a empresas, soy estudiante de ingeniería en telecomunicaciones en la Universidad de Antioquia, manteniendo siempre el profesionalismo y la ética que me caracteriza. En Whiat Company ayudamos a empresas de todo el mundo con desarrollo web personalizado y bases de datos escalables.</p>
+                        <p><span class="highlight">Graduado de Egg Cooperation</span> como <strong>Desarrollador Full Stack</strong> y estudiante avanzado en la <strong>Universidad de Mendoza, Argentina</strong>. Complementé mi formación con los prestigiosos cursos <strong>CS50 de Harvard</strong> (Web, AI, Computer Science) y programas intensivos del gobierno de Colombia: <strong>Talento Tech</strong> (Universidad Sergio Arboleda) y <strong>Ciberseguridad con Ingenia, Sapiensa y la Universidad de Antioquia</strong>.</p>
+                        <p>Actualmente resido en Córdoba, Argentina, y soy propietario de <span class="highlight">Whiat Company</span> (registro mercantil 239746, Manizales, Colombia), empresa dedicada a IA Legal, automatización y desarrollo web. También soy <strong>propietario y representante legal de Garantías Financieras y Jurídicas S.A.S.</strong>, compañía que actualmente se encuentra en <strong>proceso de liquidación</strong>, cumpliendo con todos los marcos legales en Colombia y garantizando transparencia a sus acreedores.</p>
+                        <p><strong class="highlight"><i class="fas fa-university me-2"></i>Estudiante de Ingeniería de Telecomunicaciones en la Universidad de Antioquia (modalidad híbrida).</strong> Esta formación me permite desarrollar un <strong>“músculo internacional”</strong> único: combino conocimientos de redes, sistemas de comunicación, IoT y tecnologías inalámbricas con mi expertise en desarrollo full stack, ciberseguridad y blockchain. La flexibilidad del programa hibrido me facilita trabajar en proyectos globales mientras construyo una carrera transfronteriza.</p>
+                        <p>Idiomas: <strong>Inglés C1 (avanzado)</strong> y <strong>Alemán A2</strong>. Autodidacta en <strong>minería de blockchain</strong>, manejo de criptomonedas y tecnologías descentralizadas. Estudiante de ingeniería en telecomunicaciones en la Universidad de Antioquia.</p>
                         <div class="cybersecurity-badge glow-effect">
-                            <i class="fas fa-shield-alt me-2"></i>ACTUALMENTE ESTUDIANDO CIBERSEGURIDAD CON INGÉNIA Y LA UNIVERSIDAD DE ANTIOQUIA
+                            <i class="fas fa-shield-alt me-2"></i>ESPECIALIZÁNDOME EN CIBERSEGURIDAD · INGÉNIA + UNIVERSIDAD DE ANTIOQUIA
                         </div>
                         <div class="tech-stack">
-                            <span class="tech-badge">JavaScript</span>
+                            <span class="tech-badge">JavaScript/TypeScript</span>
                             <span class="tech-badge">Python</span>
-                            <span class="tech-badge">IA & Machine Learning</span>
-                            <span class="tech-badge glow-effect">Blockchain</span>
-                            <span class="tech-badge">Derecho Digital</span>
-                            <span class="tech-badge">Traducción</span>
+                            <span class="tech-badge">Django/Flask</span>
+                            <span class="tech-badge">React/Vue</span>
+                            <span class="tech-badge">Blockchain/Ethereum</span>
+                            <span class="tech-badge">Minería & Crypto</span>
                             <span class="tech-badge">Ciberseguridad</span>
-                            <span class="tech-badge">Telecomunicaciones</span>
+                            <span class="tech-badge">SQL/NoSQL</span>
+                            <span class="tech-badge telecom-badge"><i class="fas fa-wifi"></i> Telecomunicaciones / 5G</span>
                         </div>
                     </div>
                 </div>
@@ -1032,47 +586,89 @@
         </div>
     </section>
 
-    <!-- Whiat Company -->
-    <section id="whiat" class="section">
+    <!-- FORMACIÓN ACADÉMICA (agregando tarjeta de Ingeniería de Telecomunicaciones) -->
+    <section id="education" class="section">
         <div class="container">
-            <h2 class="section-title animate__animated animate__fadeIn">WHIAT COMPANY</h2>
-            <div class="whiat-content">
-                <div class="row justify-content-center">
-                    <div class="col-lg-10">
-                        <div class="whiat-card glow-effect">
-                            <div class="card-header">
-                                <h3 class="card-title">Innovación en Tecnología Legal</h3>
-                            </div>
-                            <div class="card-body">
-                                <p>Whiat Company es una empresa con registro mercantil 239746 de Manizales, Caldas, Colombia. Nos especializamos en crear sitios web personalizados y soluciones de bases de datos para empresas de todo el mundo.</p>
-                                <p>Nuestro equipo trabaja en crear plataformas digitales adaptadas a tus necesidades específicas, ya sea a nivel local o internacional.</p>
-                                <p>En Whiat Company, lideramos la integración de inteligencia artificial en el ámbito legal, desarrollando soluciones innovadoras para fortalecer la seguridad jurídica y optimizar los procesos legales. Nuestro enfoque en tecnologías de vanguardia, como blockchain y Ethereum, garantiza formas virtuales confiables y transparentes, ideales para la gestión segura de datos legales y transacciones con criptodivisas.</p>
-                            </div>
-                        </div>
+            <h2 class="section-title">🎓 FORMACIÓN & CERTIFICACIONES</h2>
+            <div class="row g-4 mb-5">
+                <!-- Nueva tarjeta destacada de Ingeniería de Telecomunicaciones -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="course-card" style="border-top: 3px solid #00d4ff;">
+                        <div class="course-icon"><i class="fas fa-satellite-dish"></i></div>
+                        <h3 class="course-title">Ingeniería de Telecomunicaciones</h3>
+                        <div class="course-org"><i class="fas fa-university"></i> Universidad de Antioquia (UdeA) · Modalidad Híbrida</div>
+                        <p>Formación integral en redes de comunicación, procesamiento de señales, sistemas inalámbricos 5G, fibra óptica, IoT y gestión de espectro. La flexibilidad del programa híbrido me permite integrar el ámbito tecnológico con proyectos internacionales y construir un perfil global.</p>
+                        <div class="course-status status-active"><i class="fas fa-calendar-alt"></i> En curso · Construyendo músculo internacional</div>
                     </div>
                 </div>
-                <div class="whiat-features">
-                    <div class="row">
-                        <div class="col-md-4 mb-4">
-                            <div class="feature-card glow-effect">
-                                <div class="feature-icon"><i class="fas fa-brain"></i></div>
-                                <h3 class="feature-title">IA Legal</h3>
-                                <p class="feature-text">Desarrollamos sistemas de inteligencia artificial especializados en el ámbito legal para optimizar procesos y mejorar la toma de decisiones.</p>
+                <!-- Resto de tarjetas iguales -->
+                <div class="col-md-6 col-lg-4"><div class="course-card"><div class="course-icon"><i class="fas fa-graduation-cap"></i></div><h3 class="course-title">Desarrollo Full Stack</h3><div class="course-org"><i class="fas fa-building"></i> Egg Cooperation · Universidad de Mendoza</div><p>Graduado como desarrollador full stack con enfoque en JavaScript, Node.js, React, bases de datos.</p><div class="course-status status-active"><i class="fas fa-check-circle"></i> Completado</div></div></div>
+                <div class="col-md-6 col-lg-4"><div class="course-card harvard"><div class="course-icon"><i class="fab fa-python"></i></div><h3 class="course-title">CS50's Web Programming</h3><div class="course-org"><i class="fab fa-harvard"></i> HarvardX · CS50W</div><p>Django, JavaScript, SQL, diseño de aplicaciones web completas.</p><div class="course-status status-active">Vigente · 70% para aprobar</div></div></div>
+                <div class="col-md-6 col-lg-4"><div class="course-card harvard"><div class="course-icon"><i class="fas fa-brain"></i></div><h3 class="course-title">CS50's IA con Python</h3><div class="course-org">HarvardX · CS50AI</div><p>Algoritmos de búsqueda, ML, redes neuronales, procesamiento de lenguaje.</p><div class="course-status status-active">Vigente · Dic 2026</div></div></div>
+                <div class="col-md-6 col-lg-4"><div class="course-card harvard"><div class="course-icon"><i class="fas fa-laptop-code"></i></div><h3 class="course-title">CS50x: Introducción a CS</h3><div class="course-org">HarvardX · CS50x</div><p>Fundamentos de computación, C, Python, algoritmos.</p><div class="course-status status-active">Vigente · Dic 2026</div></div></div>
+                <div class="col-md-6 col-lg-4"><div class="course-card"><div class="course-icon"><i class="fas fa-code-branch"></i></div><h3 class="course-title">Talento Tech</h3><div class="course-org"><i class="fas fa-university"></i> Gobierno de Colombia · Universidad Sergio Arboleda</div><div class="course-status status-active">Certificado</div></div></div>
+                <div class="col-md-6 col-lg-4"><div class="course-card"><div class="course-icon"><i class="fas fa-shield-virus"></i></div><h3 class="course-title">Ciberseguridad</h3><div class="course-org">Ingenia · Sapiensa · Universidad de Antioquia</div><div class="course-status status-active">En curso</div></div></div>
+                <div class="col-md-6 col-lg-4"><div class="course-card expired"><div class="course-icon"><i class="fab fa-js"></i></div><h3 class="course-title">JavaScript Introduction</h3><div class="course-org">W3Cx · JS.0x</div><div class="course-status status-expired"><i class="fas fa-hourglass-end"></i> Audit expirado</div></div></div>
+                <div class="col-md-6 col-lg-4"><div class="course-card expired"><div class="course-icon"><i class="fas fa-language"></i></div><h3 class="course-title">Inglés para todos - Básico</h3><div class="course-org">URosarioX</div><div class="course-status status-expired">Exp. Jun 2024</div></div></div>
+                <div class="col-md-6 col-lg-4"><div class="course-card expired"><div class="course-icon"><i class="fas fa-star"></i></div><h3 class="course-title">Astronomía Virtual</h3><div class="course-org">UNCordobaX</div><div class="course-status status-expired">Exp. May 2024</div></div></div>
+            </div>
+            <div class="row mt-5 g-4">
+                <div class="col-md-6"><div class="lang-block"><i class="fas fa-globe-americas fa-3x" style="color: var(--accent);"></i><h3 class="mt-3">Idiomas</h3><div class="lang-level">🇬🇧 Inglés C1 (Avanzado)</div><p>Certificado C1 / competencia profesional, negociación y técnica.</p><div class="lang-level mt-2">🇩🇪 Alemán A2</div><p>Nivel básico-intermedio, comprensión y expresión cotidiana.</p></div></div>
+                <div class="col-md-6"><div class="lang-block"><i class="fab fa-bitcoin fa-3x" style="color: #f7931a;"></i><h3 class="mt-3">Blockchain & Criptomonedas</h3><p>Conocimiento autodidacta en <strong>minería de criptomonedas</strong> (ASICs, pools), wallets descentralizadas, smart contracts (Ethereum), DeFi y trading algorítmico básico. Implementación de soluciones con blockchain para notarización legal en Whiat Company.</p><span class="tech-badge crypto-badge"><i class="fab fa-ethereum"></i> Minería ETH/KAS</span><span class="tech-badge crypto-badge"><i class="fas fa-chart-line"></i> Crypto Trading</span></div></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Whiat Company (sección existente) -->
+    <section id="whiat" class="section">
+        <div class="container">
+            <h2 class="section-title">WHIAT COMPANY</h2>
+            <div class="row justify-content-center"><div class="col-lg-10"><div class="whiat-card glow-effect p-4"><h3 class="card-title text-center">Innovación en Tecnología Legal</h3><p class="mt-3">Whiat Company (registro mercantil 239746, Manizales, Colombia) desarrolla soluciones de IA para el ámbito legal, automatización de documentos, blockchain notarial y desarrollo web full stack.</p><p>Soluciones escalables, ciberseguridad y contratos inteligentes.</p></div></div></div>
+            <div class="whiat-features mt-5"><div class="row"><div class="col-md-4 mb-4"><div class="feature-card p-4 text-center"><div class="feature-icon"><i class="fas fa-brain"></i></div><h3>IA Legal</h3><p>Procesamiento de lenguaje legal y contratos automatizados.</p></div></div><div class="col-md-4 mb-4"><div class="feature-card p-4 text-center"><div class="feature-icon"><i class="fas fa-code"></i></div><h3>Desarrollo Web</h3><p>React, Node, Python, bases de datos robustas.</p></div></div><div class="col-md-4 mb-4"><div class="feature-card p-4 text-center"><div class="feature-icon"><i class="fab fa-bitcoin"></i></div><h3>Blockchain & Crypto</h3><p>Smart contracts, minería, notarización descentralizada.</p></div></div></div></div>
+        </div>
+    </section>
+
+    <!-- Sección Garantías Financieras & Jurídicas S.A.S. con enlace a index3.html -->
+    <section id="garantias" class="section">
+        <div class="container">
+            <h2 class="section-title">⚖️ GARANTÍAS FINANCIERAS & JURÍDICAS S.A.S.</h2>
+            <div class="row justify-content-center">
+                <div class="col-lg-10">
+                    <div class="liquidation-card p-4 p-xl-5 fade-in">
+                        <div class="d-flex flex-wrap justify-content-between align-items-center mb-4">
+                            <div class="mb-3 mb-md-0">
+                                <h3 class="mb-1"><i class="fas fa-chart-line me-2" style="color: var(--liquid-gold);"></i> Propiedad de Matías Felipe Whiat</h3>
+                                <div class="liquid-status-badge mt-2"><i class="fas fa-spinner fa-pulse me-2"></i> PROCESO DE LIQUIDACIÓN ACTIVO</div>
+                            </div>
+                            <i class="fas fa-scale-balanced fa-3x" style="color: var(--liquid-gold); opacity: 0.7;"></i>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-7">
+                                <p><span class="highlight">Fui propietario único y representante legal</span> de <strong>Garantías Financieras y Jurídicas S.A.S.</strong>, empresa constituida bajo las leyes colombianas, especializada en otorgar garantías mobiliarias, asesoría financiera corporativa y respaldo jurídico a pymes y emprendedores.</p>
+                                <p>Actualmente, la compañía se encuentra en <strong>fase de liquidación voluntaria</strong>, cumpliendo rigurosamente con los plazos y obligaciones legales ante la Cámara de Comercio, DIAN y demás entes de control. Este proceso ordenado garantiza la transparencia total con acreedores, socios y empleados.</p>
+                                <div class="mt-4">
+                                    <a href="index3.html" class="link-liquidation-btn" target="_blank">
+                                        <i class="fas fa-external-link-alt"></i> VER DETALLE COMPLETO DE LIQUIDACIÓN
+                                        <i class="fas fa-arrow-right"></i>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-md-5">
+                                <div class="bg-dark p-3 rounded-3 border border-warning-subtle">
+                                    <i class="fas fa-gavel me-2" style="color: var(--liquid-gold);"></i> <strong>Impacto y transición</strong>
+                                    <p class="mt-2">La experiencia en el sector financiero-legal me ha brindado una visión única para <span class="highlight">Whiat Company</span>, fusionando el conocimiento jurídico con inteligencia artificial, blockchain y automatización.</p>
+                                    <div class="d-flex gap-3 mt-3 flex-wrap">
+                                        <span class="tech-badge" style="background:#ffbb4411;"><i class="fas fa-chart-simple"></i> Liquidación Regulada</span>
+                                        <span class="tech-badge" style="background:#ffbb4411;"><i class="fas fa-arrow-right-arrow-left"></i> Reestructuración</span>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <div class="col-md-4 mb-4">
-                            <div class="feature-card glow-effect">
-                                <div class="feature-icon"><i class="fas fa-code"></i></div>
-                                <h3 class="feature-title">Desarrollo Web</h3>
-                                <p class="feature-text">Creamos sitios web personalizados y aplicaciones escalables adaptadas a las necesidades específicas de cada cliente.</p>
-                            </div>
-                        </div>
-                        <div class="col-md-4 mb-4">
-                            <div class="feature-card glow-effect">
-                                <div class="feature-icon"><i class="fas fa-shield-alt"></i></div>
-                                <h3 class="feature-title">Seguridad Digital</h3>
-                                <p class="feature-text">Implementamos soluciones de blockchain y ciberseguridad para garantizar la seguridad y transparencia en transacciones y documentos legales.</p>
-                            </div>
+                        <hr class="my-4" style="border-color: var(--border);">
+                        <div class="row text-center">
+                            <div class="col-sm-4 mb-2"><i class="fas fa-building"></i> <strong>Constitución</strong><br>Manizales, Caldas</div>
+                            <div class="col-sm-4 mb-2"><i class="fas fa-file-signature"></i> <strong>Régimen</strong><br>Sociedad por Acciones Simplificada</div>
+                            <div class="col-sm-4 mb-2"><i class="fas fa-balance-scale"></i> <strong>Estatus Legal</strong><br>Liquidación en curso (2024-2025)</div>
                         </div>
                     </div>
                 </div>
@@ -1083,49 +679,13 @@
     <!-- Redes Sociales -->
     <section id="encuentrame" class="section">
         <div class="container">
-            <h2 class="section-title animate__animated animate__fadeIn">CONÉCTATE CONMIGO</h2>
-            <div class="social-grid">
-                <div class="social-card glow-effect">
-                    <div class="logo-container instagram-logo"><div class="logo-text">IG</div></div>
-                    <div class="social-card-body">
-                        <h3 class="social-card-title">Instagram</h3>
-                        <p class="social-card-text">Sígueme para más contenido sobre desarrollo, ciberseguridad y tecnología.</p>
-                        <a href="https://www.instagram.com/matiaswhiat/" target="_blank" class="social-btn"><i class="fab fa-instagram me-2"></i>Conectar</a>
-                    </div>
-                </div>
-                <div class="social-card glow-effect">
-                    <div class="logo-container linkedin-logo"><div class="logo-text">IN</div></div>
-                    <div class="social-card-body">
-                        <h3 class="social-card-title">LinkedIn</h3>
-                        <p class="social-card-text">Conecta conmigo profesionalmente en LinkedIn.</p>
-                        <a href="https://www.linkedin.com/in/matias-felipe-whiat-56b342240/" target="_blank" class="social-btn"><i class="fab fa-linkedin me-2"></i>Conectar</a>
-                    </div>
-                </div>
-                <div class="social-card glow-effect">
-                    <div class="logo-container whatsapp-logo"><div class="logo-text">WA</div></div>
-                    <div class="social-card-body">
-                        <h3 class="social-card-title">WhatsApp</h3>
-                        <p class="social-card-text">Contáctame directamente por WhatsApp Business.</p>
-                        <a href="https://wa.me/573508312629" target="_blank" class="social-btn"><i class="fab fa-whatsapp me-2"></i>Contactar</a>
-                    </div>
-                </div>
-                <div class="social-card glow-effect">
-                    <div class="logo-container email-logo"><div class="logo-text">@</div></div>
-                    <div class="social-card-body">
-                        <h3 class="social-card-title">Email</h3>
-                        <p class="social-card-text">Envíame un correo electrónico para consultas profesionales.</p>
-                        <a href="mailto:matiaswhiat@mail.de" target="_blank" class="social-btn"><i class="fas fa-envelope me-2"></i>Enviar Email</a>
-                    </div>
-                </div>
-                <!-- Tarjeta Whiat Company con dominio corregido -->
-                <div class="social-card glow-effect">
-                    <div class="logo-container website-logo"><div class="logo-text">WC</div></div>
-                    <div class="social-card-body">
-                        <h3 class="social-card-title">Whiat Company</h3>
-                        <p class="social-card-text">Visita el sitio web oficial de mi empresa.</p>
-                        <a href="https://whiatcompany.lat" target="_blank" class="social-btn"><i class="fas fa-external-link-alt me-2"></i>Visitar Sitio</a>
-                    </div>
-                </div>
+            <h2 class="section-title">CONÉCTATE CONMIGO</h2>
+            <div class="social-grid row g-4">
+                <div class="col-md-6 col-lg-4"><div class="social-card"><div class="logo-container instagram-logo"><div class="logo-text">IG</div></div><div class="social-card-body p-4"><h3>Instagram</h3><p>Contenido sobre dev, cripto y hacking ético.</p><a href="https://www.instagram.com/matiaswhiat/" target="_blank" class="social-btn">Seguir</a></div></div></div>
+                <div class="col-md-6 col-lg-4"><div class="social-card"><div class="logo-container linkedin-logo"><div class="logo-text">IN</div></div><div class="social-card-body p-4"><h3>LinkedIn</h3><p>Networking profesional y proyectos.</p><a href="https://www.linkedin.com/in/matias-felipe-whiat-56b342240/" target="_blank" class="social-btn">Conectar</a></div></div></div>
+                <div class="col-md-6 col-lg-4"><div class="social-card"><div class="logo-container whatsapp-logo"><div class="logo-text">WA</div></div><div class="social-card-body p-4"><h3>WhatsApp Business</h3><p>Consultas rápidas.</p><a href="https://wa.me/573508312629" target="_blank" class="social-btn">Escribir</a></div></div></div>
+                <div class="col-md-6 col-lg-4"><div class="social-card"><div class="logo-container email-logo"><div class="logo-text">@</div></div><div class="social-card-body p-4"><h3>Email</h3><p>matiaswhiat@mail.de</p><a href="mailto:matiaswhiat@mail.de" class="social-btn">Enviar Mail</a></div></div></div>
+                <div class="col-md-6 col-lg-4"><div class="social-card"><div class="logo-container website-logo"><div class="logo-text">WC</div></div><div class="social-card-body p-4"><h3>Whiat Company</h3><p>Web oficial</p><a href="https://whiatcompany.lat" target="_blank" class="social-btn">Visitar</a></div></div></div>
             </div>
         </div>
     </section>
@@ -1133,219 +693,143 @@
     <!-- Video -->
     <section id="whiat-company" class="section">
         <div class="container">
-            <div class="video-content">
-                <h2 class="video-title animate__animated animate__fadeIn">WHIAT COMPANY</h2>
-                <p class="video-text animate__animated animate__fadeIn animate__delay-1s">Descubre más sobre nuestras soluciones innovadoras en IA, desarrollo legal y ciberseguridad.</p>
+            <div class="video-content text-center">
+                <h2 class="video-title">WHIAT COMPANY · PRESENTACIÓN</h2>
+                <p class="video-text">Descubre nuestras soluciones de IA Legal, Blockchain y Desarrollo Full Stack.</p>
                 <div class="video-container glow-effect">
                     <iframe src="https://www.youtube.com/embed/Bvy8wD5d4qM" allowfullscreen></iframe>
                 </div>
-                <!-- Botón con dominio corregido -->
-                <a href="https://whiatcompany.lat" target="_blank" class="video-btn animate__animated animate__fadeInUp animate__delay-2s">
-                    <i class="fas fa-external-link-alt me-2"></i>VISITAR SITIO WEB
-                </a>
+                <a href="https://whiatcompany.lat" target="_blank" class="video-btn mt-4 d-inline-block"><i class="fas fa-external-link-alt me-2"></i>IR AL SITIO CORPORATIVO</a>
             </div>
         </div>
     </section>
 
-    <!-- Footer -->
     <footer>
         <div class="container">
-            <div class="footer-content">
+            <div class="footer-content text-center">
                 <div class="footer-logo">MATÍAS WHIAT</div>
                 <div class="footer-links">
                     <a href="#about" class="footer-link">Sobre Mí</a>
+                    <a href="#education" class="footer-link">Formación</a>
                     <a href="#whiat" class="footer-link">Whiat Company</a>
-                    <a href="#encuentrame" class="footer-link">Conéctate</a>
-                    <a href="#whiat-company" class="footer-link">Video</a>
+                    <a href="#garantias" class="footer-link">Garantías (Liq)</a>
+                    <a href="index3.html" target="_blank" class="footer-link">Detalle Liquidación</a>
+                    <a href="#encuentrame" class="footer-link">Contacto</a>
                 </div>
-                <p class="footer-copyright">&copy; 2024 Matías Felipe Whiat. Todos los derechos reservados.<br><span class="d-block d-sm-inline mt-2">Diseñado con <i class="fas fa-heart" style="color: var(--accent);"></i> y dedicación</span></p>
+                <p class="footer-copyright">&copy; 2025 Matías Felipe Whiat · Full Stack Developer & Legal AI · Todos los derechos reservados.<br><span class="d-block mt-2">Diseñado con <i class="fas fa-heart" style="color: var(--accent);"></i> y visión futurista</span></p>
             </div>
         </div>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        // ========== MEDIDAS DE SEGURIDAD ==========
+        // Seguridad anti-copia, clic derecho, teclas F12, etc.
         (function() {
-            'use strict';
-            // 1. Bloquear clic derecho
-            document.addEventListener('contextmenu', function(e) {
-                e.preventDefault();
-                return false;
-            });
-            // 2. Bloquear arrastre
-            document.addEventListener('dragstart', function(e) {
-                e.preventDefault();
-                return false;
-            });
-            // 3. Bloquear selección de texto
-            document.addEventListener('selectstart', function(e) {
-                e.preventDefault();
-                return false;
-            });
-            // 4. Bloquear copia/corte/pegado
-            document.addEventListener('copy', function(e) { e.preventDefault(); return false; });
-            document.addEventListener('cut', function(e) { e.preventDefault(); return false; });
-            document.addEventListener('paste', function(e) { e.preventDefault(); return false; });
-            // 5. Bloquear teclas de desarrollador
-            document.addEventListener('keydown', function(e) {
+            document.addEventListener('contextmenu', e => e.preventDefault());
+            document.addEventListener('dragstart', e => e.preventDefault());
+            document.addEventListener('selectstart', e => e.preventDefault());
+            document.addEventListener('copy', e => e.preventDefault());
+            document.addEventListener('cut', e => e.preventDefault());
+            document.addEventListener('paste', e => e.preventDefault());
+            document.addEventListener('keydown', e => {
                 if (e.key === 'F12' || e.keyCode === 123) { e.preventDefault(); return false; }
                 if (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'C' || e.key === 'J' || e.keyCode === 73 || e.keyCode === 67 || e.keyCode === 74)) { e.preventDefault(); return false; }
                 if (e.ctrlKey && (e.key === 'u' || e.key === 'U' || e.keyCode === 85)) { e.preventDefault(); return false; }
                 if (e.ctrlKey && (e.key === 's' || e.key === 'S' || e.keyCode === 83)) { e.preventDefault(); return false; }
-                if (e.ctrlKey && (e.key === 'c' || e.key === 'C' || e.keyCode === 67)) { e.preventDefault(); return false; }
-                if (e.ctrlKey && (e.key === 'x' || e.key === 'X' || e.keyCode === 88)) { e.preventDefault(); return false; }
                 if (e.key === 'PrintScreen' || e.keyCode === 44) { e.preventDefault(); return false; }
-                if (e.ctrlKey && (e.key === 'p' || e.key === 'P' || e.keyCode === 80)) { e.preventDefault(); return false; }
             });
         })();
         
-        // Funciones originales (partículas, favicon animado, etc.)
         function createHolographicParticles() {
-            const holographicParticles = document.getElementById('holographicParticles');
-            const particleCount = 80;
-            for (let i = 0; i < particleCount; i++) {
-                const particle = document.createElement('div');
-                particle.classList.add('h-particle');
-                particle.style.left = `${Math.random() * 100}%`;
-                const size = 2 + Math.random() * 8;
-                particle.style.width = `${size}px`;
-                particle.style.height = `${size}px`;
-                particle.style.animationDelay = `${Math.random() * 20}s`;
-                particle.style.animationDuration = `${15 + Math.random() * 25}s`;
-                holographicParticles.appendChild(particle);
+            const container = document.getElementById('holographicParticles');
+            for (let i=0;i<80;i++) {
+                let p = document.createElement('div');
+                p.classList.add('h-particle');
+                p.style.left = Math.random()*100+'%';
+                let s = 2+Math.random()*8;
+                p.style.width = s+'px'; p.style.height = s+'px';
+                p.style.animationDelay = Math.random()*20+'s';
+                p.style.animationDuration = 15+Math.random()*25+'s';
+                container.appendChild(p);
             }
         }
-        
         function createNeuralNetwork() {
-            const neuralNetwork = document.getElementById('neuralNetwork');
-            const lineCount = 40;
-            for (let i = 0; i < lineCount; i++) {
-                const line = document.createElement('div');
+            const container = document.getElementById('neuralNetwork');
+            for (let i=0;i<40;i++) {
+                let line = document.createElement('div');
                 line.classList.add('connection-line');
-                line.style.top = `${Math.random() * 100}%`;
-                line.style.left = `${Math.random() * 100}%`;
-                line.style.width = `${50 + Math.random() * 200}px`;
-                line.style.transform = `rotate(${Math.random() * 360}deg)`;
-                line.style.animationDelay = `${Math.random() * 5}s`;
-                neuralNetwork.appendChild(line);
+                line.style.top = Math.random()*100+'%';
+                line.style.left = Math.random()*100+'%';
+                line.style.width = 50+Math.random()*200+'px';
+                line.style.transform = `rotate(${Math.random()*360}deg)`;
+                line.style.animationDelay = Math.random()*5+'s';
+                container.appendChild(line);
             }
         }
-        
         function createAnimatedFavicon() {
-            const faviconLink = document.createElement('link');
-            faviconLink.rel = 'icon';
-            faviconLink.type = 'image/png';
-            document.head.appendChild(faviconLink);
+            const link = document.createElement('link');
+            link.rel = 'icon';
+            document.head.appendChild(link);
             const canvas = document.createElement('canvas');
-            canvas.width = 32;
-            canvas.height = 32;
+            canvas.width = 32; canvas.height = 32;
             const ctx = canvas.getContext('2d');
-            const colors = ['#00d4ff', '#ff00ff', '#00ffaa', '#ffff00', '#ff7700', '#aa00ff', '#00aaff', '#ff0066'];
-            let frame = 0;
+            const colors = ['#00d4ff','#ff00ff','#00ffaa','#ffff00','#ff7700','#aa00ff'];
             let colorIndex = 0;
-            function drawFavicon() {
-                ctx.clearRect(0, 0, 32, 32);
+            function draw() {
+                ctx.clearRect(0,0,32,32);
                 ctx.fillStyle = '#0a0a0a';
-                ctx.fillRect(0, 0, 32, 32);
-                const time = Date.now() / 1000;
-                const angle = (time * 2) % (Math.PI * 2);
-                const scale = 0.8 + 0.2 * Math.sin(time * 3);
+                ctx.fillRect(0,0,32,32);
+                let time = Date.now()/1000;
+                let angle = (time*2) % (Math.PI*2);
                 ctx.strokeStyle = colors[colorIndex];
                 ctx.fillStyle = colors[colorIndex];
-                ctx.lineWidth = 3;
+                ctx.lineWidth = 2;
                 ctx.save();
-                ctx.translate(16, 16);
+                ctx.translate(16,16);
                 ctx.rotate(angle);
-                ctx.scale(scale, scale);
                 ctx.beginPath();
-                ctx.moveTo(-8, 8);
-                ctx.lineTo(-4, -8);
-                ctx.lineTo(0, 0);
-                ctx.lineTo(4, -8);
-                ctx.lineTo(8, 8);
+                ctx.moveTo(-8,8); ctx.lineTo(-4,-8); ctx.lineTo(0,0); ctx.lineTo(4,-8); ctx.lineTo(8,8);
                 ctx.stroke();
                 ctx.beginPath();
-                ctx.arc(-8, 8, 1.5, 0, Math.PI * 2);
-                ctx.arc(8, 8, 1.5, 0, Math.PI * 2);
+                ctx.arc(-8,8,1.5,0,Math.PI*2);
+                ctx.arc(8,8,1.5,0,Math.PI*2);
                 ctx.fill();
                 ctx.restore();
-                for (let i = 0; i < 4; i++) {
-                    const particleAngle = angle + (i * Math.PI / 2) + time * 2;
-                    const x = 16 + Math.cos(particleAngle) * 12;
-                    const y = 16 + Math.sin(particleAngle) * 12;
-                    ctx.beginPath();
-                    ctx.fillStyle = colors[(colorIndex + i + 1) % colors.length];
-                    ctx.arc(x, y, 1.2, 0, Math.PI * 2);
-                    ctx.fill();
-                }
-                faviconLink.href = canvas.toDataURL('image/png');
-                frame++;
-                if (frame % 20 === 0) colorIndex = (colorIndex + 1) % colors.length;
-                requestAnimationFrame(drawFavicon);
+                link.href = canvas.toDataURL('image/png');
+                requestAnimationFrame(draw);
             }
-            drawFavicon();
+            draw();
+            setInterval(()=>{ colorIndex = (colorIndex+1)%colors.length; },300);
         }
         
-        // Navbar scroll
         window.addEventListener('scroll', function() {
             const navbar = document.querySelector('.navbar');
-            if (window.scrollY > 50) navbar.classList.add('scrolled');
-            else navbar.classList.remove('scrolled');
+            if (window.scrollY > 50) navbar.classList.add('scrolled'); else navbar.classList.remove('scrolled');
             const sections = document.querySelectorAll('section');
-            const navLinks = document.querySelectorAll('.nav-link');
             let current = '';
             sections.forEach(section => {
                 const sectionTop = section.offsetTop;
-                if (scrollY >= (sectionTop - 200)) current = section.getAttribute('id');
+                if (scrollY >= (sectionTop-200)) current = section.getAttribute('id');
             });
-            navLinks.forEach(link => {
+            document.querySelectorAll('.nav-link').forEach(link => {
                 link.classList.remove('active');
                 if (link.getAttribute('href') === `#${current}`) link.classList.add('active');
             });
         });
         
-        // Animación al hacer scroll
         const animateOnScroll = function() {
-            const elements = document.querySelectorAll('.fade-in');
-            elements.forEach(element => {
-                const elementPosition = element.getBoundingClientRect().top;
-                if (elementPosition < window.innerHeight / 1.2) element.classList.add('visible');
+            document.querySelectorAll('.fade-in').forEach(el => {
+                if (el.getBoundingClientRect().top < window.innerHeight/1.2) el.classList.add('visible');
             });
         };
-        
         document.addEventListener('DOMContentLoaded', function() {
             createHolographicParticles();
             createNeuralNetwork();
             createAnimatedFavicon();
-            const elementsToAnimate = document.querySelectorAll('.about-img-container, .about-text, .whiat-card, .feature-card, .social-card, .video-container');
-            elementsToAnimate.forEach(el => el.classList.add('fade-in'));
+            document.querySelectorAll('.course-card, .lang-block, .whiat-card, .feature-card, .social-card, .liquidation-card').forEach(el => el.classList.add('fade-in'));
             animateOnScroll();
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) entry.target.classList.add('animate__animated', 'animate__fadeInUp');
-                });
-            }, { threshold: 0.1 });
-            document.querySelectorAll('.hero-badge, .tech-badge, .social-btn, .video-btn').forEach(el => observer.observe(el));
+            window.addEventListener('scroll', animateOnScroll);
         });
-        window.addEventListener('scroll', animateOnScroll);
-        
-        // Efecto ripple en botones
-        document.querySelectorAll('.hero-btn, .social-btn, .video-btn').forEach(button => {
-            button.addEventListener('click', function(e) {
-                const ripple = document.createElement('span');
-                const rect = this.getBoundingClientRect();
-                const size = Math.max(rect.width, rect.height);
-                const x = e.clientX - rect.left - size / 2;
-                const y = e.clientY - rect.top - size / 2;
-                ripple.style.cssText = `position: absolute; border-radius: 50%; background: rgba(255,255,255,0.5); transform: scale(0); animation: ripple-animation 0.6s linear; width: ${size}px; height: ${size}px; top: ${y}px; left: ${x}px; pointer-events: none;`;
-                this.appendChild(ripple);
-                setTimeout(() => ripple.remove(), 600);
-            });
-        });
-        const styleSheet = document.createElement("style");
-        styleSheet.textContent = `@keyframes ripple-animation { to { transform: scale(4); opacity: 0; } }`;
-        document.head.appendChild(styleSheet);
     </script>
 </body>
 </html>
