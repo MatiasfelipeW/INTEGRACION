@@ -425,41 +425,78 @@ function showLanguageMessage(lang) {
 }
 
 // ==================== PRELOADER Y CONFIGURACIÓN INICIAL ====================
-window.addEventListener('load', function() {
-    let progress = 0;
+window.addEventListener('load', function () {
+
     const loadingBar = document.getElementById('loading-bar');
     const loadingText = document.getElementById('loading-text');
     const preloader = document.getElementById('preloader');
-    
-    const startTime = Date.now();
-    const minDuration = 2500; // Duración mínima en milisegundos (2.5 segundos)
-    
-    const interval = setInterval(function() {
-        // Incremento más pequeño para que dure más
-        progress += Math.floor(Math.random() * 5) + 2; // entre 2 y 6
-        if (progress > 100) progress = 100;
-        
-        if (loadingBar) loadingBar.style.width = progress + '%';
-        
-        if (loadingText) {
-            if (progress < 30) loadingText.textContent = "Cargando recursos...";
-            else if (progress < 70) loadingText.textContent = "Inicializando componentes...";
-            else loadingText.textContent = "¡Casi listo!";
-        }
-        
-        const elapsed = Date.now() - startTime;
-        // Si ya pasó el tiempo mínimo y el progreso llegó a 100%
-        if (progress >= 100 && elapsed >= minDuration) {
-            clearInterval(interval);
-            // Esperar un poco más antes de desvanecer
+    const video = document.getElementById('preloaderVideo');
+
+    // Si no existe el video, ocultar el preloader automáticamente
+    if (!video) {
+        if (preloader) {
+            preloader.style.opacity = '0';
             setTimeout(() => {
-                if (preloader) {
-                    preloader.style.opacity = '0';
-                    setTimeout(() => preloader.style.display = 'none', 500);
-                }
-            }, 800); // 0.8 segundos extra
+                preloader.style.display = 'none';
+            }, 500);
         }
-    }, 60); // Intervalo más lento (60ms en lugar de 40ms)
+        return;
+    }
+
+    const duration = 5000; // Duración del video en milisegundos (5 segundos)
+    const startTime = Date.now();
+
+    const interval = setInterval(function () {
+
+        const elapsed = Date.now() - startTime;
+        let progress = (elapsed / duration) * 100;
+
+        if (progress > 100) progress = 100;
+
+        if (loadingBar) {
+            loadingBar.style.width = progress + '%';
+        }
+
+        if (loadingText) {
+            if (progress < 30) {
+                loadingText.textContent = "Cargando recursos...";
+            } else if (progress < 70) {
+                loadingText.textContent = "Inicializando componentes...";
+            } else if (progress < 100) {
+                loadingText.textContent = "¡Casi listo!";
+            } else {
+                loadingText.textContent = "¡Bienvenido!";
+            }
+        }
+
+        if (progress >= 100) {
+            clearInterval(interval);
+        }
+
+    }, 50);
+
+    // Cuando termina el video, ocultar el preloader
+    video.addEventListener('ended', function () {
+
+        if (loadingBar) {
+            loadingBar.style.width = '100%';
+        }
+
+        if (loadingText) {
+            loadingText.textContent = "¡Bienvenido!";
+        }
+
+        if (preloader) {
+            preloader.style.opacity = '0';
+
+            setTimeout(function () {
+                preloader.style.display = 'none';
+            }, 500);
+        }
+
+    });
+
+});
     
     // Guardar idioma (el resto del código sigue igual)
     const savedLang = localStorage.getItem('preferredLanguage');
