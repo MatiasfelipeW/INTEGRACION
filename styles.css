@@ -20,18 +20,16 @@ input:active, textarea:active, select:active,
     -moz-user-select: text;
     -ms-user-select: text;
     user-select: text;
-    color: #ffffff !important;           /* BLANCO EN TODAS LAS SITUACIONES */
-    background-color: #0a0f1a !important; /* Fondo oscuro sólido para que el blanco resalte */
-    caret-color: #ffffff !important;      /* Cursor blanco */
+    color: #ffffff !important;
+    background-color: #0a0f1a !important;
+    caret-color: #ffffff !important;
 }
 
-/* Placeholders (texto de ejemplo) más tenue pero legible */
 ::placeholder {
     color: #a0b4d0 !important;
     opacity: 1;
 }
 
-/* Protección de imágenes */
 img, svg, canvas, video {
     -webkit-user-drag: none;
     -khtml-user-drag: none;
@@ -41,7 +39,6 @@ img, svg, canvas, video {
     pointer-events: auto;
 }
 
-/* Protección contra inspección de elementos */
 [data-protected="true"] {
     position: relative;
 }
@@ -75,7 +72,7 @@ body {
     position: relative;
 }
 
-/* Canvas de fondo seguro (ESTE ES EL FONDO ORIGINAL) */
+/* Canvas de fondo seguro */
 #particles-js {
     position: fixed;
     width: 100%;
@@ -85,7 +82,6 @@ body {
     pointer-events: none;
 }
 
-/* Capa anti-debugging visual */
 #security-overlay {
     position: fixed;
     top: 0;
@@ -102,111 +98,142 @@ h1, h2, h3, h4, h5, h6 {
     font-weight: 600;
 }
 
-/* ==================== PRELOADER ==================== */
+/* ============================================================
+   ============ PRELOADER MEJORADO (PANTALLA COMPLETA) =========
+   ============================================================ */
 
-#preloader{
-    position:fixed;
-    top:0;
-    left:0;
-    width:100%;
-    height:100vh;
-    overflow:hidden;
-    background:#000;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    z-index:99999;
-    transition:opacity .5s ease;
+#preloader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;             /* Ocupa toda la altura de la ventana */
+    height: 100dvh;            /* dvh = dynamic viewport height (mejor para móviles) */
+    overflow: hidden;
+    background: #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 99999;
+    transition: opacity 0.5s ease;
 }
 
-/* Video de fondo a pantalla completa */
-
-.preloader-logo{
-    position:absolute;
-    top:50%;
-    left:50%;
-    width:100%;
-    height:100%;
-    transform:translate(-50%,-50%);
-    object-fit:cover; /* Llena toda la pantalla */
-    z-index:1;
+/* El video DEBE cubrir toda la pantalla sin bordes */
+#preloader video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    height: 100dvh;            /* Ajuste dinámico en móviles */
+    object-fit: cover;         /* Fuerza a cubrir todo el contenedor */
+    object-position: center;   /* Centra el contenido del video */
+    z-index: 1;
+    /* Elimina cualquier posible borde o padding */
+    margin: 0;
+    padding: 0;
+    border: none;
+    outline: none;
+    display: block;
 }
 
-/* Capa oscura para mejorar la visibilidad del texto */
-
-#preloader::before{
-    content:"";
-    position:absolute;
-    inset:0;
-    background:rgba(0,0,0,.35);
-    z-index:2;
+/* Capa oscura superpuesta (para mejorar legibilidad del texto) */
+#preloader::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.35);
+    z-index: 2;
+    pointer-events: none; /* Para que no interfiera con clicks */
 }
 
-/* Contenido encima del video */
-
-.preloader-content{
-    position:relative;
-    z-index:3;
-    width:100%;
-    height:100%;
-    display:flex;
-    flex-direction:column;
-    justify-content:flex-end;
-    align-items:center;
-    padding-bottom:70px;
-    box-sizing:border-box;
+/* Contenido (barra y texto) por encima del video */
+.preloader-content {
+    position: relative;
+    z-index: 3;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    padding-bottom: 70px;
+    box-sizing: border-box;
+    pointer-events: none; /* Para que los clics pasen a través */
 }
 
 /* Barra de carga */
-
-.loading-container{
-    width:320px;
-    max-width:85%;
-    height:6px;
-    background:rgba(255,255,255,.2);
-    border-radius:30px;
-    overflow:hidden;
-    margin-bottom:18px;
+.loading-container {
+    width: 320px;
+    max-width: 85%;
+    height: 6px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 30px;
+    overflow: hidden;
+    margin-bottom: 18px;
+    pointer-events: none;
 }
 
-.loading-bar{
-    width:0%;
-    height:100%;
-    background:linear-gradient(90deg,#00d4ff,#00ffb3);
-    border-radius:30px;
-    transition:width .2s linear;
-    box-shadow:0 0 20px #00d4ff;
+.loading-bar {
+    width: 0%;
+    height: 100%;
+    background: linear-gradient(90deg, #00d4ff, #00ffb3);
+    border-radius: 30px;
+    transition: width 0.2s linear;
+    box-shadow: 0 0 20px #00d4ff;
 }
 
-/* Texto */
-
-.loading-text{
-    color:#fff;
-    font-size:16px;
-    font-family:'JetBrains Mono', monospace;
-    text-shadow:0 0 12px rgba(0,0,0,.8);
-    letter-spacing:1px;
+.loading-text {
+    color: #fff;
+    font-size: 16px;
+    font-family: 'JetBrains Mono', monospace;
+    text-shadow: 0 0 12px rgba(0, 0, 0, 0.8);
+    letter-spacing: 1px;
+    pointer-events: none;
 }
 
-/* Responsive */
-
-@media (max-width:768px){
-
-    .loading-container{
-        width:260px;
+/* ========== RESPONSIVE PARA PRELOADER ========== */
+@media (max-width: 768px) {
+    .loading-container {
+        width: 260px;
     }
-
-    .loading-text{
-        font-size:14px;
+    .loading-text {
+        font-size: 14px;
     }
-
-    .preloader-content{
-        padding-bottom:45px;
+    .preloader-content {
+        padding-bottom: 45px;
     }
-
 }
 
-/* Header con blur seguro */
+/* Para pantallas muy pequeñas (ej. iPhone SE) */
+@media (max-width: 380px) {
+    .loading-container {
+        width: 200px;
+    }
+    .loading-text {
+        font-size: 12px;
+    }
+    .preloader-content {
+        padding-bottom: 30px;
+    }
+}
+
+/* Ajuste específico para iPhone con notch (safe area) */
+@supports (padding: max(0px)) {
+    #preloader video {
+        height: 100vh;
+        height: 100dvh;
+        width: 100vw;
+        width: 100dvw; /* dwv para width dinámico (safari) */
+    }
+}
+
+/* ============================================================
+   FIN DE MEJORAS PARA PRELOADER
+   ============================================================ */
+
+/* ========== RESTO DE TU CSS (SIN CAMBIOS) ========== */
+
 header {
     background-color: rgba(4, 7, 12, 0.95);
     backdrop-filter: blur(10px);
@@ -237,7 +264,6 @@ header {
     border-radius: 8px;
 }
 
-/* Hero section */
 .hero {
     padding: 100px 0;
     text-align: center;
@@ -285,7 +311,6 @@ header {
     border: 1px solid rgba(0, 212, 255, 0.4);
 }
 
-/* Secciones */
 .hybrid-model, .services, .fullstack-section, .allies-section, .profile-section, .contact, .cta, .python-test-section {
     padding: 80px 0;
 }
@@ -531,7 +556,6 @@ header {
     border: 1px solid rgba(0, 212, 255, 0.2);
 }
 
-/* Nota: .form-control ya tiene el color blanco forzado arriba, pero mantengo bordes y sombras originales */
 .form-control {
     border: 1px solid rgba(0, 212, 255, 0.2);
     padding: 12px 15px;
@@ -609,7 +633,6 @@ footer {
     filter: drop-shadow(0 0 5px var(--primary));
 }
 
-/* WhatsApp Button */
 .whatsapp-button {
     position: fixed;
     bottom: 30px;
@@ -639,7 +662,6 @@ footer {
     font-size: 1.8rem;
 }
 
-/* Botón de idioma flotante */
 .floating-language-btn {
     position: fixed;
     bottom: 110px;
@@ -768,7 +790,6 @@ footer {
     background: linear-gradient(180deg, var(--primary), var(--primary-dark));
 }
 
-/* Estilos específicos para la tarjeta de Python Test (CORREGIDOS, SIN DISTORSIÓN) */
 .python-test-card {
     background: var(--card-bg);
     border: 1px solid rgba(0, 212, 255, 0.4);
@@ -783,7 +804,6 @@ footer {
     transform: translateY(-10px);
 }
 
-/* Botón personalizado con estilo Python pero sin romper el diseño */
 .python-test-card .btn-python {
     background: linear-gradient(135deg, #306998, #FFD43B);
     color: #000;
@@ -797,6 +817,7 @@ footer {
     box-shadow: 0 0 15px rgba(255, 212, 59, 0.5);
 }
 
+/* ========== MEDIA QUERIES EXISTENTES (SIN MODIFICACIONES) ========== */
 @media (max-width: 768px) {
     .hero h1 { font-size: 2rem; }
     .section-title h2 { font-size: 2rem; }
@@ -816,7 +837,6 @@ footer {
     .login-image { display: none; }
 }
 
-/* Anti-selection visual feedback */
 ::selection {
     background: transparent;
 }
