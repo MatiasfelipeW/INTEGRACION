@@ -27,6 +27,73 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // =====================================================================
+// 1.5. PARTÍCULAS DINÁMICAS PARA PRELOADER
+// =====================================================================
+(function createDynamicParticles() {
+    const container = document.querySelector('.particle-container');
+    if (!container) return;
+    
+    // Limpiar partículas estáticas y crear dinámicas
+    container.innerHTML = '';
+    
+    const colors = [
+        'rgba(0, 212, 255, 0.15)',
+        'rgba(100, 200, 255, 0.12)',
+        'rgba(0, 180, 255, 0.18)',
+        'rgba(50, 150, 255, 0.10)',
+        'rgba(0, 212, 255, 0.20)',
+        'rgba(150, 200, 255, 0.08)',
+        'rgba(0, 220, 255, 0.14)',
+        'rgba(255, 212, 59, 0.08)',
+        'rgba(255, 107, 107, 0.06)',
+    ];
+    
+    const count = 25;
+    
+    for (let i = 0; i < count; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'floating-particle';
+        
+        const size = 4 + Math.random() * 20;
+        const color = colors[Math.floor(Math.random() * colors.length)];
+        const duration = 2 + Math.random() * 4;
+        const delay = Math.random() * 3;
+        const startX = Math.random() * 100;
+        const startY = Math.random() * 100;
+        const moveX = (Math.random() - 0.5) * 80;
+        const moveY = (Math.random() - 0.5) * 80;
+        
+        particle.style.cssText = `
+            width: ${size}px;
+            height: ${size}px;
+            top: ${startY}%;
+            left: ${startX}%;
+            background: ${color};
+            animation: floatParticle ${duration}s ease-in-out ${delay}s infinite;
+            --move-x: ${moveX}px;
+            --move-y: ${moveY}px;
+        `;
+        
+        const style = document.createElement('style');
+        style.textContent = `
+            .floating-particle:nth-child(${i + 1}) {
+                animation: floatParticle${i} ${duration}s ease-in-out ${delay}s infinite;
+            }
+            @keyframes floatParticle${i} {
+                0% { opacity: 0; transform: translate(0, 0) scale(0.3); }
+                20% { opacity: ${0.3 + Math.random() * 0.5}; }
+                50% { transform: translate(${moveX}px, ${moveY}px) scale(${0.8 + Math.random() * 0.6}); }
+                80% { opacity: ${0.3 + Math.random() * 0.5}; }
+                100% { opacity: 0; transform: translate(${-moveX * 0.5}px, ${-moveY * 0.5}px) scale(0.3); }
+            }
+        `;
+        document.head.appendChild(style);
+        
+        container.appendChild(particle);
+    }
+})();
+
+// =====================================================================
 // 2. SISTEMA DE SEGURIDAD AVANZADO
 // =====================================================================
 (function detectDevTools() {
@@ -872,5 +939,4 @@ elementsToAnimate.forEach(el => {
 // =====================================================================
 document.addEventListener('DOMContentLoaded', function() {
     initLanguageSwitcher();
-    // Cualquier otra inicialización
 });

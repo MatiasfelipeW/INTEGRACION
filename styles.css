@@ -114,6 +114,7 @@ h1, h2, h3, h4, h5, h6 {
     justify-content: center;
     z-index: 99999;
     transition: opacity 0.6s ease;
+    overflow: hidden;
 }
 
 #preloader.hidden {
@@ -128,6 +129,8 @@ h1, h2, h3, h4, h5, h6 {
     justify-content: center;
     text-align: center;
     padding: 20px;
+    position: relative;
+    z-index: 2;
 }
 
 .preloader-image-wrapper {
@@ -138,6 +141,122 @@ h1, h2, h3, h4, h5, h6 {
     margin-bottom: 30px;
 }
 
+/* ===== PARTÍCULAS FLOTANTES ===== */
+.particle-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+    overflow: hidden;
+}
+
+.floating-particle {
+    position: absolute;
+    border-radius: 50%;
+    opacity: 0;
+    animation: floatParticle 3s ease-in-out infinite;
+}
+
+.floating-particle::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(0, 212, 255, 0.6), rgba(0, 212, 255, 0.05));
+    animation: pulseParticle 2s ease-in-out infinite;
+}
+
+.floating-particle:nth-child(1) { width: 12px; height: 12px; top: 10%; left: 10%; animation-delay: 0s; }
+.floating-particle:nth-child(2) { width: 8px; height: 8px; top: 15%; right: 15%; animation-delay: 0.5s; }
+.floating-particle:nth-child(3) { width: 16px; height: 16px; bottom: 20%; left: 5%; animation-delay: 1s; }
+.floating-particle:nth-child(4) { width: 10px; height: 10px; bottom: 10%; right: 10%; animation-delay: 1.5s; }
+.floating-particle:nth-child(5) { width: 20px; height: 20px; top: 50%; left: 2%; animation-delay: 0.3s; }
+.floating-particle:nth-child(6) { width: 6px; height: 6px; top: 40%; right: 3%; animation-delay: 0.8s; }
+.floating-particle:nth-child(7) { width: 14px; height: 14px; top: 5%; left: 45%; animation-delay: 1.2s; }
+.floating-particle:nth-child(8) { width: 18px; height: 18px; bottom: 5%; left: 40%; animation-delay: 0.6s; }
+.floating-particle:nth-child(9) { width: 9px; height: 9px; top: 25%; left: 25%; animation-delay: 1.7s; }
+.floating-particle:nth-child(10) { width: 11px; height: 11px; bottom: 35%; right: 8%; animation-delay: 0.2s; }
+.floating-particle:nth-child(11) { width: 22px; height: 22px; top: 70%; left: 15%; animation-delay: 1.3s; background: rgba(255, 212, 59, 0.15); }
+.floating-particle:nth-child(12) { width: 7px; height: 7px; top: 85%; right: 25%; animation-delay: 0.9s; background: rgba(255, 255, 255, 0.1); }
+
+.floating-particle:nth-child(1) { background: rgba(0, 212, 255, 0.15); }
+.floating-particle:nth-child(2) { background: rgba(100, 200, 255, 0.12); }
+.floating-particle:nth-child(3) { background: rgba(0, 180, 255, 0.18); }
+.floating-particle:nth-child(4) { background: rgba(50, 150, 255, 0.10); }
+.floating-particle:nth-child(5) { background: rgba(0, 212, 255, 0.20); }
+.floating-particle:nth-child(6) { background: rgba(150, 200, 255, 0.08); }
+.floating-particle:nth-child(7) { background: rgba(0, 220, 255, 0.14); }
+.floating-particle:nth-child(8) { background: rgba(0, 190, 255, 0.16); }
+.floating-particle:nth-child(9) { background: rgba(50, 200, 255, 0.11); }
+.floating-particle:nth-child(10) { background: rgba(0, 212, 255, 0.13); }
+
+@keyframes floatParticle {
+    0% {
+        opacity: 0;
+        transform: translate(0, 0) scale(0.5);
+    }
+    20% {
+        opacity: 0.7;
+    }
+    50% {
+        transform: translate(30px, -20px) scale(1.2);
+    }
+    80% {
+        opacity: 0.7;
+    }
+    100% {
+        opacity: 0;
+        transform: translate(-20px, 30px) scale(0.5);
+    }
+}
+
+@keyframes pulseParticle {
+    0% { transform: scale(1); opacity: 0.5; }
+    50% { transform: scale(1.4); opacity: 1; }
+    100% { transform: scale(1); opacity: 0.5; }
+}
+
+/* ===== ANILLOS SUAVES (SIN GIRO RÁPIDO) ===== */
+.glow-ring {
+    position: absolute;
+    border-radius: 50%;
+    border: 2px solid transparent;
+    animation: ringPulse 3s ease-in-out infinite;
+    pointer-events: none;
+}
+
+.glow-ring:nth-child(1) {
+    width: 280px;
+    height: 280px;
+    border-color: rgba(0, 212, 255, 0.15);
+    animation-delay: 0s;
+}
+
+.glow-ring:nth-child(2) {
+    width: 340px;
+    height: 340px;
+    border-color: rgba(0, 180, 255, 0.08);
+    animation-delay: 0.8s;
+}
+
+.glow-ring:nth-child(3) {
+    width: 200px;
+    height: 200px;
+    border-color: rgba(0, 240, 255, 0.10);
+    animation-delay: 1.6s;
+}
+
+@keyframes ringPulse {
+    0% { transform: scale(0.95); opacity: 0.3; }
+    50% { transform: scale(1.05); opacity: 0.8; }
+    100% { transform: scale(0.95); opacity: 0.3; }
+}
+
+/* ===== LOGO CENTRAL ===== */
 .preloader-img {
     max-width: 180px;
     max-height: 180px;
@@ -146,16 +265,14 @@ h1, h2, h3, h4, h5, h6 {
     object-fit: contain;
     filter: drop-shadow(0 0 20px rgba(0, 212, 255, 0.4));
     animation: pulse 2s infinite;
+    position: relative;
+    z-index: 2;
 }
 
-.preloader-ring {
-    position: absolute;
-    width: 220px;
-    height: 220px;
-    border: 3px solid transparent;
-    border-top-color: #00d4ff;
-    border-radius: 50%;
-    animation: spin 1s linear infinite;
+@keyframes pulse {
+    0% { filter: drop-shadow(0 0 5px rgba(0,212,255,0.3)) scale(1); }
+    50% { filter: drop-shadow(0 0 40px rgba(0,212,255,0.6)) scale(1.02); }
+    100% { filter: drop-shadow(0 0 5px rgba(0,212,255,0.3)) scale(1); }
 }
 
 .preloader-text {
@@ -163,27 +280,21 @@ h1, h2, h3, h4, h5, h6 {
     font-family: 'JetBrains Mono', monospace;
     font-size: 1.2rem;
     margin-top: 10px;
+    position: relative;
+    z-index: 2;
 }
 
 .preloader-sub {
     color: rgba(255,255,255,0.6);
     font-size: 0.9rem;
     margin-top: 5px;
+    position: relative;
+    z-index: 2;
 }
 
 .dots::after {
     content: '';
     animation: dots 1.5s steps(4) infinite;
-}
-
-@keyframes spin {
-    to { transform: rotate(360deg); }
-}
-
-@keyframes pulse {
-    0% { filter: drop-shadow(0 0 5px rgba(0,212,255,0.3)); }
-    50% { filter: drop-shadow(0 0 30px rgba(0,212,255,0.7)); }
-    100% { filter: drop-shadow(0 0 5px rgba(0,212,255,0.3)); }
 }
 
 @keyframes dots {
@@ -199,16 +310,12 @@ h1, h2, h3, h4, h5, h6 {
         max-width: 120px;
         max-height: 120px;
     }
-    .preloader-ring {
-        width: 160px;
-        height: 160px;
-    }
-    .preloader-text {
-        font-size: 1rem;
-    }
-    .preloader-sub {
-        font-size: 0.8rem;
-    }
+    .glow-ring:nth-child(1) { width: 200px; height: 200px; }
+    .glow-ring:nth-child(2) { width: 240px; height: 240px; }
+    .glow-ring:nth-child(3) { width: 160px; height: 160px; }
+    .preloader-text { font-size: 1rem; }
+    .preloader-sub { font-size: 0.8rem; }
+    .floating-particle { display: none; }
 }
 
 /* ========== RESTO DE ESTILOS (SIN CAMBIOS) ========== */
