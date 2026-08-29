@@ -1,4 +1,34 @@
-// ==================== SISTEMA DE SEGURIDAD AVANZADO ====================
+// =====================================================================
+// 1. PRELOADER - OCULTAR DESPUÉS DE CARGA
+// =====================================================================
+document.addEventListener('DOMContentLoaded', function() {
+    const preloader = document.getElementById('preloader');
+    if (!preloader) return;
+
+    const minDisplayTime = 2500; // 2.5 segundos mínimo
+    const startTime = Date.now();
+
+    function hidePreloader() {
+        const elapsed = Date.now() - startTime;
+        const remaining = Math.max(0, minDisplayTime - elapsed);
+        setTimeout(() => {
+            preloader.classList.add('hidden');
+            setTimeout(() => {
+                preloader.style.display = 'none';
+            }, 600);
+        }, remaining);
+    }
+
+    if (document.readyState === 'complete') {
+        hidePreloader();
+    } else {
+        window.addEventListener('load', hidePreloader);
+    }
+});
+
+// =====================================================================
+// 2. SISTEMA DE SEGURIDAD AVANZADO
+// =====================================================================
 (function detectDevTools() {
     let devtools = false;
     const element = new Image();
@@ -35,8 +65,7 @@ document.addEventListener('contextmenu', function(e) {
 const observer = new MutationObserver(function(mutations) {
     mutations.forEach(function(mutation) {
         if (mutation.type === 'attributes' || mutation.type === 'childList') {
-            // Comentado para no saturar la consola
-            // console.log('Protección activa: modificaciones no permitidas');
+            // Protección activa
         }
     });
 });
@@ -48,484 +77,767 @@ document.body.addEventListener('cut', function(e) { e.preventDefault(); return f
 let printAttempts = 0;
 window.addEventListener('beforeprint', function() { printAttempts++; if(printAttempts > 0) alert('La impresión/captura de contenido está protegida.'); });
 
-// ==================== TRADUCCIONES ====================
+// Bloqueo de scripts externos no autorizados
+const scriptBlocker = new MutationObserver(function(mutations) {
+    mutations.forEach(function(mutation) {
+        mutation.addedNodes.forEach(function(node) {
+            if (node.tagName === 'SCRIPT' && node.src && 
+                !node.src.includes('cdn.jsdelivr.net') && 
+                !node.src.includes('cdnjs.cloudflare.com')) {
+                node.remove();
+                console.warn('Script no autorizado eliminado:', node.src);
+            }
+        });
+    });
+});
+scriptBlocker.observe(document.head, { childList: true, subtree: true });
+scriptBlocker.observe(document.body, { childList: true, subtree: true });
+
+// =====================================================================
+// 3. SISTEMA DE IDIOMAS (i18n)
+// =====================================================================
 const translations = {
     es: {
-        "nav-model": "Modelo", "nav-services": "Servicios", "nav-web": "Desarrollo Web", "nav-allies": "Aliados",
-        "nav-profile": "Perfil", "nav-contact": "Contacto", "nav-login": "Iniciar Sesión",
-        "hero-badge": "Soluciones Digitales Integrales | Aliados Estratégicos",
-        "hero-title": "Impulsamos tu negocio con tecnología de vanguardia",
-        "hero-desc": "Expertos en crear aplicaciones móviles, sitios web de alto rendimiento, ciberseguridad, blockchain y soluciones digitales a medida para pequeñas, medianas y grandes empresas.",
-        "hero-btn": "Cuéntanos tu idea",
-        "model-title": "Nuestro Modelo: Innovación Híbrida",
-        "model-desc": "Combinamos un equipo interno de expertos con una red de freelancers especializados para ofrecerte el mejor talento, cuando lo necesites.",
-        "model-team-title": "Equipo de Desarrollo Propio",
-        "model-team-desc": "Contamos con un equipo central de profesionales en desarrollo de software, ciberseguridad y blockchain. Son nuestros expertos de confianza, listos para dar soporte continuo y garantizar la calidad en todos los proyectos.",
-        "model-freelance-title": "Red de Freelancers Certificados",
-        "model-freelance-desc": "Ampliamos nuestras capacidades con una red curada de freelancers especializados. A través de nuestro modelo de corretaje, conectamos tu proyecto con el talento perfecto, manejando toda la gestión y garantizando la entrega exitosa.",
-        "services-title": "Nuestros Servicios Especializados",
-        "services-desc": "Soluciones completas para cada necesidad digital de tu empresa.",
-        "service-apps-title": "Apps Android & iOS",
-        "service-apps-desc": "Aplicaciones nativas e híbridas de alto rendimiento para llevar tu negocio a todos los dispositivos.",
-        "app-feat1": "Apps para comercios y restaurantes",
-        "app-feat2": "Plataformas de pedidos a domicilio",
-        "app-feat3": "Sistemas de fidelización",
-        "app-feat4": "Publicación en App Store y Play Store",
-        "btn-quote-app": "Cotizar App",
-        "service-security-title": "Ciberseguridad & Protección de Datos",
-        "service-security-desc": "Protegemos tu infraestructura digital contra amenazas y garantizamos el cumplimiento normativo.",
-        "security-feat1": "Auditorías de seguridad y pentesting",
-        "security-feat2": "Implementación de firewalls y sistemas IDS/IPS",
-        "security-feat3": "Gestión de identidades y accesos (IAM)",
-        "security-feat4": "Cumplimiento de normas (ISO 27001, GDPR)",
-        "btn-protect": "Proteger mi Empresa",
-        "service-blockchain-title": "Blockchain & Minería Crypto",
-        "service-blockchain-desc": "Desarrollamos soluciones basadas en blockchain y te asesoramos en proyectos de minería de criptomonedas.",
-        "blockchain-feat1": "Desarrollo de contratos inteligentes (Smart Contracts)",
-        "blockchain-feat2": "Implementación de redes privadas blockchain",
-        "blockchain-feat3": "Asesoría en inversión y montaje de granjas de minería",
-        "blockchain-feat4": "Tokenización de activos (NFTs, STOs)",
-        "btn-explore": "Explorar Blockchain",
-        "service-outsourcing-title": "Outsourcing IT & Corretaje",
-        "service-outsourcing-desc": "Amplía tu equipo con programadores expertos por proyecto. Nosotros gestionamos el talento, tú te enfocas en tu negocio.",
-        "outsourcing-feat1": "Contratación por horas o proyecto",
-        "outsourcing-feat2": "Desarrolladores full-stack, frontend, backend",
-        "outsourcing-feat3": "Especialistas en bases de datos y DevOps",
-        "outsourcing-feat4": "Gestión de pagos y seguimiento de KPIs",
-        "btn-hire": "Contratar Talento",
-        "service-sme-title": "Soporte para PYMES",
-        "service-sme-desc": "Gestionamos y optimizamos tu infraestructura tecnológica para que puedas crecer sin preocupaciones.",
-        "sme-feat1": "Administración de servidores y redes",
-        "sme-feat2": "Soporte técnico remoto y presencial",
-        "sme-feat3": "Mantenimiento de equipos y sistemas",
-        "sme-feat4": "Estrategias de transformación digital",
-        "btn-support": "Solicitar Soporte",
-        "service-web-title": "Páginas Web & CMS",
-        "service-web-desc": "Creamos sitios web impactantes, desde landing pages hasta complejos portales empresariales con fácil administración.",
-        "web-feat1": "Diseño responsivo y enfocado en UX/UI",
-        "web-feat2": "E-commerce (Tiendas online)",
-        "web-feat3": "Gestión de contenido (WordPress, Strapi)",
-        "web-feat4": "Optimización SEO y velocidad",
-        "btn-create-web": "Crear mi Web",
-        "service-maintenance-title": "Mantenimiento & Actualización",
-        "service-maintenance-desc": "Aseguramos que tu sitio web y aplicaciones estén siempre actualizados, seguros y funcionando al máximo rendimiento.",
-        "maintenance-feat1": "Actualizaciones de seguridad y parches",
-        "maintenance-feat2": "Copias de seguridad automáticas",
-        "maintenance-feat3": "Monitoreo 24/7 de disponibilidad",
-        "maintenance-feat4": "Migraciones de servidores y bases de datos",
-        "btn-maintain": "Mantener mi Proyecto",
-        "fullstack-title": "Desarrollo Web Fullstack",
-        "fullstack-desc": "Construimos aplicaciones web completas, desde el frontend más moderno hasta el backend más robusto y escalable.",
-        "frontend-title": "Frontend Moderno",
-        "backend-title": "Backend Robusto",
-        "database-title": "Bases de Datos",
-        "fullstack-btn": "Solicitar Desarrollo Personalizado",
-        "allies-title": "Aliados del Nuevo Mundo Digital",
-        "allies-desc": "Conectamos empresas emergentes y consolidadas con las oportunidades de la era digital.",
-        "allies-emerging-title": "Para Empresas Emergentes",
-        "allies-emerging-desc": "Acompañamos a startups y negocios en sus primeras etapas digitales, proporcionando soluciones escalables y asesoría estratégica para que su tecnología impulse su crecimiento desde el día uno.",
-        "allies-established-title": "Para Empresas Acreditadas",
-        "allies-established-desc": "Ayudamos a empresas consolidadas a modernizar su infraestructura, adoptar nuevas tecnologías como blockchain y ciberseguridad avanzada, y a optimizar sus procesos para mantenerse a la vanguardia.",
-        "gov-badge": "De la mano con el desarrollo nacional",
-        "gov-title": "Compromiso con Colombia",
-        "gov-desc": "Estamos en constante actualización y alineados con los proyectos del gobierno colombiano, participando en iniciativas de transformación digital, educación tecnológica y apoyo a emprendedores. Nuestro objetivo es ser un puente que genere oportunidades y contribuya al avance del nuevo mundo digital en el país.",
-        "profile-title": "Perfil Profesional",
-        "profile-desc": "Conoce al fundador y líder detrás de Whiat Company",
-        "profile-position": "CEO & Fundador de Whiat Company - Garantias Financieras y Juridicas S.A.S",
-        "profile-website": "Mi Website Oficial",
-        "profile-whatsapp": "Consulta Inmediata",
-        "profile-email": "Correo Directo",
-        "cta-title": "¿Listo para dar el salto digital?",
-        "cta-desc": "Ya sea un desarrollo a medida, ampliar tu equipo con nuestros freelancers o asegurar tu infraestructura, estamos aquí para hacerlo realidad.",
-        "cta-btn": "Solicitar una Consultoría Gratuita",
-        "contact-title": "Contacto",
-        "contact-desc": "Ponte en contacto con nosotros para discutir tu proyecto",
-        "form-name": "Nombre Completo",
-        "form-phone": "Teléfono (con indicativo)",
-        "form-email": "Correo Electrónico",
-        "form-company": "Empresa (opcional)",
-        "form-service": "Servicio de Interés",
-        "select-default": "Selecciona un servicio",
-        "service-opt1": "Outsourcing / Corretaje de Programadores",
-        "service-opt2": "App Móvil (Android/iOS)",
-        "service-opt3": "Ciberseguridad",
-        "service-opt4": "Blockchain & Minería",
-        "service-opt5": "Soporte para PYMES",
-        "service-opt6": "Desarrollo Web Fullstack",
-        "service-opt7": "Desarrollo Web Básico",
-        "service-opt8": "Mantenimiento Web y Datos",
-        "service-opt9": "Consultoría con Matías Whiat",
-        "service-opt10": "Otro",
-        "form-message": "Mensaje",
-        "form-submit": "Enviar Mensaje",
-        "login-subtitle": "Accede a tu cuenta para gestionar tus proyectos",
-        "login-email-label": "Correo Electrónico",
-        "login-password-label": "Contraseña",
-        "login-remember": "Recordarme",
-        "login-forgot": "¿Olvidaste tu contraseña?",
-        "login-btn": "Iniciar Sesión",
-        "login-register": "¿No tienes una cuenta? Regístrate aquí",
-        "footer-about": "Impulsamos la evolución de los negocios hacia un futuro más digital. Somos tu aliado estratégico en desarrollo de software, ciberseguridad y transformación digital.",
-        "footer-services": "Servicios",
-        "footer-link-outsourcing": "Outsourcing IT",
-        "footer-link-security": "Ciberseguridad",
-        "footer-link-blockchain": "Blockchain & Minería",
-        "footer-link-apps": "Apps Móviles",
-        "footer-link-fullstack": "Desarrollo Web Fullstack",
-        "footer-links-title": "Enlaces",
-        "footer-link-model": "Nuestro Modelo",
-        "footer-link-allies": "Aliados",
-        "footer-link-profile": "Perfil Profesional",
-        "footer-link-contact": "Contacto",
-        "footer-link-login": "Iniciar Sesión",
-        "footer-legal": "Legal",
-        "footer-privacy": "Política de Privacidad",
-        "footer-terms": "Términos de Servicio",
-        "footer-cookies": "Cookies",
-        "footer-rights": "Todos los derechos reservados.",
-        "python-title": "🔥 Pon a prueba tu dominio de Python",
-        "python-desc": "¿Crees que dominas Python? Demuestra tus conocimientos con este test interactivo. En menos de 5 minutos descubrirás tu nivel real. ¡Atrévete!",
-        "python-btn": "🎯 Probar mi nivel →"
+        titulo: "Whiat Company - Soluciones Digitales Integrales",
+        whiat_company: "WHIAT COMPANY",
+        nav_modelo: "Modelo",
+        nav_servicios: "Servicios",
+        nav_desarrollo_web: "Desarrollo Web",
+        nav_aliados: "Aliados",
+        nav_perfil: "Perfil",
+        nav_contacto: "Contacto",
+        nav_python_ide: "Python IDE",
+        nav_iniciar_sesion: "Iniciar Sesión",
+        hero_badge: "Soluciones Digitales Integrales | Aliados Estratégicos",
+        hero_titulo: "Impulsamos tu negocio con tecnología de vanguardia",
+        hero_descripcion: "Expertos en crear aplicaciones móviles, sitios web de alto rendimiento, ciberseguridad, blockchain y soluciones digitales a medida para pequeñas, medianas y grandes empresas.",
+        hero_boton: "Cuéntanos tu idea",
+        servicios_titulo: "Nuestros Servicios Especializados",
+        servicios_subtitulo: "Soluciones completas para cada necesidad digital de tu empresa.",
+        servicio1_titulo: "Apps Android & iOS",
+        servicio1_desc: "Aplicaciones nativas e híbridas de alto rendimiento.",
+        servicio1_item1: "Apps para comercios y restaurantes",
+        servicio1_item2: "Plataformas de pedidos a domicilio",
+        servicio1_item3: "Sistemas de fidelización",
+        servicio1_item4: "Publicación en App Store y Play Store",
+        servicio1_boton: "Cotizar App",
+        servicio2_titulo: "Ciberseguridad & Protección de Datos",
+        servicio2_desc: "Protegemos tu infraestructura digital contra amenazas.",
+        servicio2_item1: "Auditorías de seguridad y pentesting",
+        servicio2_item2: "Implementación de firewalls",
+        servicio2_item3: "Gestión de identidades y accesos",
+        servicio2_item4: "Cumplimiento de normas (ISO 27001, GDPR)",
+        servicio2_boton: "Proteger mi Empresa",
+        servicio3_titulo: "Blockchain & Minería Crypto",
+        servicio3_desc: "Desarrollamos soluciones basadas en blockchain y asesoría en minería.",
+        servicio3_item1: "Desarrollo de contratos inteligentes",
+        servicio3_item2: "Implementación de redes privadas",
+        servicio3_item3: "Asesoría en granjas de minería",
+        servicio3_item4: "Tokenización de activos (NFTs, STOs)",
+        servicio3_boton: "Explorar Blockchain",
+        servicio4_titulo: "Outsourcing IT & Corretaje",
+        servicio4_desc: "Amplía tu equipo con programadores expertos por proyecto.",
+        servicio4_item1: "Contratación por horas o proyecto",
+        servicio4_item2: "Desarrolladores full-stack",
+        servicio4_item3: "Especialistas en bases de datos",
+        servicio4_item4: "Gestión de pagos y KPIs",
+        servicio4_boton: "Contratar Talento",
+        servicio5_titulo: "Soporte para PYMES",
+        servicio5_desc: "Gestionamos y optimizamos tu infraestructura tecnológica.",
+        servicio5_item1: "Administración de servidores y redes",
+        servicio5_item2: "Soporte técnico remoto",
+        servicio5_item3: "Mantenimiento de equipos",
+        servicio5_item4: "Estrategias de transformación digital",
+        servicio5_boton: "Solicitar Soporte",
+        servicio6_titulo: "Páginas Web & CMS",
+        servicio6_desc: "Creamos sitios web impactantes y fáciles de administrar.",
+        servicio6_item1: "Diseño responsivo UX/UI",
+        servicio6_item2: "E-commerce (Tiendas online)",
+        servicio6_item3: "Gestión de contenido (WordPress, Strapi)",
+        servicio6_item4: "Optimización SEO y velocidad",
+        servicio6_boton: "Crear mi Web",
+        servicio7_titulo: "Mantenimiento & Actualización",
+        servicio7_desc: "Aseguramos que tu sitio esté siempre actualizado y seguro.",
+        servicio7_item1: "Actualizaciones de seguridad",
+        servicio7_item2: "Copias de seguridad automáticas",
+        servicio7_item3: "Monitoreo 24/7",
+        servicio7_item4: "Migraciones de servidores",
+        servicio7_boton: "Mantener mi Proyecto",
+        fullstack_titulo: "Desarrollo Web Fullstack",
+        fullstack_subtitulo: "Construimos aplicaciones web completas.",
+        fullstack_frontend: "Frontend Moderno",
+        fullstack_backend: "Backend Robusto",
+        fullstack_db: "Bases de Datos",
+        fullstack_boton: "Solicitar Desarrollo Personalizado",
+        aliados_titulo: "Aliados del Nuevo Mundo Digital",
+        aliados_subtitulo: "Conectamos empresas con la era digital.",
+        aliados_emergentes: "Para Empresas Emergentes",
+        aliados_emergentes_desc: "Acompañamos a startups y negocios en sus primeras etapas digitales.",
+        aliados_acreditadas: "Para Empresas Acreditadas",
+        aliados_acreditadas_desc: "Modernizamos infraestructura y adoptamos nuevas tecnologías.",
+        perfil_titulo: "Perfil Profesional",
+        perfil_subtitulo: "Conoce al fundador",
+        perfil_ceo: "CEO & Fundador",
+        perfil_tag_fullstack: "Desarrollador Full-Stack",
+        perfil_tag_blockchain: "Especialista Blockchain",
+        perfil_boton_web: "Mi Website Oficial",
+        perfil_boton_whatsapp: "Consulta Inmediata",
+        perfil_boton_email: "Correo Directo",
+        cta_titulo: "¿Listo para dar el salto digital?",
+        cta_descripcion: "Ya sea un desarrollo a medida, ampliar tu equipo con nuestros freelancers o asegurar tu infraestructura, estamos aquí para hacerlo realidad.",
+        cta_boton: "Solicitar una Consultoría Gratuita",
+        test_titulo: "🔥 Pon a prueba tu dominio de Python",
+        test_descripcion: "¿Crees que dominas Python? Demuestra tus conocimientos con este test interactivo.",
+        test_tag1: "🐍 Sintaxis básica",
+        test_tag2: "📝 Strings",
+        test_tag3: "🧠 Lógica",
+        test_tag4: "⚡ Rápido y divertido",
+        test_boton: "🎯 Probar mi nivel →",
+        test_tag_tiempo: "⏱️ Menos de 5 min",
+        test_tag_python: "🐍 Python Challenge",
+        ide_titulo: "Python IDE Interactivo (Local)",
+        ide_descripcion: "Escribe, ejecuta y prueba código Python directamente en tu navegador. <strong>Compatible con input()</strong> y toda la biblioteca estándar.",
+        ide_boton_ejecutar: "Ejecutar código",
+        ide_boton_limpiar: "Limpiar editor",
+        ide_boton_restaurar: "Restaurar ejemplo",
+        ide_cargando: "Cargando Pyodide...",
+        ide_stdin_label: "📥 Entrada estándar (stdin) - simula input()",
+        ide_stdin_placeholder: "Escribe aquí los valores que tomará input() en orden\nEjemplo:\nJuan\n25",
+        ide_stdin_ayuda: "Cada línea será una respuesta para cada input() en el orden en que aparecen.",
+        ide_output_header: "🖥️ Salida / Error",
+        ide_inicializando: "⏳ Inicializando entorno Python (Pyodide)...",
+        ide_espera: "Esto tomará unos segundos la primera vez.",
+        ide_footer: "🧠 Powered by <strong>Pyodide</strong> (Python en WebAssembly) - Ejecución 100% local en tu navegador. Soporta input(), print(), listas, loops, funciones, etc.",
+        contacto_titulo: "Contacto",
+        contacto_subtitulo: "Ponte en contacto con nosotros",
+        contacto_nombre: "Nombre Completo",
+        contacto_nombre_placeholder: "Tu nombre",
+        contacto_telefono: "Teléfono (con indicativo)",
+        contacto_telefono_placeholder: "+57",
+        contacto_email: "Correo Electrónico",
+        contacto_email_placeholder: "tu@email.com",
+        contacto_empresa: "Empresa (opcional)",
+        contacto_empresa_placeholder: "Tu empresa",
+        contacto_servicio: "Servicio de Interés",
+        contacto_servicio_default: "Selecciona un servicio",
+        contacto_consultoria: "Consultoría con Matías Whiat",
+        contacto_otro: "Otro",
+        contacto_mensaje: "Mensaje",
+        contacto_mensaje_placeholder: "Escribe tu mensaje...",
+        contacto_enviar: "Enviar Mensaje",
+        login_subtitulo: "Accede a tu cuenta",
+        login_password: "Contraseña",
+        login_password_placeholder: "••••••••",
+        login_recordarme: "Recordarme",
+        login_olvidaste: "¿Olvidaste tu contraseña?",
+        login_iniciar: "Iniciar Sesión",
+        login_no_cuenta: "¿No tienes una cuenta?",
+        login_registrate: "Regístrate aquí",
+        footer_descripcion: "Impulsamos la evolución de los negocios hacia un futuro más digital.",
+        footer_servicios: "Servicios",
+        footer_enlaces: "Enlaces",
+        footer_legal: "Legal",
+        footer_privacidad: "Política de Privacidad",
+        footer_terminos: "Términos de Servicio",
+        footer_cookies: "Cookies",
+        footer_copyright: "© 2024 Whiat Company - Todos los derechos reservados."
     },
     en: {
-        "nav-model": "Model", "nav-services": "Services", "nav-web": "Web Development", "nav-allies": "Allies",
-        "nav-profile": "Profile", "nav-contact": "Contact", "nav-login": "Login",
-        "hero-badge": "Comprehensive Digital Solutions | Strategic Allies",
-        "hero-title": "Boost your business with cutting-edge technology",
-        "hero-desc": "Experts in creating mobile apps, high-performance websites, cybersecurity, blockchain and custom digital solutions for small, medium and large companies.",
-        "hero-btn": "Tell us your idea",
-        "services-title": "Our Specialized Services",
-        "services-desc": "Complete solutions for every digital need of your company.",
-        "service-apps-title": "Android & iOS Apps",
-        "service-apps-desc": "High-performance native and hybrid applications to bring your business to all devices.",
-        "app-feat1": "Apps for shops and restaurants",
-        "app-feat2": "Delivery platforms",
-        "app-feat3": "Loyalty systems",
-        "app-feat4": "Publication on App Store and Play Store",
-        "btn-quote-app": "Quote App",
-        "service-security-title": "Cybersecurity & Data Protection",
-        "service-security-desc": "We protect your digital infrastructure against threats and ensure regulatory compliance.",
-        "security-feat1": "Security audits and pentesting",
-        "security-feat2": "Firewall and IDS/IPS implementation",
-        "security-feat3": "Identity and Access Management (IAM)",
-        "security-feat4": "Compliance with standards (ISO 27001, GDPR)",
-        "btn-protect": "Protect my Company",
-        "service-blockchain-title": "Blockchain & Crypto Mining",
-        "service-blockchain-desc": "We develop blockchain-based solutions and advise you on cryptocurrency mining projects.",
-        "blockchain-feat1": "Smart Contracts development",
-        "blockchain-feat2": "Private blockchain network implementation",
-        "blockchain-feat3": "Investment advice and mining farm setup",
-        "blockchain-feat4": "Asset tokenization (NFTs, STOs)",
-        "btn-explore": "Explore Blockchain",
-        "service-outsourcing-title": "IT Outsourcing & Brokerage",
-        "service-outsourcing-desc": "Expand your team with expert programmers per project. We manage the talent, you focus on your business.",
-        "outsourcing-feat1": "Hourly or project hiring",
-        "outsourcing-feat2": "Full-stack, frontend, backend developers",
-        "outsourcing-feat3": "Database and DevOps specialists",
-        "outsourcing-feat4": "Payment management and KPI tracking",
-        "btn-hire": "Hire Talent",
-        "service-sme-title": "SME Support",
-        "service-sme-desc": "We manage and optimize your technological infrastructure so you can grow worry-free.",
-        "sme-feat1": "Server and network administration",
-        "sme-feat2": "Remote and on-site technical support",
-        "sme-feat3": "Equipment and systems maintenance",
-        "sme-feat4": "Digital transformation strategies",
-        "btn-support": "Request Support",
-        "service-web-title": "Websites & CMS",
-        "service-web-desc": "We create stunning websites, from landing pages to complex business portals with easy management.",
-        "web-feat1": "Responsive design focused on UX/UI",
-        "web-feat2": "E-commerce (Online stores)",
-        "web-feat3": "Content management (WordPress, Strapi)",
-        "web-feat4": "SEO and speed optimization",
-        "btn-create-web": "Create my Website",
-        "service-maintenance-title": "Maintenance & Updates",
-        "service-maintenance-desc": "We ensure your website and applications are always up-to-date, secure and performing at their best.",
-        "maintenance-feat1": "Security updates and patches",
-        "maintenance-feat2": "Automatic backups",
-        "maintenance-feat3": "24/7 availability monitoring",
-        "maintenance-feat4": "Server and database migrations",
-        "btn-maintain": "Maintain my Project",
-        "fullstack-title": "Fullstack Web Development",
-        "fullstack-desc": "We build complete web applications, from the most modern frontend to the most robust and scalable backend.",
-        "frontend-title": "Modern Frontend",
-        "backend-title": "Robust Backend",
-        "database-title": "Databases",
-        "fullstack-btn": "Request Custom Development",
-        "allies-title": "Allies of the New Digital World",
-        "allies-desc": "We connect emerging and established companies with the opportunities of the digital age.",
-        "allies-emerging-title": "For Emerging Companies",
-        "allies-emerging-desc": "We accompany startups and businesses in their early digital stages, providing scalable solutions and strategic advice so their technology drives growth from day one.",
-        "allies-established-title": "For Established Companies",
-        "allies-established-desc": "We help established companies modernize their infrastructure, adopt new technologies like blockchain and advanced cybersecurity, and optimize their processes to stay ahead.",
-        "gov-badge": "Hand in hand with national development",
-        "gov-title": "Commitment to Colombia",
-        "gov-desc": "We are constantly updated and aligned with the projects of the Colombian government, participating in digital transformation initiatives, technological education and support for entrepreneurs. Our goal is to be a bridge that generates opportunities and contributes to the advancement of the new digital world in the country.",
-        "profile-title": "Professional Profile",
-        "profile-desc": "Meet the founder and leader behind Whiat Company",
-        "profile-position": "CEO & Founder of Whiat Company - Garantias Financieras y Juridicas S.A.S",
-        "profile-website": "My Official Website",
-        "profile-whatsapp": "Immediate Consultation",
-        "profile-email": "Direct Email",
-        "cta-title": "Ready to make the digital leap?",
-        "cta-desc": "Whether it's a custom development, expanding your team with our freelancers or securing your infrastructure, we are here to make it happen.",
-        "cta-btn": "Request a Free Consultation",
-        "contact-title": "Contact",
-        "contact-desc": "Get in touch with us to discuss your project",
-        "form-name": "Full Name",
-        "form-phone": "Phone (with country code)",
-        "form-email": "Email",
-        "form-company": "Company (optional)",
-        "form-service": "Service of Interest",
-        "select-default": "Select a service",
-        "service-opt1": "Outsourcing / Programmer Brokerage",
-        "service-opt2": "Mobile App (Android/iOS)",
-        "service-opt3": "Cybersecurity",
-        "service-opt4": "Blockchain & Mining",
-        "service-opt5": "SME Support",
-        "service-opt6": "Fullstack Web Development",
-        "service-opt7": "Basic Web Development",
-        "service-opt8": "Web and Data Maintenance",
-        "service-opt9": "Consulting with Matías Whiat",
-        "service-opt10": "Other",
-        "form-message": "Message",
-        "form-submit": "Send Message",
-        "login-subtitle": "Access your account to manage your projects",
-        "login-email-label": "Email",
-        "login-password-label": "Password",
-        "login-remember": "Remember me",
-        "login-forgot": "Forgot your password?",
-        "login-btn": "Login",
-        "login-register": "Don't have an account? Sign up here",
-        "footer-about": "We drive the evolution of businesses towards a more digital future. We are your strategic ally in software development, cybersecurity and digital transformation.",
-        "footer-services": "Services",
-        "footer-link-outsourcing": "IT Outsourcing",
-        "footer-link-security": "Cybersecurity",
-        "footer-link-blockchain": "Blockchain & Mining",
-        "footer-link-apps": "Mobile Apps",
-        "footer-link-fullstack": "Fullstack Web Development",
-        "footer-links-title": "Links",
-        "footer-link-model": "Our Model",
-        "footer-link-allies": "Allies",
-        "footer-link-profile": "Professional Profile",
-        "footer-link-contact": "Contact",
-        "footer-link-login": "Login",
-        "footer-legal": "Legal",
-        "footer-privacy": "Privacy Policy",
-        "footer-terms": "Terms of Service",
-        "footer-cookies": "Cookies",
-        "footer-rights": "All rights reserved.",
-        "python-title": "🔥 Test your Python skills",
-        "python-desc": "Think you master Python? Take this interactive test and discover your real level in less than 5 minutes. Dare to try!",
-        "python-btn": "🎯 Test my level →"
+        titulo: "Whiat Company - Comprehensive Digital Solutions",
+        whiat_company: "WHIAT COMPANY",
+        nav_modelo: "Model",
+        nav_servicios: "Services",
+        nav_desarrollo_web: "Web Development",
+        nav_aliados: "Partners",
+        nav_perfil: "Profile",
+        nav_contacto: "Contact",
+        nav_python_ide: "Python IDE",
+        nav_iniciar_sesion: "Login",
+        hero_badge: "Comprehensive Digital Solutions | Strategic Partners",
+        hero_titulo: "Boost your business with cutting-edge technology",
+        hero_descripcion: "Experts in creating mobile apps, high-performance websites, cybersecurity, blockchain and custom digital solutions for small, medium and large companies.",
+        hero_boton: "Tell us your idea",
+        servicios_titulo: "Our Specialized Services",
+        servicios_subtitulo: "Complete solutions for every digital need of your company.",
+        servicio1_titulo: "Android & iOS Apps",
+        servicio1_desc: "High-performance native and hybrid applications.",
+        servicio1_item1: "Apps for shops and restaurants",
+        servicio1_item2: "Delivery platforms",
+        servicio1_item3: "Loyalty systems",
+        servicio1_item4: "App Store & Play Store publication",
+        servicio1_boton: "Quote App",
+        servicio2_titulo: "Cybersecurity & Data Protection",
+        servicio2_desc: "We protect your digital infrastructure against threats.",
+        servicio2_item1: "Security audits and pentesting",
+        servicio2_item2: "Firewall implementation",
+        servicio2_item3: "Identity and access management",
+        servicio2_item4: "Compliance (ISO 27001, GDPR)",
+        servicio2_boton: "Protect my Company",
+        servicio3_titulo: "Blockchain & Crypto Mining",
+        servicio3_desc: "We develop blockchain solutions and mining advisory.",
+        servicio3_item1: "Smart contract development",
+        servicio3_item2: "Private network implementation",
+        servicio3_item3: "Mining farm advisory",
+        servicio3_item4: "Asset tokenization (NFTs, STOs)",
+        servicio3_boton: "Explore Blockchain",
+        servicio4_titulo: "IT Outsourcing & Brokerage",
+        servicio4_desc: "Expand your team with expert programmers per project.",
+        servicio4_item1: "Hourly or project-based hiring",
+        servicio4_item2: "Full-stack developers",
+        servicio4_item3: "Database specialists",
+        servicio4_item4: "Payment management and KPIs",
+        servicio4_boton: "Hire Talent",
+        servicio5_titulo: "SME Support",
+        servicio5_desc: "We manage and optimize your technological infrastructure.",
+        servicio5_item1: "Server and network administration",
+        servicio5_item2: "Remote technical support",
+        servicio5_item3: "Equipment maintenance",
+        servicio5_item4: "Digital transformation strategies",
+        servicio5_boton: "Request Support",
+        servicio6_titulo: "Websites & CMS",
+        servicio6_desc: "We create stunning and easy-to-manage websites.",
+        servicio6_item1: "Responsive UX/UI design",
+        servicio6_item2: "E-commerce (online stores)",
+        servicio6_item3: "Content management (WordPress, Strapi)",
+        servicio6_item4: "SEO and speed optimization",
+        servicio6_boton: "Create my Website",
+        servicio7_titulo: "Maintenance & Updates",
+        servicio7_desc: "We ensure your site is always updated and secure.",
+        servicio7_item1: "Security updates",
+        servicio7_item2: "Automatic backups",
+        servicio7_item3: "24/7 monitoring",
+        servicio7_item4: "Server migrations",
+        servicio7_boton: "Maintain my Project",
+        fullstack_titulo: "Fullstack Web Development",
+        fullstack_subtitulo: "We build complete web applications.",
+        fullstack_frontend: "Modern Frontend",
+        fullstack_backend: "Robust Backend",
+        fullstack_db: "Databases",
+        fullstack_boton: "Request Custom Development",
+        aliados_titulo: "Partners of the New Digital World",
+        aliados_subtitulo: "We connect companies with the digital era.",
+        aliados_emergentes: "For Emerging Companies",
+        aliados_emergentes_desc: "We accompany startups and businesses in their early digital stages.",
+        aliados_acreditadas: "For Established Companies",
+        aliados_acreditadas_desc: "We modernize infrastructure and adopt new technologies.",
+        perfil_titulo: "Professional Profile",
+        perfil_subtitulo: "Meet the founder",
+        perfil_ceo: "CEO & Founder",
+        perfil_tag_fullstack: "Full-Stack Developer",
+        perfil_tag_blockchain: "Blockchain Specialist",
+        perfil_boton_web: "My Official Website",
+        perfil_boton_whatsapp: "Immediate Inquiry",
+        perfil_boton_email: "Direct Email",
+        cta_titulo: "Ready to make the digital leap?",
+        cta_descripcion: "Whether it's custom development, expanding your team with our freelancers, or securing your infrastructure, we're here to make it happen.",
+        cta_boton: "Request a Free Consultation",
+        test_titulo: "🔥 Test your Python skills",
+        test_descripcion: "Think you master Python? Prove your knowledge with this interactive test.",
+        test_tag1: "🐍 Basic syntax",
+        test_tag2: "📝 Strings",
+        test_tag3: "🧠 Logic",
+        test_tag4: "⚡ Fast and fun",
+        test_boton: "🎯 Test my level →",
+        test_tag_tiempo: "⏱️ Less than 5 min",
+        test_tag_python: "🐍 Python Challenge",
+        ide_titulo: "Interactive Python IDE (Local)",
+        ide_descripcion: "Write, run and test Python code directly in your browser. <strong>Compatible with input()</strong> and the entire standard library.",
+        ide_boton_ejecutar: "Run code",
+        ide_boton_limpiar: "Clear editor",
+        ide_boton_restaurar: "Restore example",
+        ide_cargando: "Loading Pyodide...",
+        ide_stdin_label: "📥 Standard input (stdin) - simulates input()",
+        ide_stdin_placeholder: "Write here the values that input() will take in order\nExample:\nJohn\n25",
+        ide_stdin_ayuda: "Each line will be an answer for each input() in the order they appear.",
+        ide_output_header: "🖥️ Output / Error",
+        ide_inicializando: "⏳ Initializing Python environment (Pyodide)...",
+        ide_espera: "This will take a few seconds the first time.",
+        ide_footer: "🧠 Powered by <strong>Pyodide</strong> (Python in WebAssembly) - 100% local execution in your browser. Supports input(), print(), lists, loops, functions, etc.",
+        contacto_titulo: "Contact",
+        contacto_subtitulo: "Get in touch with us",
+        contacto_nombre: "Full Name",
+        contacto_nombre_placeholder: "Your name",
+        contacto_telefono: "Phone (with country code)",
+        contacto_telefono_placeholder: "+57",
+        contacto_email: "Email",
+        contacto_email_placeholder: "your@email.com",
+        contacto_empresa: "Company (optional)",
+        contacto_empresa_placeholder: "Your company",
+        contacto_servicio: "Service of Interest",
+        contacto_servicio_default: "Select a service",
+        contacto_consultoria: "Consulting with Matías Whiat",
+        contacto_otro: "Other",
+        contacto_mensaje: "Message",
+        contacto_mensaje_placeholder: "Write your message...",
+        contacto_enviar: "Send Message",
+        login_subtitulo: "Access your account",
+        login_password: "Password",
+        login_password_placeholder: "••••••••",
+        login_recordarme: "Remember me",
+        login_olvidaste: "Forgot your password?",
+        login_iniciar: "Login",
+        login_no_cuenta: "Don't have an account?",
+        login_registrate: "Sign up here",
+        footer_descripcion: "We drive business evolution towards a more digital future.",
+        footer_servicios: "Services",
+        footer_enlaces: "Links",
+        footer_legal: "Legal",
+        footer_privacidad: "Privacy Policy",
+        footer_terminos: "Terms of Service",
+        footer_cookies: "Cookies",
+        footer_copyright: "© 2024 Whiat Company - All rights reserved."
     }
 };
 
-// Copiar el español a los demás idiomas (fallback a español en lugar de inglés)
-const otherLangs = ['de', 'ru', 'zh', 'fr', 'it', 'pt'];
-otherLangs.forEach(lang => {
-    translations[lang] = { ...translations.es };  // AHORA USA ESPAÑOL
-});
+let currentLang = localStorage.getItem('whiat_lang') || (navigator.language.startsWith('es') ? 'es' : 'en');
 
-// Sistema de fallback: si falta una clave, usa español (sin advertencias)
-function getTranslation(key, lang) {
-    if (translations[lang] && translations[lang][key] !== undefined) {
-        return translations[lang][key];
-    }
-    // Si no está en el idioma elegido, usar español (sin mensajes de consola)
-    if (translations.es && translations.es[key] !== undefined) {
-        return translations.es[key];
-    }
-    // Último recurso: devolver null (mantiene el texto original del HTML)
-    return null;
-}
-
-let currentLang = 'es';
-
-function translatePage() {
-    document.querySelectorAll('[data-i18n]').forEach(element => {
-        const key = element.getAttribute('data-i18n');
-        const translation = getTranslation(key, currentLang);
-        
-        if (translation !== null) {
-            if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
-                if (element.placeholder !== undefined && element.hasAttribute('placeholder')) {
-                    element.placeholder = translation;
-                }
-            } else if (element.tagName === 'OPTION') {
-                element.textContent = translation;
+function setLanguage(lang) {
+    currentLang = lang;
+    localStorage.setItem('whiat_lang', lang);
+    document.documentElement.lang = lang;
+    document.getElementById('currentLangText').innerHTML = lang === 'es' ? '🌐 Español' : '🌐 English';
+    
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (translations[lang][key]) {
+            if (el.tagName === 'INPUT' && el.getAttribute('data-i18n-placeholder') !== null) {
+                // se maneja abajo
+            } else if (el.tagName === 'TEXTAREA' && el.getAttribute('data-i18n-placeholder') !== null) {
+                // se maneja abajo
             } else {
-                element.textContent = translation;
+                el.innerHTML = translations[lang][key];
             }
         }
     });
     
-    const langNames = {
-        es: "🌐 Español",
-        en: "🇬🇧 English",
-        de: "🇩🇪 Deutsch",
-        ru: "🇷🇺 Русский",
-        zh: "🇨🇳 中文",
-        fr: "🇫🇷 Français",
-        it: "🇮🇹 Italiano",
-        pt: "🇵🇹 Português"
-    };
-    const currentLangText = document.getElementById('currentLangText');
-    if (currentLangText) {
-        currentLangText.textContent = langNames[currentLang] || "🌐 Español";
-    }
-    
-    document.querySelectorAll('.floating-lang-option').forEach(opt => {
-        opt.classList.remove('active');
-        if (opt.getAttribute('data-lang') === currentLang) opt.classList.add('active');
+    document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+        const key = el.getAttribute('data-i18n-placeholder');
+        if (translations[lang][key]) {
+            el.placeholder = translations[lang][key];
+        }
     });
     
-    localStorage.setItem('preferredLanguage', currentLang);
-}
+    const serviceSelect = document.getElementById('serviceSelect');
+    if (serviceSelect) {
+        for (let i = 0; i < serviceSelect.options.length; i++) {
+            const opt = serviceSelect.options[i];
+            const val = opt.value;
+            let translationKey = '';
+            switch(val) {
+                case '': translationKey = 'contacto_servicio_default'; break;
+                case 'outsourcing': translationKey = 'servicio4_titulo'; break;
+                case 'app-movil': translationKey = 'servicio1_titulo'; break;
+                case 'ciberseguridad': translationKey = 'servicio2_titulo'; break;
+                case 'blockchain': translationKey = 'servicio3_titulo'; break;
+                case 'soporte-pyme': translationKey = 'servicio5_titulo'; break;
+                case 'fullstack': translationKey = 'fullstack_titulo'; break;
+                case 'web-basico': translationKey = 'servicio6_titulo'; break;
+                case 'mantenimiento': translationKey = 'servicio7_titulo'; break;
+                case 'consulting': translationKey = 'contacto_consultoria'; break;
+                case 'other': translationKey = 'contacto_otro'; break;
+                default: translationKey = '';
+            }
+            if (translationKey && translations[lang][translationKey]) {
+                opt.textContent = translations[lang][translationKey];
+            }
+        }
+    }
+    
+    const codeEditor = document.getElementById('pythonCodeEditor');
+    const defaultExampleSpanish = `# 🔥 IDE Python con soporte para input()
+# Escribe cualquier código Python estándar
 
-function changeLanguage(lang) {
-    if (translations.hasOwnProperty(lang)) {
-        currentLang = lang;
-        translatePage();
-        showLanguageMessage(lang);
+nombre = input("¿Cómo te llamas? ")
+edad = input("¿Cuántos años tienes? ")
+
+print(f"\\n✨ Hola {nombre}, tienes {edad} años.")
+print("Suma de 10 + 20 =", 10+20)
+
+numeros = [1,2,3,4,5]
+cuadrados = [n**2 for n in numeros]
+print(f"\\nLista: {numeros}")
+print(f"Cuadrados: {cuadrados}")
+
+print("\\n✅ ¡Todo funciona perfectamente!")`;
+    
+    const defaultExampleEnglish = `# 🔥 Python IDE with input() support
+# Write any standard Python code
+
+name = input("What is your name? ")
+age = input("How old are you? ")
+
+print(f"\\n✨ Hello {name}, you are {age} years old.")
+print("Sum of 10 + 20 =", 10+20)
+
+numbers = [1,2,3,4,5]
+squares = [n**2 for n in numbers]
+print(f"\\nList: {numbers}")
+print(f"Squares: {squares}")
+
+print("\\n✅ Everything works perfectly!")`;
+    
+    const currentCode = codeEditor.value;
+    if (currentCode === defaultExampleSpanish || currentCode === defaultExampleEnglish || currentCode.trim() === defaultExampleSpanish.trim() || currentCode.trim() === defaultExampleEnglish.trim()) {
+        codeEditor.value = lang === 'es' ? defaultExampleSpanish : defaultExampleEnglish;
+    }
+    
+    const stdinArea = document.getElementById('pythonStdin');
+    if (lang === 'es') {
+        if (stdinArea.value === "Juan\n25" || stdinArea.value === "John\n25") {
+            stdinArea.value = "Juan\n25";
+        }
+        stdinArea.placeholder = translations.es.ide_stdin_placeholder;
     } else {
-        console.error(`Idioma "${lang}" no soportado.`);
+        if (stdinArea.value === "Juan\n25" || stdinArea.value === "John\n25") {
+            stdinArea.value = "John\n25";
+        }
+        stdinArea.placeholder = translations.en.ide_stdin_placeholder;
     }
-}
-
-function showLanguageMessage(lang) {
-    const messages = {
-        es: '🌐 Idioma cambiado a Español',
-        en: '🌐 Language changed to English',
-        de: '🌐 Sprache zu Deutsch geändert',
-        ru: '🌐 Язык изменен на Русский',
-        zh: '🌐 语言已更改为中文',
-        fr: '🌐 Langue changée en Français',
-        it: '🌐 Lingua cambiata in Italiano',
-        pt: '🌐 Idioma alterado para Português'
-    };
-    const message = document.createElement('div');
-    message.style.position = 'fixed';
-    message.style.bottom = '180px';
-    message.style.right = '30px';
-    message.style.background = 'var(--dark-gray, #0f172a)';
-    message.style.color = 'var(--primary, #00d4ff)';
-    message.style.padding = '12px 20px';
-    message.style.borderRadius = '8px';
-    message.style.border = '1px solid var(--primary, #00d4ff)';
-    message.style.zIndex = '1000';
-    message.style.fontSize = '0.85rem';
-    message.style.backgroundColor = '#0f172a';
-    message.textContent = messages[lang] || `🌐 Language changed to ${lang}`;
-    document.body.appendChild(message);
-    setTimeout(() => {
-        message.style.opacity = '0';
-        message.style.transition = 'opacity 0.5s ease';
-        setTimeout(() => message.remove(), 500);
-    }, 2500);
-}
-
-// ==================== PRELOADER Y CONFIGURACIÓN INICIAL ====================
-window.addEventListener('load', function () {
-
-    const loadingBar = document.getElementById('loading-bar');
-    const loadingText = document.getElementById('loading-text');
-    const preloader = document.getElementById('preloader');
-    const video = document.getElementById('preloaderVideo');
-
-    // Si no existe el video, ocultar el preloader automáticamente
-    if (!video) {
-        if (preloader) {
-            preloader.style.opacity = '0';
-            setTimeout(() => {
-                preloader.style.display = 'none';
-            }, 500);
-        }
-        return;
-    }
-
-    const duration = 5000; // Duración del video en milisegundos (5 segundos)
-    const startTime = Date.now();
-
-    const interval = setInterval(function () {
-
-        const elapsed = Date.now() - startTime;
-        let progress = (elapsed / duration) * 100;
-
-        if (progress > 100) progress = 100;
-
-        if (loadingBar) {
-            loadingBar.style.width = progress + '%';
-        }
-
-        if (loadingText) {
-            if (progress < 30) {
-                loadingText.textContent = "Cargando recursos...";
-            } else if (progress < 70) {
-                loadingText.textContent = "Inicializando componentes...";
-            } else if (progress < 100) {
-                loadingText.textContent = "¡Casi listo!";
-            } else {
-                loadingText.textContent = "¡Bienvenido!";
-            }
-        }
-
-        if (progress >= 100) {
-            clearInterval(interval);
-        }
-
-    }, 50);
-
-    // Cuando termina el video, ocultar el preloader
-    video.addEventListener('ended', function () {
-
-        if (loadingBar) {
-            loadingBar.style.width = '100%';
-        }
-
-        if (loadingText) {
-            loadingText.textContent = "¡Bienvenido!";
-        }
-
-        if (preloader) {
-            preloader.style.opacity = '0';
-
-            setTimeout(function () {
-                preloader.style.display = 'none';
-            }, 500);
-        }
-
-    });
-
-});
     
-    // Guardar idioma (el resto del código sigue igual)
-    const savedLang = localStorage.getItem('preferredLanguage');
-    if (savedLang && translations.hasOwnProperty(savedLang)) changeLanguage(savedLang);
-    else changeLanguage('es');
-});
+    document.title = translations[lang].titulo;
+}
 
-// ==================== PARTÍCULAS ====================
+function initLanguageSwitcher() {
+    const toggleBtn = document.getElementById('floatingLanguageToggle');
+    const dropdown = document.getElementById('floatingLanguageDropdown');
+    const options = document.querySelectorAll('.floating-lang-option');
+    
+    toggleBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        dropdown.classList.toggle('show');
+    });
+    
+    document.addEventListener('click', () => {
+        dropdown.classList.remove('show');
+    });
+    
+    options.forEach(opt => {
+        opt.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const lang = opt.getAttribute('data-lang');
+            if (lang) setLanguage(lang);
+            dropdown.classList.remove('show');
+        });
+    });
+    
+    setLanguage(currentLang);
+}
+
+// =====================================================================
+// 4. PARTICULAS
+// =====================================================================
 if (typeof particlesJS !== 'undefined') {
     particlesJS('particles-js', {
         particles: {
             number: { value: 80, density: { enable: true, value_area: 800 } },
-            color: { value: "#00d4ff" },
-            shape: { type: "circle" },
+            color: { value: '#00d4ff' },
+            shape: { type: 'circle' },
             opacity: { value: 0.5, random: true },
             size: { value: 3, random: true },
-            line_linked: { enable: true, distance: 150, color: "#00d4ff", opacity: 0.25, width: 1 },
-            move: { enable: true, speed: 1.2, direction: "none", random: true, straight: false, out_mode: "out" }
+            line_linked: { enable: true, distance: 150, color: '#00d4ff', opacity: 0.2, width: 1 },
+            move: { enable: true, speed: 2, direction: 'none', random: true, straight: false, out_mode: 'out' }
         },
         interactivity: {
-            detect_on: "canvas",
-            events: { onhover: { enable: true, mode: "grab" }, onclick: { enable: true, mode: "push" } },
-            modes: { grab: { distance: 140, line_linked: { opacity: 0.6 } }, push: { particles_nb: 4 } }
-        },
-        retina_detect: true
+            detect_on: 'canvas',
+            events: { onhover: { enable: true, mode: 'repulse' }, onclick: { enable: true, mode: 'push' } }
+        }
     });
 }
 
-// ==================== NAVEGACIÓN SUAVE ====================
+// =====================================================================
+// 5. CORRECCIÓN DE IMAGEN DE PERFIL (fallback)
+// =====================================================================
+(function fixProfileImage() {
+    const profileImg = document.getElementById('profileAvatar');
+    if (!profileImg) return;
+    
+    const pathsToTry = [
+        "MEDIA/BCHINO.jpeg",
+        "MEDIA/BCHINO.jpg",
+        "MEDIA/bchino.jpeg",
+        "MEDIA/bchino.jpg",
+        "media/BCHINO.jpeg",
+        "media/BCHINO.jpg",
+        "media/bchino.jpeg",
+        "media/bchino.jpg",
+        "./MEDIA/BCHINO.jpeg",
+        "./MEDIA/BCHINO.jpg",
+        "./media/BCHINO.jpeg",
+        "./media/BCHINO.jpg"
+    ];
+    
+    let currentTry = 0;
+    
+    function tryNextPath() {
+        if (currentTry >= pathsToTry.length) {
+            console.warn("No se pudo cargar la foto de perfil después de múltiples intentos.");
+            return;
+        }
+        const testImg = new Image();
+        testImg.onload = function() {
+            profileImg.src = pathsToTry[currentTry];
+            profileImg.onerror = null;
+        };
+        testImg.onerror = function() {
+            currentTry++;
+            tryNextPath();
+        };
+        testImg.src = pathsToTry[currentTry];
+    }
+    
+    profileImg.onerror = function() {
+        if (profileImg.getAttribute('data-fixing') === 'true') return;
+        profileImg.setAttribute('data-fixing', 'true');
+        currentTry = 0;
+        tryNextPath();
+    };
+})();
+
+// =====================================================================
+// 6. IDE PYTHON FUNCIONAL
+// =====================================================================
+(function() {
+    let pyodideReady = false;
+    let pyodide = null;
+    
+    const runBtn = document.getElementById('runPythonBtn');
+    const clearBtn = document.getElementById('clearEditorBtn');
+    const resetBtn = document.getElementById('resetExampleBtn');
+    const codeEditor = document.getElementById('pythonCodeEditor');
+    const stdinArea = document.getElementById('pythonStdin');
+    const outputPre = document.getElementById('pythonOutput');
+    const statusSpan = document.getElementById('pyodideStatus');
+    
+    let outputBuffer = "";
+    
+    function setOutput(text, isError = false) {
+        if (isError) {
+            outputPre.innerHTML = `<span style="color: #ff8888;">${escapeHtml(text)}</span>`;
+        } else {
+            outputPre.innerHTML = escapeHtml(text);
+        }
+        outputPre.scrollTop = outputPre.scrollHeight;
+    }
+    
+    function escapeHtml(str) {
+        return str.replace(/[&<>]/g, function(m) {
+            if (m === '&') return '&amp;';
+            if (m === '<') return '&lt;';
+            if (m === '>') return '&gt;';
+            return m;
+        });
+    }
+    
+    function appendOutput(text) {
+        outputBuffer += text;
+        setOutput(outputBuffer);
+    }
+    
+    function clearOutput() {
+        outputBuffer = "";
+        setOutput("");
+    }
+    
+    function setupPythonEnvironment() {
+        pyodide.runPython(`
+import sys
+from io import StringIO
+
+class TeeOutput:
+    def __init__(self, original, is_error=False):
+        self.original = original
+        self.is_error = is_error
+        self.buffer = StringIO()
+    def write(self, data):
+        self.buffer.write(data)
+        if self.original:
+            self.original.write(data)
+    def flush(self):
+        if self.original:
+            self.original.flush()
+        content = self.buffer.getvalue()
+        if content:
+            import js
+            js.appendOutput(content)
+            self.buffer.truncate(0)
+            self.buffer.seek(0)
+
+sys.stdout = TeeOutput(sys.stdout, False)
+sys.stderr = TeeOutput(sys.stderr, True)
+        `);
+        
+        pyodide.runPython(`
+import builtins
+import js
+
+_input_lines = []
+_input_idx = 0
+
+def get_stdin_line():
+    global _input_lines, _input_idx
+    if _input_idx >= len(_input_lines):
+        raw = js.document.getElementById('pythonStdin').value
+        _input_lines = raw.split('\\n')
+        _input_idx = 0
+    if _input_idx < len(_input_lines):
+        line = _input_lines[_input_idx]
+        _input_idx += 1
+        return line
+    return ""
+
+def custom_input(prompt=''):
+    if prompt:
+        sys.stdout.write(prompt)
+        sys.stdout.flush()
+    line = get_stdin_line()
+    if line is None:
+        raise EOFError("No more input (stdin empty)")
+    return line
+
+builtins.input = custom_input
+        `);
+    }
+    
+    function resetInputIndex() {
+        pyodide.runPython(`
+import js
+_input_lines = []
+_input_idx = 0
+raw = js.document.getElementById('pythonStdin').value
+_input_lines = raw.split('\\n')
+_input_idx = 0
+        `);
+    }
+    
+    async function runPythonCode() {
+        if (!pyodideReady) {
+            setOutput("⏳ Python environment not ready yet. Wait for it to finish loading.", true);
+            return;
+        }
+        const code = codeEditor.value;
+        if (code.trim() === "") {
+            setOutput("⚠️ No code to run. Write or paste something in the editor.", false);
+            return;
+        }
+        clearOutput();
+        resetInputIndex();
+        setOutput("▶️ Running...\n", false);
+        try {
+            await pyodide.runPythonAsync(code);
+            if (outputBuffer === "") {
+                setOutput("✅ Code executed successfully (no printed output).");
+            }
+        } catch (err) {
+            let errorMsg = err.message || String(err);
+            appendOutput(`\n❌ Error: ${errorMsg}\n`);
+        }
+    }
+    
+    function clearEditor() {
+        codeEditor.value = "";
+        clearOutput();
+        setOutput("🧹 Editor cleared. Write your code and press 'Run'.", false);
+    }
+    
+    function resetExample() {
+        const lang = currentLang;
+        const exampleSpanish = `# 🔥 IDE Python con soporte para input()
+# Escribe cualquier código Python estándar
+
+nombre = input("¿Cómo te llamas? ")
+edad = input("¿Cuántos años tienes? ")
+
+print(f"\\n✨ Hola {nombre}, tienes {edad} años.")
+print("Suma de 10 + 20 =", 10+20)
+
+numeros = [1,2,3,4,5]
+cuadrados = [n**2 for n in numeros]
+print(f"\\nLista: {numeros}")
+print(f"Cuadrados: {cuadrados}")
+
+print("\\n✅ ¡Todo funciona perfectamente!")`;
+        
+        const exampleEnglish = `# 🔥 Python IDE with input() support
+# Write any standard Python code
+
+name = input("What is your name? ")
+age = input("How old are you? ")
+
+print(f"\\n✨ Hello {name}, you are {age} years old.")
+print("Sum of 10 + 20 =", 10+20)
+
+numbers = [1,2,3,4,5]
+squares = [n**2 for n in numbers]
+print(f"\\nList: {numbers}")
+print(f"Squares: {squares}")
+
+print("\\n✅ Everything works perfectly!")`;
+        
+        codeEditor.value = lang === 'es' ? exampleSpanish : exampleEnglish;
+        if (lang === 'es') {
+            stdinArea.value = "Juan\n25";
+        } else {
+            stdinArea.value = "John\n25";
+        }
+        clearOutput();
+        setOutput(lang === 'es' ? "📘 Ejemplo restaurado. Presiona 'Ejecutar' para probarlo." : "📘 Example restored. Press 'Run' to test it.", false);
+        resetInputIndex();
+    }
+    
+    async function loadPyodideAndInit() {
+        setOutput("📦 Loading Pyodide (Python in WebAssembly). First time may take several seconds...", false);
+        statusSpan.innerHTML = `<span data-i18n="ide_cargando">${currentLang === 'es' ? 'Cargando Pyodide...' : 'Loading Pyodide...'}</span>`;
+        try {
+            pyodide = await loadPyodide({
+                indexURL: "https://cdn.jsdelivr.net/pyodide/v0.26.1/full/"
+            });
+            pyodideReady = true;
+            setupPythonEnvironment();
+            runBtn.disabled = false;
+            statusSpan.innerHTML = currentLang === 'es' ? "✅ Python listo" : "✅ Python ready";
+            statusSpan.style.background = "#00d4ff30";
+            setOutput(currentLang === 'es' ? "✅ Entorno Python listo. Escribe tu código y presiona 'Ejecutar código' o Ctrl+Enter.\n\n💡 Tip: Puedes usar input() y los valores se tomarán del área 'Entrada estándar' (una línea por input)." : "✅ Python environment ready. Write your code and press 'Run code' or Ctrl+Enter.\n\n💡 Tip: You can use input() and values will be taken from the 'Standard input' area (one line per input).", false);
+        } catch (err) {
+            console.error(err);
+            setOutput(`❌ Fatal error loading Pyodide: ${err.message}\nCheck your internet connection.`, true);
+            statusSpan.innerHTML = currentLang === 'es' ? "❌ Error de carga" : "❌ Load error";
+            statusSpan.style.background = "#ff444430";
+            runBtn.disabled = true;
+        }
+    }
+    
+    runBtn.addEventListener('click', runPythonCode);
+    clearBtn.addEventListener('click', clearEditor);
+    resetBtn.addEventListener('click', resetExample);
+    codeEditor.addEventListener('keydown', (e) => {
+        if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+            e.preventDefault();
+            runPythonCode();
+        }
+    });
+    
+    window.appendOutput = appendOutput;
+    loadPyodideAndInit();
+})();
+
+// =====================================================================
+// 7. LOGIN HANDLER
+// =====================================================================
+function handleLogin(event) {
+    event.preventDefault();
+    const email = document.getElementById('login-email')?.value;
+    const password = document.getElementById('login-password')?.value;
+    if (email && password) {
+        alert(currentLang === 'es' ? "Funcionalidad de login en desarrollo. Por favor contacta al administrador." : "Login functionality under development. Please contact the administrator.");
+    } else {
+        alert(currentLang === 'es' ? "Por favor ingresa correo y contraseña." : "Please enter email and password.");
+    }
+}
+window.handleLogin = handleLogin;
+
+// =====================================================================
+// 8. NAVEGACIÓN SUAVE Y ANIMACIONES
+// =====================================================================
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function(e) {
         const href = this.getAttribute('href');
@@ -538,35 +850,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
-// ==================== LOGIN DEMO ====================
-window.handleLogin = function(event) {
-    event.preventDefault();
-    const email = document.getElementById('login-email').value;
-    alert(`¡Bienvenido a WHIAT COMPANY!\n\nEmail: ${email}\n\nEsta es una demostración. La funcionalidad de login real estará disponible próximamente.`);
-};
-
-// ==================== BOTÓN FLOTANTE DE IDIOMA ====================
-const floatingToggle = document.getElementById('floatingLanguageToggle');
-const floatingDropdown = document.getElementById('floatingLanguageDropdown');
-if (floatingToggle) {
-    floatingToggle.addEventListener('click', (e) => {
-        e.stopPropagation();
-        floatingDropdown.classList.toggle('show');
-    });
-}
-document.querySelectorAll('.floating-lang-option').forEach(option => {
-    option.addEventListener('click', () => {
-        changeLanguage(option.getAttribute('data-lang'));
-        floatingDropdown.classList.remove('show');
-    });
-});
-document.addEventListener('click', (e) => {
-    if (floatingDropdown && floatingToggle && !floatingToggle.contains(e.target) && !floatingDropdown.contains(e.target)) {
-        floatingDropdown.classList.remove('show');
-    }
-});
-
-// ==================== ANIMACIONES AL HACER SCROLL ====================
+// Animaciones al hacer scroll
 const elementsToAnimate = document.querySelectorAll('.model-card, .service-card, .allies-card, .profile-card, .fullstack-card, .python-test-card');
 const observerScroll = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
@@ -583,18 +867,10 @@ elementsToAnimate.forEach(el => {
     observerScroll.observe(el);
 });
 
-// ==================== BLOQUEO DE SCRIPTS EXTERNOS NO AUTORIZADOS ====================
-const scriptBlocker = new MutationObserver(function(mutations) {
-    mutations.forEach(function(mutation) {
-        mutation.addedNodes.forEach(function(node) {
-            if (node.tagName === 'SCRIPT' && node.src && 
-                !node.src.includes('cdn.jsdelivr.net') && 
-                !node.src.includes('cdnjs.cloudflare.com')) {
-                node.remove();
-                console.warn('Script no autorizado eliminado:', node.src);
-            }
-        });
-    });
+// =====================================================================
+// 9. INICIALIZACIÓN FINAL
+// =====================================================================
+document.addEventListener('DOMContentLoaded', function() {
+    initLanguageSwitcher();
+    // Cualquier otra inicialización
 });
-scriptBlocker.observe(document.head, { childList: true, subtree: true });
-scriptBlocker.observe(document.body, { childList: true, subtree: true });
