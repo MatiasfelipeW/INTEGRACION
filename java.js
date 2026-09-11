@@ -1,49 +1,167 @@
 /* =============================================================
    WHIAT COMPANY — Script principal
-   Preloader · i18n · Pyodide IDE · Partículas · Luz errante
+   Preloader · Meteoros (canvas) · i18n · Pyodide IDE
    ============================================================= */
 
 // =====================================================================
-// 1. PRELOADER — 4 segundos exactos
+// 1. FACTORY DE METEOROS (reutilizable)
+// =====================================================================
+function createMeteorField(canvasId, opts) {
+    const canvas = document.getElementById(canvasId);
+    if (!canvas) return;
+
+    const ctx = canvas.getContext('2d');
+    const config = Object.assign({
+        countDesktop: 8,
+        countMobile: 4,
+        speedMin: 2.5,
+        speedMax: 4.5,
+        lengthMin: 90,
+        lengthMax: 220,
+        widthMin: 1,
+        widthMax: 2.6
+    }, opts || {});
+
+    let w, h, dpr;
+
+    function resize() {
+        dpr = Math.min(window.devicePixelRatio || 1, 2);
+        w = canvas.clientWidth || window.innerWidth;
+        h = canvas.clientHeight || window.innerHeight;
+        canvas.width  = Math.floor(w * dpr);
+        canvas.height = Math.floor(h * dpr);
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
+    resize();
+    window.addEventListener('resize', () => {
+        resize();
+        // Redistribuir meteoros al cambiar tamaño
+        meteors.forEach(m => m.spawn(true));
+    });
+
+    const COLORS = [
+        { head: '#ffffff', mid: 'rgba(0, 234, 255, 0.75)', tail: 'rgba(0, 212, 255, 0)' },
+        { head: '#aef3ff', mid: 'rgba(0, 212, 255, 0.7)', tail: 'rgba(0, 212, 255, 0)' },
+        { head: '#ffffff', mid: 'rgba(150, 230, 255, 0.7)', tail: 'rgba(0, 212, 255, 0)' }
+    ];
+
+    class Meteor {
+        constructor(initial = false) {
+            this.spawn(initial);
+        }
+
+        spawn(initial = false) {
+            // Ángulo 135° (diagonal desde arriba-derecha hacia abajo-izquierda)
+            this.angle = Math.PI * 0.75;
+            this.speed = config.speedMin + Math.random() * (config.speedMax - config.speedMin);
+
+            this.x = w * 0.5 + Math.random() * w * 1.2;
+            this.y = -100 - Math.random() * h * 0.6;
+
+            this.length = config.lengthMin + Math.random() * (config.lengthMax - config.lengthMin);
+            this.width = config.widthMin + Math.random() * (config.widthMax - config.widthMin);
+            this.opacity = 0.5 + Math.random() * 0.5;
+            this.color = COLORS[Math.floor(Math.random() * COLORS.length)];
+
+            if (initial) {
+                // Distribuir por toda la pantalla al inicio
+                this.x = Math.random() * w * 1.4;
+                this.y = Math.random() * h - h * 0.4;
+            }
+        }
+
+        update() {
+            this.x += Math.cos(this.angle) * this.speed;
+            this.y += Math.sin(this.angle) * this.speed;
+
+            if (this.y > h + 200 || this.x < -300) {
+                this.spawn();
+            }
+        }
+
+        draw() {
+            const dx = Math.cos(this.angle) * this.length;
+            const dy = Math.sin(this.angle) * this.length;
+            const tailX = this.x - dx;
+            const tailY = this.y - dy;
+
+            // Rastro con gradiente
+            const grad = ctx.createLinearGradient(this.x, this.y, tailX, tailY);
+            grad.addColorStop(0, this.color.head);
+            grad.addColorStop(0.35, this.color.mid);
+            grad.addColorStop(1, this.color.tail);
+
+            ctx.beginPath();
+            ctx.strokeStyle = grad;
+            ctx.lineWidth = this.width;
+            ctx.lineCap = 'round';
+            ctx.moveTo(this.x, this.y);
+            ctx.lineTo(tailX, tailY);
+            ctx.stroke();
+
+            // Halo brillante en la cabeza
+            const headGlow = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, this.width * 6);
+            headGlow.addColorStop(0, `rgba(255, 255, 255, ${this.opacity})`);
+            headGlow.addColorStop(0.4, `rgba(0, 234, 255, ${this.opacity * 0.8})`);
+            headGlow.addColorStop(1, 'rgba(0, 212, 255, 0)');
+
+            ctx.beginPath();
+            ctx.fillStyle = headGlow;
+            ctx.arc(this.x, this.y, this.width * 6, 0, Math.PI * 2);
+            ctx.fill();
+
+            // Punto central
+            ctx.beginPath();
+            ctx.fillStyle = `rgba(255, 255, 255, ${this.opacity})`;
+            ctx.arc(this.x, this.y, this.width * 1.2, 0, Math.PI * 2);
+            ctx.fill();
+        }
+    }
+
+    const count = window.innerWidth < 700 ? config.countMobile : config.countDesktop;
+    const meteors = [];
+    for (let i = 0; i < count; i++) {
+        meteors.push(new Meteor(true));
+    }
+
+    function loop() {
+        ctx.clearRect(0, 0, w, h);
+        for (const m of meteors) {
+            m.update();
+            m.draw();
+        }
+        requestAnimationFrame(loop);
+    }
+    loop();
+}
+
+// =====================================================================
+// 2. PRELOADER — 4 segundos
 // =====================================================================
 (function initPreloader() {
     const preloader = document.getElementById('preloader');
     if (!preloader) return;
 
-    const progressFill = document.getElementById('preloaderProgress');
-    const percentEl    = document.getElementById('preloaderPercent');
-    const statusEl     = document.getElementById('preloaderStatus');
+    const BUILD_TIME = 3200; // construcción
+    const FADE_TIME  = 800;  // fade (total ≈ 4s)
 
-    const BUILD_TIME = 3200; // ms de construcción
-    const FADE_TIME  = 800;  // ms de desvanecimiento (total ≈ 4s)
-
-    const statuses = [
-        { at: 0,   text: 'INITIALIZING' },
-        { at: 22,  text: 'CALIBRATING' },
-        { at: 45,  text: 'LOADING ASSETS' },
-        { at: 68,  text: 'ALMOST READY' },
-        { at: 90,  text: 'ENTERING' },
-        { at: 100, text: 'WELCOME' }
-    ];
+    // Meteoros del preloader: MISMO estilo que la página pero MÁS LENTOS
+    // Velocidad reducida a la mitad que la de la página
+    createMeteorField('preloaderMeteors', {
+        countDesktop: 6,
+        countMobile: 4,
+        speedMin: 1.2,
+        speedMax: 2.2,
+        lengthMin: 100,
+        lengthMax: 240,
+        widthMin: 1,
+        widthMax: 2.4
+    });
 
     const start = performance.now();
-    let lastStatus = '';
 
     function tick(now) {
         const elapsed = now - start;
-        const pct = Math.min(100, (elapsed / BUILD_TIME) * 100);
-
-        if (progressFill) progressFill.style.width = pct + '%';
-        if (percentEl)    percentEl.textContent = Math.floor(pct) + '%';
-
-        let currentStatus = statuses[0].text;
-        for (const s of statuses) {
-            if (pct >= s.at) currentStatus = s.text;
-        }
-        if (statusEl && statusEl.textContent !== currentStatus) {
-            statusEl.textContent = currentStatus;
-        }
-        lastStatus = currentStatus;
 
         if (elapsed < BUILD_TIME) {
             requestAnimationFrame(tick);
@@ -51,23 +169,45 @@
             preloader.classList.add('hidden');
             setTimeout(() => {
                 preloader.style.display = 'none';
-                document.body.classList.add('loaded');
+                // Arrancar meteoros de la página al terminar
+                startPageMeteors();
             }, FADE_TIME);
         }
     }
     requestAnimationFrame(tick);
 
-    // Failsafe: si algo falla, quitar en 6s
+    // Failsafe por si algo falla
     setTimeout(() => {
         if (preloader.style.display !== 'none') {
             preloader.classList.add('hidden');
-            setTimeout(() => preloader.style.display = 'none', 900);
+            setTimeout(() => {
+                preloader.style.display = 'none';
+                startPageMeteors();
+            }, 900);
         }
     }, 6000);
 })();
 
+// Meteoros de la página: menos cantidad y 50% más lentos que la v1
+let pageMeteorsStarted = false;
+function startPageMeteors() {
+    if (pageMeteorsStarted) return;
+    pageMeteorsStarted = true;
+
+    createMeteorField('meteorCanvas', {
+        countDesktop: 8,
+        countMobile: 4,
+        speedMin: 2.5,   // velocidad original era 5–9 → ahora 2.5–4.5
+        speedMax: 4.5,
+        lengthMin: 90,
+        lengthMax: 220,
+        widthMin: 1,
+        widthMax: 2.6
+    });
+}
+
 // =====================================================================
-// 2. SEGURIDAD BÁSICA (bloqueo de teclas sensibles)
+// 3. SEGURIDAD BÁSICA
 // =====================================================================
 document.addEventListener('keydown', function (e) {
     if (e.key === 'F12' ||
@@ -83,13 +223,13 @@ document.addEventListener('contextmenu', function (e) {
     return false;
 });
 
-// Bloquear copia/recorte (dejar inputs libres)
 document.body.addEventListener('copy', function (e) {
     const tag = (e.target && e.target.tagName) || '';
     if (tag === 'INPUT' || tag === 'TEXTAREA') return;
     e.preventDefault();
     return false;
 });
+
 document.body.addEventListener('cut', function (e) {
     const tag = (e.target && e.target.tagName) || '';
     if (tag === 'INPUT' || tag === 'TEXTAREA') return;
@@ -98,7 +238,7 @@ document.body.addEventListener('cut', function (e) {
 });
 
 // =====================================================================
-// 3. SISTEMA DE IDIOMAS (i18n)
+// 4. SISTEMA DE IDIOMAS (i18n)
 // =====================================================================
 const translations = {
     es: {
@@ -356,7 +496,7 @@ const translations = {
         ide_output_header: "🖥️ Output / Error",
         ide_inicializando: "⏳ Initializing Python environment (Pyodide)...",
         ide_espera: "This will take a few seconds the first time.",
-        ide_footer: "🧠 Powered by <strong>Pyodide</strong> (Python in WebAssembly) - 100% local execution in your browser.",
+        ide_footer: "🧠 Powered by <strong>Pyodide</strong> (Python in WebAssembly) - 100% local execution in your browser. Supports input(), print(), lists, loops, functions, etc.",
         contacto_titulo: "Contact",
         contacto_subtitulo: "Get in touch with us",
         contacto_nombre: "Full Name",
@@ -436,7 +576,6 @@ function setLanguage(lang) {
     const langText = document.getElementById('currentLangText');
     if (langText) langText.innerHTML = lang === 'es' ? '🌐 Español' : '🌐 English';
 
-    // Textos
     document.querySelectorAll('[data-i18n]').forEach(el => {
         const key = el.getAttribute('data-i18n');
         if (!translations[lang][key]) return;
@@ -445,13 +584,11 @@ function setLanguage(lang) {
         el.innerHTML = translations[lang][key];
     });
 
-    // Placeholders
     document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
         const key = el.getAttribute('data-i18n-placeholder');
         if (translations[lang][key]) el.placeholder = translations[lang][key];
     });
 
-    // Select servicio
     const serviceSelect = document.getElementById('serviceSelect');
     if (serviceSelect) {
         const map = {
@@ -473,7 +610,6 @@ function setLanguage(lang) {
         });
     }
 
-    // Editor Python
     const codeEditor = document.getElementById('pythonCodeEditor');
     if (codeEditor) {
         const cur = codeEditor.value.trim();
@@ -482,7 +618,6 @@ function setLanguage(lang) {
         }
     }
 
-    // stdin
     const stdinArea = document.getElementById('pythonStdin');
     if (stdinArea) {
         if (stdinArea.value === "Juan\n25" || stdinArea.value === "John\n25") {
@@ -491,10 +626,8 @@ function setLanguage(lang) {
         stdinArea.placeholder = translations[lang].ide_stdin_placeholder;
     }
 
-    // Título
     document.title = translations[lang].titulo;
 
-    // Marcar opción activa
     document.querySelectorAll('.floating-lang-option').forEach(opt => {
         opt.classList.toggle('active', opt.getAttribute('data-lang') === lang);
     });
@@ -524,97 +657,31 @@ function initLanguageSwitcher() {
 }
 
 // =====================================================================
-// 4. POLVO FLOTANTE (Canvas)
+// 5. PARTÍCULAS
 // =====================================================================
-(function initDust() {
-    const canvas = document.getElementById('dustCanvas');
-    if (!canvas) return;
-    const ctx = canvas.getContext('2d');
-
-    let w, h, dpr;
-    const particles = [];
-
-    function resize() {
-        dpr = window.devicePixelRatio || 1;
-        w = window.innerWidth;
-        h = window.innerHeight;
-        canvas.width  = w * dpr;
-        canvas.height = h * dpr;
-        canvas.style.width  = w + 'px';
-        canvas.style.height = h + 'px';
-        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    }
-    resize();
-    window.addEventListener('resize', resize);
-
-    const COUNT = window.innerWidth < 700 ? 35 : 70;
-    for (let i = 0; i < COUNT; i++) {
-        particles.push({
-            x: Math.random() * w,
-            y: Math.random() * h,
-            vx: (Math.random() - 0.5) * 0.18,
-            vy: (Math.random() - 0.5) * 0.18,
-            size: Math.random() * 1.8 + 0.4,
-            alpha: Math.random() * 0.45 + 0.08,
-            phase: Math.random() * Math.PI * 2
-        });
-    }
-
-    let t = 0;
-    function animate() {
-        t += 0.008;
-        ctx.clearRect(0, 0, w, h);
-
-        for (const p of particles) {
-            p.x += p.vx + Math.sin(t + p.phase) * 0.08;
-            p.y += p.vy + Math.cos(t + p.phase) * 0.08;
-
-            if (p.x < -10) p.x = w + 10;
-            if (p.x > w + 10) p.x = -10;
-            if (p.y < -10) p.y = h + 10;
-            if (p.y > h + 10) p.y = -10;
-
-            const flicker = 0.6 + Math.sin(t * 2 + p.phase) * 0.4;
-            ctx.beginPath();
-            ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-            ctx.fillStyle = `rgba(232, 228, 216, ${p.alpha * flicker})`;
-            ctx.fill();
+if (typeof particlesJS !== 'undefined') {
+    particlesJS('particles-js', {
+        particles: {
+            number: { value: 80, density: { enable: true, value_area: 800 } },
+            color: { value: '#00d4ff' },
+            shape: { type: 'circle' },
+            opacity: { value: 0.5, random: true },
+            size: { value: 3, random: true },
+            line_linked: { enable: true, distance: 150, color: '#00d4ff', opacity: 0.2, width: 1 },
+            move: { enable: true, speed: 2, direction: 'none', random: true, straight: false, out_mode: 'out' }
+        },
+        interactivity: {
+            detect_on: 'canvas',
+            events: {
+                onhover: { enable: true, mode: 'repulse' },
+                onclick: { enable: true, mode: 'push' }
+            }
         }
-        requestAnimationFrame(animate);
-    }
-    animate();
-})();
+    });
+}
 
 // =====================================================================
-// 5. LUZ ERRANTE
-// =====================================================================
-(function initWanderingLight() {
-    const light = document.getElementById('wanderingLight');
-    if (!light) return;
-
-    let x = window.innerWidth / 2;
-    let y = window.innerHeight / 2;
-    let tx = x, ty = y;
-    let speed = 0.006;
-
-    function pickTarget() {
-        tx = Math.random() * window.innerWidth;
-        ty = Math.random() * window.innerHeight;
-    }
-    pickTarget();
-    setInterval(pickTarget, 7000);
-
-    function loop() {
-        x += (tx - x) * speed;
-        y += (ty - y) * speed;
-        light.style.transform = `translate3d(${x - 300}px, ${y - 300}px, 0)`;
-        requestAnimationFrame(loop);
-    }
-    loop();
-})();
-
-// =====================================================================
-// 6. FIX AVATAR (intenta varias rutas)
+// 6. FIX AVATAR
 // =====================================================================
 (function fixProfileImage() {
     const img = document.getElementById('profileAvatar');
@@ -805,8 +872,6 @@ _input_idx = 0
             setupPythonEnvironment();
             runBtn.disabled = false;
             statusSpan.innerHTML = currentLang === 'es' ? "✅ Python listo" : "✅ Python ready";
-            statusSpan.style.color = "var(--bone-bright)";
-            statusSpan.style.borderColor = "var(--bone-bright)";
             setOutput(currentLang === 'es'
                 ? "✅ Entorno Python listo. Escribe tu código y presiona 'Ejecutar código' o Ctrl+Enter.\n\n💡 Tip: Puedes usar input() y los valores se tomarán del área 'Entrada estándar'."
                 : "✅ Python environment ready. Write your code and press 'Run code' or Ctrl+Enter.\n\n💡 Tip: You can use input() and values will be taken from the 'Standard input' area.", false);
@@ -869,33 +934,43 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 });
 
 // =====================================================================
-// 10. REVELADO AL SCROLL
+// 10. ANIMACIONES AL SCROLL
 // =====================================================================
 (function initScrollReveal() {
-    const els = document.querySelectorAll(
-        '.model-card, .service-card, .allies-card, .profile-card, .fullstack-card, .python-test-card, .fullstack-tile, .cta-content, .contact-form, .python-ide-card'
+    const elements = document.querySelectorAll(
+        '.model-card, .service-card, .allies-card, .profile-card, .fullstack-card, .python-test-card'
     );
+    if (!elements.length) return;
+
     if (!('IntersectionObserver' in window)) {
-        els.forEach(el => el.classList.add('reveal-on-scroll', 'visible'));
+        elements.forEach(el => {
+            el.style.opacity = '1';
+            el.style.transform = 'translateY(0)';
+        });
         return;
     }
+
+    elements.forEach(el => {
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(30px)';
+        el.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+    });
+
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                entry.target.classList.add('visible');
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateY(0)';
                 observer.unobserve(entry.target);
             }
         });
-    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+    }, { threshold: 0.1 });
 
-    els.forEach(el => {
-        el.classList.add('reveal-on-scroll');
-        observer.observe(el);
-    });
+    elements.forEach(el => observer.observe(el));
 })();
 
 // =====================================================================
-// 11. INIT
+// 11. INICIALIZACIÓN FINAL
 // =====================================================================
 document.addEventListener('DOMContentLoaded', function () {
     initLanguageSwitcher();

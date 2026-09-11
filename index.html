@@ -13,7 +13,6 @@
     <meta name="copyright" content="© 2024 Whiat Company - Todos los derechos reservados">
     <meta name="author" content="Matías Felipe Whiat">
     <meta name="robots" content="index, follow">
-    <meta name="theme-color" content="#000000">
 
     <title data-i18n="titulo">Whiat Company - Soluciones Digitales Integrales</title>
 
@@ -23,47 +22,29 @@
 
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 
+    <!-- CSS principal -->
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-
-    <!-- ========== CAPAS DE FONDO ATMOSFÉRICAS ========== -->
-    <div class="grain-overlay" aria-hidden="true"></div>
-    <div class="vignette-overlay" aria-hidden="true"></div>
-    <div class="wandering-light" id="wanderingLight" aria-hidden="true"></div>
-    <div class="scan-line" aria-hidden="true"></div>
-    <canvas id="dustCanvas" aria-hidden="true"></canvas>
+    <!-- Capa de partículas (fondo) -->
+    <div id="particles-js"></div>
+    <!-- Capa de meteoros (fondo) -->
+    <canvas id="meteorCanvas" aria-hidden="true"></canvas>
 
     <!-- ========== PRELOADER ========== -->
     <div id="preloader">
-        <div class="preloader-stage">
-            <div class="preloader-rings">
-                <div class="ring ring-1"></div>
-                <div class="ring ring-2"></div>
-                <div class="ring ring-3"></div>
-            </div>
+        <!-- Canvas de meteoros del preloader (mismo estilo que la página) -->
+        <canvas id="preloaderMeteors" aria-hidden="true"></canvas>
 
-            <div class="preloader-image-wrap">
+        <div class="preloader-content">
+            <div class="preloader-image-wrapper">
                 <img src="MEDIA/ITEM2-removebg-preview.png" alt="Whiat Company" class="preloader-img"
-                     onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'%3E%3Ccircle cx=\'50\' cy=\'50\' r=\'45\' fill=\'%23e8e4d8\'/%3E%3Ctext x=\'50\' y=\'70\' font-size=\'50\' text-anchor=\'middle\' fill=\'%23000\'%3EW%3C/text%3E%3C/svg%3E'">
+                     onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'%3E%3Ccircle cx=\'50\' cy=\'50\' r=\'45\' fill=\'%2300d4ff\'/%3E%3Ctext x=\'50\' y=\'70\' font-size=\'50\' text-anchor=\'middle\' fill=\'white\'%3EW%3C/text%3E%3C/svg%3E'">
                 <div class="scan-beam"></div>
             </div>
-
-            <div class="preloader-title">
-                <span class="letter">W</span><span class="letter">H</span><span class="letter">I</span><span class="letter">A</span><span class="letter">T</span><span class="spacer"></span><span class="letter">C</span><span class="letter">O</span><span class="letter">M</span><span class="letter">P</span><span class="letter">A</span><span class="letter">N</span><span class="letter">Y</span>
-            </div>
-
-            <div class="preloader-progress">
-                <div class="progress-track">
-                    <div class="progress-fill" id="preloaderProgress"></div>
-                </div>
-                <div class="progress-info">
-                    <span id="preloaderStatus">INITIALIZING</span>
-                    <span id="preloaderPercent">0%</span>
-                </div>
-            </div>
+            <div class="preloader-text">Cargando<span class="dots"></span></div>
         </div>
     </div>
 
@@ -96,7 +77,7 @@
         <div class="container">
             <div class="hero-content">
                 <img src="MEDIA/ITEM2-removebg-preview.png" alt="Logo Whiat Company" class="logo"
-                     onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'%3E%3Ccircle cx=\'50\' cy=\'50\' r=\'45\' fill=\'%23e8e4d8\'/%3E%3Ctext x=\'50\' y=\'70\' font-size=\'50\' text-anchor=\'middle\' fill=\'%23000\'%3EW%3C/text%3E%3C/svg%3E'">
+                     onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'%3E%3Ccircle cx=\'50\' cy=\'50\' r=\'45\' fill=\'%2300d4ff\'/%3E%3Ctext x=\'50\' y=\'70\' font-size=\'50\' text-anchor=\'middle\' fill=\'white\'%3EW%3C/text%3E%3C/svg%3E'">
                 <div class="hero-badge" data-i18n="hero_badge">Soluciones Digitales Integrales | Aliados Estratégicos</div>
                 <h1 data-i18n="hero_titulo">Impulsamos tu negocio con tecnología de vanguardia</h1>
                 <p data-i18n="hero_descripcion">Expertos en crear aplicaciones móviles, sitios web de alto rendimiento, ciberseguridad, blockchain y soluciones digitales a medida para pequeñas, medianas y grandes empresas.</p>
@@ -115,7 +96,7 @@
             <div class="row g-4">
                 <div class="col-lg-4 col-md-6">
                     <div class="service-card">
-                        <div class="info-logo"><img src="MEDIA/ITEM2-removebg-preview.png" alt="Logo" class="info-logo-img" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'%3E%3Ccircle cx=\'50\' cy=\'50\' r=\'45\' fill=\'%23e8e4d8\'/%3E%3Ctext x=\'50\' y=\'70\' font-size=\'50\' text-anchor=\'middle\' fill=\'%23000\'%3EW%3C/text%3E%3C/svg%3E'"></div>
+                        <div class="info-logo"><img src="MEDIA/ITEM2-removebg-preview.png" alt="Logo" class="info-logo-img" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'%3E%3Ccircle cx=\'50\' cy=\'50\' r=\'45\' fill=\'%2300d4ff\'/%3E%3Ctext x=\'50\' y=\'70\' font-size=\'50\' text-anchor=\'middle\' fill=\'white\'%3EW%3C/text%3E%3C/svg%3E'"></div>
                         <h3 data-i18n="servicio1_titulo">Apps Android & iOS</h3>
                         <p data-i18n="servicio1_desc">Aplicaciones nativas e híbridas de alto rendimiento.</p>
                         <ul class="service-features">
@@ -130,7 +111,7 @@
                 </div>
                 <div class="col-lg-4 col-md-6">
                     <div class="service-card">
-                        <div class="info-logo"><img src="MEDIA/ITEM2-removebg-preview.png" alt="Logo" class="info-logo-img" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'%3E%3Ccircle cx=\'50\' cy=\'50\' r=\'45\' fill=\'%23e8e4d8\'/%3E%3Ctext x=\'50\' y=\'70\' font-size=\'50\' text-anchor=\'middle\' fill=\'%23000\'%3EW%3C/text%3E%3C/svg%3E'"></div>
+                        <div class="info-logo"><img src="MEDIA/ITEM2-removebg-preview.png" alt="Logo" class="info-logo-img" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'%3E%3Ccircle cx=\'50\' cy=\'50\' r=\'45\' fill=\'%2300d4ff\'/%3E%3Ctext x=\'50\' y=\'70\' font-size=\'50\' text-anchor=\'middle\' fill=\'white\'%3EW%3C/text%3E%3C/svg%3E'"></div>
                         <h3 data-i18n="servicio2_titulo">Ciberseguridad & Protección de Datos</h3>
                         <p data-i18n="servicio2_desc">Protegemos tu infraestructura digital contra amenazas.</p>
                         <ul class="service-features">
@@ -145,7 +126,7 @@
                 </div>
                 <div class="col-lg-4 col-md-6">
                     <div class="service-card">
-                        <div class="info-logo"><img src="MEDIA/ITEM2-removebg-preview.png" alt="Logo" class="info-logo-img" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'%3E%3Ccircle cx=\'50\' cy=\'50\' r=\'45\' fill=\'%23e8e4d8\'/%3E%3Ctext x=\'50\' y=\'70\' font-size=\'50\' text-anchor=\'middle\' fill=\'%23000\'%3EW%3C/text%3E%3C/svg%3E'"></div>
+                        <div class="info-logo"><img src="MEDIA/ITEM2-removebg-preview.png" alt="Logo" class="info-logo-img" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'%3E%3Ccircle cx=\'50\' cy=\'50\' r=\'45\' fill=\'%2300d4ff\'/%3E%3Ctext x=\'50\' y=\'70\' font-size=\'50\' text-anchor=\'middle\' fill=\'white\'%3EW%3C/text%3E%3C/svg%3E'"></div>
                         <h3 data-i18n="servicio3_titulo">Blockchain & Minería Crypto</h3>
                         <p data-i18n="servicio3_desc">Desarrollamos soluciones basadas en blockchain y asesoría en minería.</p>
                         <ul class="service-features">
@@ -160,7 +141,7 @@
                 </div>
                 <div class="col-lg-4 col-md-6">
                     <div class="service-card">
-                        <div class="info-logo"><img src="MEDIA/ITEM2-removebg-preview.png" alt="Logo" class="info-logo-img" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'%3E%3Ccircle cx=\'50\' cy=\'50\' r=\'45\' fill=\'%23e8e4d8\'/%3E%3Ctext x=\'50\' y=\'70\' font-size=\'50\' text-anchor=\'middle\' fill=\'%23000\'%3EW%3C/text%3E%3C/svg%3E'"></div>
+                        <div class="info-logo"><img src="MEDIA/ITEM2-removebg-preview.png" alt="Logo" class="info-logo-img" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'%3E%3Ccircle cx=\'50\' cy=\'50\' r=\'45\' fill=\'%2300d4ff\'/%3E%3Ctext x=\'50\' y=\'70\' font-size=\'50\' text-anchor=\'middle\' fill=\'white\'%3EW%3C/text%3E%3C/svg%3E'"></div>
                         <h3 data-i18n="servicio4_titulo">Outsourcing IT & Corretaje</h3>
                         <p data-i18n="servicio4_desc">Amplía tu equipo con programadores expertos por proyecto.</p>
                         <ul class="service-features">
@@ -175,7 +156,7 @@
                 </div>
                 <div class="col-lg-4 col-md-6">
                     <div class="service-card">
-                        <div class="info-logo"><img src="MEDIA/ITEM2-removebg-preview.png" alt="Logo" class="info-logo-img" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'%3E%3Ccircle cx=\'50\' cy=\'50\' r=\'45\' fill=\'%23e8e4d8\'/%3E%3Ctext x=\'50\' y=\'70\' font-size=\'50\' text-anchor=\'middle\' fill=\'%23000\'%3EW%3C/text%3E%3C/svg%3E'"></div>
+                        <div class="info-logo"><img src="MEDIA/ITEM2-removebg-preview.png" alt="Logo" class="info-logo-img" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'%3E%3Ccircle cx=\'50\' cy=\'50\' r=\'45\' fill=\'%2300d4ff\'/%3E%3Ctext x=\'50\' y=\'70\' font-size=\'50\' text-anchor=\'middle\' fill=\'white\'%3EW%3C/text%3E%3C/svg%3E'"></div>
                         <h3 data-i18n="servicio5_titulo">Soporte para PYMES</h3>
                         <p data-i18n="servicio5_desc">Gestionamos y optimizamos tu infraestructura tecnológica.</p>
                         <ul class="service-features">
@@ -190,7 +171,7 @@
                 </div>
                 <div class="col-lg-4 col-md-6">
                     <div class="service-card">
-                        <div class="info-logo"><img src="MEDIA/ITEM2-removebg-preview.png" alt="Logo" class="info-logo-img" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'%3E%3Ccircle cx=\'50\' cy=\'50\' r=\'45\' fill=\'%23e8e4d8\'/%3E%3Ctext x=\'50\' y=\'70\' font-size=\'50\' text-anchor=\'middle\' fill=\'%23000\'%3EW%3C/text%3E%3C/svg%3E'"></div>
+                        <div class="info-logo"><img src="MEDIA/ITEM2-removebg-preview.png" alt="Logo" class="info-logo-img" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'%3E%3Ccircle cx=\'50\' cy=\'50\' r=\'45\' fill=\'%2300d4ff\'/%3E%3Ctext x=\'50\' y=\'70\' font-size=\'50\' text-anchor=\'middle\' fill=\'white\'%3EW%3C/text%3E%3C/svg%3E'"></div>
                         <h3 data-i18n="servicio6_titulo">Páginas Web & CMS</h3>
                         <p data-i18n="servicio6_desc">Creamos sitios web impactantes y fáciles de administrar.</p>
                         <ul class="service-features">
@@ -205,7 +186,7 @@
                 </div>
                 <div class="col-lg-4 col-md-6">
                     <div class="service-card">
-                        <div class="info-logo"><img src="MEDIA/ITEM2-removebg-preview.png" alt="Logo" class="info-logo-img" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'%3E%3Ccircle cx=\'50\' cy=\'50\' r=\'45\' fill=\'%23e8e4d8\'/%3E%3Ctext x=\'50\' y=\'70\' font-size=\'50\' text-anchor=\'middle\' fill=\'%23000\'%3EW%3C/text%3E%3C/svg%3E'"></div>
+                        <div class="info-logo"><img src="MEDIA/ITEM2-removebg-preview.png" alt="Logo" class="info-logo-img" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'%3E%3Ccircle cx=\'50\' cy=\'50\' r=\'45\' fill=\'%2300d4ff\'/%3E%3Ctext x=\'50\' y=\'70\' font-size=\'50\' text-anchor=\'middle\' fill=\'white\'%3EW%3C/text%3E%3C/svg%3E'"></div>
                         <h3 data-i18n="servicio7_titulo">Mantenimiento & Actualización</h3>
                         <p data-i18n="servicio7_desc">Aseguramos que tu sitio esté siempre actualizado y seguro.</p>
                         <ul class="service-features">
@@ -232,23 +213,23 @@
                 </div>
                 <div class="row g-4">
                     <div class="col-md-4">
-                        <div class="fullstack-tile">
-                            <i class="fas fa-laptop-code"></i>
-                            <h3 data-i18n="fullstack_frontend">Frontend Moderno</h3>
+                        <div class="text-center p-4" style="background: rgba(0,212,255,0.05); border-radius: 12px;">
+                            <i class="fas fa-laptop-code" style="font-size: 2rem; color: var(--primary);"></i>
+                            <h3 class="mt-3" data-i18n="fullstack_frontend">Frontend Moderno</h3>
                             <p>React.js, Vue.js, Angular, TypeScript</p>
                         </div>
                     </div>
                     <div class="col-md-4">
-                        <div class="fullstack-tile">
-                            <i class="fas fa-server"></i>
-                            <h3 data-i18n="fullstack_backend">Backend Robusto</h3>
+                        <div class="text-center p-4" style="background: rgba(0,212,255,0.05); border-radius: 12px;">
+                            <i class="fas fa-server" style="font-size: 2rem; color: var(--primary);"></i>
+                            <h3 class="mt-3" data-i18n="fullstack_backend">Backend Robusto</h3>
                             <p>Node.js, Python, PHP, Java, .NET</p>
                         </div>
                     </div>
                     <div class="col-md-4">
-                        <div class="fullstack-tile">
-                            <i class="fas fa-database"></i>
-                            <h3 data-i18n="fullstack_db">Bases de Datos</h3>
+                        <div class="text-center p-4" style="background: rgba(0,212,255,0.05); border-radius: 12px;">
+                            <i class="fas fa-database" style="font-size: 2rem; color: var(--primary);"></i>
+                            <h3 class="mt-3" data-i18n="fullstack_db">Bases de Datos</h3>
                             <p>MySQL, PostgreSQL, MongoDB, Firebase</p>
                         </div>
                     </div>
@@ -270,14 +251,14 @@
             <div class="row g-4">
                 <div class="col-md-6">
                     <div class="allies-card">
-                        <div class="info-logo"><img src="MEDIA/ITEM2-removebg-preview.png" alt="Logo Whiat" class="info-logo-img" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'%3E%3Ccircle cx=\'50\' cy=\'50\' r=\'45\' fill=\'%23e8e4d8\'/%3E%3Ctext x=\'50\' y=\'70\' font-size=\'50\' text-anchor=\'middle\' fill=\'%23000\'%3EW%3C/text%3E%3C/svg%3E'"></div>
+                        <div class="info-logo"><img src="MEDIA/ITEM2-removebg-preview.png" alt="Logo Whiat" class="info-logo-img" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'%3E%3Ccircle cx=\'50\' cy=\'50\' r=\'45\' fill=\'%2300d4ff\'/%3E%3Ctext x=\'50\' y=\'70\' font-size=\'50\' text-anchor=\'middle\' fill=\'white\'%3EW%3C/text%3E%3C/svg%3E'"></div>
                         <h3 data-i18n="aliados_emergentes">Para Empresas Emergentes</h3>
                         <p data-i18n="aliados_emergentes_desc">Acompañamos a startups y negocios en sus primeras etapas digitales.</p>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="allies-card">
-                        <div class="info-logo"><img src="MEDIA/ITEM2-removebg-preview.png" alt="Logo Whiat" class="info-logo-img" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'%3E%3Ccircle cx=\'50\' cy=\'50\' r=\'45\' fill=\'%23e8e4d8\'/%3E%3Ctext x=\'50\' y=\'70\' font-size=\'50\' text-anchor=\'middle\' fill=\'%23000\'%3EW%3C/text%3E%3C/svg%3E'"></div>
+                        <div class="info-logo"><img src="MEDIA/ITEM2-removebg-preview.png" alt="Logo Whiat" class="info-logo-img" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'%3E%3Ccircle cx=\'50\' cy=\'50\' r=\'45\' fill=\'%2300d4ff\'/%3E%3Ctext x=\'50\' y=\'70\' font-size=\'50\' text-anchor=\'middle\' fill=\'white\'%3EW%3C/text%3E%3C/svg%3E'"></div>
                         <h3 data-i18n="aliados_acreditadas">Para Empresas Acreditadas</h3>
                         <p data-i18n="aliados_acreditadas_desc">Modernizamos infraestructura y adoptamos nuevas tecnologías.</p>
                     </div>
@@ -295,10 +276,8 @@
             </div>
             <div class="profile-card">
                 <div class="profile-header">
-                    <div class="profile-avatar-wrap">
-                        <img id="profileAvatar" src="MEDIA/BCHINO.jpeg" alt="Matías Felipe Whiat" class="profile-avatar"
-                             onerror="this.onerror=null; this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'%3E%3Ccircle cx=\'50\' cy=\'50\' r=\'45\' fill=\'%23e8e4d8\'/%3E%3Ctext x=\'50\' y=\'70\' font-size=\'40\' text-anchor=\'middle\' fill=\'%23000\'%3EMW%3C/text%3E%3C/svg%3E';">
-                    </div>
+                    <img id="profileAvatar" src="MEDIA/BCHINO.jpeg" alt="Matías Felipe Whiat" class="profile-avatar"
+                         onerror="this.onerror=null; this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'%3E%3Ccircle cx=\'50\' cy=\'50\' r=\'45\' fill=\'%2300d4ff\'/%3E%3Ctext x=\'50\' y=\'70\' font-size=\'40\' text-anchor=\'middle\' fill=\'white\'%3EMW%3C/text%3E%3C/svg%3E';">
                     <div class="profile-info">
                         <h1 class="profile-name">Matías Felipe Whiat</h1>
                         <p class="profile-title" data-i18n="perfil_ceo">CEO & Fundador</p>
@@ -338,7 +317,7 @@
                     <div class="col-md-8">
                         <h3><i class="fab fa-python"></i> <span data-i18n="test_titulo">🔥 Pon a prueba tu dominio de Python</span></h3>
                         <p data-i18n="test_descripcion">¿Crees que dominas Python? Demuestra tus conocimientos con este test interactivo.</p>
-                        <div class="tech-stack" style="justify-content:flex-start; margin:20px 0;">
+                        <div class="tech-stack" style="justify-content: flex-start; margin: 20px 0;">
                             <span class="tech-tag" data-i18n="test_tag1">🐍 Sintaxis básica</span>
                             <span class="tech-tag" data-i18n="test_tag2">📝 Strings</span>
                             <span class="tech-tag" data-i18n="test_tag3">🧠 Lógica</span>
@@ -347,10 +326,10 @@
                         <a href="https://coddy.tech/journeys/python/fundamentals/string" target="_blank" class="btn btn-primary btn-python" data-i18n="test_boton">🎯 Probar mi nivel →</a>
                     </div>
                     <div class="col-md-4 text-center">
-                        <i class="fas fa-hourglass-half" style="font-size:4rem; color:var(--bone);"></i>
+                        <i class="fas fa-hourglass-half" style="font-size: 4rem; color: #FFD43B;"></i>
                         <div class="mt-3">
-                            <span class="tech-tag" data-i18n="test_tag_tiempo">⏱️ Menos de 5 min</span>
-                            <span class="tech-tag" data-i18n="test_tag_python">🐍 Python Challenge</span>
+                            <span class="tech-tag" style="background: rgba(255,212,59,0.2); border-color: #FFD43B;" data-i18n="test_tag_tiempo">⏱️ Menos de 5 min</span>
+                            <span class="tech-tag" style="background: rgba(48,105,152,0.2);" data-i18n="test_tag_python">🐍 Python Challenge</span>
                         </div>
                     </div>
                 </div>
@@ -388,7 +367,7 @@
                     </div>
                 </div>
                 <div class="ide-footer-note">
-                    <small><span data-i18n="ide_footer">🧠 Powered by <strong>Pyodide</strong> (Python en WebAssembly) - Ejecución 100% local en tu navegador.</span></small>
+                    <small><span data-i18n="ide_footer">🧠 Powered by <strong>Pyodide</strong> (Python en WebAssembly) - Ejecución 100% local en tu navegador. Soporta input(), print(), listas, loops, funciones, etc.</span></small>
                 </div>
             </div>
         </div>
@@ -454,7 +433,7 @@
         <div class="container">
             <div class="login-card">
                 <div class="login-image">
-                    <img src="MEDIA/ITEM2-removebg-preview.png" alt="Whiat Company Login" style="max-width:200px" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'%3E%3Ccircle cx=\'50\' cy=\'50\' r=\'45\' fill=\'%23e8e4d8\'/%3E%3Ctext x=\'50\' y=\'70\' font-size=\'50\' text-anchor=\'middle\' fill=\'%23000\'%3EW%3C/text%3E%3C/svg%3E'">
+                    <img src="MEDIA/ITEM2-removebg-preview.png" alt="Whiat Company Login" style="max-width:200px" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'%3E%3Ccircle cx=\'50\' cy=\'50\' r=\'45\' fill=\'%2300d4ff\'/%3E%3Ctext x=\'50\' y=\'70\' font-size=\'50\' text-anchor=\'middle\' fill=\'white\'%3EW%3C/text%3E%3C/svg%3E'">
                 </div>
                 <div class="login-form-container">
                     <div class="login-header">
@@ -474,7 +453,7 @@
                             <label class="remember-me"><input type="checkbox" id="remember"> <span data-i18n="login_recordarme">Recordarme</span></label>
                             <a href="#" class="forgot-password" data-i18n="login_olvidaste">¿Olvidaste tu contraseña?</a>
                         </div>
-                        <button type="submit" class="btn btn-primary w-100 mb-3"><i class="fas fa-sign-in-alt" style="margin-right:10px;"></i> <span data-i18n="login_iniciar">Iniciar Sesión</span></button>
+                        <button type="submit" class="btn btn-primary w-100 mb-3"><i class="fas fa-sign-in-alt" style="margin-right: 10px;"></i> <span data-i18n="login_iniciar">Iniciar Sesión</span></button>
                         <div class="register-link text-center"><span data-i18n="login_no_cuenta">¿No tienes una cuenta?</span> <a href="#" data-i18n="login_registrate">Regístrate aquí</a></div>
                     </form>
                 </div>
@@ -487,7 +466,7 @@
         <div class="container">
             <div class="footer-content">
                 <div class="footer-about">
-                    <img src="MEDIA/ITEM2-removebg-preview.png" alt="Logo" class="footer-logo" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'%3E%3Ccircle cx=\'50\' cy=\'50\' r=\'45\' fill=\'%23e8e4d8\'/%3E%3Ctext x=\'50\' y=\'70\' font-size=\'50\' text-anchor=\'middle\' fill=\'%23000\'%3EW%3C/text%3E%3C/svg%3E'">
+                    <img src="MEDIA/ITEM2-removebg-preview.png" alt="Logo" class="footer-logo" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'%3E%3Ccircle cx=\'50\' cy=\'50\' r=\'45\' fill=\'%2300d4ff\'/%3E%3Ctext x=\'50\' y=\'70\' font-size=\'50\' text-anchor=\'middle\' fill=\'white\'%3EW%3C/text%3E%3C/svg%3E'">
                     <p data-i18n="footer_descripcion">Impulsamos la evolución de los negocios hacia un futuro más digital.</p>
                     <div class="contact-links">
                         <a href="mailto:matiaswhiat@mail.de" target="_blank" class="contact-item" aria-label="Email"><i class="fas fa-envelope"></i></a>
@@ -551,6 +530,7 @@
 
     <!-- ========== SCRIPTS ========== -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <script src="https://cdn.jsdelivr.net/pyodide/v0.26.1/full/pyodide.js"></script>
     <script src="java.js"></script>
 </body>
