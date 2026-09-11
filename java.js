@@ -1,7 +1,46 @@
 /* =============================================================
    WHIAT COMPANY — Script principal
-   Preloader · Meteoros (canvas) · i18n · Pyodide IDE
+   Preloader · Meteoros (canvas) · i18n · Pyodide IDE · Fix Imágenes
    ============================================================= */
+
+// =====================================================================
+// 0. FIX CENTRALIZADO DE IMÁGENES (evita el triángulo ⚠️ en móvil)
+// =====================================================================
+(function globalImageFallback() {
+    const SVG_LOGO   = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2300d4ff'/><text x='50' y='70' font-size='50' text-anchor='middle' fill='white'>W</text></svg>";
+    const SVG_AVATAR = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2300d4ff'/><text x='50' y='70' font-size='40' text-anchor='middle' fill='white'>MW</text></svg>";
+
+    function applyFallback(img) {
+        if (!img || img.dataset.fbApplied === 'true') return;
+        img.dataset.fbApplied = 'true';
+        const kind = img.getAttribute('data-fallback') || 'logo';
+        img.onerror = null; // ✅ evita bucle
+        img.src = kind === 'avatar' ? SVG_AVATAR : SVG_LOGO;
+    }
+
+    // Ejecuta inmediatamente sobre todas las imágenes existentes
+    function scanAll() {
+        document.querySelectorAll('img[data-fallback]').forEach(img => {
+            // Si ya falló antes de que cargara el JS
+            if (img.complete && img.naturalWidth === 0) {
+                applyFallback(img);
+            }
+            // Listener de seguridad
+            img.addEventListener('error', () => applyFallback(img));
+        });
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', scanAll);
+    } else {
+        scanAll();
+    }
+
+    // MutationObserver por si añades imágenes después
+    if ('MutationObserver' in window) {
+        new MutationObserver(scanAll).observe(document.body, { childList: true, subtree: true });
+    }
+})();
 
 // =====================================================================
 // 1. FACTORY DE METEOROS (reutilizable)
@@ -35,7 +74,6 @@ function createMeteorField(canvasId, opts) {
     resize();
     window.addEventListener('resize', () => {
         resize();
-        // Redistribuir meteoros al cambiar tamaño
         meteors.forEach(m => m.spawn(true));
     });
 
@@ -51,7 +89,6 @@ function createMeteorField(canvasId, opts) {
         }
 
         spawn(initial = false) {
-            // Ángulo 135° (diagonal desde arriba-derecha hacia abajo-izquierda)
             this.angle = Math.PI * 0.75;
             this.speed = config.speedMin + Math.random() * (config.speedMax - config.speedMin);
 
@@ -64,7 +101,6 @@ function createMeteorField(canvasId, opts) {
             this.color = COLORS[Math.floor(Math.random() * COLORS.length)];
 
             if (initial) {
-                // Distribuir por toda la pantalla al inicio
                 this.x = Math.random() * w * 1.4;
                 this.y = Math.random() * h - h * 0.4;
             }
@@ -85,7 +121,6 @@ function createMeteorField(canvasId, opts) {
             const tailX = this.x - dx;
             const tailY = this.y - dy;
 
-            // Rastro con gradiente
             const grad = ctx.createLinearGradient(this.x, this.y, tailX, tailY);
             grad.addColorStop(0, this.color.head);
             grad.addColorStop(0.35, this.color.mid);
@@ -99,7 +134,6 @@ function createMeteorField(canvasId, opts) {
             ctx.lineTo(tailX, tailY);
             ctx.stroke();
 
-            // Halo brillante en la cabeza
             const headGlow = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, this.width * 6);
             headGlow.addColorStop(0, `rgba(255, 255, 255, ${this.opacity})`);
             headGlow.addColorStop(0.4, `rgba(0, 234, 255, ${this.opacity * 0.8})`);
@@ -110,7 +144,6 @@ function createMeteorField(canvasId, opts) {
             ctx.arc(this.x, this.y, this.width * 6, 0, Math.PI * 2);
             ctx.fill();
 
-            // Punto central
             ctx.beginPath();
             ctx.fillStyle = `rgba(255, 255, 255, ${this.opacity})`;
             ctx.arc(this.x, this.y, this.width * 1.2, 0, Math.PI * 2);
@@ -142,11 +175,9 @@ function createMeteorField(canvasId, opts) {
     const preloader = document.getElementById('preloader');
     if (!preloader) return;
 
-    const BUILD_TIME = 3200; // construcción
-    const FADE_TIME  = 800;  // fade (total ≈ 4s)
+    const BUILD_TIME = 3200;
+    const FADE_TIME  = 800;
 
-    // Meteoros del preloader: MISMO estilo que la página pero MÁS LENTOS
-    // Velocidad reducida a la mitad que la de la página
     createMeteorField('preloaderMeteors', {
         countDesktop: 6,
         countMobile: 4,
@@ -169,14 +200,12 @@ function createMeteorField(canvasId, opts) {
             preloader.classList.add('hidden');
             setTimeout(() => {
                 preloader.style.display = 'none';
-                // Arrancar meteoros de la página al terminar
                 startPageMeteors();
             }, FADE_TIME);
         }
     }
     requestAnimationFrame(tick);
 
-    // Failsafe por si algo falla
     setTimeout(() => {
         if (preloader.style.display !== 'none') {
             preloader.classList.add('hidden');
@@ -188,7 +217,6 @@ function createMeteorField(canvasId, opts) {
     }, 6000);
 })();
 
-// Meteoros de la página: menos cantidad y 50% más lentos que la v1
 let pageMeteorsStarted = false;
 function startPageMeteors() {
     if (pageMeteorsStarted) return;
@@ -197,7 +225,7 @@ function startPageMeteors() {
     createMeteorField('meteorCanvas', {
         countDesktop: 8,
         countMobile: 4,
-        speedMin: 2.5,   // velocidad original era 5–9 → ahora 2.5–4.5
+        speedMin: 2.5,
         speedMax: 4.5,
         lengthMin: 90,
         lengthMax: 220,
@@ -681,11 +709,13 @@ if (typeof particlesJS !== 'undefined') {
 }
 
 // =====================================================================
-// 6. FIX AVATAR
+// 6. FIX AVATAR (con fallback SVG garantizado)
 // =====================================================================
 (function fixProfileImage() {
     const img = document.getElementById('profileAvatar');
     if (!img) return;
+
+    const fallbackSVG = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2300d4ff'/><text x='50' y='70' font-size='40' text-anchor='middle' fill='white'>MW</text></svg>";
 
     const paths = [
         "MEDIA/BCHINO.jpeg",
@@ -700,14 +730,23 @@ if (typeof particlesJS !== 'undefined') {
     img.onerror = function () {
         if (img.dataset.fixing === 'true') return;
         img.dataset.fixing = 'true';
-        function next() {
-            if (i >= paths.length) return;
+
+        function tryNext() {
+            if (i >= paths.length) {
+                // ✅ ÚLTIMO RECURSO garantizado
+                img.onerror = null;
+                img.src = fallbackSVG;
+                return;
+            }
             const test = new Image();
-            test.onload = () => { img.src = paths[i]; img.onerror = null; };
-            test.onerror = () => { i++; next(); };
+            test.onload = () => {
+                img.onerror = null;
+                img.src = paths[i];
+            };
+            test.onerror = () => { i++; tryNext(); };
             test.src = paths[i];
         }
-        next();
+        tryNext();
     };
 })();
 
