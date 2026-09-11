@@ -1,97 +1,101 @@
+/* =============================================================
+   WHIAT COMPANY — Script principal
+   Preloader · i18n · Pyodide IDE · Partículas · Luz errante
+   ============================================================= */
+
 // =====================================================================
-// 1. PRELOADER - OCULTAR DESPUÉS DE CARGA
+// 1. PRELOADER — 4 segundos exactos
 // =====================================================================
-document.addEventListener('DOMContentLoaded', function() {
+(function initPreloader() {
     const preloader = document.getElementById('preloader');
     if (!preloader) return;
 
-    const minDisplayTime = 2500; // 2.5 segundos mínimo
-    const startTime = Date.now();
+    const progressFill = document.getElementById('preloaderProgress');
+    const percentEl    = document.getElementById('preloaderPercent');
+    const statusEl     = document.getElementById('preloaderStatus');
 
-    function hidePreloader() {
-        const elapsed = Date.now() - startTime;
-        const remaining = Math.max(0, minDisplayTime - elapsed);
-        setTimeout(() => {
+    const BUILD_TIME = 3200; // ms de construcción
+    const FADE_TIME  = 800;  // ms de desvanecimiento (total ≈ 4s)
+
+    const statuses = [
+        { at: 0,   text: 'INITIALIZING' },
+        { at: 22,  text: 'CALIBRATING' },
+        { at: 45,  text: 'LOADING ASSETS' },
+        { at: 68,  text: 'ALMOST READY' },
+        { at: 90,  text: 'ENTERING' },
+        { at: 100, text: 'WELCOME' }
+    ];
+
+    const start = performance.now();
+    let lastStatus = '';
+
+    function tick(now) {
+        const elapsed = now - start;
+        const pct = Math.min(100, (elapsed / BUILD_TIME) * 100);
+
+        if (progressFill) progressFill.style.width = pct + '%';
+        if (percentEl)    percentEl.textContent = Math.floor(pct) + '%';
+
+        let currentStatus = statuses[0].text;
+        for (const s of statuses) {
+            if (pct >= s.at) currentStatus = s.text;
+        }
+        if (statusEl && statusEl.textContent !== currentStatus) {
+            statusEl.textContent = currentStatus;
+        }
+        lastStatus = currentStatus;
+
+        if (elapsed < BUILD_TIME) {
+            requestAnimationFrame(tick);
+        } else {
             preloader.classList.add('hidden');
             setTimeout(() => {
                 preloader.style.display = 'none';
-            }, 600);
-        }, remaining);
-    }
-
-    if (document.readyState === 'complete') {
-        hidePreloader();
-    } else {
-        window.addEventListener('load', hidePreloader);
-    }
-});
-
-// =====================================================================
-// 2. SISTEMA DE SEGURIDAD AVANZADO
-// =====================================================================
-(function detectDevTools() {
-    let devtools = false;
-    const element = new Image();
-    Object.defineProperty(element, 'id', {
-        get: function() {
-            devtools = true;
-            throw new Error('Consola detectada');
+                document.body.classList.add('loaded');
+            }, FADE_TIME);
         }
-    });
-    setInterval(() => {
-        devtools = false;
-        console.log('%c', element);
-        console.clear();
-        if (devtools) {
-            document.body.innerHTML = '<div style="position:fixed;top:0;left:0;width:100%;height:100%;background:#000;color:#00d4ff;display:flex;align-items:center;justify-content:center;z-index:99999;flex-direction:column;"><h1>⚠️ Acceso Denegado</h1><p>Herramientas de desarrollo deshabilitadas por seguridad.</p></div>';
+    }
+    requestAnimationFrame(tick);
+
+    // Failsafe: si algo falla, quitar en 6s
+    setTimeout(() => {
+        if (preloader.style.display !== 'none') {
+            preloader.classList.add('hidden');
+            setTimeout(() => preloader.style.display = 'none', 900);
         }
-    }, 1000);
+    }, 6000);
 })();
 
-document.addEventListener('keydown', function(e) {
-    if (e.key === 'F12' || 
-        (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'J' || e.key === 'C')) ||
-        (e.ctrlKey && (e.key === 'u' || e.key === 'U' || e.key === 's' || e.key === 'S'))) {
+// =====================================================================
+// 2. SEGURIDAD BÁSICA (bloqueo de teclas sensibles)
+// =====================================================================
+document.addEventListener('keydown', function (e) {
+    if (e.key === 'F12' ||
+        (e.ctrlKey && e.shiftKey && ['I', 'J', 'C'].includes(e.key)) ||
+        (e.ctrlKey && ['u', 'U', 's', 'S'].includes(e.key))) {
         e.preventDefault();
         return false;
     }
 });
 
-document.addEventListener('contextmenu', function(e) {
+document.addEventListener('contextmenu', function (e) {
     e.preventDefault();
     return false;
 });
 
-const observer = new MutationObserver(function(mutations) {
-    mutations.forEach(function(mutation) {
-        if (mutation.type === 'attributes' || mutation.type === 'childList') {
-            // Protección activa
-        }
-    });
+// Bloquear copia/recorte (dejar inputs libres)
+document.body.addEventListener('copy', function (e) {
+    const tag = (e.target && e.target.tagName) || '';
+    if (tag === 'INPUT' || tag === 'TEXTAREA') return;
+    e.preventDefault();
+    return false;
 });
-observer.observe(document.body, { attributes: true, childList: true, subtree: true });
-
-document.body.addEventListener('copy', function(e) { e.preventDefault(); return false; });
-document.body.addEventListener('cut', function(e) { e.preventDefault(); return false; });
-
-let printAttempts = 0;
-window.addEventListener('beforeprint', function() { printAttempts++; if(printAttempts > 0) alert('La impresión/captura de contenido está protegida.'); });
-
-// Bloqueo de scripts externos no autorizados
-const scriptBlocker = new MutationObserver(function(mutations) {
-    mutations.forEach(function(mutation) {
-        mutation.addedNodes.forEach(function(node) {
-            if (node.tagName === 'SCRIPT' && node.src && 
-                !node.src.includes('cdn.jsdelivr.net') && 
-                !node.src.includes('cdnjs.cloudflare.com')) {
-                node.remove();
-                console.warn('Script no autorizado eliminado:', node.src);
-            }
-        });
-    });
+document.body.addEventListener('cut', function (e) {
+    const tag = (e.target && e.target.tagName) || '';
+    if (tag === 'INPUT' || tag === 'TEXTAREA') return;
+    e.preventDefault();
+    return false;
 });
-scriptBlocker.observe(document.head, { childList: true, subtree: true });
-scriptBlocker.observe(document.body, { childList: true, subtree: true });
 
 // =====================================================================
 // 3. SISTEMA DE IDIOMAS (i18n)
@@ -352,7 +356,7 @@ const translations = {
         ide_output_header: "🖥️ Output / Error",
         ide_inicializando: "⏳ Initializing Python environment (Pyodide)...",
         ide_espera: "This will take a few seconds the first time.",
-        ide_footer: "🧠 Powered by <strong>Pyodide</strong> (Python in WebAssembly) - 100% local execution in your browser. Supports input(), print(), lists, loops, functions, etc.",
+        ide_footer: "🧠 Powered by <strong>Pyodide</strong> (Python in WebAssembly) - 100% local execution in your browser.",
         contacto_titulo: "Contact",
         contacto_subtitulo: "Get in touch with us",
         contacto_nombre: "Full Name",
@@ -389,62 +393,10 @@ const translations = {
     }
 };
 
-let currentLang = localStorage.getItem('whiat_lang') || (navigator.language.startsWith('es') ? 'es' : 'en');
+let currentLang = localStorage.getItem('whiat_lang') ||
+    (navigator.language.startsWith('es') ? 'es' : 'en');
 
-function setLanguage(lang) {
-    currentLang = lang;
-    localStorage.setItem('whiat_lang', lang);
-    document.documentElement.lang = lang;
-    document.getElementById('currentLangText').innerHTML = lang === 'es' ? '🌐 Español' : '🌐 English';
-    
-    document.querySelectorAll('[data-i18n]').forEach(el => {
-        const key = el.getAttribute('data-i18n');
-        if (translations[lang][key]) {
-            if (el.tagName === 'INPUT' && el.getAttribute('data-i18n-placeholder') !== null) {
-                // se maneja abajo
-            } else if (el.tagName === 'TEXTAREA' && el.getAttribute('data-i18n-placeholder') !== null) {
-                // se maneja abajo
-            } else {
-                el.innerHTML = translations[lang][key];
-            }
-        }
-    });
-    
-    document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
-        const key = el.getAttribute('data-i18n-placeholder');
-        if (translations[lang][key]) {
-            el.placeholder = translations[lang][key];
-        }
-    });
-    
-    const serviceSelect = document.getElementById('serviceSelect');
-    if (serviceSelect) {
-        for (let i = 0; i < serviceSelect.options.length; i++) {
-            const opt = serviceSelect.options[i];
-            const val = opt.value;
-            let translationKey = '';
-            switch(val) {
-                case '': translationKey = 'contacto_servicio_default'; break;
-                case 'outsourcing': translationKey = 'servicio4_titulo'; break;
-                case 'app-movil': translationKey = 'servicio1_titulo'; break;
-                case 'ciberseguridad': translationKey = 'servicio2_titulo'; break;
-                case 'blockchain': translationKey = 'servicio3_titulo'; break;
-                case 'soporte-pyme': translationKey = 'servicio5_titulo'; break;
-                case 'fullstack': translationKey = 'fullstack_titulo'; break;
-                case 'web-basico': translationKey = 'servicio6_titulo'; break;
-                case 'mantenimiento': translationKey = 'servicio7_titulo'; break;
-                case 'consulting': translationKey = 'contacto_consultoria'; break;
-                case 'other': translationKey = 'contacto_otro'; break;
-                default: translationKey = '';
-            }
-            if (translationKey && translations[lang][translationKey]) {
-                opt.textContent = translations[lang][translationKey];
-            }
-        }
-    }
-    
-    const codeEditor = document.getElementById('pythonCodeEditor');
-    const defaultExampleSpanish = `# 🔥 IDE Python con soporte para input()
+const DEFAULT_ES = `# 🔥 IDE Python con soporte para input()
 # Escribe cualquier código Python estándar
 
 nombre = input("¿Cómo te llamas? ")
@@ -459,8 +411,8 @@ print(f"\\nLista: {numeros}")
 print(f"Cuadrados: {cuadrados}")
 
 print("\\n✅ ¡Todo funciona perfectamente!")`;
-    
-    const defaultExampleEnglish = `# 🔥 Python IDE with input() support
+
+const DEFAULT_EN = `# 🔥 Python IDE with input() support
 # Write any standard Python code
 
 name = input("What is your name? ")
@@ -475,169 +427,261 @@ print(f"\\nList: {numbers}")
 print(f"Squares: {squares}")
 
 print("\\n✅ Everything works perfectly!")`;
-    
-    const currentCode = codeEditor.value;
-    if (currentCode === defaultExampleSpanish || currentCode === defaultExampleEnglish || currentCode.trim() === defaultExampleSpanish.trim() || currentCode.trim() === defaultExampleEnglish.trim()) {
-        codeEditor.value = lang === 'es' ? defaultExampleSpanish : defaultExampleEnglish;
+
+function setLanguage(lang) {
+    currentLang = lang;
+    localStorage.setItem('whiat_lang', lang);
+    document.documentElement.lang = lang;
+
+    const langText = document.getElementById('currentLangText');
+    if (langText) langText.innerHTML = lang === 'es' ? '🌐 Español' : '🌐 English';
+
+    // Textos
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (!translations[lang][key]) return;
+        const tag = el.tagName;
+        if ((tag === 'INPUT' || tag === 'TEXTAREA') && el.hasAttribute('data-i18n-placeholder')) return;
+        el.innerHTML = translations[lang][key];
+    });
+
+    // Placeholders
+    document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+        const key = el.getAttribute('data-i18n-placeholder');
+        if (translations[lang][key]) el.placeholder = translations[lang][key];
+    });
+
+    // Select servicio
+    const serviceSelect = document.getElementById('serviceSelect');
+    if (serviceSelect) {
+        const map = {
+            '': 'contacto_servicio_default',
+            'outsourcing': 'servicio4_titulo',
+            'app-movil': 'servicio1_titulo',
+            'ciberseguridad': 'servicio2_titulo',
+            'blockchain': 'servicio3_titulo',
+            'soporte-pyme': 'servicio5_titulo',
+            'fullstack': 'fullstack_titulo',
+            'web-basico': 'servicio6_titulo',
+            'mantenimiento': 'servicio7_titulo',
+            'consulting': 'contacto_consultoria',
+            'other': 'contacto_otro'
+        };
+        Array.from(serviceSelect.options).forEach(opt => {
+            const key = map[opt.value];
+            if (key && translations[lang][key]) opt.textContent = translations[lang][key];
+        });
     }
-    
+
+    // Editor Python
+    const codeEditor = document.getElementById('pythonCodeEditor');
+    if (codeEditor) {
+        const cur = codeEditor.value.trim();
+        if (cur === DEFAULT_ES.trim() || cur === DEFAULT_EN.trim() || cur === '') {
+            codeEditor.value = lang === 'es' ? DEFAULT_ES : DEFAULT_EN;
+        }
+    }
+
+    // stdin
     const stdinArea = document.getElementById('pythonStdin');
-    if (lang === 'es') {
+    if (stdinArea) {
         if (stdinArea.value === "Juan\n25" || stdinArea.value === "John\n25") {
-            stdinArea.value = "Juan\n25";
+            stdinArea.value = lang === 'es' ? "Juan\n25" : "John\n25";
         }
-        stdinArea.placeholder = translations.es.ide_stdin_placeholder;
-    } else {
-        if (stdinArea.value === "Juan\n25" || stdinArea.value === "John\n25") {
-            stdinArea.value = "John\n25";
-        }
-        stdinArea.placeholder = translations.en.ide_stdin_placeholder;
+        stdinArea.placeholder = translations[lang].ide_stdin_placeholder;
     }
-    
+
+    // Título
     document.title = translations[lang].titulo;
+
+    // Marcar opción activa
+    document.querySelectorAll('.floating-lang-option').forEach(opt => {
+        opt.classList.toggle('active', opt.getAttribute('data-lang') === lang);
+    });
 }
 
 function initLanguageSwitcher() {
     const toggleBtn = document.getElementById('floatingLanguageToggle');
-    const dropdown = document.getElementById('floatingLanguageDropdown');
-    const options = document.querySelectorAll('.floating-lang-option');
-    
-    toggleBtn.addEventListener('click', (e) => {
+    const dropdown  = document.getElementById('floatingLanguageDropdown');
+    if (!toggleBtn || !dropdown) return;
+
+    toggleBtn.addEventListener('click', e => {
         e.stopPropagation();
         dropdown.classList.toggle('show');
     });
-    
-    document.addEventListener('click', () => {
-        dropdown.classList.remove('show');
-    });
-    
-    options.forEach(opt => {
-        opt.addEventListener('click', (e) => {
+    document.addEventListener('click', () => dropdown.classList.remove('show'));
+
+    document.querySelectorAll('.floating-lang-option').forEach(opt => {
+        opt.addEventListener('click', e => {
             e.stopPropagation();
             const lang = opt.getAttribute('data-lang');
             if (lang) setLanguage(lang);
             dropdown.classList.remove('show');
         });
     });
-    
+
     setLanguage(currentLang);
 }
 
 // =====================================================================
-// 4. PARTICULAS
+// 4. POLVO FLOTANTE (Canvas)
 // =====================================================================
-if (typeof particlesJS !== 'undefined') {
-    particlesJS('particles-js', {
-        particles: {
-            number: { value: 80, density: { enable: true, value_area: 800 } },
-            color: { value: '#00d4ff' },
-            shape: { type: 'circle' },
-            opacity: { value: 0.5, random: true },
-            size: { value: 3, random: true },
-            line_linked: { enable: true, distance: 150, color: '#00d4ff', opacity: 0.2, width: 1 },
-            move: { enable: true, speed: 2, direction: 'none', random: true, straight: false, out_mode: 'out' }
-        },
-        interactivity: {
-            detect_on: 'canvas',
-            events: { onhover: { enable: true, mode: 'repulse' }, onclick: { enable: true, mode: 'push' } }
+(function initDust() {
+    const canvas = document.getElementById('dustCanvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+
+    let w, h, dpr;
+    const particles = [];
+
+    function resize() {
+        dpr = window.devicePixelRatio || 1;
+        w = window.innerWidth;
+        h = window.innerHeight;
+        canvas.width  = w * dpr;
+        canvas.height = h * dpr;
+        canvas.style.width  = w + 'px';
+        canvas.style.height = h + 'px';
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
+    resize();
+    window.addEventListener('resize', resize);
+
+    const COUNT = window.innerWidth < 700 ? 35 : 70;
+    for (let i = 0; i < COUNT; i++) {
+        particles.push({
+            x: Math.random() * w,
+            y: Math.random() * h,
+            vx: (Math.random() - 0.5) * 0.18,
+            vy: (Math.random() - 0.5) * 0.18,
+            size: Math.random() * 1.8 + 0.4,
+            alpha: Math.random() * 0.45 + 0.08,
+            phase: Math.random() * Math.PI * 2
+        });
+    }
+
+    let t = 0;
+    function animate() {
+        t += 0.008;
+        ctx.clearRect(0, 0, w, h);
+
+        for (const p of particles) {
+            p.x += p.vx + Math.sin(t + p.phase) * 0.08;
+            p.y += p.vy + Math.cos(t + p.phase) * 0.08;
+
+            if (p.x < -10) p.x = w + 10;
+            if (p.x > w + 10) p.x = -10;
+            if (p.y < -10) p.y = h + 10;
+            if (p.y > h + 10) p.y = -10;
+
+            const flicker = 0.6 + Math.sin(t * 2 + p.phase) * 0.4;
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+            ctx.fillStyle = `rgba(232, 228, 216, ${p.alpha * flicker})`;
+            ctx.fill();
         }
-    });
-}
+        requestAnimationFrame(animate);
+    }
+    animate();
+})();
 
 // =====================================================================
-// 5. CORRECCIÓN DE IMAGEN DE PERFIL (fallback)
+// 5. LUZ ERRANTE
+// =====================================================================
+(function initWanderingLight() {
+    const light = document.getElementById('wanderingLight');
+    if (!light) return;
+
+    let x = window.innerWidth / 2;
+    let y = window.innerHeight / 2;
+    let tx = x, ty = y;
+    let speed = 0.006;
+
+    function pickTarget() {
+        tx = Math.random() * window.innerWidth;
+        ty = Math.random() * window.innerHeight;
+    }
+    pickTarget();
+    setInterval(pickTarget, 7000);
+
+    function loop() {
+        x += (tx - x) * speed;
+        y += (ty - y) * speed;
+        light.style.transform = `translate3d(${x - 300}px, ${y - 300}px, 0)`;
+        requestAnimationFrame(loop);
+    }
+    loop();
+})();
+
+// =====================================================================
+// 6. FIX AVATAR (intenta varias rutas)
 // =====================================================================
 (function fixProfileImage() {
-    const profileImg = document.getElementById('profileAvatar');
-    if (!profileImg) return;
-    
-    const pathsToTry = [
+    const img = document.getElementById('profileAvatar');
+    if (!img) return;
+
+    const paths = [
         "MEDIA/BCHINO.jpeg",
         "MEDIA/BCHINO.jpg",
         "MEDIA/bchino.jpeg",
         "MEDIA/bchino.jpg",
-        "media/BCHINO.jpeg",
-        "media/BCHINO.jpg",
-        "media/bchino.jpeg",
-        "media/bchino.jpg",
         "./MEDIA/BCHINO.jpeg",
-        "./MEDIA/BCHINO.jpg",
-        "./media/BCHINO.jpeg",
-        "./media/BCHINO.jpg"
+        "./MEDIA/BCHINO.jpg"
     ];
-    
-    let currentTry = 0;
-    
-    function tryNextPath() {
-        if (currentTry >= pathsToTry.length) {
-            console.warn("No se pudo cargar la foto de perfil después de múltiples intentos.");
-            return;
+    let i = 0;
+
+    img.onerror = function () {
+        if (img.dataset.fixing === 'true') return;
+        img.dataset.fixing = 'true';
+        function next() {
+            if (i >= paths.length) return;
+            const test = new Image();
+            test.onload = () => { img.src = paths[i]; img.onerror = null; };
+            test.onerror = () => { i++; next(); };
+            test.src = paths[i];
         }
-        const testImg = new Image();
-        testImg.onload = function() {
-            profileImg.src = pathsToTry[currentTry];
-            profileImg.onerror = null;
-        };
-        testImg.onerror = function() {
-            currentTry++;
-            tryNextPath();
-        };
-        testImg.src = pathsToTry[currentTry];
-    }
-    
-    profileImg.onerror = function() {
-        if (profileImg.getAttribute('data-fixing') === 'true') return;
-        profileImg.setAttribute('data-fixing', 'true');
-        currentTry = 0;
-        tryNextPath();
+        next();
     };
 })();
 
 // =====================================================================
-// 6. IDE PYTHON FUNCIONAL
+// 7. PYTHON IDE (Pyodide)
 // =====================================================================
-(function() {
+(function initPythonIDE() {
     let pyodideReady = false;
     let pyodide = null;
-    
-    const runBtn = document.getElementById('runPythonBtn');
-    const clearBtn = document.getElementById('clearEditorBtn');
-    const resetBtn = document.getElementById('resetExampleBtn');
+
+    const runBtn     = document.getElementById('runPythonBtn');
+    const clearBtn   = document.getElementById('clearEditorBtn');
+    const resetBtn   = document.getElementById('resetExampleBtn');
     const codeEditor = document.getElementById('pythonCodeEditor');
-    const stdinArea = document.getElementById('pythonStdin');
-    const outputPre = document.getElementById('pythonOutput');
+    const stdinArea  = document.getElementById('pythonStdin');
+    const outputPre  = document.getElementById('pythonOutput');
     const statusSpan = document.getElementById('pyodideStatus');
-    
+
+    if (!runBtn || !codeEditor) return;
+
     let outputBuffer = "";
-    
+
+    function escapeHtml(str) {
+        return String(str).replace(/[&<>]/g, m => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[m]));
+    }
     function setOutput(text, isError = false) {
-        if (isError) {
-            outputPre.innerHTML = `<span style="color: #ff8888;">${escapeHtml(text)}</span>`;
-        } else {
-            outputPre.innerHTML = escapeHtml(text);
-        }
+        outputPre.innerHTML = isError
+            ? `<span style="color:#ff9a9a;">${escapeHtml(text)}</span>`
+            : escapeHtml(text);
         outputPre.scrollTop = outputPre.scrollHeight;
     }
-    
-    function escapeHtml(str) {
-        return str.replace(/[&<>]/g, function(m) {
-            if (m === '&') return '&amp;';
-            if (m === '<') return '&lt;';
-            if (m === '>') return '&gt;';
-            return m;
-        });
-    }
-    
     function appendOutput(text) {
         outputBuffer += text;
         setOutput(outputBuffer);
     }
-    
     function clearOutput() {
         outputBuffer = "";
         setOutput("");
     }
-    
+    window.appendOutput = appendOutput;
+
     function setupPythonEnvironment() {
         pyodide.runPython(`
 import sys
@@ -665,11 +709,9 @@ class TeeOutput:
 sys.stdout = TeeOutput(sys.stdout, False)
 sys.stderr = TeeOutput(sys.stderr, True)
         `);
-        
-        pyodide.runPython(`
-import builtins
-import js
 
+        pyodide.runPython(`
+import builtins, sys, js
 _input_lines = []
 _input_idx = 0
 
@@ -691,14 +733,15 @@ def custom_input(prompt=''):
         sys.stdout.flush()
     line = get_stdin_line()
     if line is None:
-        raise EOFError("No more input (stdin empty)")
+        raise EOFError("No more input")
     return line
 
 builtins.input = custom_input
         `);
     }
-    
+
     function resetInputIndex() {
+        if (!pyodideReady) return;
         pyodide.runPython(`
 import js
 _input_lines = []
@@ -708,15 +751,15 @@ _input_lines = raw.split('\\n')
 _input_idx = 0
         `);
     }
-    
+
     async function runPythonCode() {
         if (!pyodideReady) {
-            setOutput("⏳ Python environment not ready yet. Wait for it to finish loading.", true);
+            setOutput("⏳ Python environment not ready yet.", true);
             return;
         }
         const code = codeEditor.value;
         if (code.trim() === "") {
-            setOutput("⚠️ No code to run. Write or paste something in the editor.", false);
+            setOutput("⚠️ No code to run.", false);
             return;
         }
         clearOutput();
@@ -728,65 +771,32 @@ _input_idx = 0
                 setOutput("✅ Code executed successfully (no printed output).");
             }
         } catch (err) {
-            let errorMsg = err.message || String(err);
-            appendOutput(`\n❌ Error: ${errorMsg}\n`);
+            appendOutput(`\n❌ Error: ${err.message || err}\n`);
         }
     }
-    
+
     function clearEditor() {
         codeEditor.value = "";
         clearOutput();
         setOutput("🧹 Editor cleared. Write your code and press 'Run'.", false);
     }
-    
+
     function resetExample() {
-        const lang = currentLang;
-        const exampleSpanish = `# 🔥 IDE Python con soporte para input()
-# Escribe cualquier código Python estándar
-
-nombre = input("¿Cómo te llamas? ")
-edad = input("¿Cuántos años tienes? ")
-
-print(f"\\n✨ Hola {nombre}, tienes {edad} años.")
-print("Suma de 10 + 20 =", 10+20)
-
-numeros = [1,2,3,4,5]
-cuadrados = [n**2 for n in numeros]
-print(f"\\nLista: {numeros}")
-print(f"Cuadrados: {cuadrados}")
-
-print("\\n✅ ¡Todo funciona perfectamente!")`;
-        
-        const exampleEnglish = `# 🔥 Python IDE with input() support
-# Write any standard Python code
-
-name = input("What is your name? ")
-age = input("How old are you? ")
-
-print(f"\\n✨ Hello {name}, you are {age} years old.")
-print("Sum of 10 + 20 =", 10+20)
-
-numbers = [1,2,3,4,5]
-squares = [n**2 for n in numbers]
-print(f"\\nList: {numbers}")
-print(f"Squares: {squares}")
-
-print("\\n✅ Everything works perfectly!")`;
-        
-        codeEditor.value = lang === 'es' ? exampleSpanish : exampleEnglish;
-        if (lang === 'es') {
-            stdinArea.value = "Juan\n25";
-        } else {
-            stdinArea.value = "John\n25";
-        }
+        codeEditor.value = currentLang === 'es' ? DEFAULT_ES : DEFAULT_EN;
+        stdinArea.value = currentLang === 'es' ? "Juan\n25" : "John\n25";
         clearOutput();
-        setOutput(lang === 'es' ? "📘 Ejemplo restaurado. Presiona 'Ejecutar' para probarlo." : "📘 Example restored. Press 'Run' to test it.", false);
+        setOutput(currentLang === 'es'
+            ? "📘 Ejemplo restaurado. Presiona 'Ejecutar' para probarlo."
+            : "📘 Example restored. Press 'Run' to test it.", false);
         resetInputIndex();
     }
-    
+
     async function loadPyodideAndInit() {
-        setOutput("📦 Loading Pyodide (Python in WebAssembly). First time may take several seconds...", false);
-        statusSpan.innerHTML = `<span data-i18n="ide_cargando">${currentLang === 'es' ? 'Cargando Pyodide...' : 'Loading Pyodide...'}</span>`;
+        setOutput(currentLang === 'es'
+            ? "📦 Cargando Pyodide (Python en WebAssembly). Esto puede tardar unos segundos la primera vez..."
+            : "📦 Loading Pyodide (Python in WebAssembly). This may take a few seconds the first time...", false);
+        statusSpan.innerHTML = `<span>${currentLang === 'es' ? '⏳ Cargando Pyodide...' : '⏳ Loading Pyodide...'}</span>`;
+
         try {
             pyodide = await loadPyodide({
                 indexURL: "https://cdn.jsdelivr.net/pyodide/v0.26.1/full/"
@@ -795,82 +805,98 @@ print("\\n✅ Everything works perfectly!")`;
             setupPythonEnvironment();
             runBtn.disabled = false;
             statusSpan.innerHTML = currentLang === 'es' ? "✅ Python listo" : "✅ Python ready";
-            statusSpan.style.background = "#00d4ff30";
-            setOutput(currentLang === 'es' ? "✅ Entorno Python listo. Escribe tu código y presiona 'Ejecutar código' o Ctrl+Enter.\n\n💡 Tip: Puedes usar input() y los valores se tomarán del área 'Entrada estándar' (una línea por input)." : "✅ Python environment ready. Write your code and press 'Run code' or Ctrl+Enter.\n\n💡 Tip: You can use input() and values will be taken from the 'Standard input' area (one line per input).", false);
+            statusSpan.style.color = "var(--bone-bright)";
+            statusSpan.style.borderColor = "var(--bone-bright)";
+            setOutput(currentLang === 'es'
+                ? "✅ Entorno Python listo. Escribe tu código y presiona 'Ejecutar código' o Ctrl+Enter.\n\n💡 Tip: Puedes usar input() y los valores se tomarán del área 'Entrada estándar'."
+                : "✅ Python environment ready. Write your code and press 'Run code' or Ctrl+Enter.\n\n💡 Tip: You can use input() and values will be taken from the 'Standard input' area.", false);
         } catch (err) {
             console.error(err);
-            setOutput(`❌ Fatal error loading Pyodide: ${err.message}\nCheck your internet connection.`, true);
+            setOutput(`❌ Error cargando Pyodide: ${err.message}\nVerifica tu conexión.`, true);
             statusSpan.innerHTML = currentLang === 'es' ? "❌ Error de carga" : "❌ Load error";
-            statusSpan.style.background = "#ff444430";
             runBtn.disabled = true;
         }
     }
-    
+
     runBtn.addEventListener('click', runPythonCode);
     clearBtn.addEventListener('click', clearEditor);
     resetBtn.addEventListener('click', resetExample);
-    codeEditor.addEventListener('keydown', (e) => {
+    codeEditor.addEventListener('keydown', e => {
         if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
             e.preventDefault();
             runPythonCode();
         }
     });
-    
-    window.appendOutput = appendOutput;
+
     loadPyodideAndInit();
 })();
 
 // =====================================================================
-// 7. LOGIN HANDLER
+// 8. LOGIN
 // =====================================================================
 function handleLogin(event) {
     event.preventDefault();
     const email = document.getElementById('login-email')?.value;
     const password = document.getElementById('login-password')?.value;
     if (email && password) {
-        alert(currentLang === 'es' ? "Funcionalidad de login en desarrollo. Por favor contacta al administrador." : "Login functionality under development. Please contact the administrator.");
+        alert(currentLang === 'es'
+            ? "Funcionalidad de login en desarrollo. Por favor contacta al administrador."
+            : "Login functionality under development. Please contact the administrator.");
     } else {
-        alert(currentLang === 'es' ? "Por favor ingresa correo y contraseña." : "Please enter email and password.");
+        alert(currentLang === 'es'
+            ? "Por favor ingresa correo y contraseña."
+            : "Please enter email and password.");
     }
 }
 window.handleLogin = handleLogin;
 
 // =====================================================================
-// 8. NAVEGACIÓN SUAVE Y ANIMACIONES
+// 9. NAVEGACIÓN SUAVE
 // =====================================================================
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function(e) {
+    anchor.addEventListener('click', function (e) {
         const href = this.getAttribute('href');
         if (href === '#') return;
         const target = document.querySelector(href);
         if (target) {
             e.preventDefault();
-            window.scrollTo({ top: target.offsetTop - 80, behavior: 'smooth' });
+            window.scrollTo({
+                top: target.offsetTop - 80,
+                behavior: 'smooth'
+            });
         }
     });
 });
 
-// Animaciones al hacer scroll
-const elementsToAnimate = document.querySelectorAll('.model-card, .service-card, .allies-card, .profile-card, .fullstack-card, .python-test-card');
-const observerScroll = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.style.opacity = '1';
-            entry.target.style.transform = 'translateY(0)';
-        }
+// =====================================================================
+// 10. REVELADO AL SCROLL
+// =====================================================================
+(function initScrollReveal() {
+    const els = document.querySelectorAll(
+        '.model-card, .service-card, .allies-card, .profile-card, .fullstack-card, .python-test-card, .fullstack-tile, .cta-content, .contact-form, .python-ide-card'
+    );
+    if (!('IntersectionObserver' in window)) {
+        els.forEach(el => el.classList.add('reveal-on-scroll', 'visible'));
+        return;
+    }
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+    els.forEach(el => {
+        el.classList.add('reveal-on-scroll');
+        observer.observe(el);
     });
-}, { threshold: 0.1 });
-elementsToAnimate.forEach(el => {
-    el.style.opacity = '0';
-    el.style.transform = 'translateY(30px)';
-    el.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
-    observerScroll.observe(el);
-});
+})();
 
 // =====================================================================
-// 9. INICIALIZACIÓN FINAL
+// 11. INIT
 // =====================================================================
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     initLanguageSwitcher();
-    // Cualquier otra inicialización
 });
