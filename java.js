@@ -14,18 +14,13 @@
         if (!img || img.dataset.fbApplied === 'true') return;
         img.dataset.fbApplied = 'true';
         const kind = img.getAttribute('data-fallback') || 'logo';
-        img.onerror = null; // ✅ evita bucle
+        img.onerror = null;
         img.src = kind === 'avatar' ? SVG_AVATAR : SVG_LOGO;
     }
 
-    // Ejecuta inmediatamente sobre todas las imágenes existentes
     function scanAll() {
         document.querySelectorAll('img[data-fallback]').forEach(img => {
-            // Si ya falló antes de que cargara el JS
-            if (img.complete && img.naturalWidth === 0) {
-                applyFallback(img);
-            }
-            // Listener de seguridad
+            if (img.complete && img.naturalWidth === 0) applyFallback(img);
             img.addEventListener('error', () => applyFallback(img));
         });
     }
@@ -36,14 +31,13 @@
         scanAll();
     }
 
-    // MutationObserver por si añades imágenes después
     if ('MutationObserver' in window) {
         new MutationObserver(scanAll).observe(document.body, { childList: true, subtree: true });
     }
 })();
 
 // =====================================================================
-// 1. FACTORY DE METEOROS (reutilizable)
+// 1. FACTORY DE METEOROS (reutilizable — usada en la página)
 // =====================================================================
 function createMeteorField(canvasId, opts) {
     const canvas = document.getElementById(canvasId);
@@ -169,7 +163,7 @@ function createMeteorField(canvasId, opts) {
 }
 
 // =====================================================================
-// 2. PRELOADER — 4 segundos
+// 2. PRELOADER — 4 segundos (SIN meteoros)
 // =====================================================================
 (function initPreloader() {
     const preloader = document.getElementById('preloader');
@@ -177,17 +171,6 @@ function createMeteorField(canvasId, opts) {
 
     const BUILD_TIME = 3200;
     const FADE_TIME  = 800;
-
-    createMeteorField('preloaderMeteors', {
-        countDesktop: 6,
-        countMobile: 4,
-        speedMin: 1.2,
-        speedMax: 2.2,
-        lengthMin: 100,
-        lengthMax: 240,
-        widthMin: 1,
-        widthMax: 2.4
-    });
 
     const start = performance.now();
 
@@ -733,7 +716,6 @@ if (typeof particlesJS !== 'undefined') {
 
         function tryNext() {
             if (i >= paths.length) {
-                // ✅ ÚLTIMO RECURSO garantizado
                 img.onerror = null;
                 img.src = fallbackSVG;
                 return;

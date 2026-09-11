@@ -85,7 +85,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* ============================================================
-   PRELOADER
+   PRELOADER (sin meteoros)
    ============================================================ */
 #preloader {
     position: fixed;
@@ -127,17 +127,6 @@ h1, h2, h3, h4, h5, h6 {
     50%      { transform: scale(1.2); opacity: 1;   }
 }
 
-/* Canvas de meteoros DENTRO del preloader */
-#preloaderMeteors {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    z-index: 1;
-}
-
-/* ===== CONTENIDO CENTRAL DEL PRELOADER ===== */
 .preloader-content {
     display: flex;
     flex-direction: column;
@@ -159,7 +148,6 @@ h1, h2, h3, h4, h5, h6 {
     margin-bottom: 30px;
 }
 
-/* Halo suave detrás de la imagen */
 .preloader-image-wrapper::before {
     content: '';
     position: absolute;
@@ -200,7 +188,6 @@ h1, h2, h3, h4, h5, h6 {
     }
 }
 
-/* Haz de escaneo sobre la imagen */
 .scan-beam {
     position: absolute;
     left: -20px;
