@@ -150,7 +150,8 @@
                             </div>
                             <div class="login-options d-flex justify-content-between mb-3">
                                 <label class="remember-me"><input type="checkbox" id="remember"> <span data-i18n="login_recordarme">Recordarme</span></label>
-                                <a href="#" class="forgot-password" data-i18n="login_olvidaste">¿Olvidaste tu contraseña?</a>
+                                <!-- AQUI SE AGREGO EL ID forgotPasswordLink -->
+                                <a href="#" class="forgot-password" id="forgotPasswordLink" data-i18n="login_olvidaste">¿Olvidaste tu contraseña?</a>
                             </div>
                             <button type="submit" id="loginBtn" class="btn btn-primary w-100 mb-3"><i class="fas fa-sign-in-alt" style="margin-right: 10px;"></i> <span data-i18n="login_iniciar">Iniciar Sesión</span></button>
                             
@@ -783,13 +784,33 @@
                 }
             });
 
-            // 6. Google OAuth
+            // 6. Google OAuth (CORREGIDO)
             document.getElementById('googleLoginBtn').addEventListener('click', async () => {
+                // Usamos window.location.origin para evitar conflictos con rutas
                 const { error } = await supabaseClient.auth.signInWithOAuth({
                     provider: 'google',
-                    options: { redirectTo: window.location.origin + window.location.pathname }
+                    options: { redirectTo: window.location.origin }
                 });
                 if (error) alert("Error con Google: " + error.message);
+            });
+
+            // 6.5 Olvidé mi Contraseña (NUEVO)
+            document.getElementById('forgotPasswordLink').addEventListener('click', async (e) => {
+                e.preventDefault();
+                const email = prompt("Por favor, ingresa tu correo electrónico para enviarte un enlace de restablecimiento:");
+                
+                if (email) {
+                    // Redirige al login-sandbox.html que es donde tienes el formulario
+                    const { error } = await supabaseClient.auth.resetPasswordForEmail(email, {
+                        redirectTo: window.location.origin + '/login-sandbox.html', 
+                    });
+
+                    if (error) {
+                        alert('Error al enviar el correo: ' + error.message);
+                    } else {
+                        alert('¡Correo de restablecimiento enviado! Revisa tu bandeja de entrada (y la carpeta de spam).');
+                    }
+                }
             });
 
             // 7. Navegación y Foto del Portal
