@@ -60,6 +60,234 @@
             margin-top: 10px;
         }
         .btn-google-custom:hover { background: #f1f1f1; }
+
+        /* =========================================
+           ESTILOS PARA EVENTOS Y CURSOS
+           ========================================= */
+        .event-filters, .course-filters {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        .event-filter-btn, .course-filter-btn {
+            background: transparent;
+            border: 1px solid rgba(0, 180, 216, 0.4);
+            color: #8892b0;
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 14px;
+        }
+        .event-filter-btn:hover, .event-filter-btn.active,
+        .course-filter-btn:hover, .course-filter-btn.active {
+            background: rgba(0, 180, 216, 0.2);
+            color: #00b4d8;
+            border-color: #00b4d8;
+        }
+        .event-grid, .course-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        .event-card, .course-card {
+            background: linear-gradient(145deg, rgba(10, 25, 47, 0.9), rgba(5, 11, 20, 0.9));
+            border: 1px solid rgba(0, 180, 216, 0.2);
+            border-radius: 12px;
+            padding: 20px;
+            transition: transform 0.3s, box-shadow 0.3s;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+        }
+        .event-card:hover, .course-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 180, 216, 0.15);
+            border-color: rgba(0, 180, 216, 0.5);
+        }
+        .event-card::before, .course-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 4px;
+        }
+        .event-card.programming::before { background: linear-gradient(90deg, #00b4d8, #0077b6); }
+        .event-card.cyber::before { background: linear-gradient(90deg, #ff4d4d, #ff8c00); }
+        .event-card.community::before { background: linear-gradient(90deg, #4dff4d, #00b4d8); }
+
+        /* Colores para cursos */
+        .course-card.programming::before { background: linear-gradient(90deg, #00b4d8, #0077b6); }
+        .course-card.cyber::before { background: linear-gradient(90deg, #ff4d4d, #ff8c00); }
+        .course-card.ai::before { background: linear-gradient(90deg, #9b59b6, #8e44ad); }
+        .course-card.web::before { background: linear-gradient(90deg, #2ecc71, #27ae60); }
+        .course-card.university::before { background: linear-gradient(90deg, #f1c40f, #f39c12); }
+
+        .event-badge, .course-badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 10px;
+            width: fit-content;
+        }
+        .event-badge.programming { background: rgba(0, 180, 216, 0.2); color: #00b4d8; }
+        .event-badge.cyber { background: rgba(255, 77, 77, 0.2); color: #ff4d4d; }
+        .event-badge.community { background: rgba(77, 255, 77, 0.2); color: #4dff4d; }
+
+        .course-badge.programming { background: rgba(0, 180, 216, 0.2); color: #00b4d8; }
+        .course-badge.cyber { background: rgba(255, 77, 77, 0.2); color: #ff4d4d; }
+        .course-badge.ai { background: rgba(155, 89, 182, 0.2); color: #c39bd3; }
+        .course-badge.web { background: rgba(46, 204, 113, 0.2); color: #58d68d; }
+        .course-badge.university { background: rgba(241, 196, 15, 0.2); color: #f7dc6f; }
+
+        .event-title, .course-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #fff;
+            margin-bottom: 8px;
+        }
+        .event-meta, .course-meta {
+            font-size: 13px;
+            color: #8892b0;
+            margin-bottom: 12px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .event-meta i, .course-meta i {
+            color: #00b4d8;
+            margin-right: 4px;
+        }
+        .event-desc, .course-desc {
+            font-size: 14px;
+            color: #a0aec0;
+            flex-grow: 1;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+        .event-link, .course-link {
+            display: inline-block;
+            color: #00b4d8;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 14px;
+            transition: color 0.3s;
+            margin-top: auto;
+        }
+        .event-link:hover, .course-link:hover {
+            color: #fff;
+            text-shadow: 0 0 10px rgba(0, 180, 216, 0.5);
+        }
+        .event-link i, .course-link i { margin-left: 5px; transition: transform 0.3s; }
+        .event-link:hover i, .course-link:hover i { transform: translateX(3px); }
+
+        /* Estilo especial para SEIC UdeA */
+        .seic-highlight {
+            border: 1px solid rgba(77, 255, 77, 0.4);
+            background: linear-gradient(145deg, rgba(10, 25, 47, 0.9), rgba(0, 50, 0, 0.2));
+        }
+        .seic-highlight:hover {
+            box-shadow: 0 10px 20px rgba(77, 255, 77, 0.2);
+            border-color: #4dff4d;
+        }
+
+        /* =========================================
+           VISTA RESPONSIVE PARA MÓVILES
+           ========================================= */
+        @media (max-width: 768px) {
+            /* El sidebar se convierte en una barra superior */
+            #userPortal .row {
+                flex-direction: column;
+            }
+            .portal-sidebar {
+                min-height: auto;
+                border-right: none;
+                border-bottom: 1px solid rgba(0, 180, 216, 0.2);
+                padding: 10px 0;
+                position: sticky;
+                top: 0;
+                z-index: 1000;
+                background: rgba(10, 25, 47, 0.98);
+                backdrop-filter: blur(10px);
+            }
+            .portal-sidebar .text-center.mb-4 {
+                margin-bottom: 10px !important;
+            }
+            .portal-sidebar .text-center.mb-4 h4 {
+                font-size: 16px;
+            }
+            /* Los items del menú se organizan horizontalmente con scroll */
+            .portal-sidebar .portal-nav-item {
+                display: inline-flex;
+                padding: 10px 12px;
+                font-size: 13px;
+                white-space: nowrap;
+                border-left: none;
+                border-bottom: 3px solid transparent;
+            }
+            .portal-sidebar .portal-nav-item:hover,
+            .portal-sidebar .portal-nav-item.active {
+                border-left: none;
+                border-bottom: 3px solid #00b4d8;
+            }
+            /* Envolver los items en un contenedor con scroll horizontal */
+            .portal-sidebar > div:not(.text-center) {
+                display: flex;
+                overflow-x: auto;
+                gap: 5px;
+                padding: 0 10px;
+                scrollbar-width: none; /* Firefox */
+            }
+            .portal-sidebar > div:not(.text-center)::-webkit-scrollbar {
+                display: none; /* Chrome/Safari */
+            }
+            .portal-sidebar .mt-5.px-3 {
+                margin-top: 10px !important;
+                padding: 0 10px !important;
+            }
+            .portal-sidebar .mt-5.px-3 .btn {
+                width: 100%;
+                padding: 8px;
+                font-size: 13px;
+            }
+            /* Ajustes del contenido principal */
+            .col-md-9.col-lg-10.p-5 {
+                padding: 15px !important;
+            }
+            .col-md-9.col-lg-10.p-5 .d-flex.justify-content-between.align-items-center.mb-4.pb-3 {
+                flex-direction: column;
+                align-items: flex-start !important;
+                gap: 10px;
+                text-align: left;
+            }
+            .col-md-9.col-lg-10.p-5 .d-flex.justify-content-between.align-items-center.mb-4.pb-3 .user-avatar {
+                align-self: flex-end;
+            }
+            .col-md-9.col-lg-10.p-5 h2 {
+                font-size: 20px;
+            }
+            .col-md-9.col-lg-10.p-5 h3 {
+                font-size: 18px;
+            }
+            /* Grids de una sola columna */
+            .event-grid, .course-grid {
+                grid-template-columns: 1fr;
+            }
+            .event-filters, .course-filters {
+                gap: 6px;
+            }
+            .event-filter-btn, .course-filter-btn {
+                padding: 6px 12px;
+                font-size: 12px;
+            }
+            .portal-card {
+                padding: 15px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -620,8 +848,8 @@
                     </div>
                     <div class="portal-nav-item active" data-target="dash-perfil"><i class="fas fa-user"></i> Mi Perfil</div>
                     <div class="portal-nav-item" data-target="dash-eventos"><i class="fas fa-globe"></i> Eventos</div>
+                    <div class="portal-nav-item" data-target="dash-cursos"><i class="fas fa-graduation-cap"></i> Cursos Gratuitos</div>
                     <div class="portal-nav-item" data-target="dash-solicitudes"><i class="fas fa-tools"></i> Solicitudes</div>
-                    <div class="portal-nav-item" data-target="dash-cursos"><i class="fas fa-graduation-cap"></i> Cursos</div>
                     <div class="portal-nav-item" data-target="dash-cv"><i class="fas fa-file-alt"></i> Currículum</div>
                     <div class="portal-nav-item" data-target="dash-empresas"><i class="fas fa-briefcase"></i> Empresas</div>
                     
@@ -656,9 +884,277 @@
                         </div>
                     </div>
 
-                    <div id="dash-eventos" class="portal-section"><h3 class="text-info">Eventos</h3><div class="portal-card"><p>Próximamente...</p></div></div>
+                    <!-- ============================================= -->
+                    <!-- SECCIÓN DE EVENTOS                            -->
+                    <!-- ============================================= -->
+                    <div id="dash-eventos" class="portal-section">
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <h3 class="text-info mb-0"><i class="fas fa-globe me-2"></i> Agenda Tech 2026</h3>
+                            <span class="badge bg-info text-dark">Actualizado</span>
+                        </div>
+                        
+                        <!-- Filtros -->
+                        <div class="event-filters">
+                            <button class="event-filter-btn active" data-filter="all">Todos</button>
+                            <button class="event-filter-btn" data-filter="programming">Programación</button>
+                            <button class="event-filter-btn" data-filter="cyber">Ciberseguridad & CTF</button>
+                            <button class="event-filter-btn" data-filter="community">Comunidades</button>
+                        </div>
+
+                        <!-- Grid de Eventos -->
+                        <div class="event-grid" id="eventGrid">
+                            
+                            <!-- Evento: PyCon Colombia -->
+                            <div class="event-card programming" data-category="programming">
+                                <span class="event-badge programming">Programación</span>
+                                <h4 class="event-title">PyCon Colombia 2026</h4>
+                                <div class="event-meta">
+                                    <span><i class="far fa-calendar-alt"></i> 24 - 26 Jul 2026</span>
+                                    <span><i class="fas fa-map-marker-alt"></i> Medellín, Colombia</span>
+                                </div>
+                                <p class="event-desc">La conferencia de Python más grande del país. Explora IA, Data Science, Desarrollo Web y más con expertos internacionales.</p>
+                                <a href="https://2026.pycon.co/" target="_blank" class="event-link">Más información <i class="fas fa-external-link-alt"></i></a>
+                            </div>
+
+                            <!-- Evento: BSides Colombia CTF -->
+                            <div class="event-card cyber" data-category="cyber">
+                                <span class="event-badge cyber">CTF</span>
+                                <h4 class="event-title">CTF BSides Colombia 2026</h4>
+                                <div class="event-meta">
+                                    <span><i class="far fa-calendar-alt"></i> Fecha por confirmar</span>
+                                    <span><i class="fas fa-map-marker-alt"></i> Online / Presencial</span>
+                                </div>
+                                <p class="event-desc">Competencia de ciberseguridad con más de 25 retos en categorías como Forense, Pwn, Crypto, Reversing y Web. ¡Ideal para todos los niveles!</p>
+                                <a href="https://bsidesco.org/ctf2026.html" target="_blank" class="event-link">Ir al CTF <i class="fas fa-external-link-alt"></i></a>
+                            </div>
+
+                            <!-- Evento: DragonJARCON 2026 -->
+                            <div class="event-card cyber" data-category="cyber">
+                                <span class="event-badge cyber">Ciberseguridad</span>
+                                <h4 class="event-title">DragonJARCON 2026</h4>
+                                <div class="event-meta">
+                                    <span><i class="far fa-calendar-alt"></i> 10 - 11 Sep 2026</span>
+                                    <span><i class="fas fa-map-marker-alt"></i> Medellín, Colombia</span>
+                                </div>
+                                <p class="event-desc">El evento de hacking y seguridad informática más importante de la región. Charlas técnicas, talleres y espacios de networking.</p>
+                                <a href="https://www.linkedin.com/posts/infosecmap_infosec-cybersecurity-partnership-activity-7472707191758766080-bSEy" target="_blank" class="event-link">Ver detalles <i class="fas fa-external-link-alt"></i></a>
+                            </div>
+
+                            <!-- Evento: SEIC UdeA (Destacado) -->
+                            <div class="event-card community seic-highlight" data-category="community">
+                                <span class="event-badge community">Comunidad UdeA</span>
+                                <h4 class="event-title">SEIC UdeA - Semillero de Ciberseguridad</h4>
+                                <div class="event-meta">
+                                    <span><i class="fas fa-users"></i> Comunidad Activa</span>
+                                    <span><i class="fas fa-map-marker-alt"></i> Universidad de Antioquia</span>
+                                </div>
+                                <p class="event-desc">Somos participantes activos. Únete al Semillero de Investigación en Ciberseguridad de la UdeA. CTFs, talleres, charlas y hacking ético.</p>
+                                <a href="https://www.instagram.com/seic.udea/" target="_blank" class="event-link">Seguir en Instagram <i class="fab fa-instagram"></i></a>
+                            </div>
+
+                            <!-- Evento: FLISOL 2026 -->
+                            <div class="event-card programming" data-category="programming">
+                                <span class="event-badge programming">Software Libre</span>
+                                <h4 class="event-title">FLISOL 2026 Santander</h4>
+                                <div class="event-meta">
+                                    <span><i class="far fa-calendar-alt"></i> 14 - 15 May 2026</span>
+                                    <span><i class="fas fa-map-marker-alt"></i> UIS, Bucaramanga</span>
+                                </div>
+                                <p class="event-desc">Festival Latinoamericano de Instalación de Software Libre. Charlas sobre IA, ciberseguridad, Python y desarrollo de software libre.</p>
+                                <a href="https://comunicaciones.uis.edu.co/flisol-2026-santander-software-libre-inteligencia-artificial/" target="_blank" class="event-link">Más información <i class="fas fa-external-link-alt"></i></a>
+                            </div>
+
+                            <!-- Evento: Hack The Box Meetup -->
+                            <div class="event-card cyber" data-category="cyber">
+                                <span class="event-badge cyber">Meetup</span>
+                                <h4 class="event-title">Hack The Box Meetup #29</h4>
+                                <div class="event-meta">
+                                    <span><i class="far fa-calendar-alt"></i> 25 Jul 2026</span>
+                                    <span><i class="fas fa-map-marker-alt"></i> Universidad Nacional, Bogotá</span>
+                                </div>
+                                <p class="event-desc">Competencia CTF presencial y espacios para compartir con la comunidad de hacking ético de Bogotá. ¡No requiere experiencia previa!</p>
+                                <a href="https://www.meetup.com/" target="_blank" class="event-link">Ver en Meetup <i class="fas fa-external-link-alt"></i></a>
+                            </div>
+
+                        </div>
+                    </div>
+                    <!-- ============================================= -->
+                    <!-- FIN DE LA SECCIÓN DE EVENTOS                  -->
+                    <!-- ============================================= -->
+
+                    <!-- ============================================= -->
+                    <!-- NUEVA SECCIÓN DE CURSOS GRATUITOS             -->
+                    <!-- ============================================= -->
+                    <div id="dash-cursos" class="portal-section">
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <h3 class="text-info mb-0"><i class="fas fa-graduation-cap me-2"></i> Cursos Gratuitos de Nivel Mundial</h3>
+                            <span class="badge bg-info text-dark">Acceso Libre</span>
+                        </div>
+                        
+                        <!-- Filtros de Cursos -->
+                        <div class="course-filters">
+                            <button class="course-filter-btn active" data-filter="all">Todos</button>
+                            <button class="course-filter-btn" data-filter="programming">Programación</button>
+                            <button class="course-filter-btn" data-filter="cyber">Ciberseguridad</button>
+                            <button class="course-filter-btn" data-filter="ai">Inteligencia Artificial</button>
+                            <button class="course-filter-btn" data-filter="web">Desarrollo Web</button>
+                            <button class="course-filter-btn" data-filter="university">Universitarios</button>
+                        </div>
+
+                        <!-- Grid de Cursos -->
+                        <div class="course-grid" id="courseGrid">
+                            
+                            <!-- Curso: freeCodeCamp -->
+                            <div class="course-card programming" data-category="programming">
+                                <span class="course-badge programming">Programación</span>
+                                <h4 class="course-title">freeCodeCamp</h4>
+                                <div class="course-meta">
+                                    <span><i class="fas fa-code"></i> HTML, CSS, JS, Python, SQL</span>
+                                    <span><i class="fas fa-certificate"></i> Certificaciones gratis</span>
+                                </div>
+                                <p class="course-desc">Currículo interactivo completo. Aprende desarrollo web, ciencia de datos y machine learning con proyectos prácticos y obtén certificados gratuitos.</p>
+                                <a href="https://www.freecodecamp.org/" target="_blank" class="course-link">Comenzar ahora <i class="fas fa-external-link-alt"></i></a>
+                            </div>
+
+                            <!-- Curso: Harvard CS50 -->
+                            <div class="course-card university" data-category="university">
+                                <span class="course-badge university">Universitario</span>
+                                <h4 class="course-title">Harvard CS50x</h4>
+                                <div class="course-meta">
+                                    <span><i class="fas fa-university"></i> Harvard University</span>
+                                    <span><i class="fas fa-clock"></i> 25+ horas</span>
+                                </div>
+                                <p class="course-desc">La introducción a las ciencias de la computación más famosa del mundo. Cubre C, Python, SQL, JavaScript y conceptos de IA. Gratis en edX (auditoría).</p>
+                                <a href="https://cs50.harvard.edu/x/2026/" target="_blank" class="course-link">Ir al curso <i class="fas fa-external-link-alt"></i></a>
+                            </div>
+
+                            <!-- Curso: Cisco - Introduction to Cybersecurity -->
+                            <div class="course-card cyber" data-category="cyber">
+                                <span class="course-badge cyber">Ciberseguridad</span>
+                                <h4 class="course-title">Introduction to Cybersecurity</h4>
+                                <div class="course-meta">
+                                    <span><i class="fas fa-shield-alt"></i> Cisco Networking Academy</span>
+                                    <span><i class="fas fa-certificate"></i> Certificado gratuito</span>
+                                </div>
+                                <p class="course-desc">Curso introductorio sobre amenazas, vulnerabilidades y mejores prácticas de seguridad. Ideal para empezar en el mundo de la ciberseguridad.</p>
+                                <a href="https://www.netacad.com/courses/cybersecurity/introduction-cybersecurity" target="_blank" class="course-link">Acceder al curso <i class="fas fa-external-link-alt"></i></a>
+                            </div>
+
+                            <!-- Curso: TryHackMe -->
+                            <div class="course-card cyber" data-category="cyber">
+                                <span class="course-badge cyber">Ciberseguridad</span>
+                                <h4 class="course-title">TryHackMe - Cyber Security</h4>
+                                <div class="course-meta">
+                                    <span><i class="fas fa-flask"></i> Laboratorios interactivos</span>
+                                    <span><i class="fas fa-user-secret"></i> Hacking ético</span>
+                                </div>
+                                <p class="course-desc">Plataforma gamificada con laboratorios prácticos de seguridad ofensiva y defensiva. Aprende haciendo en un entorno seguro.</p>
+                                <a href="https://tryhackme.com/" target="_blank" class="course-link">Explorar labs <i class="fas fa-external-link-alt"></i></a>
+                            </div>
+
+                            <!-- Curso: Google AI -->
+                            <div class="course-card ai" data-category="ai">
+                                <span class="course-badge ai">Inteligencia Artificial</span>
+                                <h4 class="course-title">Google AI - Grow with Google</h4>
+                                <div class="course-meta">
+                                    <span><i class="fas fa-robot"></i> IA Generativa</span>
+                                    <span><i class="fas fa-certificate"></i> Badges</span>
+                                </div>
+                                <p class="course-desc">Módulos gratuitos sobre IA generativa, machine learning y uso práctico de IA en el trabajo. Incluye rutas de aprendizaje y badges.</p>
+                                <a href="https://grow.google/ai/" target="_blank" class="course-link">Comenzar <i class="fas fa-external-link-alt"></i></a>
+                            </div>
+
+                            <!-- Curso: AWS Skill Builder -->
+                            <div class="course-card ai" data-category="ai">
+                                <span class="course-badge ai">Inteligencia Artificial</span>
+                                <h4 class="course-title">AWS Skill Builder</h4>
+                                <div class="course-meta">
+                                    <span><i class="fas fa-cloud"></i> Cloud & IA</span>
+                                    <span><i class="fas fa-gamepad"></i> Aprendizaje basado en juegos</span>
+                                </div>
+                                <p class="course-desc">Cursos gratuitos de fundamentos de nube, IA y machine learning. Incluye AWS Cloud Quest: Generative AI Practitioner, un curso gratuito basado en juegos.</p>
+                                <a href="https://skillbuilder.aws/" target="_blank" class="course-link">Ir a Skill Builder <i class="fas fa-external-link-alt"></i></a>
+                            </div>
+
+                            <!-- Curso: Microsoft Learn -->
+                            <div class="course-card ai" data-category="ai">
+                                <span class="course-badge ai">Inteligencia Artificial</span>
+                                <h4 class="course-title">Microsoft Learn - IA</h4>
+                                <div class="course-meta">
+                                    <span><i class="fas fa-windows"></i> Azure AI</span>
+                                    <span><i class="fas fa-certificate"></i> Career Essentials</span>
+                                </div>
+                                <p class="course-desc">Rutas de aprendizaje gratuitas sobre IA generativa, Azure AI y ética en IA. Obtén certificaciones de carrera essentials.</p>
+                                <a href="https://learn.microsoft.com/en-us/training/" target="_blank" class="course-link">Explorar rutas <i class="fas fa-external-link-alt"></i></a>
+                            </div>
+
+                            <!-- Curso: The Odin Project -->
+                            <div class="course-card web" data-category="web">
+                                <span class="course-badge web">Desarrollo Web</span>
+                                <h4 class="course-title">The Odin Project</h4>
+                                <div class="course-meta">
+                                    <span><i class="fas fa-code"></i> Full-Stack</span>
+                                    <span><i class="fas fa-project-diagram"></i> Basado en proyectos</span>
+                                </div>
+                                <p class="course-desc">Currículo de código abierto para convertirte en desarrollador web full-stack. Enfocado en proyectos reales y aprendizaje autónomo.</p>
+                                <a href="https://www.theodinproject.com/" target="_blank" class="course-link">Iniciar ruta <i class="fas fa-external-link-alt"></i></a>
+                            </div>
+
+                            <!-- Curso: Khan Academy -->
+                            <div class="course-card university" data-category="university">
+                                <span class="course-badge university">Universitario</span>
+                                <h4 class="course-title">Khan Academy</h4>
+                                <div class="course-meta">
+                                    <span><i class="fas fa-calculator"></i> Ciencias de la Computación</span>
+                                    <span><i class="fas fa-graduation-cap"></i> 100% Gratis</span>
+                                </div>
+                                <p class="course-desc">Plataforma sin fines de lucro con cursos de ciencias de la computación, algoritmos y programación. Ideal para fundamentos académicos sólidos.</p>
+                                <a href="https://www.khanacademy.org/computing" target="_blank" class="course-link">Aprender gratis <i class="fas fa-external-link-alt"></i></a>
+                            </div>
+
+                            <!-- Curso: SENA (Colombia) -->
+                            <div class="course-card university" data-category="university">
+                                <span class="course-badge university">Universitario</span>
+                                <h4 class="course-title">SENA - Cursos Virtuales</h4>
+                                <div class="course-meta">
+                                    <span><i class="fas fa-flag"></i> Colombia</span>
+                                    <span><i class="fas fa-certificate"></i> Certificación</span>
+                                </div>
+                                <p class="course-desc">Cursos gratuitos en Python, ciberseguridad, inteligencia artificial, desarrollo web y más. Dirigido a colombianos y residentes.</p>
+                                <a href="https://www.sena.edu.co/es-co/formacion/Paginas/cursos-virtuales.aspx" target="_blank" class="course-link">Ver oferta <i class="fas fa-external-link-alt"></i></a>
+                            </div>
+
+                            <!-- Curso: edX -->
+                            <div class="course-card university" data-category="university">
+                                <span class="course-badge university">Universitario</span>
+                                <h4 class="course-title">edX - Cursos de Universidades</h4>
+                                <div class="course-meta">
+                                    <span><i class="fas fa-university"></i> MIT, Harvard, Berkeley</span>
+                                    <span><i class="fas fa-award"></i> Auditoría gratuita</span>
+                                </div>
+                                <p class="course-desc">Accede a cursos de las mejores universidades del mundo de forma gratuita (modo auditoría). Programación, IA, ciberseguridad y más.</p>
+                                <a href="https://www.edx.org/" target="_blank" class="course-link">Explorar edX <i class="fas fa-external-link-alt"></i></a>
+                            </div>
+
+                            <!-- Curso: Coursera -->
+                            <div class="course-card university" data-category="university">
+                                <span class="course-badge university">Universitario</span>
+                                <h4 class="course-title">Coursera - Cursos Gratuitos</h4>
+                                <div class="course-meta">
+                                    <span><i class="fas fa-globe"></i> Universidades Top</span>
+                                    <span><i class="fas fa-search"></i> Modo auditoría</span>
+                                </div>
+                                <p class="course-desc">Miles de cursos gratuitos en modo auditoría de universidades como Stanford, Yale y Google. Programación, IA, negocios y más.</p>
+                                <a href="https://www.coursera.org/courses?query=free" target="_blank" class="course-link">Buscar cursos <i class="fas fa-external-link-alt"></i></a>
+                            </div>
+
+                        </div>
+                    </div>
+                    <!-- ============================================= -->
+                    <!-- FIN DE LA SECCIÓN DE CURSOS GRATUITOS         -->
+                    <!-- ============================================= -->
+
                     <div id="dash-solicitudes" class="portal-section"><h3 class="text-info">Solicitudes</h3><div class="portal-card"><p>Próximamente...</p></div></div>
-                    <div id="dash-cursos" class="portal-section"><h3 class="text-info">Cursos</h3><div class="portal-card"><p>Próximamente...</p></div></div>
                     <div id="dash-cv" class="portal-section"><h3 class="text-info">Currículum</h3><div class="portal-card"><p>Próximamente...</p></div></div>
                     <div id="dash-empresas" class="portal-section"><h3 class="text-info">Empresas</h3><div class="portal-card"><p>Próximamente...</p></div></div>
                 </div>
@@ -820,6 +1316,48 @@
                     document.querySelectorAll('.portal-section').forEach(sec => sec.classList.remove('active-section'));
                     item.classList.add('active');
                     document.getElementById(item.getAttribute('data-target')).classList.add('active-section');
+                });
+            });
+
+            // ==========================================
+            // LÓGICA DE FILTRADO DE EVENTOS
+            // ==========================================
+            const eventFilterButtons = document.querySelectorAll('.event-filter-btn');
+            const eventCards = document.querySelectorAll('.event-card');
+
+            eventFilterButtons.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    eventFilterButtons.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    const filter = btn.getAttribute('data-filter');
+                    eventCards.forEach(card => {
+                        if (filter === 'all' || card.getAttribute('data-category') === filter) {
+                            card.style.display = 'flex';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+                });
+            });
+
+            // ==========================================
+            // LÓGICA DE FILTRADO DE CURSOS (NUEVA)
+            // ==========================================
+            const courseFilterButtons = document.querySelectorAll('.course-filter-btn');
+            const courseCards = document.querySelectorAll('.course-card');
+
+            courseFilterButtons.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    courseFilterButtons.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    const filter = btn.getAttribute('data-filter');
+                    courseCards.forEach(card => {
+                        if (filter === 'all' || card.getAttribute('data-category') === filter) {
+                            card.style.display = 'flex';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
                 });
             });
 
