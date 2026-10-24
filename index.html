@@ -62,7 +62,7 @@
         .btn-google-custom:hover { background: #f1f1f1; }
 
         /* =========================================
-           ESTILOS PARA EVENTOS Y CURSOS
+           ESTILOS PARA EVENTOS, CURSOS Y FORMULARIOS
            ========================================= */
         .event-filters, .course-filters {
             display: flex;
@@ -195,11 +195,38 @@
             border-color: #4dff4d;
         }
 
+        /* ESTILOS PARA EL FORMULARIO DE SOLICITUDES EN EL DASHBOARD */
+        #dashboardRequestForm .form-control, #dashboardRequestForm .form-select {
+            background: rgba(5, 11, 20, 0.8);
+            border: 1px solid #1e3a5f;
+            color: #fff;
+            transition: all 0.3s;
+        }
+        #dashboardRequestForm .form-control:focus, #dashboardRequestForm .form-select:focus {
+            background: rgba(5, 11, 20, 0.9);
+            border-color: #00b4d8;
+            box-shadow: 0 0 10px rgba(0, 180, 216, 0.2);
+            color: #fff;
+        }
+        #dashboardRequestForm .form-control::placeholder {
+            color: #5a6b8a;
+        }
+        #dashboardRequestForm label {
+            color: #00b4d8;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        #dashboardRequestForm .form-control[readonly] {
+            background: rgba(30, 58, 95, 0.3);
+            color: #8892b0;
+            cursor: not-allowed;
+        }
+
         /* =========================================
            VISTA RESPONSIVE PARA MÓVILES
            ========================================= */
         @media (max-width: 768px) {
-            /* El sidebar se convierte en una barra superior */
             #userPortal .row {
                 flex-direction: column;
             }
@@ -220,7 +247,6 @@
             .portal-sidebar .text-center.mb-4 h4 {
                 font-size: 16px;
             }
-            /* Los items del menú se organizan horizontalmente con scroll */
             .portal-sidebar .portal-nav-item {
                 display: inline-flex;
                 padding: 10px 12px;
@@ -234,16 +260,15 @@
                 border-left: none;
                 border-bottom: 3px solid #00b4d8;
             }
-            /* Envolver los items en un contenedor con scroll horizontal */
             .portal-sidebar > div:not(.text-center) {
                 display: flex;
                 overflow-x: auto;
                 gap: 5px;
                 padding: 0 10px;
-                scrollbar-width: none; /* Firefox */
+                scrollbar-width: none;
             }
             .portal-sidebar > div:not(.text-center)::-webkit-scrollbar {
-                display: none; /* Chrome/Safari */
+                display: none;
             }
             .portal-sidebar .mt-5.px-3 {
                 margin-top: 10px !important;
@@ -254,7 +279,6 @@
                 padding: 8px;
                 font-size: 13px;
             }
-            /* Ajustes del contenido principal */
             .col-md-9.col-lg-10.p-5 {
                 padding: 15px !important;
             }
@@ -273,7 +297,6 @@
             .col-md-9.col-lg-10.p-5 h3 {
                 font-size: 18px;
             }
-            /* Grids de una sola columna */
             .event-grid, .course-grid {
                 grid-template-columns: 1fr;
             }
@@ -983,7 +1006,7 @@
                     <!-- ============================================= -->
 
                     <!-- ============================================= -->
-                    <!-- NUEVA SECCIÓN DE CURSOS GRATUITOS             -->
+                    <!-- SECCIÓN DE CURSOS GRATUITOS                   -->
                     <!-- ============================================= -->
                     <div id="dash-cursos" class="portal-section">
                         <div class="d-flex justify-content-between align-items-center mb-4">
@@ -1154,7 +1177,69 @@
                     <!-- FIN DE LA SECCIÓN DE CURSOS GRATUITOS         -->
                     <!-- ============================================= -->
 
-                    <div id="dash-solicitudes" class="portal-section"><h3 class="text-info">Solicitudes</h3><div class="portal-card"><p>Próximamente...</p></div></div>
+                    <!-- ============================================= -->
+                    <!-- SECCIÓN DE SOLICITUDES (FORMULARIO)           -->
+                    <!-- ============================================= -->
+                    <div id="dash-solicitudes" class="portal-section">
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <h3 class="text-info mb-0"><i class="fas fa-tools me-2"></i> Solicitudes de Proyecto</h3>
+                        </div>
+                        
+                        <div class="portal-card">
+                            <p class="text-light mb-4">¿Tienes una idea o necesitas una cotización? Completa este formulario rápido. Al estar logueado, tu correo ya está vinculado para mayor seguridad.</p>
+                            
+                            <form id="dashboardRequestForm" action="https://formspree.io/f/manwrnrq" method="POST" class="row g-3">
+                                <div class="col-md-6">
+                                    <label for="req-name" class="form-label">Nombre Completo</label>
+                                    <input type="text" class="form-control" id="req-name" name="name" placeholder="Tu nombre" required autocomplete="off">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="req-phone" class="form-label">Teléfono (con indicativo)</label>
+                                    <input type="tel" class="form-control" id="req-phone" name="phone" placeholder="+57" required autocomplete="off">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="req-email" class="form-label">Correo Electrónico (Vinculado a tu cuenta)</label>
+                                    <!-- Este campo se llena automáticamente con JS -->
+                                    <input type="email" class="form-control" id="req-email" name="email" required readonly>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="req-company" class="form-label">Empresa (opcional)</label>
+                                    <input type="text" class="form-control" id="req-company" name="company" placeholder="Tu empresa" autocomplete="off">
+                                </div>
+                                <div class="col-12">
+                                    <label for="req-service" class="form-label">Servicio de Interés</label>
+                                    <select class="form-select" id="req-service" name="service" required>
+                                        <option value="" selected disabled>Selecciona un servicio</option>
+                                        <option value="outsourcing">Outsourcing / Corretaje de Programadores</option>
+                                        <option value="app-movil">App Móvil</option>
+                                        <option value="ciberseguridad">Ciberseguridad</option>
+                                        <option value="blockchain">Blockchain & Minería</option>
+                                        <option value="soporte-pyme">Soporte para PYMES</option>
+                                        <option value="fullstack">Desarrollo Web Fullstack</option>
+                                        <option value="web-basico">Desarrollo Web Básico</option>
+                                        <option value="mantenimiento">Mantenimiento Web y Datos</option>
+                                        <option value="consulting">Consultoría con Matías Whiat</option>
+                                        <option value="other">Otro</option>
+                                    </select>
+                                </div>
+                                <div class="col-12">
+                                    <label for="req-message" class="form-label">Mensaje / Detalles del Proyecto</label>
+                                    <textarea class="form-control" id="req-message" name="message" rows="5" placeholder="Describe brevemente lo que necesitas..." required></textarea>
+                                </div>
+                                <div class="col-12 mt-4">
+                                    <button type="submit" class="btn btn-primary w-100 py-2" id="submitRequestBtn">
+                                        <i class="fas fa-paper-plane me-2"></i> Enviar Solicitud
+                                    </button>
+                                </div>
+                                <!-- Contenedor para mensajes de éxito/error -->
+                                <div id="requestMessage" class="col-12 text-center mt-3" style="font-weight: bold;"></div>
+                            </form>
+                        </div>
+                    </div>
+                    <!-- ============================================= -->
+                    <!-- FIN DE LA SECCIÓN DE SOLICITUDES              -->
+                    <!-- ============================================= -->
+
                     <div id="dash-cv" class="portal-section"><h3 class="text-info">Currículum</h3><div class="portal-card"><p>Próximamente...</p></div></div>
                     <div id="dash-empresas" class="portal-section"><h3 class="text-info">Empresas</h3><div class="portal-card"><p>Próximamente...</p></div></div>
                 </div>
@@ -1200,6 +1285,12 @@
                 const name = user.email.split('@')[0];
                 document.getElementById('portalUserName').textContent = name;
                 
+                // Pre-llenar el correo en el formulario de solicitudes
+                const reqEmailInput = document.getElementById('req-email');
+                if (reqEmailInput) {
+                    reqEmailInput.value = user.email;
+                }
+
                 const initialElement = document.getElementById('portalAvatarInitial');
                 const imgElement = document.getElementById('portalAvatarImg');
                 
@@ -1341,7 +1432,7 @@
             });
 
             // ==========================================
-            // LÓGICA DE FILTRADO DE CURSOS (NUEVA)
+            // LÓGICA DE FILTRADO DE CURSOS
             // ==========================================
             const courseFilterButtons = document.querySelectorAll('.course-filter-btn');
             const courseCards = document.querySelectorAll('.course-card');
@@ -1360,6 +1451,59 @@
                     });
                 });
             });
+
+            // ==========================================
+            // ENVÍO DEL FORMULARIO DE SOLICITUDES (AJAX)
+            // ==========================================
+            const requestForm = document.getElementById('dashboardRequestForm');
+            if (requestForm) {
+                requestForm.addEventListener('submit', async (e) => {
+                    e.preventDefault();
+                    const btn = document.getElementById('submitRequestBtn');
+                    const msgBox = document.getElementById('requestMessage');
+                    const originalBtnText = btn.innerHTML;
+
+                    btn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i> Enviando...';
+                    btn.disabled = true;
+                    msgBox.innerHTML = '';
+                    msgBox.className = 'col-12 text-center mt-3';
+
+                    const formData = new FormData(requestForm);
+
+                    try {
+                        const response = await fetch(requestForm.action, {
+                            method: requestForm.method,
+                            body: formData,
+                            headers: {
+                                'Accept': 'application/json'
+                            }
+                        });
+
+                        if (response.ok) {
+                            msgBox.innerHTML = '<span class="text-success"><i class="fas fa-check-circle"></i> ¡Solicitud enviada con éxito! Te contactaremos pronto al correo registrado.</span>';
+                            requestForm.reset();
+                            
+                            // Volver a llenar el correo después de resetear
+                            const { data: { session } } = await supabaseClient.auth.getSession();
+                            if (session && session.user) {
+                                document.getElementById('req-email').value = session.user.email;
+                            }
+                        } else {
+                            const data = await response.json();
+                            if (Object.hasOwn(data, 'errors')) {
+                                msgBox.innerHTML = `<span class="text-danger"><i class="fas fa-exclamation-triangle"></i> ${data["errors"].map(error => error["message"]).join(", ")}</span>`;
+                            } else {
+                                msgBox.innerHTML = '<span class="text-danger"><i class="fas fa-exclamation-triangle"></i> Hubo un problema al enviar. Intenta de nuevo.</span>';
+                            }
+                        }
+                    } catch (error) {
+                        msgBox.innerHTML = '<span class="text-danger"><i class="fas fa-exclamation-triangle"></i> Error de red. Revisa tu conexión a internet.</span>';
+                    } finally {
+                        btn.innerHTML = originalBtnText;
+                        btn.disabled = false;
+                    }
+                });
+            }
 
             document.getElementById('logoutBtn').addEventListener('click', async () => {
                 await supabaseClient.auth.signOut();
