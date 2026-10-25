@@ -4,7 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin - Chat de Empresas | Whiat Company</title>
+    
+    <!-- Importamos Supabase -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    
+    <!-- Importamos Toastify para las notificaciones visuales -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+
     <style>
         :root { --primary: #00b4d8; --bg: #050b14; --card: #0a192f; --text: #e2e8f0; }
         body { font-family: 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); margin: 0; display: flex; height: 100vh; overflow: hidden; }
@@ -174,7 +181,7 @@
             subscribeToCompanyChat();
         }
 
-        // 4. Cargar historial (CORREGIDO PARA USAR SOLO EMAILS)
+        // 4. Cargar historial (Usando solo EMAILS para evitar errores)
         async function loadChatHistory() {
             const container = document.getElementById('adminChatMessages');
             container.innerHTML = '';
@@ -186,7 +193,6 @@
                 return;
             }
 
-            // Consulta corregida: Usa sender_email y receiver_email
             const { data, error } = await supabaseClient
                 .from('chat_messages')
                 .select('*')
@@ -207,7 +213,7 @@
             }
         }
 
-        // 5. Enviar mensaje (CORREGIDO PARA USAR SOLO EMAILS)
+        // 5. Enviar mensaje (Usando solo EMAILS)
         document.getElementById('adminSendBtn').onclick = async () => {
             const input = document.getElementById('adminChatInput');
             const text = input.value.trim();
@@ -239,18 +245,16 @@
             if (e.key === 'Enter') document.getElementById('adminSendBtn').click();
         });
 
-        // 6. Tiempo real (CORREGIDO PARA USAR SOLO EMAILS)
+        // 6. Tiempo real y NOTIFICACIONES
         function subscribeToCompanyChat() {
             if (currentChatSubscription) currentChatSubscription.unsubscribe();
-            if (!activeCompanyEmail) return; // No suscribirse si no hay email
+            if (!activeCompanyEmail) return; 
 
-            // Usamos un nombre de canal único por empresa para evitar conflictos
             currentChatSubscription = supabaseClient
                 .channel(`admin_chat_${activeCompanyEmail}`)
                 .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'chat_messages' }, payload => {
                     const newMsg = payload.new;
                     
-                    // Verificar que el mensaje pertenezca a esta conversación específica
                     const isFromAdminToCompany = newMsg.sender_email === ADMIN_EMAIL && newMsg.receiver_email === activeCompanyEmail;
                     const isFromCompanyToAdmin = newMsg.sender_email === activeCompanyEmail && newMsg.receiver_email === ADMIN_EMAIL;
 
@@ -258,6 +262,23 @@
                         const isAdmin = newMsg.sender_email === ADMIN_EMAIL;
                         appendMsg(newMsg.message, isAdmin, new Date(newMsg.created_at));
                         scrollToBottom();
+
+                        // --- NOTIFICACIÓN VISUAL SI EL MENSAJE ES DE LA EMPRESA ---
+                        if (!isAdmin) {
+                            Toastify({
+                                text: `📩 Nuevo mensaje de ${activeCompanyEmail}`,
+                                duration: 4000,
+                                close: true,
+                                gravity: "top",
+                                position: "right",
+                                style: {
+                                    background: "linear-gradient(to right, #00b4d8, #0077b6)",
+                                    color: "#ffffff",
+                                    fontWeight: "bold",
+                                    borderRadius: "10px"
+                                }
+                            }).showToast();
+                        }
                     }
                 })
                 .subscribe();

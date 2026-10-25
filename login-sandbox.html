@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Whiat Company - Acceso</title>
+    <title>Whiat Company - Acceso VIP</title>
     
     <!-- Importamos la librería de Supabase -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -259,7 +259,7 @@
                     <text x="50" y="65" font-family="Arial" font-size="40" font-weight="bold" fill="#00b4d8" text-anchor="middle">W</text>
                 </svg>
                 <h1>WHIAT COMPANY</h1>
-                <p class="subtitle">Acceso Restringido al Sistema</p>
+                <p class="subtitle">Acceso VIP Autorizado</p>
             </div>
 
             <!-- FORMULARIO DE INICIAR SESIÓN -->
@@ -413,7 +413,7 @@
                 showMessage('¡Inicio de sesión exitoso! Redirigiendo...', 'success');
                 console.log('Usuario logueado:', data.user);
                 
-                window.location.href = 'index.html'; // Redirige al portal de index
+                window.location.href = 'index.html'; // Redirige al portal
 
             } catch (error) {
                 console.error('Error de login:', error.message);
