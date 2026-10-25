@@ -29,6 +29,13 @@
     <!-- Importamos la librería de Supabase -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
+    <!-- ========== UPLOADCARE WIDGET ========== -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@uploadcare/file-uploader@1/web/uc-file-uploader-regular.min.css">
+    <script type="module">
+        import * as UC from 'https://cdn.jsdelivr.net/npm/@uploadcare/file-uploader@1/web/uc-file-uploader-regular.min.js';
+        UC.defineComponents(UC);
+    </script>
+
     <!-- ========== ESTILOS EXCLUSIVOS PARA EL LOGIN Y DASHBOARD ========== -->
     <style>
         /* Estilos del Portal del Usuario (Dashboard) */
@@ -42,274 +49,68 @@
         .portal-card { background: rgba(10, 25, 47, 0.7); border: 1px solid rgba(0, 180, 216, 0.2); border-radius: 12px; padding: 30px; }
         .user-avatar { width: 80px; height: 80px; border-radius: 50%; background: #1e3a5f; border: 2px solid #00b4d8; display: flex; justify-content: center; align-items: center; overflow: hidden; font-size: 30px; font-weight: bold; color: white; }
         .user-avatar img { width: 100%; height: 100%; object-fit: cover; }
-        
-        /* Estilos para el botón de Google en tu login */
-        .btn-google-custom {
-            background: white;
-            color: #333;
-            font-weight: bold;
-            border: 1px solid #ddd;
-            transition: 0.3s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            padding: 10px;
-            border-radius: 5px;
-            width: 100%;
-            margin-top: 10px;
-        }
+        .btn-google-custom { background: white; color: #333; font-weight: bold; border: 1px solid #ddd; transition: 0.3s; display: flex; align-items: center; justify-content: center; gap: 10px; padding: 10px; border-radius: 5px; width: 100%; margin-top: 10px; }
         .btn-google-custom:hover { background: #f1f1f1; }
-
-        /* =========================================
-           ESTILOS PARA EVENTOS, CURSOS Y FORMULARIOS
-           ========================================= */
-        .event-filters, .course-filters {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
-        }
-        .event-filter-btn, .course-filter-btn {
-            background: transparent;
-            border: 1px solid rgba(0, 180, 216, 0.4);
-            color: #8892b0;
-            padding: 8px 16px;
-            border-radius: 20px;
-            cursor: pointer;
-            transition: all 0.3s;
-            font-size: 14px;
-        }
-        .event-filter-btn:hover, .event-filter-btn.active,
-        .course-filter-btn:hover, .course-filter-btn.active {
-            background: rgba(0, 180, 216, 0.2);
-            color: #00b4d8;
-            border-color: #00b4d8;
-        }
-        .event-grid, .course-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 20px;
-        }
-        .event-card, .course-card {
-            background: linear-gradient(145deg, rgba(10, 25, 47, 0.9), rgba(5, 11, 20, 0.9));
-            border: 1px solid rgba(0, 180, 216, 0.2);
-            border-radius: 12px;
-            padding: 20px;
-            transition: transform 0.3s, box-shadow 0.3s;
-            display: flex;
-            flex-direction: column;
-            position: relative;
-            overflow: hidden;
-        }
-        .event-card:hover, .course-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0, 180, 216, 0.15);
-            border-color: rgba(0, 180, 216, 0.5);
-        }
-        .event-card::before, .course-card::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 4px;
-        }
+        .event-filters, .course-filters { display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; }
+        .event-filter-btn, .course-filter-btn { background: transparent; border: 1px solid rgba(0, 180, 216, 0.4); color: #8892b0; padding: 8px 16px; border-radius: 20px; cursor: pointer; transition: all 0.3s; font-size: 14px; }
+        .event-filter-btn:hover, .event-filter-btn.active, .course-filter-btn:hover, .course-filter-btn.active { background: rgba(0, 180, 216, 0.2); color: #00b4d8; border-color: #00b4d8; }
+        .event-grid, .course-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
+        .event-card, .course-card { background: linear-gradient(145deg, rgba(10, 25, 47, 0.9), rgba(5, 11, 20, 0.9)); border: 1px solid rgba(0, 180, 216, 0.2); border-radius: 12px; padding: 20px; transition: transform 0.3s, box-shadow 0.3s; display: flex; flex-direction: column; position: relative; overflow: hidden; }
+        .event-card:hover, .course-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0, 180, 216, 0.15); border-color: rgba(0, 180, 216, 0.5); }
+        .event-card::before, .course-card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 4px; }
         .event-card.programming::before { background: linear-gradient(90deg, #00b4d8, #0077b6); }
         .event-card.cyber::before { background: linear-gradient(90deg, #ff4d4d, #ff8c00); }
         .event-card.community::before { background: linear-gradient(90deg, #4dff4d, #00b4d8); }
-
-        /* Colores para cursos */
         .course-card.programming::before { background: linear-gradient(90deg, #00b4d8, #0077b6); }
         .course-card.cyber::before { background: linear-gradient(90deg, #ff4d4d, #ff8c00); }
         .course-card.ai::before { background: linear-gradient(90deg, #9b59b6, #8e44ad); }
         .course-card.web::before { background: linear-gradient(90deg, #2ecc71, #27ae60); }
         .course-card.university::before { background: linear-gradient(90deg, #f1c40f, #f39c12); }
-
-        .event-badge, .course-badge {
-            display: inline-block;
-            padding: 4px 10px;
-            border-radius: 12px;
-            font-size: 11px;
-            font-weight: bold;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-bottom: 10px;
-            width: fit-content;
-        }
+        .event-badge, .course-badge { display: inline-block; padding: 4px 10px; border-radius: 12px; font-size: 11px; font-weight: bold; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 10px; width: fit-content; }
         .event-badge.programming { background: rgba(0, 180, 216, 0.2); color: #00b4d8; }
         .event-badge.cyber { background: rgba(255, 77, 77, 0.2); color: #ff4d4d; }
         .event-badge.community { background: rgba(77, 255, 77, 0.2); color: #4dff4d; }
-
         .course-badge.programming { background: rgba(0, 180, 216, 0.2); color: #00b4d8; }
         .course-badge.cyber { background: rgba(255, 77, 77, 0.2); color: #ff4d4d; }
         .course-badge.ai { background: rgba(155, 89, 182, 0.2); color: #c39bd3; }
         .course-badge.web { background: rgba(46, 204, 113, 0.2); color: #58d68d; }
         .course-badge.university { background: rgba(241, 196, 15, 0.2); color: #f7dc6f; }
-
-        .event-title, .course-title {
-            font-size: 18px;
-            font-weight: 600;
-            color: #fff;
-            margin-bottom: 8px;
-        }
-        .event-meta, .course-meta {
-            font-size: 13px;
-            color: #8892b0;
-            margin-bottom: 12px;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-        .event-meta i, .course-meta i {
-            color: #00b4d8;
-            margin-right: 4px;
-        }
-        .event-desc, .course-desc {
-            font-size: 14px;
-            color: #a0aec0;
-            flex-grow: 1;
-            margin-bottom: 15px;
-            line-height: 1.5;
-        }
-        .event-link, .course-link {
-            display: inline-block;
-            color: #00b4d8;
-            text-decoration: none;
-            font-weight: bold;
-            font-size: 14px;
-            transition: color 0.3s;
-            margin-top: auto;
-        }
-        .event-link:hover, .course-link:hover {
-            color: #fff;
-            text-shadow: 0 0 10px rgba(0, 180, 216, 0.5);
-        }
+        .event-title, .course-title { font-size: 18px; font-weight: 600; color: #fff; margin-bottom: 8px; }
+        .event-meta, .course-meta { font-size: 13px; color: #8892b0; margin-bottom: 12px; display: flex; flex-wrap: wrap; gap: 10px; }
+        .event-meta i, .course-meta i { color: #00b4d8; margin-right: 4px; }
+        .event-desc, .course-desc { font-size: 14px; color: #a0aec0; flex-grow: 1; margin-bottom: 15px; line-height: 1.5; }
+        .event-link, .course-link { display: inline-block; color: #00b4d8; text-decoration: none; font-weight: bold; font-size: 14px; transition: color 0.3s; margin-top: auto; }
+        .event-link:hover, .course-link:hover { color: #fff; text-shadow: 0 0 10px rgba(0, 180, 216, 0.5); }
         .event-link i, .course-link i { margin-left: 5px; transition: transform 0.3s; }
         .event-link:hover i, .course-link:hover i { transform: translateX(3px); }
-
-        /* Estilo especial para SEIC UdeA */
-        .seic-highlight {
-            border: 1px solid rgba(77, 255, 77, 0.4);
-            background: linear-gradient(145deg, rgba(10, 25, 47, 0.9), rgba(0, 50, 0, 0.2));
-        }
-        .seic-highlight:hover {
-            box-shadow: 0 10px 20px rgba(77, 255, 77, 0.2);
-            border-color: #4dff4d;
-        }
-
-        /* ESTILOS PARA EL FORMULARIO DE SOLICITUDES EN EL DASHBOARD */
-        #dashboardRequestForm .form-control, #dashboardRequestForm .form-select {
-            background: rgba(5, 11, 20, 0.8);
-            border: 1px solid #1e3a5f;
-            color: #fff;
-            transition: all 0.3s;
-        }
-        #dashboardRequestForm .form-control:focus, #dashboardRequestForm .form-select:focus {
-            background: rgba(5, 11, 20, 0.9);
-            border-color: #00b4d8;
-            box-shadow: 0 0 10px rgba(0, 180, 216, 0.2);
-            color: #fff;
-        }
-        #dashboardRequestForm .form-control::placeholder {
-            color: #5a6b8a;
-        }
-        #dashboardRequestForm label {
-            color: #00b4d8;
-            font-size: 13px;
-            font-weight: 600;
-            margin-bottom: 5px;
-        }
-        #dashboardRequestForm .form-control[readonly] {
-            background: rgba(30, 58, 95, 0.3);
-            color: #8892b0;
-            cursor: not-allowed;
-        }
-
-        /* =========================================
-           VISTA RESPONSIVE PARA MÓVILES
-           ========================================= */
+        .seic-highlight { border: 1px solid rgba(77, 255, 77, 0.4); background: linear-gradient(145deg, rgba(10, 25, 47, 0.9), rgba(0, 50, 0, 0.2)); }
+        .seic-highlight:hover { box-shadow: 0 10px 20px rgba(77, 255, 77, 0.2); border-color: #4dff4d; }
+        #dashboardRequestForm .form-control, #dashboardRequestForm .form-select, #dashboardCvForm .form-control, #dashboardCvForm .form-select { background: rgba(5, 11, 20, 0.8); border: 1px solid #1e3a5f; color: #fff; transition: all 0.3s; }
+        #dashboardRequestForm .form-control:focus, #dashboardRequestForm .form-select:focus, #dashboardCvForm .form-control:focus, #dashboardCvForm .form-select:focus { background: rgba(5, 11, 20, 0.9); border-color: #00b4d8; box-shadow: 0 0 10px rgba(0, 180, 216, 0.2); color: #fff; }
+        #dashboardRequestForm .form-control::placeholder, #dashboardCvForm .form-control::placeholder { color: #5a6b8a; }
+        #dashboardRequestForm label, #dashboardCvForm label { color: #00b4d8; font-size: 13px; font-weight: 600; margin-bottom: 5px; }
+        #dashboardRequestForm .form-control[readonly], #dashboardCvForm .form-control[readonly] { background: rgba(30, 58, 95, 0.3); color: #8892b0; cursor: not-allowed; }
+        .uc-light { --uc-primary-color: #00b4d8; --uc-secondary-color: #050b14; --uc-text-color: #ffffff; --uc-background-color: rgba(10, 25, 47, 0.8); --uc-border-color: #1e3a5f; }
         @media (max-width: 768px) {
-            #userPortal .row {
-                flex-direction: column;
-            }
-            .portal-sidebar {
-                min-height: auto;
-                border-right: none;
-                border-bottom: 1px solid rgba(0, 180, 216, 0.2);
-                padding: 10px 0;
-                position: sticky;
-                top: 0;
-                z-index: 1000;
-                background: rgba(10, 25, 47, 0.98);
-                backdrop-filter: blur(10px);
-            }
-            .portal-sidebar .text-center.mb-4 {
-                margin-bottom: 10px !important;
-            }
-            .portal-sidebar .text-center.mb-4 h4 {
-                font-size: 16px;
-            }
-            .portal-sidebar .portal-nav-item {
-                display: inline-flex;
-                padding: 10px 12px;
-                font-size: 13px;
-                white-space: nowrap;
-                border-left: none;
-                border-bottom: 3px solid transparent;
-            }
-            .portal-sidebar .portal-nav-item:hover,
-            .portal-sidebar .portal-nav-item.active {
-                border-left: none;
-                border-bottom: 3px solid #00b4d8;
-            }
-            .portal-sidebar > div:not(.text-center) {
-                display: flex;
-                overflow-x: auto;
-                gap: 5px;
-                padding: 0 10px;
-                scrollbar-width: none;
-            }
-            .portal-sidebar > div:not(.text-center)::-webkit-scrollbar {
-                display: none;
-            }
-            .portal-sidebar .mt-5.px-3 {
-                margin-top: 10px !important;
-                padding: 0 10px !important;
-            }
-            .portal-sidebar .mt-5.px-3 .btn {
-                width: 100%;
-                padding: 8px;
-                font-size: 13px;
-            }
-            .col-md-9.col-lg-10.p-5 {
-                padding: 15px !important;
-            }
-            .col-md-9.col-lg-10.p-5 .d-flex.justify-content-between.align-items-center.mb-4.pb-3 {
-                flex-direction: column;
-                align-items: flex-start !important;
-                gap: 10px;
-                text-align: left;
-            }
-            .col-md-9.col-lg-10.p-5 .d-flex.justify-content-between.align-items-center.mb-4.pb-3 .user-avatar {
-                align-self: flex-end;
-            }
-            .col-md-9.col-lg-10.p-5 h2 {
-                font-size: 20px;
-            }
-            .col-md-9.col-lg-10.p-5 h3 {
-                font-size: 18px;
-            }
-            .event-grid, .course-grid {
-                grid-template-columns: 1fr;
-            }
-            .event-filters, .course-filters {
-                gap: 6px;
-            }
-            .event-filter-btn, .course-filter-btn {
-                padding: 6px 12px;
-                font-size: 12px;
-            }
-            .portal-card {
-                padding: 15px;
-            }
+            #userPortal .row { flex-direction: column; }
+            .portal-sidebar { min-height: auto; border-right: none; border-bottom: 1px solid rgba(0, 180, 216, 0.2); padding: 10px 0; position: sticky; top: 0; z-index: 1000; background: rgba(10, 25, 47, 0.98); backdrop-filter: blur(10px); }
+            .portal-sidebar .text-center.mb-4 { margin-bottom: 10px !important; }
+            .portal-sidebar .text-center.mb-4 h4 { font-size: 16px; }
+            .portal-sidebar .portal-nav-item { display: inline-flex; padding: 10px 12px; font-size: 13px; white-space: nowrap; border-left: none; border-bottom: 3px solid transparent; }
+            .portal-sidebar .portal-nav-item:hover, .portal-sidebar .portal-nav-item.active { border-left: none; border-bottom: 3px solid #00b4d8; }
+            .portal-sidebar > div:not(.text-center) { display: flex; overflow-x: auto; gap: 5px; padding: 0 10px; scrollbar-width: none; }
+            .portal-sidebar > div:not(.text-center)::-webkit-scrollbar { display: none; }
+            .portal-sidebar .mt-5.px-3 { margin-top: 10px !important; padding: 0 10px !important; }
+            .portal-sidebar .mt-5.px-3 .btn { width: 100%; padding: 8px; font-size: 13px; }
+            .col-md-9.col-lg-10.p-5 { padding: 15px !important; }
+            .col-md-9.col-lg-10.p-5 .d-flex.justify-content-between.align-items-center.mb-4.pb-3 { flex-direction: column; align-items: flex-start !important; gap: 10px; text-align: left; }
+            .col-md-9.col-lg-10.p-5 .d-flex.justify-content-between.align-items-center.mb-4.pb-3 .user-avatar { align-self: flex-end; }
+            .col-md-9.col-lg-10.p-5 h2 { font-size: 20px; }
+            .col-md-9.col-lg-10.p-5 h3 { font-size: 18px; }
+            .event-grid, .course-grid { grid-template-columns: 1fr; }
+            .event-filters, .course-filters { gap: 6px; }
+            .event-filter-btn, .course-filter-btn { padding: 6px 12px; font-size: 12px; }
+            .portal-card { padding: 15px; }
         }
     </style>
 </head>
@@ -374,7 +175,7 @@
             </div>
         </section>
 
-        <!-- ========== LOGIN (UBICADO ESTRATÉGICAMENTE AQUÍ) ========== -->
+        <!-- ========== LOGIN ========== -->
         <section id="login" class="login-section" style="padding-top: 0;">
             <div class="container">
                 <div class="login-card">
@@ -389,7 +190,6 @@
                             <p data-i18n="login_subtitulo">Accede a tu cuenta</p>
                         </div>
                         
-                        <!-- FORMULARIO DE LOGIN -->
                         <form class="login-form" id="loginForm">
                             <div class="form-group mb-3">
                                 <label data-i18n="contacto_email">Correo Electrónico</label>
@@ -401,12 +201,10 @@
                             </div>
                             <div class="login-options d-flex justify-content-between mb-3">
                                 <label class="remember-me"><input type="checkbox" id="remember"> <span data-i18n="login_recordarme">Recordarme</span></label>
-                                <!-- AQUI SE AGREGO EL ID forgotPasswordLink -->
                                 <a href="#" class="forgot-password" id="forgotPasswordLink" data-i18n="login_olvidaste">¿Olvidaste tu contraseña?</a>
                             </div>
                             <button type="submit" id="loginBtn" class="btn btn-primary w-100 mb-3"><i class="fas fa-sign-in-alt" style="margin-right: 10px;"></i> <span data-i18n="login_iniciar">Iniciar Sesión</span></button>
                             
-                            <!-- BOTÓN DE GOOGLE CON LOGO SVG INTEGRADO -->
                             <button type="button" id="googleLoginBtn" class="btn-google-custom mb-3">
                                 <svg style="width: 20px; height: 20px;" viewBox="0 0 48 48">
                                     <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"></path>
@@ -423,7 +221,6 @@
                             </div>
                         </form>
 
-                        <!-- FORMULARIO DE REGISTRO OCULTO -->
                         <form class="login-form" id="registerForm" style="display: none;">
                             <div class="form-group mb-3">
                                 <label>Correo Electrónico</label>
@@ -864,7 +661,6 @@
     <div id="userPortal">
         <div class="container-fluid">
             <div class="row">
-                <!-- Menú Lateral -->
                 <div class="col-md-3 col-lg-2 portal-sidebar">
                     <div class="text-center mb-4">
                         <h4 style="color: #00b4d8;">WHIAT PORTAL</h4>
@@ -881,7 +677,6 @@
                     </div>
                 </div>
 
-                <!-- Contenido -->
                 <div class="col-md-9 col-lg-10 p-5">
                     <div class="d-flex justify-content-between align-items-center mb-4 pb-3" style="border-bottom: 1px solid #1e3a5f;">
                         <div>
@@ -907,16 +702,12 @@
                         </div>
                     </div>
 
-                    <!-- ============================================= -->
-                    <!-- SECCIÓN DE EVENTOS                            -->
-                    <!-- ============================================= -->
                     <div id="dash-eventos" class="portal-section">
                         <div class="d-flex justify-content-between align-items-center mb-4">
                             <h3 class="text-info mb-0"><i class="fas fa-globe me-2"></i> Agenda Tech 2026</h3>
                             <span class="badge bg-info text-dark">Actualizado</span>
                         </div>
                         
-                        <!-- Filtros -->
                         <div class="event-filters">
                             <button class="event-filter-btn active" data-filter="all">Todos</button>
                             <button class="event-filter-btn" data-filter="programming">Programación</button>
@@ -924,10 +715,7 @@
                             <button class="event-filter-btn" data-filter="community">Comunidades</button>
                         </div>
 
-                        <!-- Grid de Eventos -->
                         <div class="event-grid" id="eventGrid">
-                            
-                            <!-- Evento: PyCon Colombia -->
                             <div class="event-card programming" data-category="programming">
                                 <span class="event-badge programming">Programación</span>
                                 <h4 class="event-title">PyCon Colombia 2026</h4>
@@ -939,7 +727,6 @@
                                 <a href="https://2026.pycon.co/" target="_blank" class="event-link">Más información <i class="fas fa-external-link-alt"></i></a>
                             </div>
 
-                            <!-- Evento: BSides Colombia CTF -->
                             <div class="event-card cyber" data-category="cyber">
                                 <span class="event-badge cyber">CTF</span>
                                 <h4 class="event-title">CTF BSides Colombia 2026</h4>
@@ -951,7 +738,6 @@
                                 <a href="https://bsidesco.org/ctf2026.html" target="_blank" class="event-link">Ir al CTF <i class="fas fa-external-link-alt"></i></a>
                             </div>
 
-                            <!-- Evento: DragonJARCON 2026 -->
                             <div class="event-card cyber" data-category="cyber">
                                 <span class="event-badge cyber">Ciberseguridad</span>
                                 <h4 class="event-title">DragonJARCON 2026</h4>
@@ -963,7 +749,6 @@
                                 <a href="https://www.linkedin.com/posts/infosecmap_infosec-cybersecurity-partnership-activity-7472707191758766080-bSEy" target="_blank" class="event-link">Ver detalles <i class="fas fa-external-link-alt"></i></a>
                             </div>
 
-                            <!-- Evento: SEIC UdeA (Destacado) -->
                             <div class="event-card community seic-highlight" data-category="community">
                                 <span class="event-badge community">Comunidad UdeA</span>
                                 <h4 class="event-title">SEIC UdeA - Semillero de Ciberseguridad</h4>
@@ -975,7 +760,6 @@
                                 <a href="https://www.instagram.com/seic.udea/" target="_blank" class="event-link">Seguir en Instagram <i class="fab fa-instagram"></i></a>
                             </div>
 
-                            <!-- Evento: FLISOL 2026 -->
                             <div class="event-card programming" data-category="programming">
                                 <span class="event-badge programming">Software Libre</span>
                                 <h4 class="event-title">FLISOL 2026 Santander</h4>
@@ -987,7 +771,6 @@
                                 <a href="https://comunicaciones.uis.edu.co/flisol-2026-santander-software-libre-inteligencia-artificial/" target="_blank" class="event-link">Más información <i class="fas fa-external-link-alt"></i></a>
                             </div>
 
-                            <!-- Evento: Hack The Box Meetup -->
                             <div class="event-card cyber" data-category="cyber">
                                 <span class="event-badge cyber">Meetup</span>
                                 <h4 class="event-title">Hack The Box Meetup #29</h4>
@@ -998,23 +781,15 @@
                                 <p class="event-desc">Competencia CTF presencial y espacios para compartir con la comunidad de hacking ético de Bogotá. ¡No requiere experiencia previa!</p>
                                 <a href="https://www.meetup.com/" target="_blank" class="event-link">Ver en Meetup <i class="fas fa-external-link-alt"></i></a>
                             </div>
-
                         </div>
                     </div>
-                    <!-- ============================================= -->
-                    <!-- FIN DE LA SECCIÓN DE EVENTOS                  -->
-                    <!-- ============================================= -->
 
-                    <!-- ============================================= -->
-                    <!-- SECCIÓN DE CURSOS GRATUITOS                   -->
-                    <!-- ============================================= -->
                     <div id="dash-cursos" class="portal-section">
                         <div class="d-flex justify-content-between align-items-center mb-4">
                             <h3 class="text-info mb-0"><i class="fas fa-graduation-cap me-2"></i> Cursos Gratuitos de Nivel Mundial</h3>
                             <span class="badge bg-info text-dark">Acceso Libre</span>
                         </div>
                         
-                        <!-- Filtros de Cursos -->
                         <div class="course-filters">
                             <button class="course-filter-btn active" data-filter="all">Todos</button>
                             <button class="course-filter-btn" data-filter="programming">Programación</button>
@@ -1024,10 +799,7 @@
                             <button class="course-filter-btn" data-filter="university">Universitarios</button>
                         </div>
 
-                        <!-- Grid de Cursos -->
                         <div class="course-grid" id="courseGrid">
-                            
-                            <!-- Curso: freeCodeCamp -->
                             <div class="course-card programming" data-category="programming">
                                 <span class="course-badge programming">Programación</span>
                                 <h4 class="course-title">freeCodeCamp</h4>
@@ -1039,7 +811,6 @@
                                 <a href="https://www.freecodecamp.org/" target="_blank" class="course-link">Comenzar ahora <i class="fas fa-external-link-alt"></i></a>
                             </div>
 
-                            <!-- Curso: Harvard CS50 -->
                             <div class="course-card university" data-category="university">
                                 <span class="course-badge university">Universitario</span>
                                 <h4 class="course-title">Harvard CS50x</h4>
@@ -1051,7 +822,6 @@
                                 <a href="https://cs50.harvard.edu/x/2026/" target="_blank" class="course-link">Ir al curso <i class="fas fa-external-link-alt"></i></a>
                             </div>
 
-                            <!-- Curso: Cisco - Introduction to Cybersecurity -->
                             <div class="course-card cyber" data-category="cyber">
                                 <span class="course-badge cyber">Ciberseguridad</span>
                                 <h4 class="course-title">Introduction to Cybersecurity</h4>
@@ -1063,7 +833,6 @@
                                 <a href="https://www.netacad.com/courses/cybersecurity/introduction-cybersecurity" target="_blank" class="course-link">Acceder al curso <i class="fas fa-external-link-alt"></i></a>
                             </div>
 
-                            <!-- Curso: TryHackMe -->
                             <div class="course-card cyber" data-category="cyber">
                                 <span class="course-badge cyber">Ciberseguridad</span>
                                 <h4 class="course-title">TryHackMe - Cyber Security</h4>
@@ -1075,7 +844,6 @@
                                 <a href="https://tryhackme.com/" target="_blank" class="course-link">Explorar labs <i class="fas fa-external-link-alt"></i></a>
                             </div>
 
-                            <!-- Curso: Google AI -->
                             <div class="course-card ai" data-category="ai">
                                 <span class="course-badge ai">Inteligencia Artificial</span>
                                 <h4 class="course-title">Google AI - Grow with Google</h4>
@@ -1087,7 +855,6 @@
                                 <a href="https://grow.google/ai/" target="_blank" class="course-link">Comenzar <i class="fas fa-external-link-alt"></i></a>
                             </div>
 
-                            <!-- Curso: AWS Skill Builder -->
                             <div class="course-card ai" data-category="ai">
                                 <span class="course-badge ai">Inteligencia Artificial</span>
                                 <h4 class="course-title">AWS Skill Builder</h4>
@@ -1099,7 +866,6 @@
                                 <a href="https://skillbuilder.aws/" target="_blank" class="course-link">Ir a Skill Builder <i class="fas fa-external-link-alt"></i></a>
                             </div>
 
-                            <!-- Curso: Microsoft Learn -->
                             <div class="course-card ai" data-category="ai">
                                 <span class="course-badge ai">Inteligencia Artificial</span>
                                 <h4 class="course-title">Microsoft Learn - IA</h4>
@@ -1111,7 +877,6 @@
                                 <a href="https://learn.microsoft.com/en-us/training/" target="_blank" class="course-link">Explorar rutas <i class="fas fa-external-link-alt"></i></a>
                             </div>
 
-                            <!-- Curso: The Odin Project -->
                             <div class="course-card web" data-category="web">
                                 <span class="course-badge web">Desarrollo Web</span>
                                 <h4 class="course-title">The Odin Project</h4>
@@ -1123,7 +888,6 @@
                                 <a href="https://www.theodinproject.com/" target="_blank" class="course-link">Iniciar ruta <i class="fas fa-external-link-alt"></i></a>
                             </div>
 
-                            <!-- Curso: Khan Academy -->
                             <div class="course-card university" data-category="university">
                                 <span class="course-badge university">Universitario</span>
                                 <h4 class="course-title">Khan Academy</h4>
@@ -1135,7 +899,6 @@
                                 <a href="https://www.khanacademy.org/computing" target="_blank" class="course-link">Aprender gratis <i class="fas fa-external-link-alt"></i></a>
                             </div>
 
-                            <!-- Curso: SENA (Colombia) -->
                             <div class="course-card university" data-category="university">
                                 <span class="course-badge university">Universitario</span>
                                 <h4 class="course-title">SENA - Cursos Virtuales</h4>
@@ -1147,7 +910,6 @@
                                 <a href="https://www.sena.edu.co/es-co/formacion/Paginas/cursos-virtuales.aspx" target="_blank" class="course-link">Ver oferta <i class="fas fa-external-link-alt"></i></a>
                             </div>
 
-                            <!-- Curso: edX -->
                             <div class="course-card university" data-category="university">
                                 <span class="course-badge university">Universitario</span>
                                 <h4 class="course-title">edX - Cursos de Universidades</h4>
@@ -1159,7 +921,6 @@
                                 <a href="https://www.edx.org/" target="_blank" class="course-link">Explorar edX <i class="fas fa-external-link-alt"></i></a>
                             </div>
 
-                            <!-- Curso: Coursera -->
                             <div class="course-card university" data-category="university">
                                 <span class="course-badge university">Universitario</span>
                                 <h4 class="course-title">Coursera - Cursos Gratuitos</h4>
@@ -1170,16 +931,9 @@
                                 <p class="course-desc">Miles de cursos gratuitos en modo auditoría de universidades como Stanford, Yale y Google. Programación, IA, negocios y más.</p>
                                 <a href="https://www.coursera.org/courses?query=free" target="_blank" class="course-link">Buscar cursos <i class="fas fa-external-link-alt"></i></a>
                             </div>
-
                         </div>
                     </div>
-                    <!-- ============================================= -->
-                    <!-- FIN DE LA SECCIÓN DE CURSOS GRATUITOS         -->
-                    <!-- ============================================= -->
 
-                    <!-- ============================================= -->
-                    <!-- SECCIÓN DE SOLICITUDES (FORMULARIO)           -->
-                    <!-- ============================================= -->
                     <div id="dash-solicitudes" class="portal-section">
                         <div class="d-flex justify-content-between align-items-center mb-4">
                             <h3 class="text-info mb-0"><i class="fas fa-tools me-2"></i> Solicitudes de Proyecto</h3>
@@ -1199,7 +953,6 @@
                                 </div>
                                 <div class="col-md-6">
                                     <label for="req-email" class="form-label">Correo Electrónico (Vinculado a tu cuenta)</label>
-                                    <!-- Este campo se llena automáticamente con JS -->
                                     <input type="email" class="form-control" id="req-email" name="email" required readonly>
                                 </div>
                                 <div class="col-md-6">
@@ -1231,16 +984,125 @@
                                         <i class="fas fa-paper-plane me-2"></i> Enviar Solicitud
                                     </button>
                                 </div>
-                                <!-- Contenedor para mensajes de éxito/error -->
                                 <div id="requestMessage" class="col-12 text-center mt-3" style="font-weight: bold;"></div>
                             </form>
                         </div>
                     </div>
-                    <!-- ============================================= -->
-                    <!-- FIN DE LA SECCIÓN DE SOLICITUDES              -->
-                    <!-- ============================================= -->
 
-                    <div id="dash-cv" class="portal-section"><h3 class="text-info">Currículum</h3><div class="portal-card"><p>Próximamente...</p></div></div>
+                    <!-- ============================================= -->
+                    <!-- SECCIÓN DE CURRÍCULUM (CON UPLOADCARE Y ESTADO) -->
+                    <!-- ============================================= -->
+                    <div id="dash-cv" class="portal-section">
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <h3 class="text-info mb-0"><i class="fas fa-file-alt me-2"></i> Registro de Currículum</h3>
+                        </div>
+                        
+                        <div class="portal-card mb-4" style="border-left: 4px solid #00b4d8;">
+                            <h5 class="text-white mb-3"><i class="fas fa-briefcase text-info me-2"></i> Nuestro Modelo de Trabajo</h5>
+                            <p class="text-light mb-2">
+                                En <strong>Whiat Company</strong> operamos bajo un modelo de <strong>tercerización (Outsourcing)</strong> y corretaje de talento IT a nivel mundial.
+                            </p>
+                            <ul class="text-muted mb-0" style="line-height: 1.8;">
+                                <li><strong>Contratos por Obra o Labor:</strong> Según el requerimiento específico de nuestros clientes nacionales e internacionales.</li>
+                                <li><strong>Contratos Legales de Corretaje:</strong> Garantizamos seguridad jurídica y transparencia en cada proyecto a nivel global.</li>
+                                <li><strong>Flexibilidad:</strong> Trabaja por proyecto, por horas o en modalidad remota/híbrida según lo acuerde con la empresa contratante.</li>
+                            </ul>
+                        </div>
+
+                        <!-- ESTADO DEL CV CARGADO -->
+                        <div id="cvStatusDisplay" class="portal-card mb-4" style="display: none; border-left: 4px solid #28a745; background: rgba(40, 167, 69, 0.1);">
+                            <h5 class="text-success mb-2"><i class="fas fa-check-circle"></i> ¡Currículum Registrado!</h5>
+                            <p class="text-light mb-0">Ya has subido tu hoja de vida. Puedes verla o actualizarla en el siguiente formulario.</p>
+                            <a id="cvLinkDisplay" href="#" target="_blank" class="btn btn-sm btn-outline-success mt-2"><i class="fas fa-external-link-alt"></i> Ver mi Currículum</a>
+                        </div>
+
+                        <div class="portal-card">
+                            <p class="text-light mb-4">Ingresa tus datos profesionales. Al estar logueado, tu correo ya está vinculado para mayor seguridad.</p>
+                            
+                            <form id="dashboardCvForm" action="https://formspree.io/f/manwrnrq" method="POST" class="row g-3">
+                                <input type="hidden" name="form_type" value="Currículum Profesional">
+
+                                <div class="col-md-6">
+                                    <label for="cv-name" class="form-label">Nombre Completo</label>
+                                    <input type="text" class="form-control" id="cv-name" name="name" placeholder="Tu nombre" required autocomplete="off">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="cv-email" class="form-label">Correo Electrónico (Vinculado)</label>
+                                    <input type="email" class="form-control" id="cv-email" name="email" required readonly>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="cv-phone" class="form-label">Teléfono (con indicativo)</label>
+                                    <input type="tel" class="form-control" id="cv-phone" name="phone" placeholder="+57" required autocomplete="off">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="cv-location" class="form-label">Ciudad y País de Residencia</label>
+                                    <input type="text" class="form-control" id="cv-location" name="location" placeholder="Ej: Medellín, Colombia" required autocomplete="off">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="cv-linkedin" class="form-label">Perfil de LinkedIn (URL)</label>
+                                    <input type="url" class="form-control" id="cv-linkedin" name="linkedin" placeholder="https://linkedin.com/in/tu-perfil" autocomplete="off">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="cv-github" class="form-label">Portafolio o GitHub (URL)</label>
+                                    <input type="url" class="form-control" id="cv-github" name="portfolio" placeholder="https://github.com/tu-usuario" autocomplete="off">
+                                </div>
+                                
+                                <div class="col-md-6">
+                                    <label for="cv-stack" class="form-label">Stack Tecnológico Principal</label>
+                                    <input type="text" class="form-control" id="cv-stack" name="stack" placeholder="Ej: React, Node.js, Python, AWS" required autocomplete="off">
+                                </div>
+                                <div class="col-md-3">
+                                    <label for="cv-experience" class="form-label">Años de Experiencia</label>
+                                    <select class="form-select" id="cv-experience" name="experience" required>
+                                        <option value="" selected disabled>Selecciona</option>
+                                        <option value="0-1">0 - 1 año (Junior)</option>
+                                        <option value="2-3">2 - 3 años (Semi-Senior)</option>
+                                        <option value="4-5">4 - 5 años (Senior)</option>
+                                        <option value="5+">Más de 5 años (Lead/Architect)</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-3">
+                                    <label for="cv-english" class="form-label">Nivel de Inglés</label>
+                                    <select class="form-select" id="cv-english" name="english_level" required>
+                                        <option value="" selected disabled>Selecciona</option>
+                                        <option value="basico">Básico (A1-A2)</option>
+                                        <option value="intermedio">Intermedio (B1-B2)</option>
+                                        <option value="avanzado">Avanzado (C1)</option>
+                                        <option value="nativo">Nativo / Bilingüe (C2)</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-12">
+                                    <label for="cv-summary" class="form-label">Resumen Profesional / Experiencia Destacada</label>
+                                    <textarea class="form-control" id="cv-summary" name="summary" rows="4" placeholder="Cuéntanos brevemente sobre tu experiencia más relevante..." required></textarea>
+                                </div>
+
+                                <!-- WIDGET DE UPLOADCARE CORREGIDO -->
+                                <div class="col-12 mt-3">
+                                    <label class="form-label">Adjuntar Hoja de Vida (PDF o Word)</label>
+                                    <uc-config ctx-name="cv-uploader" 
+                                               pubkey="bd0d5d4231746ced3ac6" 
+                                               source-list="local, url, camera, dropbox"
+                                               accept=".pdf,.doc,.docx"
+                                               group-output>
+                                    </uc-config>
+                                    <uc-file-uploader-regular ctx-name="cv-uploader" class="uc-light" id="cv-uploader-widget">
+                                        <uc-form-input ctx-name="cv-uploader"></uc-form-input>
+                                    </uc-file-uploader-regular>
+                                    <small class="text-muted mt-1 d-block"><i class="fas fa-info-circle"></i> Sube tu archivo aquí. Se generará un enlace seguro que se enviará con tu solicitud.</small>
+                                </div>
+
+                                <div class="col-12 mt-4">
+                                    <button type="submit" class="btn btn-primary w-100 py-2" id="submitCvBtn">
+                                        <i class="fas fa-paper-plane me-2"></i> Enviar Currículum
+                                    </button>
+                                </div>
+                                <div id="cvMessage" class="col-12 text-center mt-3" style="font-weight: bold;"></div>
+                            </form>
+                        </div>
+                    </div>
+                    <!-- FIN DE LA SECCIÓN DE CURRÍCULUM -->
+
                     <div id="dash-empresas" class="portal-section"><h3 class="text-info">Empresas</h3><div class="portal-card"><p>Próximamente...</p></div></div>
                 </div>
             </div>
@@ -1279,30 +1141,27 @@
                 }
             });
 
-            // 2. Cargar datos del usuario (con protección de imagen rota)
+            // 2. Cargar datos del usuario
             function loadUserData(user) {
                 document.getElementById('portalUserEmail').textContent = user.email;
                 const name = user.email.split('@')[0];
                 document.getElementById('portalUserName').textContent = name;
                 
-                // Pre-llenar el correo en el formulario de solicitudes
                 const reqEmailInput = document.getElementById('req-email');
-                if (reqEmailInput) {
-                    reqEmailInput.value = user.email;
-                }
+                if (reqEmailInput) reqEmailInput.value = user.email;
+
+                const cvEmailInput = document.getElementById('cv-email');
+                if (cvEmailInput) cvEmailInput.value = user.email;
 
                 const initialElement = document.getElementById('portalAvatarInitial');
                 const imgElement = document.getElementById('portalAvatarImg');
                 
                 initialElement.textContent = name.charAt(0).toUpperCase();
 
-                // Lógica mejorada para la foto
                 if (user.user_metadata && user.user_metadata.avatar_url && user.user_metadata.avatar_url.trim() !== "") {
                     imgElement.src = user.user_metadata.avatar_url;
                     imgElement.style.display = 'block';
                     initialElement.style.display = 'none';
-
-                    // Si la imagen de Google falla (archivo dañado o bloqueado)
                     imgElement.onerror = function() {
                         imgElement.style.display = 'none';
                         initialElement.style.display = 'block';
@@ -1310,6 +1169,17 @@
                 } else {
                     imgElement.style.display = 'none';
                     initialElement.style.display = 'block';
+                }
+
+                // --- NUEVO: Mostrar estado del CV si ya existe ---
+                const cvStatusDisplay = document.getElementById('cvStatusDisplay');
+                const cvLinkDisplay = document.getElementById('cvLinkDisplay');
+                
+                if (user.user_metadata && user.user_metadata.cv_url && user.user_metadata.cv_url.trim() !== "") {
+                    cvStatusDisplay.style.display = 'block';
+                    cvLinkDisplay.href = user.user_metadata.cv_url;
+                } else {
+                    cvStatusDisplay.style.display = 'none';
                 }
             }
 
@@ -1371,9 +1241,8 @@
                 }
             });
 
-            // 6. Google OAuth (CORREGIDO)
+            // 6. Google OAuth
             document.getElementById('googleLoginBtn').addEventListener('click', async () => {
-                // Usamos window.location.origin para evitar conflictos con rutas
                 const { error } = await supabaseClient.auth.signInWithOAuth({
                     provider: 'google',
                     options: { redirectTo: window.location.origin }
@@ -1381,13 +1250,12 @@
                 if (error) alert("Error con Google: " + error.message);
             });
 
-            // 6.5 Olvidé mi Contraseña (NUEVO)
+            // 6.5 Olvidé mi Contraseña
             document.getElementById('forgotPasswordLink').addEventListener('click', async (e) => {
                 e.preventDefault();
                 const email = prompt("Por favor, ingresa tu correo electrónico para enviarte un enlace de restablecimiento:");
                 
                 if (email) {
-                    // Redirige al login-sandbox.html que es donde tienes el formulario
                     const { error } = await supabaseClient.auth.resetPasswordForEmail(email, {
                         redirectTo: window.location.origin + '/login-sandbox.html', 
                     });
@@ -1395,12 +1263,12 @@
                     if (error) {
                         alert('Error al enviar el correo: ' + error.message);
                     } else {
-                        alert('¡Correo de restablecimiento enviado! Revisa tu bandeja de entrada (y la carpeta de spam).');
+                        alert('¡Correo de restablecimiento enviado! Revisa tu bandeja de entrada.');
                     }
                 }
             });
 
-            // 7. Navegación y Foto del Portal
+            // 7. Navegación
             document.querySelectorAll('.portal-nav-item').forEach(item => {
                 item.addEventListener('click', () => {
                     document.querySelectorAll('.portal-nav-item').forEach(nav => nav.classList.remove('active'));
@@ -1411,43 +1279,30 @@
             });
 
             // ==========================================
-            // LÓGICA DE FILTRADO DE EVENTOS
+            // FILTRADO DE EVENTOS Y CURSOS
             // ==========================================
             const eventFilterButtons = document.querySelectorAll('.event-filter-btn');
             const eventCards = document.querySelectorAll('.event-card');
-
             eventFilterButtons.forEach(btn => {
                 btn.addEventListener('click', () => {
                     eventFilterButtons.forEach(b => b.classList.remove('active'));
                     btn.classList.add('active');
                     const filter = btn.getAttribute('data-filter');
                     eventCards.forEach(card => {
-                        if (filter === 'all' || card.getAttribute('data-category') === filter) {
-                            card.style.display = 'flex';
-                        } else {
-                            card.style.display = 'none';
-                        }
+                        card.style.display = (filter === 'all' || card.getAttribute('data-category') === filter) ? 'flex' : 'none';
                     });
                 });
             });
 
-            // ==========================================
-            // LÓGICA DE FILTRADO DE CURSOS
-            // ==========================================
             const courseFilterButtons = document.querySelectorAll('.course-filter-btn');
             const courseCards = document.querySelectorAll('.course-card');
-
             courseFilterButtons.forEach(btn => {
                 btn.addEventListener('click', () => {
                     courseFilterButtons.forEach(b => b.classList.remove('active'));
                     btn.classList.add('active');
                     const filter = btn.getAttribute('data-filter');
                     courseCards.forEach(card => {
-                        if (filter === 'all' || card.getAttribute('data-category') === filter) {
-                            card.style.display = 'flex';
-                        } else {
-                            card.style.display = 'none';
-                        }
+                        card.style.display = (filter === 'all' || card.getAttribute('data-category') === filter) ? 'flex' : 'none';
                     });
                 });
             });
@@ -1466,7 +1321,6 @@
                     btn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i> Enviando...';
                     btn.disabled = true;
                     msgBox.innerHTML = '';
-                    msgBox.className = 'col-12 text-center mt-3';
 
                     const formData = new FormData(requestForm);
 
@@ -1474,30 +1328,20 @@
                         const response = await fetch(requestForm.action, {
                             method: requestForm.method,
                             body: formData,
-                            headers: {
-                                'Accept': 'application/json'
-                            }
+                            headers: { 'Accept': 'application/json' }
                         });
 
                         if (response.ok) {
-                            msgBox.innerHTML = '<span class="text-success"><i class="fas fa-check-circle"></i> ¡Solicitud enviada con éxito! Te contactaremos pronto al correo registrado.</span>';
+                            msgBox.innerHTML = '<span class="text-success"><i class="fas fa-check-circle"></i> ¡Solicitud enviada con éxito!</span>';
                             requestForm.reset();
-                            
-                            // Volver a llenar el correo después de resetear
                             const { data: { session } } = await supabaseClient.auth.getSession();
-                            if (session && session.user) {
-                                document.getElementById('req-email').value = session.user.email;
-                            }
+                            if (session && session.user) document.getElementById('req-email').value = session.user.email;
                         } else {
                             const data = await response.json();
-                            if (Object.hasOwn(data, 'errors')) {
-                                msgBox.innerHTML = `<span class="text-danger"><i class="fas fa-exclamation-triangle"></i> ${data["errors"].map(error => error["message"]).join(", ")}</span>`;
-                            } else {
-                                msgBox.innerHTML = '<span class="text-danger"><i class="fas fa-exclamation-triangle"></i> Hubo un problema al enviar. Intenta de nuevo.</span>';
-                            }
+                            msgBox.innerHTML = `<span class="text-danger"><i class="fas fa-exclamation-triangle"></i> ${data.errors ? data.errors.map(err => err.message).join(", ") : 'Error al enviar.'}</span>`;
                         }
                     } catch (error) {
-                        msgBox.innerHTML = '<span class="text-danger"><i class="fas fa-exclamation-triangle"></i> Error de red. Revisa tu conexión a internet.</span>';
+                        msgBox.innerHTML = '<span class="text-danger"><i class="fas fa-exclamation-triangle"></i> Error de red.</span>';
                     } finally {
                         btn.innerHTML = originalBtnText;
                         btn.disabled = false;
@@ -1505,6 +1349,94 @@
                 });
             }
 
+            // ==========================================
+            // ENVÍO DEL FORMULARIO DE CURRÍCULUM (CORREGIDO + GUARDADO EN SUPABASE)
+            // ==========================================
+            const cvForm = document.getElementById('dashboardCvForm');
+
+            if (cvForm) {
+                cvForm.addEventListener('submit', async (e) => {
+                    e.preventDefault();
+                    const btn = document.getElementById('submitCvBtn');
+                    const msgBox = document.getElementById('cvMessage');
+                    const originalBtnText = btn.innerHTML;
+
+                    // 1. Validación: Verificamos si el input generado por Uploadcare tiene valor
+                    const uploadcareInput = cvForm.querySelector('input[name="cv-uploader"]');
+                    
+                    if (!uploadcareInput || !uploadcareInput.value) {
+                        msgBox.innerHTML = '<span class="text-danger"><i class="fas fa-exclamation-triangle"></i> Por favor, sube tu hoja de vida y espera a que se complete la carga.</span>';
+                        return;
+                    }
+
+                    // 2. Preparamos el envío
+                    btn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i> Enviando...';
+                    btn.disabled = true;
+                    msgBox.innerHTML = '';
+
+                    // 3. Creamos el FormData (esto ya incluirá la URL del CV automáticamente)
+                    const formData = new FormData(cvForm);
+
+                    try {
+                        // A. ENVIAR A FORMSPREE
+                        const response = await fetch(cvForm.action, {
+                            method: cvForm.method,
+                            body: formData,
+                            headers: { 'Accept': 'application/json' }
+                        });
+
+                        if (response.ok) {
+                            // B. GUARDAR LA URL EN SUPABASE (user_metadata)
+                            const cvUrl = uploadcareInput.value;
+                            const { error: updateError } = await supabaseClient.auth.updateUser({
+                                data: { cv_url: cvUrl }
+                            });
+
+                            if (updateError) {
+                                console.error("Error al guardar en Supabase:", updateError);
+                                // No bloqueamos el éxito del envío, pero avisamos
+                            }
+
+                            msgBox.innerHTML = '<span class="text-success"><i class="fas fa-check-circle"></i> ¡Currículum enviado con éxito! Revisaremos tu perfil.</span>';
+                            
+                            // Mostrar el estado de "CV cargado"
+                            const cvStatusDisplay = document.getElementById('cvStatusDisplay');
+                            const cvLinkDisplay = document.getElementById('cvLinkDisplay');
+                            if (cvStatusDisplay && cvLinkDisplay) {
+                                cvStatusDisplay.style.display = 'block';
+                                cvLinkDisplay.href = cvUrl;
+                            }
+
+                            cvForm.reset();
+                            
+                            // Limpiar el widget visualmente
+                            const uploaderWidget = document.getElementById('cv-uploader-widget');
+                            if (uploaderWidget) {
+                                uploaderWidget.value = ''; 
+                            }
+
+                            // Restaurar el email del usuario (ya que reset() lo borra)
+                            const { data: { session } } = await supabaseClient.auth.getSession();
+                            if (session && session.user) {
+                                document.getElementById('cv-email').value = session.user.email;
+                            }
+                        } else {
+                            const data = await response.json();
+                            msgBox.innerHTML = `<span class="text-danger"><i class="fas fa-exclamation-triangle"></i> ${data.errors ? data.errors.map(err => err.message).join(", ") : 'Error al enviar.'}</span>`;
+                        }
+                    } catch (error) {
+                        console.error(error);
+                        msgBox.innerHTML = '<span class="text-danger"><i class="fas fa-exclamation-triangle"></i> Error de red.</span>';
+                    } finally {
+                        btn.innerHTML = originalBtnText;
+                        btn.disabled = false;
+                    }
+                });
+            }
+
+            // ==========================================
+            // CERRAR SESIÓN Y SUBIDA DE AVATAR
+            // ==========================================
             document.getElementById('logoutBtn').addEventListener('click', async () => {
                 await supabaseClient.auth.signOut();
             });
