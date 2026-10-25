@@ -166,11 +166,11 @@
         .seic-highlight { border: 1px solid rgba(77, 255, 77, 0.4); background: linear-gradient(145deg, rgba(10, 25, 47, 0.9), rgba(0, 50, 0, 0.2)); }
         .seic-highlight:hover { box-shadow: 0 10px 20px rgba(77, 255, 77, 0.2); border-color: #4dff4d; }
         
-        #dashboardRequestForm .form-control, #dashboardRequestForm .form-select, #dashboardCvForm .form-control, #dashboardCvForm .form-select, #companyForm .form-control { background: rgba(5, 11, 20, 0.8); border: 1px solid #1e3a5f; color: #fff; transition: all 0.3s; }
-        #dashboardRequestForm .form-control:focus, #dashboardRequestForm .form-select:focus, #dashboardCvForm .form-control:focus, #dashboardCvForm .form-select:focus, #companyForm .form-control:focus { background: rgba(5, 11, 20, 0.9); border-color: #00b4d8; box-shadow: 0 0 10px rgba(0, 180, 216, 0.2); color: #fff; }
-        #dashboardRequestForm .form-control::placeholder, #dashboardCvForm .form-control::placeholder, #companyForm .form-control::placeholder { color: #5a6b8a; }
-        #dashboardRequestForm label, #dashboardCvForm label, #companyForm label { color: #00b4d8; font-size: 13px; font-weight: 600; margin-bottom: 5px; }
-        #dashboardRequestForm .form-control[readonly], #dashboardCvForm .form-control[readonly], #companyForm .form-control[readonly] { background: rgba(30, 58, 95, 0.3); color: #8892b0; cursor: not-allowed; }
+        #dashboardRequestForm .form-control, #dashboardRequestForm .form-select, #dashboardCvForm .form-control, #dashboardCvForm .form-select, #companyForm .form-control, #updateProfileForm .form-control { background: rgba(5, 11, 20, 0.8); border: 1px solid #1e3a5f; color: #fff; transition: all 0.3s; }
+        #dashboardRequestForm .form-control:focus, #dashboardRequestForm .form-select:focus, #dashboardCvForm .form-control:focus, #dashboardCvForm .form-select:focus, #companyForm .form-control:focus, #updateProfileForm .form-control:focus { background: rgba(5, 11, 20, 0.9); border-color: #00b4d8; box-shadow: 0 0 10px rgba(0, 180, 216, 0.2); color: #fff; }
+        #dashboardRequestForm .form-control::placeholder, #dashboardCvForm .form-control::placeholder, #companyForm .form-control::placeholder, #updateProfileForm .form-control::placeholder { color: #5a6b8a; }
+        #dashboardRequestForm label, #dashboardCvForm label, #companyForm label, #updateProfileForm label { color: #00b4d8; font-size: 13px; font-weight: 600; margin-bottom: 5px; }
+        #dashboardRequestForm .form-control[readonly], #dashboardCvForm .form-control[readonly], #companyForm .form-control[readonly], #updateProfileForm .form-control[readonly] { background: rgba(30, 58, 95, 0.3); color: #8892b0; cursor: not-allowed; }
         .uc-light { --uc-primary-color: #00b4d8; --uc-secondary-color: #050b14; --uc-text-color: #ffffff; --uc-background-color: rgba(10, 25, 47, 0.8); --uc-border-color: #1e3a5f; }
 
         /* --- ESTILOS EXCLUSIVOS DEL CHAT DE EMPRESAS --- */
@@ -836,18 +836,56 @@
                         </div>
                     </div>
 
+                    <!-- ============================================= -->
+                    <!-- SECCIÓN DE PERFIL ACTUALIZADA -->
+                    <!-- ============================================= -->
                     <div id="dash-perfil" class="portal-section active-section">
-                        <h3 class="text-info mb-4">Mi Perfil y Foto</h3>
-                        <div class="portal-card">
-                            <p>Sube una foto de perfil profesional.</p>
-                            <div class="d-flex align-items-center gap-3 mt-4">
+                        <h3 class="text-info mb-4">Mi Perfil</h3>
+                        
+                        <!-- Tarjeta de Foto -->
+                        <div class="portal-card mb-4">
+                            <h5 class="text-white mb-3">Foto de Perfil</h5>
+                            <div class="d-flex align-items-center gap-3">
                                 <label for="avatarUpload" class="btn btn-primary"><i class="fas fa-camera"></i> Seleccionar Imagen</label>
                                 <input type="file" id="avatarUpload" accept="image/*" style="display: none;">
                                 <button id="saveAvatarBtn" class="btn btn-success" style="display: none;">Guardar Foto</button>
                                 <span id="avatarMsg" class="text-info"></span>
                             </div>
                         </div>
+
+                        <!-- Tarjeta de Datos Personales -->
+                        <div class="portal-card">
+                            <h5 class="text-white mb-3">Datos Personales</h5>
+                            <p class="text-muted mb-4" style="font-size: 13px;">Actualiza tu información. Estos datos se guardarán de forma segura.</p>
+                            
+                            <form id="updateProfileForm" class="row g-3">
+                                <div class="col-md-6">
+                                    <label for="profile-name" class="form-label">Nombre Completo</label>
+                                    <input type="text" class="form-control" id="profile-name" name="full_name" required autocomplete="off" maxlength="100">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="profile-phone" class="form-label">Teléfono</label>
+                                    <input type="tel" class="form-control" id="profile-phone" name="phone" placeholder="+57 300 000 0000" autocomplete="off" maxlength="25" inputmode="tel">
+                                </div>
+                                <div class="col-md-12">
+                                    <label for="profile-email" class="form-label">Correo Electrónico (No editable)</label>
+                                    <input type="email" class="form-control" id="profile-email" name="email" readonly>
+                                </div>
+                                <div class="col-12">
+                                    <label for="profile-bio" class="form-label">Sobre mí (Breve Biografía)</label>
+                                    <textarea class="form-control" id="profile-bio" name="bio" rows="3" placeholder="Cuéntanos un poco sobre ti o tu empresa..." maxlength="500"></textarea>
+                                </div>
+                                <div class="col-12 mt-4">
+                                    <button type="submit" class="btn btn-primary w-100 py-2" id="saveProfileBtn">
+                                        <i class="fas fa-save me-2"></i> Guardar Cambios
+                                    </button>
+                                </div>
+                                <!-- Contenedor para mensajes de éxito/error del perfil -->
+                                <div id="profileMsg" class="col-12 text-center mt-3" style="font-weight: bold; transition: opacity 0.5s;"></div>
+                            </form>
+                        </div>
                     </div>
+                    <!-- FIN SECCIÓN DE PERFIL -->
 
                     <div id="dash-eventos" class="portal-section">
                         <div class="d-flex justify-content-between align-items-center mb-4">
@@ -1137,7 +1175,7 @@
                     </div>
 
                     <!-- ============================================= -->
-                    <!-- SECCIÓN DE CURRÍCULUM (CON UPLOADCARE Y ESTADO) -->
+                    <!-- SECCIÓN DE CURRÍCULUM -->
                     <!-- ============================================= -->
                     <div id="dash-cv" class="portal-section">
                         <div class="d-flex justify-content-between align-items-center mb-4">
@@ -1251,7 +1289,7 @@
                     <!-- FIN DE LA SECCIÓN DE CURRÍCULUM -->
 
                     <!-- ============================================= -->
-                    <!-- SECCIÓN DE EMPRESAS (CRM / CHAT DIRECTO)    -->
+                    <!-- SECCIÓN DE EMPRESAS -->
                     <!-- ============================================= -->
                     <div id="dash-empresas" class="portal-section">
                         <div class="d-flex justify-content-between align-items-center mb-4">
@@ -1376,9 +1414,22 @@
             // 2. Cargar datos del usuario
             function loadUserData(user) {
                 document.getElementById('portalUserEmail').textContent = user.email;
-                const name = user.email.split('@')[0];
-                document.getElementById('portalUserName').textContent = name;
                 
+                // --- LÓGICA DE PERFIL ---
+                const metadata = user.user_metadata || {};
+                const defaultName = user.email.split('@')[0];
+                const displayName = metadata.full_name || defaultName;
+                
+                // Actualizar saludo principal
+                document.getElementById('portalUserName').textContent = displayName;
+                
+                // Rellenar el formulario de perfil
+                document.getElementById('profile-name').value = displayName;
+                document.getElementById('profile-phone').value = metadata.phone || '';
+                document.getElementById('profile-bio').value = metadata.bio || '';
+                document.getElementById('profile-email').value = user.email;
+                // ------------------------------
+
                 const reqEmailInput = document.getElementById('req-email');
                 if (reqEmailInput) reqEmailInput.value = user.email;
 
@@ -1391,10 +1442,10 @@
                 const initialElement = document.getElementById('portalAvatarInitial');
                 const imgElement = document.getElementById('portalAvatarImg');
                 
-                initialElement.textContent = name.charAt(0).toUpperCase();
+                initialElement.textContent = displayName.charAt(0).toUpperCase();
 
-                if (user.user_metadata && user.user_metadata.avatar_url && user.user_metadata.avatar_url.trim() !== "") {
-                    imgElement.src = user.user_metadata.avatar_url;
+                if (metadata.avatar_url && metadata.avatar_url.trim() !== "") {
+                    imgElement.src = metadata.avatar_url;
                     imgElement.style.display = 'block';
                     initialElement.style.display = 'none';
                     imgElement.onerror = function() {
@@ -1410,9 +1461,9 @@
                 const cvStatusDisplay = document.getElementById('cvStatusDisplay');
                 const cvLinkDisplay = document.getElementById('cvLinkDisplay');
                 
-                if (user.user_metadata && user.user_metadata.cv_url && user.user_metadata.cv_url.trim() !== "") {
+                if (metadata.cv_url && metadata.cv_url.trim() !== "") {
                     cvStatusDisplay.style.display = 'block';
-                    cvLinkDisplay.href = user.user_metadata.cv_url;
+                    cvLinkDisplay.href = metadata.cv_url;
                 } else {
                     cvStatusDisplay.style.display = 'none';
                 }
@@ -1435,6 +1486,72 @@
                         }
                     }
                 }
+            }
+
+            // ==========================================
+            // ACTUALIZAR PERFIL DEL USUARIO (VISUAL)
+            // ==========================================
+            const updateProfileForm = document.getElementById('updateProfileForm');
+            if (updateProfileForm) {
+                updateProfileForm.addEventListener('submit', async (e) => {
+                    e.preventDefault();
+                    const btn = document.getElementById('saveProfileBtn');
+                    const msg = document.getElementById('profileMsg');
+                    const originalText = btn.innerHTML;
+
+                    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Guardando...';
+                    btn.disabled = true;
+                    msg.innerHTML = '';
+
+                    const fullName = document.getElementById('profile-name').value;
+                    const phone = document.getElementById('profile-phone').value;
+                    const bio = document.getElementById('profile-bio').value;
+
+                    try {
+                        const { error } = await supabaseClient.auth.updateUser({
+                            data: {
+                                full_name: fullName,
+                                phone: phone,
+                                bio: bio
+                            }
+                        });
+
+                        if (error) throw error;
+
+                        // --- ACTUALIZACIONES VISUALES INMEDIATAS ---
+                        
+                        // 1. Actualizar el saludo superior
+                        document.getElementById('portalUserName').textContent = fullName;
+                        
+                        // 2. Actualizar la inicial del avatar (si no hay foto)
+                        const avatarImg = document.getElementById('portalAvatarImg');
+                        if (avatarImg.style.display === 'none') {
+                            document.getElementById('portalAvatarInitial').textContent = fullName.charAt(0).toUpperCase();
+                        }
+
+                        // 3. Actualizar la sesión local para que no se pierdan los datos si navega
+                        if(currentUserSession && currentUserSession.user) {
+                            currentUserSession.user.user_metadata.full_name = fullName;
+                            currentUserSession.user.user_metadata.phone = phone;
+                            currentUserSession.user.user_metadata.bio = bio;
+                        }
+
+                        // 4. Mostrar mensaje de éxito llamativo
+                        msg.innerHTML = '<div class="alert alert-success py-2 mb-0"><i class="fas fa-check-circle"></i> ¡Perfil actualizado con éxito!</div>';
+                        
+                        // Ocultar el mensaje después de 4 segundos
+                        setTimeout(() => { 
+                            msg.innerHTML = ''; 
+                        }, 4000);
+
+                    } catch (error) {
+                        console.error(error);
+                        msg.innerHTML = `<div class="alert alert-danger py-2 mb-0"><i class="fas fa-exclamation-triangle"></i> Error: ${error.message}</div>`;
+                    } finally {
+                        btn.innerHTML = originalText;
+                        btn.disabled = false;
+                    }
+                });
             }
 
             // 3. Intercambiar Login / Registro
@@ -1680,7 +1797,7 @@
             }
 
             // ==========================================
-            // LÓGICA DE EMPRESAS Y CHAT (CORREGIDO PARA USAR SOLO EMAILS)
+            // LÓGICA DE EMPRESAS Y CHAT
             // ==========================================
             const companyForm = document.getElementById('companyForm');
             const chatLockedState = document.getElementById('chatLockedState');
@@ -1758,7 +1875,6 @@
             }
 
             async function loadChatMessages() {
-                // CORRECCIÓN: Filtro usando solo correos electrónicos
                 const { data, error } = await supabaseClient
                     .from('chat_messages')
                     .select('*')
@@ -1781,7 +1897,6 @@
                     .channel('public:chat_messages')
                     .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'chat_messages' }, payload => {
                         const newMsg = payload.new;
-                        // Verifica si el mensaje pertenece a esta conversación
                         const isMine = newMsg.sender_email === currentUserSession.email && newMsg.receiver_email === ADMIN_EMAIL;
                         const isForMe = newMsg.sender_email === ADMIN_EMAIL && newMsg.receiver_email === currentUserSession.email;
 
@@ -1808,7 +1923,6 @@
                 chatInput.disabled = true;
                 sendChatBtn.disabled = true;
 
-                // CORRECCIÓN: Inserción usando solo correos electrónicos
                 const { data, error } = await supabaseClient.from('chat_messages').insert([{
                     sender_id: currentUserSession.id,
                     sender_email: currentUserSession.email,
