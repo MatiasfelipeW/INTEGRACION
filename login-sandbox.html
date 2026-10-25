@@ -4,6 +4,44 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Whiat Company - Acceso VIP</title>
+
+    <!-- ========== SEGURIDAD (CSP) ========== -->
+    <meta http-equiv="Content-Security-Policy" content="
+        default-src 'self';
+        script-src 'self' 'unsafe-inline' 'unsafe-eval'
+            https://cdn.jsdelivr.net
+            https://cdnjs.cloudflare.com
+            https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2
+            https://accounts.google.com
+            https://apis.google.com;
+        style-src 'self' 'unsafe-inline'
+            https://cdn.jsdelivr.net
+            https://cdnjs.cloudflare.com
+            https://fonts.googleapis.com;
+        font-src 'self' data:
+            https://fonts.gstatic.com
+            https://cdnjs.cloudflare.com;
+        img-src 'self' data: blob:
+            https://*.supabase.co
+            https://*.googleusercontent.com
+            https://*.google.com;
+        connect-src 'self'
+            https://orzbnvgjadwxxmqqeqru.supabase.co
+            wss://orzbnvgjadwxxmqqeqru.supabase.co
+            https://cdn.jsdelivr.net
+            https://cdnjs.cloudflare.com
+            https://accounts.google.com
+            https://*.google.com;
+        frame-src 'self'
+            https://*.supabase.co
+            https://accounts.google.com
+            https://*.google.com;
+        object-src 'none';
+        base-uri 'self';
+        form-action 'self' https://accounts.google.com;
+        frame-ancestors 'none';
+        upgrade-insecure-requests;
+    ">
     
     <!-- Importamos la librería de Supabase -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -431,6 +469,8 @@
 
         // LOGIN CON GOOGLE
         document.getElementById('googleLoginBtn').addEventListener('click', async () => {
+            if (!supabaseClient) return;
+            
             const { data, error } = await supabaseClient.auth.signInWithOAuth({
                 provider: 'google',
                 options: {
@@ -528,22 +568,24 @@
         });
 
         // Detectar si el usuario viene de un enlace de recuperación
-        supabaseClient.auth.onAuthStateChange(async (event, session) => {
-            if (event === "PASSWORD_RECOVERY") {
-                const newPassword = prompt("Por favor, ingresa tu nueva contraseña (mínimo 6 caracteres):");
-                if (newPassword && newPassword.length >= 6) {
-                    const { error } = await supabaseClient.auth.updateUser({ password: newPassword });
-                    if (error) {
-                        alert("Error al actualizar la contraseña: " + error.message);
-                    } else {
-                        alert("¡Contraseña actualizada con éxito! Ya puedes iniciar sesión.");
-                        window.location.href = 'login-sandbox.html'; // Recarga para limpiar la URL
+        if(supabaseClient) {
+            supabaseClient.auth.onAuthStateChange(async (event, session) => {
+                if (event === "PASSWORD_RECOVERY") {
+                    const newPassword = prompt("Por favor, ingresa tu nueva contraseña (mínimo 6 caracteres):");
+                    if (newPassword && newPassword.length >= 6) {
+                        const { error } = await supabaseClient.auth.updateUser({ password: newPassword });
+                        if (error) {
+                            alert("Error al actualizar la contraseña: " + error.message);
+                        } else {
+                            alert("¡Contraseña actualizada con éxito! Ya puedes iniciar sesión.");
+                            window.location.href = 'login-sandbox.html'; // Recarga para limpiar la URL
+                        }
+                    } else if (newPassword) {
+                        alert("Contraseña no válida. Debe tener al menos 6 caracteres.");
                     }
-                } else if (newPassword) {
-                    alert("Contraseña no válida. Debe tener al menos 6 caracteres.");
                 }
-            }
-        });
+            });
+        }
     </script>
 </body>
 </html>
