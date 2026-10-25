@@ -149,9 +149,10 @@
             document.getElementById('activeCompanyContact').textContent = `${comp.contact_name} (${comp.position})`;
             document.getElementById('activeCompanyPhone').textContent = `Tel: ${comp.phone}`;
             
+            // --- AQUÍ ESTÁ LA MAGIA: GUARDAMOS EL ID DE LA EMPRESA SELECCIONADA ---
             activeCompanyUserId = comp.user_id;
             
-            // Obtener el email del usuario basado en mensajes previos
+            // Buscamos si ya hay mensajes para obtener su correo, si no, lo dejamos vacío (no es crítico)
             const { data: msgData } = await supabaseClient
                 .from('chat_messages')
                 .select('sender_email')
@@ -190,7 +191,7 @@
             }
         }
 
-        // 5. Enviar mensaje
+        // 5. Enviar mensaje (CORREGIDO)
         document.getElementById('adminSendBtn').onclick = async () => {
             const input = document.getElementById('adminChatInput');
             const text = input.value.trim();
@@ -199,9 +200,11 @@
             input.value = '';
             input.disabled = true;
 
+            // Usamos el ID del usuario seleccionado (activeCompanyUserId) para que la base de datos sepa a quién enviarlo
             const { error } = await supabaseClient.from('chat_messages').insert([{
                 sender_id: adminUser.id, 
                 sender_email: ADMIN_EMAIL,
+                receiver_id: activeCompanyUserId, // <--- ENVIAMOS EL ID, NO EL EMAIL
                 receiver_email: activeCompanyEmail || 'desconocido',
                 message: text
             }]);
