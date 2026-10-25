@@ -13,6 +13,8 @@
         .sidebar { width: 300px; background: var(--card); border-right: 1px solid rgba(0,180,216,0.2); display: flex; flex-direction: column; }
         .sidebar-header { padding: 20px; border-bottom: 1px solid rgba(0,180,216,0.2); background: rgba(0,0,0,0.2); }
         .sidebar-header h2 { margin: 0; color: var(--primary); font-size: 18px; }
+        .sidebar-header a { color: var(--primary); text-decoration: none; font-size: 13px; display: inline-block; margin-bottom: 10px; }
+        .sidebar-header a:hover { text-decoration: underline; }
         .company-list { flex: 1; overflow-y: auto; list-style: none; padding: 0; margin: 0; }
         .company-item { padding: 15px 20px; border-bottom: 1px solid rgba(255,255,255,0.05); cursor: pointer; transition: 0.2s; }
         .company-item:hover, .company-item.active { background: rgba(0,180,216,0.1); border-left: 3px solid var(--primary); }
@@ -44,6 +46,7 @@
 
     <div class="sidebar">
         <div class="sidebar-header">
+            <a href="index.html"><i class="fas fa-arrow-left"></i> ← Volver al Portal</a>
             <h2>💼 Empresas Registradas</h2>
         </div>
         <ul class="company-list" id="companyList">
@@ -171,15 +174,16 @@
             subscribeToCompanyChat();
         }
 
-        // 4. Cargar historial
+        // 4. Cargar historial (CORREGIDO PARA LEER TANTO ENVIADOS COMO RECIBIDOS)
         async function loadChatHistory() {
             const container = document.getElementById('adminChatMessages');
             container.innerHTML = '';
 
+            // Se filtran los mensajes donde el sender sea la empresa O el receiver sea la empresa
             const { data, error } = await supabaseClient
                 .from('chat_messages')
                 .select('*')
-                .eq('sender_id', activeCompanyUserId)
+                .or(`sender_id.eq.${activeCompanyUserId},receiver_id.eq.${activeCompanyUserId}`)
                 .order('created_at', { ascending: true });
 
             if (data) {
@@ -222,7 +226,7 @@
             if (e.key === 'Enter') document.getElementById('adminSendBtn').click();
         });
 
-        // 6. Tiempo real
+        // 6. Tiempo real (CORREGIDO)
         function subscribeToCompanyChat() {
             if (currentChatSubscription) currentChatSubscription.unsubscribe();
 
@@ -230,7 +234,8 @@
                 .channel('admin_chat')
                 .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'chat_messages' }, payload => {
                     const newMsg = payload.new;
-                    if (newMsg.sender_id === activeCompanyUserId || newMsg.receiver_email === activeCompanyEmail) {
+                    // Verificar si el mensaje pertenece a la conversación seleccionada
+                    if (newMsg.sender_id === activeCompanyUserId || newMsg.receiver_id === activeCompanyUserId) {
                         const isAdmin = newMsg.sender_email === ADMIN_EMAIL;
                         appendMsg(newMsg.message, isAdmin, new Date(newMsg.created_at));
                         scrollToBottom();

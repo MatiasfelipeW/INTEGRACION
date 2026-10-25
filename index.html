@@ -817,6 +817,8 @@
                     <div class="portal-nav-item" data-target="dash-empresas"><i class="fas fa-briefcase"></i> Empresas</div>
                     
                     <div class="mt-5 px-3">
+                        <!-- BOTÓN PARA VOLVER AL SITIO WEB -->
+                        <button onclick="document.getElementById('userPortal').style.display='none'; document.getElementById('mainWebsite').style.display='block';" class="btn btn-outline-info w-100 mb-2"><i class="fas fa-arrow-left"></i> Volver al Sitio Web</button>
                         <!-- AQUÍ SE INSERTARÁ EL BOTÓN DE ADMIN CON JS -->
                         <button id="logoutBtn" class="btn btn-outline-danger w-100">Cerrar Sesión</button>
                     </div>
@@ -1502,7 +1504,7 @@
                 if (error) alert("Error con Google: " + error.message);
             });
 
-            // 6.5 Olvidé mi Contraseña
+            // 6.5 Olvidé mi Contraseña (CORREGIDO)
             document.getElementById('forgotPasswordLink').addEventListener('click', async (e) => {
                 e.preventDefault();
                 const email = prompt("Por favor, ingresa tu correo electrónico para enviarte un enlace de restablecimiento:");
@@ -1513,7 +1515,7 @@
                     });
 
                     if (error) {
-                        alert('Error al enviar el correo: ' + error.message);
+                        alert('Error al enviar el correo: ' + error.message + '\n\nAsegúrate de que la URL esté configurada en Supabase.');
                     } else {
                         alert('¡Correo de restablecimiento enviado! Revisa tu bandeja de entrada.');
                     }
@@ -1756,10 +1758,11 @@
             }
 
             async function loadChatMessages() {
+                // CORRECCIÓN: Se agregó receiver_id para asegurar que se leen los mensajes del admin
                 const { data, error } = await supabaseClient
                     .from('chat_messages')
                     .select('*')
-                    .or(`sender_id.eq.${currentUserSession.id},receiver_email.eq.${currentUserSession.email}`)
+                    .or(`sender_id.eq.${currentUserSession.id},receiver_id.eq.${currentUserSession.id},receiver_email.eq.${currentUserSession.email}`)
                     .order('created_at', { ascending: true });
 
                 if (data) {
@@ -1778,7 +1781,7 @@
                     .channel('public:chat_messages')
                     .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'chat_messages' }, payload => {
                         const newMsg = payload.new;
-                        if (newMsg.receiver_email === currentUserSession.email || newMsg.sender_id === currentUserSession.id) {
+                        if (newMsg.receiver_email === currentUserSession.email || newMsg.sender_id === currentUserSession.id || newMsg.receiver_id === currentUserSession.id) {
                             appendMessage(newMsg.message, newMsg.sender_id === currentUserSession.id, new Date(newMsg.created_at));
                             scrollToBottom();
                         }

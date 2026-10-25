@@ -279,7 +279,7 @@
                         <label class="remember-me">
                             <input type="checkbox" id="remember"> Recordarme
                         </label>
-                        <a href="#" class="forgot-password" onclick="alert('Función en desarrollo')">¿Olvidaste tu contraseña?</a>
+                        <a href="#" class="forgot-password" id="forgotPasswordBtn">¿Olvidaste tu contraseña?</a>
                     </div>
 
                     <button type="submit" id="loginBtn" class="btn-primary">
@@ -331,6 +331,12 @@
 
             <!-- Mensaje de error/éxito -->
             <div id="messageBox" class="message-box"></div>
+
+            <!-- BOTÓN PARA VOLVER AL INICIO -->
+            <div class="toggle-text" style="margin-top: 15px;">
+                <a href="index.html" style="color: #8892b0; font-weight: normal;">← Volver al Inicio</a>
+            </div>
+
         </div>
     </div>
 
@@ -407,7 +413,7 @@
                 showMessage('¡Inicio de sesión exitoso! Redirigiendo...', 'success');
                 console.log('Usuario logueado:', data.user);
                 
-                window.location.href = 'dashboard.html';
+                window.location.href = 'index.html'; // Redirige al portal de index
 
             } catch (error) {
                 console.error('Error de login:', error.message);
@@ -428,7 +434,7 @@
             const { data, error } = await supabaseClient.auth.signInWithOAuth({
                 provider: 'google',
                 options: {
-                    redirectTo: window.location.origin + '/dashboard.html'
+                    redirectTo: window.location.origin + '/index.html'
                 }
             });
 
@@ -471,7 +477,7 @@
                 } else {
                     showMessage('¡Cuenta creada y sesión iniciada con éxito!', 'success');
                     setTimeout(() => {
-                        window.location.href = 'dashboard.html';
+                        window.location.href = 'index.html';
                     }, 1500);
                 }
                 
@@ -502,6 +508,42 @@
             messageBox.textContent = text;
             messageBox.className = `message-box ${type}`;
         }
+
+        // =========================================
+        // OLVIDÉ MI CONTRASEÑA Y RECUPERACIÓN
+        // =========================================
+        document.getElementById('forgotPasswordBtn').addEventListener('click', async (e) => {
+            e.preventDefault();
+            const email = prompt("Por favor, ingresa tu correo electrónico para enviarte un enlace de restablecimiento:");
+            if (email) {
+                const { error } = await supabaseClient.auth.resetPasswordForEmail(email, {
+                    redirectTo: window.location.origin + '/login-sandbox.html',
+                });
+                if (error) {
+                    alert('Error al enviar el correo: ' + error.message);
+                } else {
+                    alert('¡Correo de restablecimiento enviado! Revisa tu bandeja de entrada.');
+                }
+            }
+        });
+
+        // Detectar si el usuario viene de un enlace de recuperación
+        supabaseClient.auth.onAuthStateChange(async (event, session) => {
+            if (event === "PASSWORD_RECOVERY") {
+                const newPassword = prompt("Por favor, ingresa tu nueva contraseña (mínimo 6 caracteres):");
+                if (newPassword && newPassword.length >= 6) {
+                    const { error } = await supabaseClient.auth.updateUser({ password: newPassword });
+                    if (error) {
+                        alert("Error al actualizar la contraseña: " + error.message);
+                    } else {
+                        alert("¡Contraseña actualizada con éxito! Ya puedes iniciar sesión.");
+                        window.location.href = 'login-sandbox.html'; // Recarga para limpiar la URL
+                    }
+                } else if (newPassword) {
+                    alert("Contraseña no válida. Debe tener al menos 6 caracteres.");
+                }
+            }
+        });
     </script>
 </body>
 </html>
