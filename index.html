@@ -1504,7 +1504,7 @@
                 if (error) alert("Error con Google: " + error.message);
             });
 
-            // 6.5 Olvidé mi Contraseña (CORREGIDO)
+            // 6.5 Olvidé mi Contraseña
             document.getElementById('forgotPasswordLink').addEventListener('click', async (e) => {
                 e.preventDefault();
                 const email = prompt("Por favor, ingresa tu correo electrónico para enviarte un enlace de restablecimiento:");
@@ -1604,7 +1604,7 @@
             }
 
             // ==========================================
-            // ENVÍO DEL FORMULARIO DE CURRÍCULUM (CORREGIDO + GUARDADO EN SUPABASE)
+            // ENVÍO DEL FORMULARIO DE CURRÍCULUM
             // ==========================================
             const cvForm = document.getElementById('dashboardCvForm');
 
@@ -1680,7 +1680,7 @@
             }
 
             // ==========================================
-            // LÓGICA DE EMPRESAS Y CHAT
+            // LÓGICA DE EMPRESAS Y CHAT (CORREGIDO PARA USAR SOLO EMAILS)
             // ==========================================
             const companyForm = document.getElementById('companyForm');
             const chatLockedState = document.getElementById('chatLockedState');
@@ -1758,17 +1758,17 @@
             }
 
             async function loadChatMessages() {
-                // CORRECCIÓN: Se agregó receiver_id para asegurar que se leen los mensajes del admin
+                // CORRECCIÓN: Filtro usando solo correos electrónicos
                 const { data, error } = await supabaseClient
                     .from('chat_messages')
                     .select('*')
-                    .or(`sender_id.eq.${currentUserSession.id},receiver_id.eq.${currentUserSession.id},receiver_email.eq.${currentUserSession.email}`)
+                    .or(`and(sender_email.eq.${currentUserSession.email},receiver_email.eq.${ADMIN_EMAIL}),and(sender_email.eq.${ADMIN_EMAIL},receiver_email.eq.${currentUserSession.email})`)
                     .order('created_at', { ascending: true });
 
                 if (data) {
                     chatMessages.innerHTML = '';
                     data.forEach(msg => {
-                        appendMessage(msg.message, msg.sender_id === currentUserSession.id, new Date(msg.created_at));
+                        appendMessage(msg.message, msg.sender_email === currentUserSession.email, new Date(msg.created_at));
                     });
                     scrollToBottom();
                 }
@@ -1781,8 +1781,12 @@
                     .channel('public:chat_messages')
                     .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'chat_messages' }, payload => {
                         const newMsg = payload.new;
-                        if (newMsg.receiver_email === currentUserSession.email || newMsg.sender_id === currentUserSession.id || newMsg.receiver_id === currentUserSession.id) {
-                            appendMessage(newMsg.message, newMsg.sender_id === currentUserSession.id, new Date(newMsg.created_at));
+                        // Verifica si el mensaje pertenece a esta conversación
+                        const isMine = newMsg.sender_email === currentUserSession.email && newMsg.receiver_email === ADMIN_EMAIL;
+                        const isForMe = newMsg.sender_email === ADMIN_EMAIL && newMsg.receiver_email === currentUserSession.email;
+
+                        if (isMine || isForMe) {
+                            appendMessage(newMsg.message, newMsg.sender_email === currentUserSession.email, new Date(newMsg.created_at));
                             scrollToBottom();
                         }
                     })
@@ -1804,6 +1808,7 @@
                 chatInput.disabled = true;
                 sendChatBtn.disabled = true;
 
+                // CORRECCIÓN: Inserción usando solo correos electrónicos
                 const { data, error } = await supabaseClient.from('chat_messages').insert([{
                     sender_id: currentUserSession.id,
                     sender_email: currentUserSession.email,

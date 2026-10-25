@@ -152,10 +152,10 @@
             document.getElementById('activeCompanyContact').textContent = `${comp.contact_name} (${comp.position})`;
             document.getElementById('activeCompanyPhone').textContent = `Tel: ${comp.phone}`;
             
-            // --- AQUÍ ESTÁ LA MAGIA: GUARDAMOS EL ID DE LA EMPRESA SELECCIONADA ---
+            // Guardamos el ID de la empresa seleccionada
             activeCompanyUserId = comp.user_id;
             
-            // Buscamos si ya hay mensajes para obtener su correo, si no, lo dejamos vacío (no es crítico)
+            // Buscamos si ya hay mensajes para obtener su correo
             const { data: msgData } = await supabaseClient
                 .from('chat_messages')
                 .select('sender_email')
@@ -166,25 +166,37 @@
                 activeCompanyEmail = msgData[0].sender_email;
                 document.getElementById('activeCompanyEmail').textContent = `Email: ${activeCompanyEmail}`;
             } else {
-                activeCompanyEmail = null;
-                document.getElementById('activeCompanyEmail').textContent = `Email: (Sin mensajes aún)`;
+                activeCompanyEmail = comp.email || null; // Intenta obtenerlo del perfil si existiera
+                document.getElementById('activeCompanyEmail').textContent = `Email: ${activeCompanyEmail || '(Envía un mensaje para iniciar)'}`;
             }
 
             loadChatHistory();
             subscribeToCompanyChat();
         }
 
-        // 4. Cargar historial (CORREGIDO PARA LEER TANTO ENVIADOS COMO RECIBIDOS)
+        // 4. Cargar historial (CORREGIDO PARA USAR SOLO EMAILS)
         async function loadChatHistory() {
             const container = document.getElementById('adminChatMessages');
             container.innerHTML = '';
 
-            // Se filtran los mensajes donde el sender sea la empresa O el receiver sea la empresa
+            if (!activeCompanyEmail || !adminUser) {
+                if(!activeCompanyEmail) {
+                    container.innerHTML = '<div style="text-align:center; color:#8892b0; margin-top:20px;">Esta empresa no tiene mensajes aún. El chat se habilitará cuando envíen el primer mensaje.</div>';
+                }
+                return;
+            }
+
+            // Consulta corregida: Usa sender_email y receiver_email
             const { data, error } = await supabaseClient
                 .from('chat_messages')
                 .select('*')
-                .or(`sender_id.eq.${activeCompanyUserId},receiver_id.eq.${activeCompanyUserId}`)
+                .or(`and(sender_email.eq.${ADMIN_EMAIL},receiver_email.eq.${activeCompanyEmail}),and(sender_email.eq.${activeCompanyEmail},receiver_email.eq.${ADMIN_EMAIL})`)
                 .order('created_at', { ascending: true });
+
+            if (error) {
+                console.error("Error al cargar historial:", error);
+                return;
+            }
 
             if (data) {
                 data.forEach(msg => {
@@ -195,21 +207,22 @@
             }
         }
 
-        // 5. Enviar mensaje (CORREGIDO)
+        // 5. Enviar mensaje (CORREGIDO PARA USAR SOLO EMAILS)
         document.getElementById('adminSendBtn').onclick = async () => {
             const input = document.getElementById('adminChatInput');
             const text = input.value.trim();
-            if (!text || !activeCompanyUserId || !adminUser) return;
+            if (!text || !activeCompanyEmail || !adminUser) {
+                if(!activeCompanyEmail) alert("No se puede enviar un mensaje porque la empresa no tiene un correo vinculado aún. Pídele que envíe un mensaje primero.");
+                return;
+            }
 
             input.value = '';
             input.disabled = true;
 
-            // Usamos el ID del usuario seleccionado (activeCompanyUserId) para que la base de datos sepa a quién enviarlo
             const { error } = await supabaseClient.from('chat_messages').insert([{
                 sender_id: adminUser.id, 
                 sender_email: ADMIN_EMAIL,
-                receiver_id: activeCompanyUserId, // <--- ENVIAMOS EL ID, NO EL EMAIL
-                receiver_email: activeCompanyEmail || 'desconocido',
+                receiver_email: activeCompanyEmail,
                 message: text
             }]);
 
@@ -226,16 +239,22 @@
             if (e.key === 'Enter') document.getElementById('adminSendBtn').click();
         });
 
-        // 6. Tiempo real (CORREGIDO)
+        // 6. Tiempo real (CORREGIDO PARA USAR SOLO EMAILS)
         function subscribeToCompanyChat() {
             if (currentChatSubscription) currentChatSubscription.unsubscribe();
+            if (!activeCompanyEmail) return; // No suscribirse si no hay email
 
+            // Usamos un nombre de canal único por empresa para evitar conflictos
             currentChatSubscription = supabaseClient
-                .channel('admin_chat')
+                .channel(`admin_chat_${activeCompanyEmail}`)
                 .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'chat_messages' }, payload => {
                     const newMsg = payload.new;
-                    // Verificar si el mensaje pertenece a la conversación seleccionada
-                    if (newMsg.sender_id === activeCompanyUserId || newMsg.receiver_id === activeCompanyUserId) {
+                    
+                    // Verificar que el mensaje pertenezca a esta conversación específica
+                    const isFromAdminToCompany = newMsg.sender_email === ADMIN_EMAIL && newMsg.receiver_email === activeCompanyEmail;
+                    const isFromCompanyToAdmin = newMsg.sender_email === activeCompanyEmail && newMsg.receiver_email === ADMIN_EMAIL;
+
+                    if (isFromAdminToCompany || isFromCompanyToAdmin) {
                         const isAdmin = newMsg.sender_email === ADMIN_EMAIL;
                         appendMsg(newMsg.message, isAdmin, new Date(newMsg.created_at));
                         scrollToBottom();
