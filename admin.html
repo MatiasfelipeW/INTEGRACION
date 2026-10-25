@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Chat de Empresas | Whiat Company</title>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <style>
+        :root { --primary: #00b4d8; --bg: #050b14; --card: #0a192f; --text: #e2e8f0; }
+        body { font-family: 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); margin: 0; display: flex; height: 100vh; overflow: hidden; }
+        
+        /* Panel Izquierdo: Lista de Empresas */
+        .sidebar { width: 300px; background: var(--card); border-right: 1px solid rgba(0,180,216,0.2); display: flex; flex-direction: column; }
+        .sidebar-header { padding: 20px; border-bottom: 1px solid rgba(0,180,216,0.2); background: rgba(0,0,0,0.2); }
+        .sidebar-header h2 { margin: 0; color: var(--primary); font-size: 18px; }
+        .company-list { flex: 1; overflow-y: auto; list-style: none; padding: 0; margin: 0; }
+        .company-item { padding: 15px 20px; border-bottom: 1px solid rgba(255,255,255,0.05); cursor: pointer; transition: 0.2s; }
+        .company-item:hover, .company-item.active { background: rgba(0,180,216,0.1); border-left: 3px solid var(--primary); }
+        .company-item h4 { margin: 0 0 5px 0; font-size: 14px; color: #fff; }
+        .company-item p { margin: 0; font-size: 12px; color: #8892b0; }
+
+        /* Panel Derecho: Chat */
+        .chat-area { flex: 1; display: flex; flex-direction: column; background: url('data:image/svg+xml;utf8,<svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(255,255,255,0.03)" stroke-width="1"/></pattern></defs><rect width="100%" height="100%" fill="url(%23grid)"/></svg>'); }
+        .chat-header { padding: 20px; background: var(--card); border-bottom: 1px solid rgba(0,180,216,0.2); display: flex; justify-content: space-between; align-items: center; }
+        .chat-header h3 { margin: 0; color: #fff; }
+        .chat-header p { margin: 5px 0 0 0; color: var(--primary); font-size: 12px; }
+        
+        .messages-container { flex: 1; padding: 20px; overflow-y: auto; display: flex; flex-direction: column; gap: 15px; }
+        .msg { max-width: 70%; padding: 12px 16px; border-radius: 12px; font-size: 14px; line-height: 1.4; }
+        .msg.received { align-self: flex-start; background: #1e3a5f; color: #fff; border-bottom-left-radius: 2px; }
+        .msg.sent { align-self: flex-end; background: var(--primary); color: #000; border-bottom-right-radius: 2px; font-weight: 500; }
+        .msg-time { display: block; font-size: 10px; margin-top: 5px; opacity: 0.7; text-align: right; }
+        
+        .input-area { padding: 20px; background: var(--card); border-top: 1px solid rgba(0,180,216,0.2); display: flex; gap: 10px; }
+        .input-area input { flex: 1; padding: 12px 15px; border-radius: 20px; border: 1px solid #1e3a5f; background: rgba(5,11,20,0.8); color: #fff; outline: none; }
+        .input-area input:focus { border-color: var(--primary); }
+        .input-area button { padding: 0 25px; border-radius: 20px; border: none; background: var(--primary); color: #000; font-weight: bold; cursor: pointer; transition: 0.2s; }
+        .input-area button:hover { background: #fff; }
+        
+        .empty-state { flex: 1; display: flex; justify-content: center; align-items: center; color: #8892b0; font-size: 16px; }
+    </style>
+</head>
+<body>
+
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <h2>💼 Empresas Registradas</h2>
+        </div>
+        <ul class="company-list" id="companyList">
+            <!-- Se llena vía JS -->
+        </ul>
+    </div>
+
+    <div class="chat-area">
+        <div id="emptyState" class="empty-state">
+            Selecciona una empresa para ver su chat.
+        </div>
+        
+        <div id="chatInterface" style="display: none; flex-direction: column; height: 100%;">
+            <div class="chat-header">
+                <div>
+                    <h3 id="activeCompanyName">Nombre Empresa</h3>
+                    <p id="activeCompanyContact">Contacto - Cargo</p>
+                </div>
+                <div style="text-align: right; font-size: 12px; color: #8892b0;">
+                    <div id="activeCompanyPhone">Tel: ...</div>
+                    <div id="activeCompanyEmail">Email: ...</div>
+                </div>
+            </div>
+            
+            <div class="messages-container" id="adminChatMessages">
+                <!-- Mensajes -->
+            </div>
+            
+            <div class="input-area">
+                <input type="text" id="adminChatInput" placeholder="Escribe una respuesta como administrador...">
+                <button id="adminSendBtn">Enviar</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const SUPABASE_URL = 'https://orzbnvgjadwxxmqqeqru.supabase.co';
+        const SUPABASE_ANON_KEY = 'sb_publishable_xvFhBazFvnijDOpY95XnCw_zX83Qs3Q';
+        const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+        
+        const ADMIN_EMAIL = 'felipewhiat@gmail.com';
+
+        let adminUser = null; 
+        let activeCompanyUserId = null;
+        let activeCompanyEmail = null;
+        let currentChatSubscription = null;
+
+        // 1. VERIFICAR QUE ERES TÚ EL QUE ESTÁ ENTRANDO
+        async function checkAdminAuth() {
+            const { data: { session } } = await supabaseClient.auth.getSession();
+            if (!session || session.user.email !== ADMIN_EMAIL) {
+                alert("Acceso denegado. Debes iniciar sesión como " + ADMIN_EMAIL);
+                window.location.href = 'index.html'; // Te manda a loguearte
+                return;
+            }
+            adminUser = session.user;
+            loadCompanies();
+        }
+
+        checkAdminAuth();
+
+        // 2. Cargar empresas
+        async function loadCompanies() {
+            const { data, error } = await supabaseClient
+                .from('company_profiles')
+                .select('*')
+                .order('created_at', { ascending: false });
+
+            if (error) {
+                console.error("Error cargando empresas:", error);
+                return;
+            }
+
+            const list = document.getElementById('companyList');
+            list.innerHTML = '';
+
+            if (data.length === 0) {
+                list.innerHTML = '<li class="company-item">No hay empresas registradas aún.</li>';
+                return;
+            }
+
+            data.forEach(comp => {
+                const li = document.createElement('li');
+                li.className = 'company-item';
+                li.innerHTML = `
+                    <h4>${comp.company_name}</h4>
+                    <p>${comp.contact_name} - ${comp.position}</p>
+                `;
+                li.onclick = (e) => selectCompany(comp, e.currentTarget);
+                list.appendChild(li);
+            });
+        }
+
+        // 3. Seleccionar empresa y cargar chat
+        async function selectCompany(comp, element) {
+            document.querySelectorAll('.company-item').forEach(el => el.classList.remove('active'));
+            element.classList.add('active');
+
+            document.getElementById('emptyState').style.display = 'none';
+            document.getElementById('chatInterface').style.display = 'flex';
+            
+            document.getElementById('activeCompanyName').textContent = comp.company_name;
+            document.getElementById('activeCompanyContact').textContent = `${comp.contact_name} (${comp.position})`;
+            document.getElementById('activeCompanyPhone').textContent = `Tel: ${comp.phone}`;
+            
+            activeCompanyUserId = comp.user_id;
+            
+            // Obtener el email del usuario basado en mensajes previos
+            const { data: msgData } = await supabaseClient
+                .from('chat_messages')
+                .select('sender_email')
+                .eq('sender_id', activeCompanyUserId)
+                .limit(1);
+            
+            if (msgData && msgData.length > 0) {
+                activeCompanyEmail = msgData[0].sender_email;
+                document.getElementById('activeCompanyEmail').textContent = `Email: ${activeCompanyEmail}`;
+            } else {
+                activeCompanyEmail = null;
+                document.getElementById('activeCompanyEmail').textContent = `Email: (Sin mensajes aún)`;
+            }
+
+            loadChatHistory();
+            subscribeToCompanyChat();
+        }
+
+        // 4. Cargar historial
+        async function loadChatHistory() {
+            const container = document.getElementById('adminChatMessages');
+            container.innerHTML = '';
+
+            const { data, error } = await supabaseClient
+                .from('chat_messages')
+                .select('*')
+                .eq('sender_id', activeCompanyUserId)
+                .order('created_at', { ascending: true });
+
+            if (data) {
+                data.forEach(msg => {
+                    const isAdmin = msg.sender_email === ADMIN_EMAIL;
+                    appendMsg(msg.message, isAdmin, new Date(msg.created_at));
+                });
+                scrollToBottom();
+            }
+        }
+
+        // 5. Enviar mensaje
+        document.getElementById('adminSendBtn').onclick = async () => {
+            const input = document.getElementById('adminChatInput');
+            const text = input.value.trim();
+            if (!text || !activeCompanyUserId || !adminUser) return;
+
+            input.value = '';
+            input.disabled = true;
+
+            const { error } = await supabaseClient.from('chat_messages').insert([{
+                sender_id: adminUser.id, 
+                sender_email: ADMIN_EMAIL,
+                receiver_email: activeCompanyEmail || 'desconocido',
+                message: text
+            }]);
+
+            if (error) {
+                alert("Error al enviar: " + error.message);
+                console.error(error);
+            }
+
+            input.disabled = false;
+            input.focus();
+        };
+
+        document.getElementById('adminChatInput').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') document.getElementById('adminSendBtn').click();
+        });
+
+        // 6. Tiempo real
+        function subscribeToCompanyChat() {
+            if (currentChatSubscription) currentChatSubscription.unsubscribe();
+
+            currentChatSubscription = supabaseClient
+                .channel('admin_chat')
+                .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'chat_messages' }, payload => {
+                    const newMsg = payload.new;
+                    if (newMsg.sender_id === activeCompanyUserId || newMsg.receiver_email === activeCompanyEmail) {
+                        const isAdmin = newMsg.sender_email === ADMIN_EMAIL;
+                        appendMsg(newMsg.message, isAdmin, new Date(newMsg.created_at));
+                        scrollToBottom();
+                    }
+                })
+                .subscribe();
+        }
+
+        function appendMsg(text, isAdmin, dateObj) {
+            const container = document.getElementById('adminChatMessages');
+            const timeStr = dateObj.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+            
+            const div = document.createElement('div');
+            div.className = `msg ${isAdmin ? 'sent' : 'received'}`;
+            div.innerHTML = `
+                ${text}
+                <span class="msg-time">${timeStr}</span>
+            `;
+            container.appendChild(div);
+        }
+
+        function scrollToBottom() {
+            const container = document.getElementById('adminChatMessages');
+            container.scrollTop = container.scrollHeight;
+        }
+    </script>
+</body>
+</html>
