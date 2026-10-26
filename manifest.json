@@ -1,0 +1,23 @@
+{
+  "name": "Whiat Company",
+  "short_name": "Whiat",
+  "description": "Soluciones Digitales Integrales | Aliados Estratégicos",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#050b14",
+  "theme_color": "#00b4d8",
+  "icons": [
+    {
+      "src": "MEDIA/ITEM2-removebg-preview.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "MEDIA/ITEM2-removebg-preview.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

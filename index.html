@@ -75,6 +75,10 @@
     <meta name="robots" content="noindex, nofollow">
     <meta name="googlebot" content="noindex, nofollow">
 
+    <!-- ========== CONFIGURACIÓN PWA (APLICACIÓN INSTALABLE) ========== -->
+    <meta name="theme-color" content="#050b14">
+    <link rel="manifest" href="manifest.json">
+
     <title data-i18n="titulo">Whiat Company - Soluciones Digitales Integrales</title>
 
     <link rel="icon" type="image/png" sizes="32x32" href="MEDIA/ITEM2-removebg-preview.png">
@@ -2124,6 +2128,61 @@
                 });
             }
 
+        });
+    </script>
+
+    <!-- ==========================================
+         SCRIPT PWA: REGISTRO DEL SERVICE WORKER E INSTALACIÓN
+         ========================================== -->
+    <button id="installAppBtn" style="display: none; position: fixed; bottom: 20px; left: 20px; z-index: 9999; background: linear-gradient(90deg, #00b4d8, #0077b6); color: #fff; border: none; padding: 12px 20px; border-radius: 30px; font-weight: bold; cursor: pointer; box-shadow: 0 4px 15px rgba(0,180,216,0.4); transition: all 0.3s; align-items: center; gap: 8px;">
+        <i class="fas fa-download"></i> Instalar App
+    </button>
+
+    <script>
+        // 1. Registrar el Service Worker para PWA
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js')
+                    .then(registration => {
+                        console.log('Service Worker registrado con éxito:', registration.scope);
+                    })
+                    .catch(error => {
+                        console.log('Fallo al registrar el Service Worker:', error);
+                    });
+            });
+        }
+
+        // 2. Lógica del botón de Instalación
+        let deferredPrompt;
+        const installAppBtn = document.getElementById('installAppBtn');
+
+        window.addEventListener('beforeinstallprompt', (e) => {
+            // Previene que el navegador muestre el banner automático
+            e.preventDefault();
+            // Guarda el evento para dispararlo manualmente
+            deferredPrompt = e;
+            // Muestra el botón personalizado
+            installAppBtn.style.display = 'flex'; // Usamos flex para alinear el icono y el texto
+        });
+
+        installAppBtn.addEventListener('click', async () => {
+            if (deferredPrompt) {
+                // Muestra el diálogo de instalación del navegador
+                deferredPrompt.prompt();
+                // Espera a que el usuario responda
+                const { outcome } = await deferredPrompt.userChoice;
+                console.log(`El usuario respondió: ${outcome}`);
+                // Limpia la variable
+                deferredPrompt = null;
+                // Oculta el botón
+                installAppBtn.style.display = 'none';
+            }
+        });
+
+        // Ocultar el botón si la app ya está instalada
+        window.addEventListener('appinstalled', () => {
+            installAppBtn.style.display = 'none';
+            console.log('¡La PWA ha sido instalada!');
         });
     </script>
 </body>
