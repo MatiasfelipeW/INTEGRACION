@@ -249,7 +249,7 @@ document.body.addEventListener('cut', function (e) {
 });
 
 // =====================================================================
-// 4. SISTEMA DE IDIOMAS (i18n)
+// 4. SISTEMA DE IDIOMAS (i18n) — GLOBAL
 // =====================================================================
 const translations = {
     es: {
@@ -541,104 +541,486 @@ const translations = {
         footer_terminos: "Terms of Service",
         footer_cookies: "Cookies",
         footer_copyright: "© 2024 Whiat Company - All rights reserved."
+    },
+    de: {
+        titulo: "Whiat Company - Umfassende digitale Lösungen",
+        whiat_company: "WHIAT COMPANY",
+        nav_modelo: "Modell",
+        nav_servicios: "Dienstleistungen",
+        nav_desarrollo_web: "Webentwicklung",
+        nav_aliados: "Partner",
+        nav_perfil: "Profil",
+        nav_contacto: "Kontakt",
+        nav_python_ide: "Python IDE",
+        nav_iniciar_sesion: "Anmelden",
+        hero_badge: "Umfassende digitale Lösungen | Strategische Partner",
+        hero_titulo: "Steigern Sie Ihr Geschäft mit Spitzentechnologie",
+        hero_descripcion: "Experten für die Erstellung von mobilen Apps, Hochleistungs-Websites, Cybersicherheit, Blockchain und maßgeschneiderten digitalen Lösungen für kleine, mittlere und große Unternehmen.",
+        hero_boton: "Erzählen Sie uns Ihre Idee",
+        servicios_titulo: "Unsere spezialisierten Dienstleistungen",
+        servicios_subtitulo: "Komplettlösungen für jede digitale Anforderung Ihres Unternehmens.",
+        servicio1_titulo: "Android & iOS Apps",
+        servicio1_desc: "Leistungsstarke native und hybride Anwendungen.",
+        servicio1_item1: "Apps für Geschäfte und Restaurants",
+        servicio1_item2: "Lieferplattformen",
+        servicio1_item3: "Treuesysteme",
+        servicio1_item4: "Veröffentlichung im App Store und Play Store",
+        servicio1_boton: "App anfragen",
+        servicio2_titulo: "Cybersicherheit & Datenschutz",
+        servicio2_desc: "Wir schützen Ihre digitale Infrastruktur vor Bedrohungen.",
+        servicio2_item1: "Sicherheitsaudits und Pentesting",
+        servicio2_item2: "Firewall-Implementierung",
+        servicio2_item3: "Identitäts- und Zugriffsverwaltung",
+        servicio2_item4: "Compliance (ISO 27001, DSGVO)",
+        servicio2_boton: "Mein Unternehmen schützen",
+        servicio3_titulo: "Blockchain & Krypto-Mining",
+        servicio3_desc: "Wir entwickeln Blockchain-Lösungen und Mining-Beratung.",
+        servicio3_item1: "Entwicklung von Smart Contracts",
+        servicio3_item2: "Implementierung privater Netzwerke",
+        servicio3_item3: "Beratung zu Mining-Farmen",
+        servicio3_item4: "Tokenisierung von Vermögenswerten (NFTs, STOs)",
+        servicio3_boton: "Blockchain erkunden",
+        servicio4_titulo: "IT-Outsourcing & Vermittlung",
+        servicio4_desc: "Erweitern Sie Ihr Team mit erfahrenen Programmierern pro Projekt.",
+        servicio4_item1: "Stunden- oder projektbasierte Einstellung",
+        servicio4_item2: "Full-Stack-Entwickler",
+        servicio4_item3: "Datenbank-Spezialisten",
+        servicio4_item4: "Zahlungsverwaltung und KPIs",
+        servicio4_boton: "Talente einstellen",
+        servicio5_titulo: "KMU-Unterstützung",
+        servicio5_desc: "Wir verwalten und optimieren Ihre technologische Infrastruktur.",
+        servicio5_item1: "Server- und Netzwerkverwaltung",
+        servicio5_item2: "Remote-Techniksupport",
+        servicio5_item3: "Gerätewartung",
+        servicio5_item4: "Strategien zur digitalen Transformation",
+        servicio5_boton: "Support anfordern",
+        servicio6_titulo: "Websites & CMS",
+        servicio6_desc: "Wir erstellen beeindruckende und einfach zu verwaltende Websites.",
+        servicio6_item1: "Responsives UX/UI-Design",
+        servicio6_item2: "E-Commerce (Online-Shops)",
+        servicio6_item3: "Content-Management (WordPress, Strapi)",
+        servicio6_item4: "SEO- und Geschwindigkeitsoptimierung",
+        servicio6_boton: "Meine Website erstellen",
+        servicio7_titulo: "Wartung & Updates",
+        servicio7_desc: "Wir sorgen dafür, dass Ihre Website immer aktuell und sicher ist.",
+        servicio7_item1: "Sicherheitsupdates",
+        servicio7_item2: "Automatische Backups",
+        servicio7_item3: "24/7-Überwachung",
+        servicio7_item4: "Servermigrationen",
+        servicio7_boton: "Mein Projekt warten",
+        fullstack_titulo: "Fullstack-Webentwicklung",
+        fullstack_subtitulo: "Wir erstellen komplette Webanwendungen.",
+        fullstack_frontend: "Modernes Frontend",
+        fullstack_backend: "Robustes Backend",
+        fullstack_db: "Datenbanken",
+        fullstack_boton: "Individuelle Entwicklung anfragen",
+        aliados_titulo: "Partner der neuen digitalen Welt",
+        aliados_subtitulo: "Wir verbinden Unternehmen mit dem digitalen Zeitalter.",
+        aliados_emergentes: "Für aufstrebende Unternehmen",
+        aliados_emergentes_desc: "Wir begleiten Start-ups und Unternehmen in ihren frühen digitalen Phasen.",
+        aliados_acreditadas: "Für etablierte Unternehmen",
+        aliados_acreditadas_desc: "Wir modernisieren die Infrastruktur und führen neue Technologien ein.",
+        perfil_titulo: "Professionelles Profil",
+        perfil_subtitulo: "Lernen Sie den Gründer kennen",
+        perfil_ceo: "CEO & Gründer",
+        perfil_tag_fullstack: "Full-Stack-Entwickler",
+        perfil_tag_blockchain: "Blockchain-Spezialist",
+        perfil_boton_web: "Meine offizielle Website",
+        perfil_boton_whatsapp: "Sofortige Anfrage",
+        perfil_boton_email: "Direkte E-Mail",
+        cta_titulo: "Bereit für den digitalen Sprung?",
+        cta_descripcion: "Ob maßgeschneiderte Entwicklung, Erweiterung Ihres Teams mit unseren Freelancern oder Sicherung Ihrer Infrastruktur – wir sind hier, um es möglich zu machen.",
+        cta_boton: "Kostenlose Beratung anfordern",
+        test_titulo: "🔥 Testen Sie Ihre Python-Kenntnisse",
+        test_descripcion: "Glauben Sie, Sie beherrschen Python? Beweisen Sie Ihr Wissen mit diesem interaktiven Test.",
+        test_tag1: "🐍 Grundlegende Syntax",
+        test_tag2: "📝 Strings",
+        test_tag3: "🧠 Logik",
+        test_tag4: "⚡ Schnell und unterhaltsam",
+        test_boton: "🎯 Mein Niveau testen →",
+        test_tag_tiempo: "⏱️ Weniger als 5 Min",
+        test_tag_python: "🐍 Python Challenge",
+        ide_titulo: "Interaktive Python IDE (Lokal)",
+        ide_descripcion: "Schreiben, ausführen und testen Sie Python-Code direkt in Ihrem Browser. <strong>Kompatibel mit input()</strong> und der gesamten Standardbibliothek.",
+        ide_boton_ejecutar: "Code ausführen",
+        ide_boton_limpiar: "Editor leeren",
+        ide_boton_restaurar: "Beispiel wiederherstellen",
+        ide_cargando: "Pyodide wird geladen...",
+        ide_stdin_label: "📥 Standardeingabe (stdin) - simuliert input()",
+        ide_stdin_placeholder: "Schreiben Sie hier die Werte, die input() der Reihe nach annimmt\nBeispiel:\nJohn\n25",
+        ide_stdin_ayuda: "Jede Zeile ist eine Antwort für jedes input() in der Reihenfolge ihres Auftretens.",
+        ide_output_header: "🖥️ Ausgabe / Fehler",
+        ide_inicializando: "⏳ Python-Umgebung wird initialisiert (Pyodide)...",
+        ide_espera: "Dies dauert beim ersten Mal einige Sekunden.",
+        ide_footer: "🧠 Powered by <strong>Pyodide</strong> (Python in WebAssembly) - 100% lokale Ausführung in Ihrem Browser. Unterstützt input(), print(), Listen, Schleifen, Funktionen usw.",
+        contacto_titulo: "Kontakt",
+        contacto_subtitulo: "Nehmen Sie Kontakt mit uns auf",
+        contacto_nombre: "Vollständiger Name",
+        contacto_nombre_placeholder: "Ihr Name",
+        contacto_telefono: "Telefon (mit Ländercode)",
+        contacto_telefono_placeholder: "+49",
+        contacto_email: "E-Mail",
+        contacto_email_placeholder: "ihre@email.com",
+        contacto_empresa: "Unternehmen (optional)",
+        contacto_empresa_placeholder: "Ihr Unternehmen",
+        contacto_servicio: "Dienstleistung von Interesse",
+        contacto_servicio_default: "Wählen Sie eine Dienstleistung",
+        contacto_consultoria: "Beratung mit Matías Whiat",
+        contacto_otro: "Andere",
+        contacto_mensaje: "Nachricht",
+        contacto_mensaje_placeholder: "Schreiben Sie Ihre Nachricht...",
+        contacto_enviar: "Nachricht senden",
+        login_subtitulo: "Greifen Sie auf Ihr Konto zu",
+        login_password: "Passwort",
+        login_password_placeholder: "••••••••",
+        login_recordarme: "Angemeldet bleiben",
+        login_olvidaste: "Passwort vergessen?",
+        login_iniciar: "Anmelden",
+        login_no_cuenta: "Sie haben noch kein Konto?",
+        login_registrate: "Hier registrieren",
+        footer_descripcion: "Wir treiben die Evolution der Unternehmen zu einer digitaleren Zukunft voran.",
+        footer_servicios: "Dienstleistungen",
+        footer_enlaces: "Links",
+        footer_legal: "Rechtliches",
+        footer_privacidad: "Datenschutzrichtlinie",
+        footer_terminos: "Nutzungsbedingungen",
+        footer_cookies: "Cookies",
+        footer_copyright: "© 2024 Whiat Company - Alle Rechte vorbehalten."
+    },
+    zh: {
+        titulo: "Whiat Company - 综合数字解决方案",
+        whiat_company: "WHIAT COMPANY",
+        nav_modelo: "模型",
+        nav_servicios: "服务",
+        nav_desarrollo_web: "网站开发",
+        nav_aliados: "合作伙伴",
+        nav_perfil: "个人资料",
+        nav_contacto: "联系方式",
+        nav_python_ide: "Python IDE",
+        nav_iniciar_sesion: "登录",
+        hero_badge: "综合数字解决方案 | 战略合作伙伴",
+        hero_titulo: "用尖端技术推动您的业务发展",
+        hero_descripcion: "专注于为中小型和大型企业创建移动应用、高性能网站、网络安全、区块链和定制数字解决方案的专家。",
+        hero_boton: "告诉我们您的想法",
+        servicios_titulo: "我们的专业服务",
+        servicios_subtitulo: "为您的企业的每个数字需求提供完整的解决方案。",
+        servicio1_titulo: "Android 和 iOS 应用",
+        servicio1_desc: "高性能的原生和混合应用程序。",
+        servicio1_item1: "商店和餐厅应用",
+        servicio1_item2: "配送平台",
+        servicio1_item3: "忠诚度系统",
+        servicio1_item4: "在 App Store 和 Play Store 发布",
+        servicio1_boton: "获取应用报价",
+        servicio2_titulo: "网络安全与数据保护",
+        servicio2_desc: "我们保护您的数字基础设施免受威胁。",
+        servicio2_item1: "安全审计和渗透测试",
+        servicio2_item2: "防火墙实施",
+        servicio2_item3: "身份和访问管理",
+        servicio2_item4: "合规性 (ISO 27001, GDPR)",
+        servicio2_boton: "保护我的公司",
+        servicio3_titulo: "区块链与加密挖矿",
+        servicio3_desc: "我们开发基于区块链的解决方案并提供挖矿咨询。",
+        servicio3_item1: "智能合约开发",
+        servicio3_item2: "私有网络实施",
+        servicio3_item3: "矿场咨询",
+        servicio3_item4: "资产代币化 (NFTs, STOs)",
+        servicio3_boton: "探索区块链",
+        servicio4_titulo: "IT 外包与经纪",
+        servicio4_desc: "按项目为您的团队增加专家程序员。",
+        servicio4_item1: "按小时或项目聘用",
+        servicio4_item2: "全栈开发人员",
+        servicio4_item3: "数据库专家",
+        servicio4_item4: "支付管理和 KPI",
+        servicio4_boton: "雇佣人才",
+        servicio5_titulo: "中小企业支持",
+        servicio5_desc: "我们管理和优化您的技术基础设施。",
+        servicio5_item1: "服务器和网络管理",
+        servicio5_item2: "远程技术支持",
+        servicio5_item3: "设备维护",
+        servicio5_item4: "数字化转型战略",
+        servicio5_boton: "请求支持",
+        servicio6_titulo: "网站与 CMS",
+        servicio6_desc: "我们创建令人印象深刻且易于管理的网站。",
+        servicio6_item1: "响应式 UX/UI 设计",
+        servicio6_item2: "电子商务 (在线商店)",
+        servicio6_item3: "内容管理 (WordPress, Strapi)",
+        servicio6_item4: "SEO 和速度优化",
+        servicio6_boton: "创建我的网站",
+        servicio7_titulo: "维护与更新",
+        servicio7_desc: "我们确保您的网站始终是最新且安全的。",
+        servicio7_item1: "安全更新",
+        servicio7_item2: "自动备份",
+        servicio7_item3: "24/7 监控",
+        servicio7_item4: "服务器迁移",
+        servicio7_boton: "维护我的项目",
+        fullstack_titulo: "全栈 Web 开发",
+        fullstack_subtitulo: "我们构建完整的 Web 应用程序。",
+        fullstack_frontend: "现代前端",
+        fullstack_backend: "强大的后端",
+        fullstack_db: "数据库",
+        fullstack_boton: "请求定制开发",
+        aliados_titulo: "新数字世界的合作伙伴",
+        aliados_subtitulo: "我们将企业与数字时代连接起来。",
+        aliados_emergentes: "对于新兴公司",
+        aliados_emergentes_desc: "我们在初创企业和企业的早期数字阶段陪伴他们。",
+        aliados_acreditadas: "对于老牌公司",
+        aliados_acreditadas_desc: "我们现代化基础设施并采用新技术。",
+        perfil_titulo: "专业简介",
+        perfil_subtitulo: "认识创始人",
+        perfil_ceo: "CEO 兼创始人",
+        perfil_tag_fullstack: "全栈开发人员",
+        perfil_tag_blockchain: "区块链专家",
+        perfil_boton_web: "我的官方网站",
+        perfil_boton_whatsapp: "立即咨询",
+        perfil_boton_email: "直接电邮",
+        cta_titulo: "准备好实现数字飞跃了吗？",
+        cta_descripcion: "无论是定制开发、用我们的自由职业者扩展您的团队，还是保护您的基础设施，我们都随时为您实现。",
+        cta_boton: "请求免费咨询",
+        test_titulo: "🔥 测试你的 Python 技能",
+        test_descripcion: "认为你精通 Python？用这个互动测试来证明你的知识。",
+        test_tag1: "🐍 基础语法",
+        test_tag2: "📝 字符串",
+        test_tag3: "🧠 逻辑",
+        test_tag4: "⚡ 快速有趣",
+        test_boton: "🎯 测试我的水平 →",
+        test_tag_tiempo: "⏱️ 少于 5 分钟",
+        test_tag_python: "🐍 Python 挑战",
+        ide_titulo: "交互式 Python IDE (本地)",
+        ide_descripcion: "直接在浏览器中编写、运行和测试 Python 代码。<strong>兼容 input()</strong> 和整个标准库。",
+        ide_boton_ejecutar: "运行代码",
+        ide_boton_limpiar: "清空编辑器",
+        ide_boton_restaurar: "恢复示例",
+        ide_cargando: "正在加载 Pyodide...",
+        ide_stdin_label: "📥 标准输入 (stdin) - 模拟 input()",
+        ide_stdin_placeholder: "在此处按顺序输入 input() 将接收的值\n示例：\nJohn\n25",
+        ide_stdin_ayuda: "每行将按出现的顺序作为每个 input() 的答案。",
+        ide_output_header: "🖥️ 输出 / 错误",
+        ide_inicializando: "⏳ 正在初始化 Python 环境 (Pyodide)...",
+        ide_espera: "第一次可能需要几秒钟。",
+        ide_footer: "🧠 由 <strong>Pyodide</strong> (WebAssembly 中的 Python) 提供支持 - 在您的浏览器中 100% 本地执行。支持 input()、print()、列表、循环、函数等。",
+        contacto_titulo: "联系方式",
+        contacto_subtitulo: "与我们联系",
+        contacto_nombre: "全名",
+        contacto_nombre_placeholder: "您的名字",
+        contacto_telefono: "电话 (含国家代码)",
+        contacto_telefono_placeholder: "+86",
+        contacto_email: "电子邮件",
+        contacto_email_placeholder: "your@email.com",
+        contacto_empresa: "公司 (可选)",
+        contacto_empresa_placeholder: "您的公司",
+        contacto_servicio: "感兴趣的服务",
+        contacto_servicio_default: "选择一项服务",
+        contacto_consultoria: "与 Matías Whiat 咨询",
+        contacto_otro: "其他",
+        contacto_mensaje: "留言",
+        contacto_mensaje_placeholder: "写下您的留言...",
+        contacto_enviar: "发送留言",
+        login_subtitulo: "访问您的帐户",
+        login_password: "密码",
+        login_password_placeholder: "••••••••",
+        login_recordarme: "记住我",
+        login_olvidaste: "忘记密码？",
+        login_iniciar: "登录",
+        login_no_cuenta: "还没有帐户？",
+        login_registrate: "在此注册",
+        footer_descripcion: "我们推动企业向更加数字化的未来发展。",
+        footer_servicios: "服务",
+        footer_enlaces: "链接",
+        footer_legal: "法律",
+        footer_privacidad: "隐私政策",
+        footer_terminos: "服务条款",
+        footer_cookies: "Cookies",
+        footer_copyright: "© 2024 Whiat Company - 版权所有。"
+    },
+    ru: {
+        titulo: "Whiat Company - Комплексные цифровые решения",
+        whiat_company: "WHIAT COMPANY",
+        nav_modelo: "Модель",
+        nav_servicios: "Услуги",
+        nav_desarrollo_web: "Веб-разработка",
+        nav_aliados: "Партнеры",
+        nav_perfil: "Профиль",
+        nav_contacto: "Контакты",
+        nav_python_ide: "Python IDE",
+        nav_iniciar_sesion: "Войти",
+        hero_badge: "Комплексные цифровые решения | Стратегические партнеры",
+        hero_titulo: "Развивайте свой бизнес с помощью передовых технологий",
+        hero_descripcion: "Эксперты по созданию мобильных приложений, высокопроизводительных веб-сайтов, кибербезопасности, блокчейна и индивидуальных цифровых решений для малых, средних и крупных компаний.",
+        hero_boton: "Расскажите нам свою идею",
+        servicios_titulo: "Наши специализированные услуги",
+        servicios_subtitulo: "Комплексные решения для любых цифровых потребностей вашей компании.",
+        servicio1_titulo: "Приложения для Android и iOS",
+        servicio1_desc: "Высокопроизводительные нативные и гибридные приложения.",
+        servicio1_item1: "Приложения для магазинов и ресторанов",
+        servicio1_item2: "Платформы доставки",
+        servicio1_item3: "Системы лояльности",
+        servicio1_item4: "Публикация в App Store и Play Store",
+        servicio1_boton: "Заказать приложение",
+        servicio2_titulo: "Кибербезопасность и защита данных",
+        servicio2_desc: "Мы защищаем вашу цифровую инфраструктуру от угроз.",
+        servicio2_item1: "Аудит безопасности и пентестинг",
+        servicio2_item2: "Внедрение межсетевых экранов",
+        servicio2_item3: "Управление идентификацией и доступом",
+        servicio2_item4: "Соответствие требованиям (ISO 27001, GDPR)",
+        servicio2_boton: "Защитить мою компанию",
+        servicio3_titulo: "Блокчейн и майнинг криптовалют",
+        servicio3_desc: "Мы разрабатываем блокчейн-решения и консультируем по майнингу.",
+        servicio3_item1: "Разработка смарт-контрактов",
+        servicio3_item2: "Внедрение частных сетей",
+        servicio3_item3: "Консультации по майнинг-фермам",
+        servicio3_item4: "Токенизация активов (NFT, STO)",
+        servicio3_boton: "Исследовать блокчейн",
+        servicio4_titulo: "ИТ-аутсорсинг и брокерство",
+        servicio4_desc: "Расширьте свою команду опытными программистами на проект.",
+        servicio4_item1: "Почасовая или проектная занятость",
+        servicio4_item2: "Full-stack разработчики",
+        servicio4_item3: "Специалисты по базам данных",
+        servicio4_item4: "Управление платежами и KPI",
+        servicio4_boton: "Нанять таланты",
+        servicio5_titulo: "Поддержка МСП",
+        servicio5_desc: "Мы управляем и оптимизируем вашу технологическую инфраструктуру.",
+        servicio5_item1: "Администрирование серверов и сетей",
+        servicio5_item2: "Удаленная техническая поддержка",
+        servicio5_item3: "Обслуживание оборудования",
+        servicio5_item4: "Стратегии цифровой трансформации",
+        servicio5_boton: "Запросить поддержку",
+        servicio6_titulo: "Веб-сайты и CMS",
+        servicio6_desc: "Мы создаем потрясающие и простые в управлении веб-сайты.",
+        servicio6_item1: "Адаптивный UX/UI дизайн",
+        servicio6_item2: "Электронная коммерция (интернет-магазины)",
+        servicio6_item3: "Управление контентом (WordPress, Strapi)",
+        servicio6_item4: "SEO и оптимизация скорости",
+        servicio6_boton: "Создать мой сайт",
+        servicio7_titulo: "Обслуживание и обновления",
+        servicio7_desc: "Мы гарантируем, что ваш сайт всегда будет актуальным и безопасным.",
+        servicio7_item1: "Обновления безопасности",
+        servicio7_item2: "Автоматическое резервное копирование",
+        servicio7_item3: "Мониторинг 24/7",
+        servicio7_item4: "Миграция серверов",
+        servicio7_boton: "Обслуживать мой проект",
+        fullstack_titulo: "Fullstack веб-разработка",
+        fullstack_subtitulo: "Мы создаем полноценные веб-приложения.",
+        fullstack_frontend: "Современный фронтенд",
+        fullstack_backend: "Надежный бэкенд",
+        fullstack_db: "Базы данных",
+        fullstack_boton: "Запросить индивидуальную разработку",
+        aliados_titulo: "Партнеры нового цифрового мира",
+        aliados_subtitulo: "Мы соединяем компании с цифровой эрой.",
+        aliados_emergentes: "Для новых компаний",
+        aliados_emergentes_desc: "Мы сопровождаем стартапы и бизнесы на ранних цифровых этапах.",
+        aliados_acreditadas: "Для проверенных компаний",
+        aliados_acreditadas_desc: "Мы модернизируем инфраструктуру и внедряем новые технологии.",
+        perfil_titulo: "Профессиональный профиль",
+        perfil_subtitulo: "Познакомьтесь с основателем",
+        perfil_ceo: "Генеральный директор и основатель",
+        perfil_tag_fullstack: "Full-Stack разработчик",
+        perfil_tag_blockchain: "Специалист по блокчейну",
+        perfil_boton_web: "Мой официальный сайт",
+        perfil_boton_whatsapp: "Немедленный запрос",
+        perfil_boton_email: "Прямая почта",
+        cta_titulo: "Готовы к цифровому прыжку?",
+        cta_descripcion: "Будь то индивидуальная разработка, расширение вашей команды нашими фрилансерами или обеспечение безопасности вашей инфраструктуры, мы здесь, чтобы это произошло.",
+        cta_boton: "Запросить бесплатную консультацию",
+        test_titulo: "🔥 Проверьте свои навыки Python",
+        test_descripcion: "Думаете, вы владеете Python? Докажите свои знания с помощью этого интерактивного теста.",
+        test_tag1: "🐍 Базовый синтаксис",
+        test_tag2: "📝 Строки",
+        test_tag3: "🧠 Логика",
+        test_tag4: "⚡ Быстро и весело",
+        test_boton: "🎯 Проверить мой уровень →",
+        test_tag_tiempo: "⏱️ Менее 5 минут",
+        test_tag_python: "🐍 Python Challenge",
+        ide_titulo: "Интерактивная Python IDE (локальная)",
+        ide_descripcion: "Пишите, запускайте и тестируйте код Python прямо в браузере. <strong>Совместимо с input()</strong> и всей стандартной библиотекой.",
+        ide_boton_ejecutar: "Запустить код",
+        ide_boton_limpiar: "Очистить редактор",
+        ide_boton_restaurar: "Восстановить пример",
+        ide_cargando: "Загрузка Pyodide...",
+        ide_stdin_label: "📥 Стандартный ввод (stdin) - имитирует input()",
+        ide_stdin_placeholder: "Введите здесь значения, которые будет принимать input() по порядку\nПример:\nJohn\n25",
+        ide_stdin_ayuda: "Каждая строка будет ответом для каждого input() в порядке их появления.",
+        ide_output_header: "🖥️ Вывод / Ошибка",
+        ide_inicializando: "⏳ Инициализация среды Python (Pyodide)...",
+        ide_espera: "Это займет несколько секунд в первый раз.",
+        ide_footer: "🧠 Работает на <strong>Pyodide</strong> (Python в WebAssembly) - 100% локальное выполнение в вашем браузере. Поддерживает input(), print(), списки, циклы, функции и т.д.",
+        contacto_titulo: "Контакты",
+        contacto_subtitulo: "Свяжитесь с нами",
+        contacto_nombre: "Полное имя",
+        contacto_nombre_placeholder: "Ваше имя",
+        contacto_telefono: "Телефон (с кодом страны)",
+        contacto_telefono_placeholder: "+7",
+        contacto_email: "Электронная почта",
+        contacto_email_placeholder: "your@email.com",
+        contacto_empresa: "Компания (необязательно)",
+        contacto_empresa_placeholder: "Ваша компания",
+        contacto_servicio: "Интересующая услуга",
+        contacto_servicio_default: "Выберите услугу",
+        contacto_consultoria: "Консультация с Matías Whiat",
+        contacto_otro: "Другое",
+        contacto_mensaje: "Сообщение",
+        contacto_mensaje_placeholder: "Напишите ваше сообщение...",
+        contacto_enviar: "Отправить сообщение",
+        login_subtitulo: "Доступ к вашему аккаунту",
+        login_password: "Пароль",
+        login_password_placeholder: "••••••••",
+        login_recordarme: "Запомнить меня",
+        login_olvidaste: "Забыли пароль?",
+        login_iniciar: "Войти",
+        login_no_cuenta: "Нет аккаунта?",
+        login_registrate: "Зарегистрируйтесь здесь",
+        footer_descripcion: "Мы стимулируем развитие бизнеса к более цифровому будущему.",
+        footer_servicios: "Услуги",
+        footer_enlaces: "Ссылки",
+        footer_legal: "Правовая информация",
+        footer_privacidad: "Политика конфиденциальности",
+        footer_terminos: "Условия обслуживания",
+        footer_cookies: "Cookies",
+        footer_copyright: "© 2024 Whiat Company - Все права защищены."
     }
 };
 
-let currentLang = localStorage.getItem('whiat_lang') ||
-    (navigator.language.startsWith('es') ? 'es' : 'en');
-
-const DEFAULT_ES = `# 🔥 IDE Python con soporte para input()
-# Escribe cualquier código Python estándar
-
-nombre = input("¿Cómo te llamas? ")
-edad = input("¿Cuántos años tienes? ")
-
-print(f"\\n✨ Hola {nombre}, tienes {edad} años.")
-print("Suma de 10 + 20 =", 10+20)
-
-numeros = [1,2,3,4,5]
-cuadrados = [n**2 for n in numeros]
-print(f"\\nLista: {numeros}")
-print(f"Cuadrados: {cuadrados}")
-
-print("\\n✅ ¡Todo funciona perfectamente!")`;
-
-const DEFAULT_EN = `# 🔥 Python IDE with input() support
-# Write any standard Python code
-
-name = input("What is your name? ")
-age = input("How old are you? ")
-
-print(f"\\n✨ Hello {name}, you are {age} years old.")
-print("Sum of 10 + 20 =", 10+20)
-
-numbers = [1,2,3,4,5]
-squares = [n**2 for n in numbers]
-print(f"\\nList: {numbers}")
-print(f"Squares: {squares}")
-
-print("\\n✅ Everything works perfectly!")`;
+let currentLang = localStorage.getItem('whiat_lang') || 'es';
 
 function setLanguage(lang) {
+    if (!translations[lang]) {
+        console.warn(`Idioma "${lang}" no encontrado. Usando español.`);
+        lang = 'es';
+    }
     currentLang = lang;
     localStorage.setItem('whiat_lang', lang);
     document.documentElement.lang = lang;
 
+    // Actualizar el texto del botón de idioma (si existe en la página)
     const langText = document.getElementById('currentLangText');
-    if (langText) langText.innerHTML = lang === 'es' ? '🌐 Español' : '🌐 English';
+    if (langText) {
+        const flags = { es: '🇪🇸', en: '🇬🇧', de: '🇩🇪', zh: '🇨🇳', ru: '🇷🇺' };
+        const names = { es: 'Español', en: 'English', de: 'Deutsch', zh: '中文', ru: 'Русский' };
+        langText.innerHTML = `${flags[lang]} ${names[lang]}`;
+    }
 
+    // Traducir todos los elementos con [data-i18n]
     document.querySelectorAll('[data-i18n]').forEach(el => {
         const key = el.getAttribute('data-i18n');
-        if (!translations[lang][key]) return;
-        const tag = el.tagName;
-        if ((tag === 'INPUT' || tag === 'TEXTAREA') && el.hasAttribute('data-i18n-placeholder')) return;
-        el.innerHTML = translations[lang][key];
+        if (translations[lang] && translations[lang][key]) {
+            // Usar innerHTML si la traducción contiene HTML (ej. <strong>)
+            el.innerHTML = translations[lang][key];
+        }
     });
 
+    // Traducir placeholders
     document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
         const key = el.getAttribute('data-i18n-placeholder');
-        if (translations[lang][key]) el.placeholder = translations[lang][key];
+        if (translations[lang] && translations[lang][key]) {
+            el.placeholder = translations[lang][key];
+        }
     });
 
-    const serviceSelect = document.getElementById('serviceSelect');
-    if (serviceSelect) {
-        const map = {
-            '': 'contacto_servicio_default',
-            'outsourcing': 'servicio4_titulo',
-            'app-movil': 'servicio1_titulo',
-            'ciberseguridad': 'servicio2_titulo',
-            'blockchain': 'servicio3_titulo',
-            'soporte-pyme': 'servicio5_titulo',
-            'fullstack': 'fullstack_titulo',
-            'web-basico': 'servicio6_titulo',
-            'mantenimiento': 'servicio7_titulo',
-            'consulting': 'contacto_consultoria',
-            'other': 'contacto_otro'
-        };
-        Array.from(serviceSelect.options).forEach(opt => {
-            const key = map[opt.value];
-            if (key && translations[lang][key]) opt.textContent = translations[lang][key];
-        });
+    // Actualizar el título de la página
+    if (translations[lang].titulo) {
+        document.title = translations[lang].titulo;
     }
 
-    const codeEditor = document.getElementById('pythonCodeEditor');
-    if (codeEditor) {
-        const cur = codeEditor.value.trim();
-        if (cur === DEFAULT_ES.trim() || cur === DEFAULT_EN.trim() || cur === '') {
-            codeEditor.value = lang === 'es' ? DEFAULT_ES : DEFAULT_EN;
-        }
-    }
-
-    const stdinArea = document.getElementById('pythonStdin');
-    if (stdinArea) {
-        if (stdinArea.value === "Juan\n25" || stdinArea.value === "John\n25") {
-            stdinArea.value = lang === 'es' ? "Juan\n25" : "John\n25";
-        }
-        stdinArea.placeholder = translations[lang].ide_stdin_placeholder;
-    }
-
-    document.title = translations[lang].titulo;
-
+    // Actualizar el estado activo en el dropdown
     document.querySelectorAll('.floating-lang-option').forEach(opt => {
         opt.classList.toggle('active', opt.getAttribute('data-lang') === lang);
     });
@@ -664,8 +1046,21 @@ function initLanguageSwitcher() {
         });
     });
 
+    // Aplicar el idioma guardado al cargar la página
     setLanguage(currentLang);
 }
+
+// --- INICIALIZACIÓN GLOBAL ---
+document.addEventListener('DOMContentLoaded', () => {
+    // Solo inicializar el selector de idioma si existe en la página.
+    if (document.getElementById('floatingLanguageToggle')) {
+        initLanguageSwitcher();
+    } else {
+        // Si no hay selector de idioma (ej. login-sandbox.html), igual aplicamos el idioma guardado.
+        setLanguage(currentLang);
+    }
+});
+
 
 // =====================================================================
 // 5. PARTÍCULAS
@@ -993,6 +1388,4 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 // =====================================================================
 // 11. INICIALIZACIÓN FINAL
 // =====================================================================
-document.addEventListener('DOMContentLoaded', function () {
-    initLanguageSwitcher();
-});
+// Nota: initLanguageSwitcher() ya se llama dentro de DOMContentLoaded en la sección 4.
