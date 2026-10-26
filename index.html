@@ -11,7 +11,6 @@
     <meta name="referrer" content="strict-origin-when-cross-origin">
     <meta name="format-detection" content="telephone=no">
     
-    <!-- CSP: Actualizado para permitir Google OAuth -->
     <meta http-equiv="Content-Security-Policy" content="
         default-src 'self';
         script-src 'self' 'unsafe-inline' 'unsafe-eval'
@@ -1345,7 +1344,7 @@
     <script src="java.js"></script>
 
     <!-- ==========================================
-         SCRIPT DE SUPABASE AUTOCONTENIDO
+         SCRIPT DE SUPABASE AUTOCONTENIDO + FIX AUTH + FIX ADMIN
          ========================================== -->
     <script>
         document.addEventListener("DOMContentLoaded", () => {
@@ -1353,13 +1352,29 @@
             const SUPABASE_ANON_KEY = 'sb_publishable_xvFhBazFvnijDOpY95XnCw_zX83Qs3Q';
             const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-            const ADMIN_EMAIL = 'felipewhiat@gmail.com'; 
+            // 🔧 FIX: SOLO este correo es admin. Nada de matiasfelipewhiat@gmail.com
+            const ADMIN_EMAIL = 'felipewhiat@gmail.com';
 
             const mainWebsite = document.getElementById('mainWebsite');
             const userPortal = document.getElementById('userPortal');
 
             let currentUserSession = null;
             let chatSubscription = null;
+
+            // ==========================================
+            // 🔧 FIX: HELPER PARA VERIFICAR SI ES ADMIN
+            // ==========================================
+            function isAdmin(user) {
+                return !!user && user.email === ADMIN_EMAIL;
+            }
+
+            // ==========================================
+            // 🔧 FIX: ELIMINAR EL BOTÓN DE ADMIN DEL DOM (por si quedó de una sesión anterior)
+            // ==========================================
+            function removeAdminButton() {
+                const btn = document.getElementById('adminPanelBtn');
+                if (btn) btn.remove();
+            }
 
             // ==========================================
             // FUNCIÓN DE SANITIZACIÓN (PREVENIR XSS)
@@ -1376,6 +1391,45 @@
                     }[tag] || tag)
                 );
             }
+
+            // ==========================================
+            // 🔧 FIX: INTERCEPTOR GLOBAL DE CLICS EN admin.html
+            // Bloquea el acceso si el usuario no es admin.
+            // ==========================================
+            document.addEventListener('click', (e) => {
+                const link = e.target.closest('a[href*="admin.html"]');
+                if (!link) return;
+                
+                if (!isAdmin(currentUserSession)) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    e.stopImmediatePropagation();
+                    
+                    // Mensaje claro
+                    if (window.Toastify) {
+                        Toastify({
+                            text: '🚫 ACCESO DENEGADO. NO ERES ADMIN.',
+                            duration: 5000,
+                            gravity: 'top',
+                            position: 'center',
+                            style: {
+                                background: 'linear-gradient(to right, #ff0000, #990000)',
+                                color: '#fff',
+                                fontWeight: 'bold',
+                                fontSize: '15px',
+                                padding: '16px 24px',
+                                borderRadius: '8px',
+                                boxShadow: '0 0 20px rgba(255,0,0,0.6)'
+                            }
+                        }).showToast();
+                    } else {
+                        alert('🚫 ACCESO DENEGADO. NO ERES ADMIN.');
+                    }
+                    
+                    console.warn('[SEGURIDAD] Intento de acceso a admin.html bloqueado para:', currentUserSession?.email || 'no autenticado');
+                    return false;
+                }
+            }, true); // useCapture=true para interceptar antes
 
             // ==========================================
             // 1. LÓGICA DEL MODAL VIP EN LA WEB PRINCIPAL
@@ -1462,6 +1516,26 @@
             // 2. AUTENTICACIÓN Y DATOS DEL USUARIO
             // ==========================================
             supabaseClient.auth.onAuthStateChange((event, session) => {
+                // Manejo de recuperación de contraseña
+                if (event === 'PASSWORD_RECOVERY') {
+                    setTimeout(async () => {
+                        const newPass = prompt('🔐 Ingresa tu NUEVA contraseña (mínimo 6 caracteres):');
+                        if (newPass && newPass.length >= 6) {
+                            const { error } = await supabaseClient.auth.updateUser({ password: newPass });
+                            if (error) {
+                                alert('Error al actualizar la contraseña: ' + error.message);
+                            } else {
+                                await supabaseClient.auth.signOut();
+                                alert('✅ Contraseña actualizada correctamente. Ahora puedes iniciar sesión con tu nueva contraseña.');
+                                window.location.replace(window.location.origin + window.location.pathname);
+                            }
+                        } else if (newPass !== null) {
+                            alert('⚠️ La contraseña debe tener al menos 6 caracteres.');
+                        }
+                    }, 800);
+                    return;
+                }
+
                 if (session) {
                     mainWebsite.style.display = 'none';
                     userPortal.style.display = 'block';
@@ -1471,11 +1545,17 @@
                     mainWebsite.style.display = 'block';
                     userPortal.style.display = 'none';
                     currentUserSession = null;
+                    // 🔧 FIX: Eliminar el botón admin al cerrar sesión
+                    removeAdminButton();
                     if (chatSubscription) chatSubscription.unsubscribe();
                 }
             });
 
             function loadUserData(user) {
+                // 🔧 FIX: SIEMPRE eliminar el botón admin residual antes de re-evaluar
+                // Esto evita que el botón de una sesión anterior persista cuando otro usuario entra
+                removeAdminButton();
+
                 document.getElementById('portalUserEmail').textContent = user.email;
                 
                 const metadata = user.user_metadata || {};
@@ -1513,7 +1593,8 @@
 
                 checkCompanyProfile(user.id);
 
-                if (user.email === 'matiasfelipewhiat@gmail.com' || user.email === 'felipewhiat@gmail.com') {
+                // 🔧 FIX: SOLO felipewhiat@gmail.com ve el botón de admin
+                if (isAdmin(user)) {
                     const sidebar = document.querySelector('.portal-sidebar');
                     if (!document.getElementById('adminPanelBtn')) {
                         const adminBtn = document.createElement('a');
@@ -1650,7 +1731,6 @@
                     const badgeClass = isCompany ? 'vip-badge-company' : 'vip-badge-dev';
                     const badgeText = isCompany ? '🏢 Empresa' : '💻 Programador';
                     
-                    // SANITIZACIÓN DE DATOS PARA PREVENIR XSS
                     const safeTitle = escapeHTML(item.title);
                     const safeDesc = escapeHTML(item.description);
                     const safeContact = escapeHTML(item.contact_info);
@@ -1825,7 +1905,6 @@
                 const timeStr = dateObj.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
                 const div = document.createElement('div');
                 div.className = `message-bubble ${isMine ? 'sent' : 'received'}`;
-                // Sanitizar mensaje de chat también para evitar XSS
                 div.innerHTML = `${escapeHTML(text)}<span class="message-time">${timeStr}</span>`;
                 chatMessages.appendChild(div);
             }
@@ -1835,7 +1914,11 @@
             // ==========================================
             // 7. CERRAR SESIÓN Y SUBIR AVATAR
             // ==========================================
-            document.getElementById('logoutBtn').addEventListener('click', async () => { await supabaseClient.auth.signOut(); });
+            document.getElementById('logoutBtn').addEventListener('click', async () => {
+                // 🔧 FIX: Eliminar el botón admin ANTES de cerrar sesión
+                removeAdminButton();
+                await supabaseClient.auth.signOut();
+            });
 
             let fileToUpload = null;
             document.getElementById('avatarUpload').addEventListener('change', (e) => {
@@ -1862,7 +1945,7 @@
             });
 
             // ==========================================
-            // LOGIN CON GOOGLE (Faltaba en index.html)
+            // LOGIN CON GOOGLE
             // ==========================================
             const googleLoginBtn = document.getElementById('googleLoginBtn');
             if (googleLoginBtn) {
@@ -1870,7 +1953,6 @@
                     const { error } = await supabaseClient.auth.signInWithOAuth({
                         provider: 'google',
                         options: { 
-                            // IMPORTANTE: Redirigir explícitamente a index.html para que regrese aquí
                             redirectTo: window.location.origin + '/index.html' 
                         }
                     });
@@ -1880,6 +1962,165 @@
                     }
                 });
             }
+
+            // ==========================================
+            // LOGIN CON EMAIL/PASSWORD
+            // ==========================================
+            const loginFormEl = document.getElementById('loginForm');
+            if (loginFormEl) {
+                loginFormEl.addEventListener('submit', async (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    
+                    const email = document.getElementById('login-email').value.trim();
+                    const password = document.getElementById('login-password').value;
+                    const btn = document.getElementById('loginBtn');
+                    const originalText = btn.innerHTML;
+                    
+                    if (!email || !password) {
+                        Toastify({ text: '⚠️ Completa todos los campos', duration: 3000, style: { background: 'linear-gradient(to right, #f1c40f, #d4ac0d)' } }).showToast();
+                        return;
+                    }
+                    
+                    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Iniciando sesión...';
+                    btn.disabled = true;
+                    
+                    try {
+                        const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password });
+                        
+                        if (error) {
+                            Toastify({ text: '❌ ' + error.message, duration: 5000, style: { background: 'linear-gradient(to right, #ff4d4d, #cc0000)' } }).showToast();
+                        } else if (data.session) {
+                            Toastify({ text: '✅ ¡Bienvenido de vuelta!', duration: 2000, style: { background: 'linear-gradient(to right, #28a745, #1e7e34)' } }).showToast();
+                            loginFormEl.reset();
+                        }
+                    } catch (err) {
+                        Toastify({ text: '❌ Error: ' + err.message, duration: 5000, style: { background: 'linear-gradient(to right, #ff4d4d, #cc0000)' } }).showToast();
+                    } finally {
+                        btn.innerHTML = originalText;
+                        btn.disabled = false;
+                    }
+                });
+            }
+
+            // ==========================================
+            // REGISTRO CON EMAIL/PASSWORD
+            // ==========================================
+            const registerFormEl = document.getElementById('registerForm');
+            if (registerFormEl) {
+                registerFormEl.addEventListener('submit', async (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    
+                    const email = document.getElementById('register-email').value.trim();
+                    const password = document.getElementById('register-password').value;
+                    const btn = document.getElementById('registerBtn');
+                    const originalText = btn.innerHTML;
+                    
+                    if (!email || !password) {
+                        Toastify({ text: '⚠️ Completa todos los campos', duration: 3000, style: { background: 'linear-gradient(to right, #f1c40f, #d4ac0d)' } }).showToast();
+                        return;
+                    }
+                    if (password.length < 6) {
+                        Toastify({ text: '⚠️ La contraseña debe tener al menos 6 caracteres', duration: 3000, style: { background: 'linear-gradient(to right, #f1c40f, #d4ac0d)' } }).showToast();
+                        return;
+                    }
+                    
+                    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Creando cuenta...';
+                    btn.disabled = true;
+                    
+                    try {
+                        const { data, error } = await supabaseClient.auth.signUp({
+                            email,
+                            password,
+                            options: {
+                                emailRedirectTo: window.location.origin + window.location.pathname
+                            }
+                        });
+                        
+                        if (error) {
+                            Toastify({ text: '❌ ' + error.message, duration: 5000, style: { background: 'linear-gradient(to right, #ff4d4d, #cc0000)' } }).showToast();
+                        } else if (data.session) {
+                            Toastify({ text: '✅ ¡Cuenta creada exitosamente!', duration: 3000, style: { background: 'linear-gradient(to right, #28a745, #1e7e34)' } }).showToast();
+                            registerFormEl.reset();
+                        } else {
+                            Toastify({ text: '📧 Revisa tu correo y confirma tu cuenta antes de iniciar sesión', duration: 6000, style: { background: 'linear-gradient(to right, #00b4d8, #0077b6)' } }).showToast();
+                            registerFormEl.reset();
+                        }
+                    } catch (err) {
+                        Toastify({ text: '❌ Error: ' + err.message, duration: 5000, style: { background: 'linear-gradient(to right, #ff4d4d, #cc0000)' } }).showToast();
+                    } finally {
+                        btn.innerHTML = originalText;
+                        btn.disabled = false;
+                    }
+                });
+            }
+
+            // ==========================================
+            // OLVIDÉ MI CONTRASEÑA
+            // ==========================================
+            const forgotLinkEl = document.getElementById('forgotPasswordLink');
+            if (forgotLinkEl) {
+                forgotLinkEl.addEventListener('click', async (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    
+                    const email = document.getElementById('login-email').value.trim();
+                    
+                    if (!email) {
+                        Toastify({ text: '⚠️ Primero escribe tu correo electrónico arriba', duration: 4000, style: { background: 'linear-gradient(to right, #f1c40f, #d4ac0d)' } }).showToast();
+                        document.getElementById('login-email').focus();
+                        return;
+                    }
+                    
+                    const originalText = forgotLinkEl.textContent;
+                    forgotLinkEl.textContent = 'Enviando...';
+                    forgotLinkEl.style.pointerEvents = 'none';
+                    
+                    try {
+                        const { error } = await supabaseClient.auth.resetPasswordForEmail(email, {
+                            redirectTo: window.location.origin + window.location.pathname
+                        });
+                        
+                        if (error) {
+                            Toastify({ text: '❌ ' + error.message, duration: 5000, style: { background: 'linear-gradient(to right, #ff4d4d, #cc0000)' } }).showToast();
+                        } else {
+                            Toastify({ text: '📧 Correo de recuperación enviado. Revisa tu bandeja de entrada y spam.', duration: 6000, style: { background: 'linear-gradient(to right, #28a745, #1e7e34)' } }).showToast();
+                        }
+                    } catch (err) {
+                        Toastify({ text: '❌ Error: ' + err.message, duration: 5000, style: { background: 'linear-gradient(to right, #ff4d4d, #cc0000)' } }).showToast();
+                    } finally {
+                        forgotLinkEl.textContent = originalText;
+                        forgotLinkEl.style.pointerEvents = '';
+                    }
+                });
+            }
+
+            // ==========================================
+            // TOGGLE LOGIN ↔ REGISTRO
+            // ==========================================
+            const goToRegisterEl = document.getElementById('goToRegister');
+            if (goToRegisterEl) {
+                goToRegisterEl.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    document.getElementById('loginFormContainer').style.display = 'none';
+                    document.getElementById('registerFormContainer').style.display = 'block';
+                    document.getElementById('register-email').focus();
+                });
+            }
+
+            const goToLoginEl = document.getElementById('goToLogin');
+            if (goToLoginEl) {
+                goToLoginEl.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    document.getElementById('registerFormContainer').style.display = 'none';
+                    document.getElementById('loginFormContainer').style.display = 'block';
+                    document.getElementById('login-email').focus();
+                });
+            }
+
         });
     </script>
 </body>
