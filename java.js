@@ -395,7 +395,22 @@ const translations = {
         footer_privacidad: "Política de Privacidad",
         footer_terminos: "Términos de Servicio",
         footer_cookies: "Cookies",
-        footer_copyright: "© 2024 Whiat Company - Todos los derechos reservados."
+        footer_copyright: "© 2024 Whiat Company - Todos los derechos reservados.",
+        // Dashboard
+        dash_perfil: "Mi Perfil y Foto",
+        dash_eventos: "Eventos Nacionales e Internacionales",
+        dash_solicitudes: "Solicitudes de Modificación",
+        dash_cursos: "Cursos y Actualízate",
+        dash_curriculum: "Registrar Currículum",
+        dash_empresas: "Zona de Empresas",
+        dash_volver: "Volver al Inicio",
+        dash_cerrar_sesion: "Cerrar Sesión",
+        dash_bienvenido: "¡Hola,",
+        // Admin
+        admin_empresas: "Empresas Registradas",
+        admin_selecciona: "Selecciona una empresa para ver su chat.",
+        admin_enviar: "Enviar",
+        admin_placeholder: "Escribe una respuesta como administrador..."
     },
     en: {
         titulo: "Whiat Company - Comprehensive Digital Solutions",
@@ -540,7 +555,22 @@ const translations = {
         footer_privacidad: "Privacy Policy",
         footer_terminos: "Terms of Service",
         footer_cookies: "Cookies",
-        footer_copyright: "© 2024 Whiat Company - All rights reserved."
+        footer_copyright: "© 2024 Whiat Company - All rights reserved.",
+        // Dashboard
+        dash_perfil: "My Profile & Photo",
+        dash_eventos: "National & International Events",
+        dash_solicitudes: "Modification Requests",
+        dash_cursos: "Courses & Updates",
+        dash_curriculum: "Register CV",
+        dash_empresas: "Business Area",
+        dash_volver: "Back to Home",
+        dash_cerrar_sesion: "Sign Out",
+        dash_bienvenido: "Hello,",
+        // Admin
+        admin_empresas: "Registered Companies",
+        admin_selecciona: "Select a company to view its chat.",
+        admin_enviar: "Send",
+        admin_placeholder: "Write a response as administrator..."
     },
     de: {
         titulo: "Whiat Company - Umfassende digitale Lösungen",
@@ -685,7 +715,22 @@ const translations = {
         footer_privacidad: "Datenschutzrichtlinie",
         footer_terminos: "Nutzungsbedingungen",
         footer_cookies: "Cookies",
-        footer_copyright: "© 2024 Whiat Company - Alle Rechte vorbehalten."
+        footer_copyright: "© 2024 Whiat Company - Alle Rechte vorbehalten.",
+        // Dashboard
+        dash_perfil: "Mein Profil & Foto",
+        dash_eventos: "Nationale & Internationale Events",
+        dash_solicitudes: "Änderungsanfragen",
+        dash_cursos: "Kurse & Updates",
+        dash_curriculum: "Lebenslauf registrieren",
+        dash_empresas: "Unternehmensbereich",
+        dash_volver: "Zurück zur Startseite",
+        dash_cerrar_sesion: "Abmelden",
+        dash_bienvenido: "Hallo,",
+        // Admin
+        admin_empresas: "Registrierte Unternehmen",
+        admin_selecciona: "Wählen Sie ein Unternehmen, um den Chat anzuzeigen.",
+        admin_enviar: "Senden",
+        admin_placeholder: "Schreiben Sie eine Antwort als Administrator..."
     },
     zh: {
         titulo: "Whiat Company - 综合数字解决方案",
@@ -830,7 +875,22 @@ const translations = {
         footer_privacidad: "隐私政策",
         footer_terminos: "服务条款",
         footer_cookies: "Cookies",
-        footer_copyright: "© 2024 Whiat Company - 版权所有。"
+        footer_copyright: "© 2024 Whiat Company - 版权所有。",
+        // Dashboard
+        dash_perfil: "我的个人资料和照片",
+        dash_eventos: "国内和国际活动",
+        dash_solicitudes: "修改请求",
+        dash_cursos: "课程与更新",
+        dash_curriculum: "注册简历",
+        dash_empresas: "企业区",
+        dash_volver: "返回首页",
+        dash_cerrar_sesion: "退出登录",
+        dash_bienvenido: "你好，",
+        // Admin
+        admin_empresas: "已注册公司",
+        admin_selecciona: "选择一家公司查看其聊天记录。",
+        admin_enviar: "发送",
+        admin_placeholder: "以管理员身份撰写回复..."
     },
     ru: {
         titulo: "Whiat Company - Комплексные цифровые решения",
@@ -975,7 +1035,22 @@ const translations = {
         footer_privacidad: "Политика конфиденциальности",
         footer_terminos: "Условия обслуживания",
         footer_cookies: "Cookies",
-        footer_copyright: "© 2024 Whiat Company - Все права защищены."
+        footer_copyright: "© 2024 Whiat Company - Все права защищены.",
+        // Dashboard
+        dash_perfil: "Мой профиль и фото",
+        dash_eventos: "Национальные и международные события",
+        dash_solicitudes: "Запросы на изменение",
+        dash_cursos: "Курсы и обновления",
+        dash_curriculum: "Зарегистрировать резюме",
+        dash_empresas: "Бизнес-зона",
+        dash_volver: "Вернуться на главную",
+        dash_cerrar_sesion: "Выйти",
+        dash_bienvenido: "Привет,",
+        // Admin
+        admin_empresas: "Зарегистрированные компании",
+        admin_selecciona: "Выберите компанию, чтобы просмотреть ее чат.",
+        admin_enviar: "Отправить",
+        admin_placeholder: "Напишите ответ как администратор..."
     }
 };
 

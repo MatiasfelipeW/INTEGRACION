@@ -356,6 +356,15 @@
             color: #00d4ff;
         }
         .language-flag { font-size: 1.2rem; }
+
+        /* BOTÓN WHATSAPP */
+        .whatsapp-button { position: fixed; bottom: 30px; right: 200px; z-index: 100; transition: all 0.3s; }
+        .whatsapp-button a { display: flex; align-items: center; justify-content: center; width: 60px; height: 60px; background: linear-gradient(135deg, #25D366, #128C7E); border-radius: 50%; box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4); transition: all 0.3s; color: #fff; }
+        .whatsapp-button a:hover { transform: scale(1.1); }
+        .whatsapp-button i { color: white; font-size: 1.8rem; }
+        @media (max-width: 600px) {
+            .whatsapp-button { right: 100px; }
+        }
     </style>
 </head>
 <body>
@@ -462,6 +471,11 @@
             <div class="floating-lang-option" data-lang="zh"><span class="language-flag">🇨🇳</span> 中文</div>
             <div class="floating-lang-option" data-lang="ru"><span class="language-flag">🇷🇺</span> Русский</div>
         </div>
+    </div>
+
+    <!-- ========== BOTÓN WHATSAPP ========== -->
+    <div class="whatsapp-button">
+        <a href="https://wa.me/573334318959" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
     </div>
 
     <!-- Cargar Font Awesome para los iconos del selector de idioma -->
